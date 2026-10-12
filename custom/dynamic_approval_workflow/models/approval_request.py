@@ -227,7 +227,13 @@ class ApprovalRequest(models.Model):
             if record is None and self.res_model and self.res_id:
                 try:
                     record = self.env[self.res_model].browse(self.res_id)
-                except Exception:
+                except Exception as exc:
+                    _logger.warning(
+                        "Cannot browse source record %s(%s) for approvers: %s",
+                        self.res_model,
+                        self.res_id,
+                        exc,
+                    )
                     record = None
             if record is not None and record.exists() and stage.field_name:
                 try:
@@ -455,8 +461,13 @@ class ApprovalRequest(models.Model):
                 record = self.env[self.res_model].browse(self.res_id)
                 if record.exists():
                     return record
-            except Exception:
-                pass
+            except Exception as exc:
+                _logger.warning(
+                    "Cannot browse source record %s(%s): %s",
+                    self.res_model,
+                    self.res_id,
+                    exc,
+                )
         return None
 
     def _update_source_state(self, new_state):
