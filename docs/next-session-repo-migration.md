@@ -85,7 +85,7 @@ chốt thêm trước khi áp:
 
 ## 6. Chưa biết
 
-- Tài khoản đăng nhập UAT mới (chủ dự án báo sau). Các script đo còn mặc định `admin` / `Wujia@2026`.
+- ~~Tài khoản đăng nhập UAT mới~~ — `admin` / `Wujia@2026` dùng được trên máy mới (kiểm 12/10).
 - Cách deploy trên máy mới (đường dẫn source, service, ai chạy).
 - `wujia_mn` và `huipeng_db` trên máy mới là gì.
 - UAT mới đang ở commit / version module nào — đo XML-RPC `ir.module.module` khi có tài khoản, trước khi tin số đo cũ.

@@ -16,7 +16,7 @@ Cập nhật 12/10/2026: chuyển sang hạ tầng mới (repo, máy UAT, aaPane
 | URL | https://dev.wujiatea.com.vn (Discuss: `/odoo/discuss`, portal: `/portal`) |
 | IP | `115.74.247.189` (nginx đứng trước Odoo) |
 | Database | `wujia_tea_19` (cùng máy còn `wujia_mn`, `huipeng_db`) |
-| Đăng nhập | **chờ chủ dự án báo** (tài khoản khác máy cũ) |
+| Đăng nhập | `admin` / `Wujia@2026` (kiểm đăng nhập được 12/10/2026, quyền hệ thống) |
 
 ## aaPanel — quản lý máy chủ
 | | |
@@ -31,9 +31,10 @@ Cập nhật 12/10/2026: chuyển sang hạ tầng mới (repo, máy UAT, aaPane
 |---|---|
 | Source UAT | `/www/wwwroot/dev.wujiatea.com.vn` (nhánh `deploy/staging`) |
 | Service | `odoo-dev` (systemd, user `www`, cổng 8019) |
-| Config Odoo | `/www/wwwroot/dev.wujiatea.com.vn/config/odoo.conf` |
-| Deploy | `/www/wwwroot/dev.wujiatea.com.vn/deploy.sh` (aaPanel gọi qua git hook) |
-| Log | `/www/wwwroot/dev.wujiatea.com.vn/logs/odoo.log` · `journalctl -u odoo-dev` |
+| Config Odoo | `/www/wwwroot/dev.wujiatea.com.vn/config/odoo.conf` (ngoài git; `addons_path` ở đây) |
+| Deploy | Website → `dev.wujiatea.com.vn` → Conf → Git Manager → *Deploy latest* (không tự deploy khi merge) ⇒ git hook ở `/www/server/git_hooks/dev.wujiatea.com.vn/` gọi `/www/wwwroot/dev.wujiatea.com.vn/deploy.sh` (ngoài git; dòng 222 dò module) |
+| Log | `/www/wwwroot/dev.wujiatea.com.vn/logs/<năm>/<tháng>/<năm-tháng-ngày>.log` (giờ UTC) · `journalctl -u odoo-dev` |
+| Sao lưu trước ADR-028 | `config/odoo.conf.bak-adr028` · `deploy.sh.bak-adr028` |
 
 ## Metabase
 | | |
