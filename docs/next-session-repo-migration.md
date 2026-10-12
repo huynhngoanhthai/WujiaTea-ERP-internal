@@ -73,7 +73,7 @@ chốt thêm trước khi áp:
 - [ ] Nightly agent `ba_spec/qa_nightly/agent_prompt_interactive.md`: "branch riêng từ main", "push main".
 - [ ] `.env.local` biến `GITHUB_REMOTE`.
 - [ ] Viết checklist dựng máy mới (checklist + script dựng máy Windows cũ đã xoá 12/10).
-- [x] Thiết kế lại cấu trúc source — ADR-028 (chapter 82), nhánh `feature/source-restructure`, PR vào `deploy/staging` chờ merge.
+- [x] Thiết kế lại cấu trúc source — ADR-028 (chapter 82), nhánh `feature/source-restructure` đã push; PR vào `deploy/staging` chưa mở (máy Mac chưa đăng nhập `gh`), mở tay rồi chờ merge.
 
 ## 5. Bảo mật
 

@@ -3391,7 +3391,7 @@ rồi đánh ✅ ở bảng Trạng thái §2 `docs/next-session-clusters-F.md`.
 
 ## ADR-028 — dời source theo miền (kiểu Beesuite) · 12/10/2026 · Mac
 
-- Kết quả: ✅ code xong trên nhánh `feature/source-restructure` (4 commit code + 1 commit tài liệu), PR vào `deploy/staging` **chờ merge**.
+- Kết quả: ✅ code xong trên nhánh `feature/source-restructure` (4 commit code + 1 commit tài liệu), đã push. PR vào `deploy/staging` **chưa mở**: máy Mac chưa đăng nhập `gh`, token trong `.env.local` hết hạn.
   Máy chủ chưa đổi gì.
 - Nguồn: chủ dự án chốt chia folder theo miền, Wujia là core, mỗi nước/bên nhượng quyền clone cả core + module riêng trong `addons/`.
 - Đã làm:
