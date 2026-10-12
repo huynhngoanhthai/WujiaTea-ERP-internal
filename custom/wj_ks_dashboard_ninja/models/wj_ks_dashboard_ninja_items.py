@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 import dateutil
 import datetime as dt
-from datetime import timezone
 import pytz
 import json
-import xlrd
 import csv
 import os
 import tempfile
@@ -14,9 +12,7 @@ import babel
 import ast
 from datetime import timedelta
 from odoo.tools.safe_eval import safe_eval
-from odoo.tools.misc import DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FORMAT
-from odoo.tools import  sql, SQL
-from collections import defaultdict
+from odoo.tools.misc import DEFAULT_SERVER_DATETIME_FORMAT
 from datetime import datetime
 from dateutil import relativedelta
 from odoo import models, fields, api, _
@@ -26,7 +22,6 @@ from odoo.addons.wj_ks_dashboard_ninja.common_lib.ks_date_filter_selections impo
 from .ks_country_bounds import get_country_code
 import logging
 _logger = logging.getLogger("DS_NINJA")
-# TODO : Check all imports if needed
 
 
 _ks_m2m_read_orig = fields.Many2many.read
@@ -3707,7 +3702,6 @@ class KsDashboardNinjaItems(models.Model):
                                 orderby=orderby, limit=limit, lazy=False)
         except Exception as e:
             ks_chart_records = []
-            pass
         ks_chart_data['groupby'] = ks_chart_groupby_field
         if ks_chart_groupby_type == "relational_type":
             ks_chart_data['groupByIds'] = []
@@ -4095,7 +4089,6 @@ class KsDashboardNinjaItems(models.Model):
                     ks_chart_groupby_relation_field]
         except Exception as e:
             model_field_start_date = model_field_end_date = False
-            pass
         # if model_field_start_date and model_field_end_date:
         #     goal_model_start_date = \
         #         self.env['ks_dashboard_ninja.item_goal'].search([('ks_goal_date', '>=', model_field_start_date.strftime("%Y-%m-%d")),
