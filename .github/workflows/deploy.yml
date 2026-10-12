@@ -1,14 +1,124 @@
-name: Deploy
+name: Code Quality & Syntax Check
 
 on:
+  pull_request:
+    branches:
+      - deploy/staging
   push:
     branches:
       - deploy/staging
   workflow_dispatch:
 
 jobs:
-  deploy:
+  validate-code:
+    name: Kiểm định mã nguồn (Python & XML)
     runs-on: ubuntu-latest
     steps:
-      - name: Kích hoạt aaPanel Webhook
-        run: curl -k -X GET "https://aapanel.hongtrangogia.com:16787/hook?access_key=LcdPl5lteNl6TiypEblA4oKdKjK9HeDdFx9kMqWypzH9eOxg"
+      - name: Checkout mã nguồn
+        uses: actions/checkout@v4
+
+      - name: Cài đặt Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Kiểm tra cú pháp Python (.py)
+        run: |
+          python - << 'EOF'
+          import os
+          import py_compile
+          import sys
+
+          errors = []
+          count = 0
+
+          print("🔍 Đang kiểm tra toàn bộ file Python...")
+          for root, _, files in os.walk('.'):
+              if any(skip in root for skip in ['.git', 'venv', '.venv', 'odoo19']):
+                  continue
+              for f in files:
+                  if f.endswith('.py'):
+                      count += 1
+                      p = os.path.join(root, f)
+                      try:
+                          py_compile.compile(p, doraise=True)
+                      except Exception as e:
+                          errors.append(f"[LỖI CÚ PHÁP PYTHON] {p}: {e}")
+
+          print(f"-> Đã quét {count} file Python.")
+          if errors:
+              print("\n❌ PHÁT HIỆN LỖI PYTHON:")
+              for err in errors:
+                  print(err)
+              sys.exit(1)
+          print("✅ Tất cả file Python hợp lệ!")
+          EOF
+
+      - name: Kiểm tra cấu trúc & cú pháp XML Views Odoo (.xml)
+        run: |
+          python - << 'EOF'
+          import os
+          import sys
+          import xml.etree.ElementTree as ET
+
+          errors = []
+          count = 0
+
+          print("🔍 Đang kiểm tra toàn bộ file XML Odoo...")
+          for root, _, files in os.walk('.'):
+              if any(skip in root for skip in ['.git', 'venv', '.venv', 'odoo19']):
+                  continue
+              for f in files:
+                  if f.endswith('.xml'):
+                      count += 1
+                      p = os.path.join(root, f)
+                      try:
+                          ET.parse(p)
+                      except Exception as e:
+                          errors.append(f"[LỖI CÚ PHÁP XML] {p}: {e}")
+
+          print(f"-> Đã quét {count} file XML.")
+          if errors:
+              print("\n❌ PHÁT HIỆN LỖI XML:")
+              for err in errors:
+                  print(err)
+              sys.exit(1)
+          print("✅ Tất cả file XML hợp lệ!")
+          EOF
+
+      - name: Kiểm tra tính hợp lệ của __manifest__.py
+        run: |
+          python - << 'EOF'
+          import ast
+          import os
+          import sys
+
+          errors = []
+          count = 0
+
+          print("🔍 Đang kiểm tra các file __manifest__.py...")
+          for root, _, files in os.walk('.'):
+              if any(skip in root for skip in ['.git', 'venv', '.venv', 'odoo19']):
+                  continue
+              for f in files:
+                  if f == '__manifest__.py':
+                      count += 1
+                      p = os.path.join(root, f)
+                      try:
+                          with open(p, 'r', encoding='utf-8') as mf:
+                              data = ast.literal_eval(mf.read())
+                              if not isinstance(data, dict):
+                                  errors.append(f"[LỖI MANIFEST] {p}: Nội dung không phải là dictionary!")
+                              elif 'name' not in data:
+                                  errors.append(f"[LỖI MANIFEST] {p}: Thiếu trường bắt buộc 'name'!")
+                      except Exception as e:
+                          errors.append(f"[LỖI MANIFEST] {p}: {e}")
+
+          print(f"-> Đã kiểm tra {count} file manifest.")
+          if errors:
+              print("\n❌ PHÁT HIỆN LỖI MANIFEST:")
+              for err in errors:
+                  print(err)
+              sys.exit(1)
+          print("✅ Tất cả file __manifest__.py hợp lệ!")
+          EOF
