@@ -3391,8 +3391,8 @@ rồi đánh ✅ ở bảng Trạng thái §2 `docs/next-session-clusters-F.md`.
 
 ## ADR-028 — dời source theo miền (kiểu Beesuite) · 12/10/2026 · Mac
 
-- Kết quả: ✅ code xong trên nhánh `feature/source-restructure` (4 commit code + 1 commit tài liệu), đã push. PR vào `deploy/staging` **chưa mở**: máy Mac chưa đăng nhập `gh`, token trong `.env.local` hết hạn.
-  Máy chủ chưa đổi gì.
+- Kết quả: ✅ **đã lên UAT**. PR #7 (`feature/source-restructure`, 4 commit code + 2 commit tài liệu) merge vào `deploy/staging` = `f3107562`;
+  deploy 22:23 12/10 bằng *Deploy latest* trong aaPanel; UAT chạy trên bố cục mới.
 - Nguồn: chủ dự án chốt chia folder theo miền, Wujia là core, mỗi nước/bên nhượng quyền clone cả core + module riêng trong `addons/`.
 - Đã làm:
   - `8fbd0c68` dời 59 module khỏi `custom/` + `themes/oca_queue` vào `base/ franchise/ sales/ logistics/ account/ academy/ service/ portal/
@@ -3411,14 +3411,19 @@ rồi đánh ✅ ở bảng Trạng thái §2 `docs/next-session-clusters-F.md`.
   quét không còn thấy module nào — phải so tập file quét được, không chỉ đếm test. (2) Tạo DB copy bằng `createdb -T` phải kèm `-O odoo19`:
   DB thuộc user khác thì Odoo không tự chọn DB cho khách ⇒ test HTTP chưa đăng nhập trả 404.
 - Khảo sát máy chủ (chỉ đọc qua aaPanel): `odoo-dev` systemd, source `/www/wwwroot/dev.wujiatea.com.vn` @ `ded91f1b`, config
-  `config/odoo.conf`; aaPanel kéo code → hook → `deploy.sh --no-pull` ⇒ **merge là deploy**. Ba instance Odoo là ba tiến trình riêng.
-- LIMIT: chưa đo trên UAT (chưa có tài khoản UAT mới) · không sửa gì trên máy chủ · `scripts/qa/css_move/` (script một lần) còn đường dẫn cũ.
-- Deploy: **trước khi merge** sửa trên máy chủ (1) `addons_path` trong `config/odoo.conf` thêm 16 folder mới, giữ mục cũ; (2) `deploy.sh`
-  dòng 223 → `CHANGED_MODULES=$("$PYTHON_BIN" scripts/wj_paths.py --changed-modules "$OLD_HEAD" "$NEW_HEAD")`. Merge xong `deploy.sh` tự `-u`
-  `wujia_portal_base,wujia_portal_debt,wujia_portal_exam,wujia_portal_layout,wujia_portal_return,wujia_portal_sale`. Chi tiết: chapter 82 §Máy chủ.
-- Nợ: báo anh Thái trước khi merge (đường dẫn module của anh ấy đổi, nội dung không đổi; nhánh đang mở phải merge `deploy/staging` về) ·
+  `config/odoo.conf`; deploy = bấm *Deploy latest* trong aaPanel → hook → `deploy.sh --no-pull`; **merge không tự deploy** (Automatic deployment Off). Ba instance Odoo là ba tiến trình riêng.
+- LIMIT: chưa đăng nhập đo trong UAT (chưa có tài khoản UAT mới), mới kiểm từ ngoài · `scripts/qa/css_move/` (script một lần) còn đường dẫn cũ.
+- Deploy (đã làm, qua aaPanel): (1) sao lưu rồi sửa `addons_path` trong `config/odoo.conf` (17 folder của bố cục mới + 3 mục cũ ở cuối) và `deploy.sh`
+  dòng 222 → `CHANGED_MODULES=$("$PYTHON_BIN" scripts/wj_paths.py --changed-modules "$OLD_HEAD" "$NEW_HEAD")`; (2) merge PR #7; (3) *Deploy latest*: máy chủ `ded91f1b` → `f3107562`,
+  `odoo-dev` restart. Kiểm từ ngoài: `/web/login` + `/portal/login` 200, file tĩnh của 13 folder 200, log sau restart 0 ERROR, module nạp từ
+  `franchise/…` `portal/…`. `deploy.sh` **không chạy `-u`** (đường *Deploy latest* cho `OLD_HEAD = NEW_HEAD` + merge commit ⇒ dò ra rỗng);
+  PR này chỉ đổi Python + `.po` + 2 số version nên không cần, nhưng `latest_version` DB của layout/base còn `.0`.
+- Bài học deploy: (3) đừng suy ra "merge là deploy" từ việc có git hook — phải xem Git Manager của site (Automatic deployment Off). (4) Số dòng
+  đọc qua script tự viết bị lệch 1 vì script in thêm dòng tiêu đề: dòng cần sửa là 222, không phải 223.
+- Nợ: báo anh Thái (đường dẫn module của anh ấy đổi, nội dung không đổi; nhánh đang mở + 3 PR `jules` #4–#6 phải merge `deploy/staging` về) ·
+  sửa lỗ hổng `OLD_HEAD = NEW_HEAD` trong `deploy.sh` (lấy `ORIG_HEAD`) · xoá vỏ `custom/` + `themes/oca_queue` trên máy chủ rồi bỏ khỏi `addons_path` ·
   `~/wujia-devkit` đã sửa 4 file theo bố cục mới, chưa commit, vẫn trỏ repo cũ · `server_wide_modules` máy chủ thiếu `queue_job` so với local ·
   webhook Discord viết thẳng trong `deploy.sh` · Huipeng còn bố cục cũ.
 - Issue List 12/10: 10 `Ready for Dev` — #182 UI-FORM-VALIDATION-001 (High) · #175–#180 (Home) · #181 WJ-OPS-001 · #183 UI-LISTCARD-003 ·
   #139 UI-FILTER-001 (reconcile).
-- Phiên kế: sửa 2 chỗ trên máy chủ → merge PR → kiểm UAT; rồi Issue List (#182 trước).
+- Phiên kế: Issue List (#182 trước). Việc máy chủ còn lại: xem Nợ.
