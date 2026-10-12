@@ -21,7 +21,7 @@ import sys
 import xmlrpc.client
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
-URL = os.environ.get('WJ_UAT_URL', 'http://113.161.187.126:8019')
+URL = os.environ.get('WJ_UAT_URL', 'https://dev.wujiatea.com.vn')
 DB = os.environ.get('WJ_UAT_DB', 'wujia_tea_19')      # bẫy DOC-CTRL: KHÔNG phải wujia_tea
 USER = os.environ.get('WJ_UAT_USER', 'admin')
 PWD = os.environ.get('WJ_UAT_PWD', 'Wujia@2026')

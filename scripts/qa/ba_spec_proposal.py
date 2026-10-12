@@ -15,7 +15,7 @@ import re
 import textwrap
 
 DOCS = os.path.normpath(os.path.join(os.path.dirname(__file__), '..', '..', 'docs'))
-UAT = 'http://113.161.187.126:8019'
+UAT = 'https://dev.wujiatea.com.vn'
 DATE = '02/10/2026'
 
 COLUMNS = ['STT', 'Component ID', 'Nhóm', 'Component', 'Mục tiêu', 'Hiện trạng / Vấn đề',

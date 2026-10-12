@@ -91,7 +91,7 @@ Thiếu bất kỳ mục nào quan trọng thì dùng `Need Clarification`, khô
 
 Dev chỉ chuyển `Ready for Retest` sau khi:
 
-1. Code đã được deploy lên `http://113.161.187.126:8019/`.
+1. Code đã được deploy lên `https://dev.wujiatea.com.vn/`.
 2. Hệ thống đã deploy xong và ổn định, không còn đang restart/update.
 3. Cột P `Build / Deploy` đúng mẫu:
 

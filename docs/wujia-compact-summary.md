@@ -2,7 +2,7 @@
 
 **Mục đích:** context inject vào mọi session. Mỗi §section search-able qua `/recall`. History chi tiết → `chapters/*.tex` + git log.
 
-**Cập nhật:** 2026-10-10 · **END-SPRINT 67 — CỤM I (21 issue Issue List) + ★IR XONG, ĐÃ LÊN UAT ĐỦ** (chapter **81**; báo cáo `docs/i-review.md`). Việc kế: cụm H / Phần O cụm J (chờ BA). Tồn đọng: **`docs/pending-backlog.md`**. Lịch sử State/batch cũ: **`docs/archive/compact-summary-history.md`** (không cần đọc mỗi phiên).
+**Cập nhật:** 2026-10-12 · **HẠ TẦNG MỚI** — UAT `https://dev.wujiatea.com.vn` thay máy `113.161.187.126:8019`, repo `huynhngoanhthai/WujiaTea-ERP-internal`, aaPanel + Metabase (`docs/CREDENTIALS.md`); đổi repo + mô hình nhánh: `docs/next-session-repo-migration.md`. · 2026-10-10 · **END-SPRINT 67 — CỤM I (21 issue Issue List) + ★IR XONG, ĐÃ LÊN UAT ĐỦ** (chapter **81**; báo cáo `docs/i-review.md`). Việc kế: cụm H / Phần O cụm J (chờ BA). Tồn đọng: **`docs/pending-backlog.md`**. Lịch sử State/batch cũ: **`docs/archive/compact-summary-history.md`** (không cần đọc mỗi phiên).
 
 ---
 
@@ -23,9 +23,9 @@
 - DB `wujia_tea_19`, user `odoo19/1`, `127.0.0.1:5432`.
 - Log `logs/odoo.log` · config `config/odoo.conf` · python `/home/huyban/miniconda3/envs/odoo/bin/python3`.
 
-**UAT:** → §12 (`http://113.161.187.126:8019/`, `admin/Wujia@2026`).
+**UAT:** → §12 (`https://dev.wujiatea.com.vn/`, tài khoản chờ chủ dự án báo; máy cũ `113.161.187.126:8019` ngừng dùng 12/10).
 
-**Deploy:** → §6 (thủ công, Windows tay, module mới cần `-i`).
+**Deploy:** → §6 (máy mới, quy trình chờ phiên repo; module mới cần `-i`).
 
 ---
 
@@ -104,7 +104,9 @@ ADR-001 odoo19 source độc lập / 002 venv conda `odoo` py3.10 / 003 PG role 
 - ✅ **[10/10] `afc42869` ĐÃ DEPLOY UAT** (version khớp XML-RPC) · `wj_contrast` trên UAT 32 → **0** cặp <4.5 (56 trang, 4.001 mẫu) · sheet #170 ghi ĐÃ DEPLOY. Hàng đợi deploy: TRỐNG. DB `wujia_i1…i13` (+`i4b`) + filestore đã xoá.
 - ✅ **[10/10] #142 UI-PC-HOME-REDESIGN-001 → Ready for Retest** kèm phản hồi BA (LIMIT): lỗi `$` do dữ liệu — bảng giá duy nhất "Default" trên UAT là USD (76/77 đơn USD), code in đúng tiền tệ đơn, PC = mobile. BA đổi bảng giá sang VND rồi đặt đơn mới để retest.
 - ✅ **[10/10] Chỉnh UI header (chủ dự án yêu cầu, không Issue ID)** — badge đỏ `--wujia-danger-fill` #DC2626; topbar PC thẻ trắng (khối cửa hàng ôm nội dung ≤430, tài khoản cao 48, cụm phải áp từ 992). **Lệch Figma UI-01/UI-03 do chủ dự án chốt.** layout 19.0.60.11.0 · base 19.0.7.47.0 · `?v=1337` · test 637/637. Lần 1 thẻ trắng (`c592558c`), cùng ngày **chủ dự án đổi sang kính mờ + chữ trắng đúng Figma** — **ĐÃ DEPLOY UAT 10/10** (`8f72a740`, layout 19.0.60.12.0 · base 19.0.7.48.0 · `?v=1338`, test 637/637, đo UAT đạt). ⚠️ Ngoại lệ #170: chữ topbar PC 1.77–2.24:1, phải báo BA.
-- ⏳ **[10/10] Thông báo giỏ hàng (BA gửi ảnh, không Issue ID)** — thẻ báo dùng chung `window.wjToast` (khung, `wj_toast.js` + `.wj-toast*`): nền trắng, mobile ngay dưới header, PC góc phải dưới thanh trên, tự tắt 3 giây; giỏ + đặt hàng + thông báo PC cùng gọi. Thùng rác hỏi bằng hộp portal `#wjCartRemove` (thay `window.confirm`), `/cart/remove` trả `removed`. layout 19.0.60.13.0 · sale 19.0.5.5.0 · notification 19.0.5.2.0 · `?v=1339` · test 761/761 · bấm thật 390/1440/1100 đạt. **Đã push (`841f329e`), chờ deploy UAT.** DB `wujia_toast` còn giữ.
+- ✅ **[10/10] Thông báo giỏ hàng (BA gửi ảnh, không Issue ID)** — thẻ báo dùng chung `window.wjToast` (khung, `wj_toast.js` + `.wj-toast*`): nền trắng, mobile ngay dưới header, PC góc phải dưới thanh trên, tự tắt 3 giây; giỏ + đặt hàng + thông báo PC cùng gọi. Thùng rác hỏi bằng hộp portal `#wjCartRemove` (thay `window.confirm`), `/cart/remove` trả `removed`. layout 19.0.60.13.0 · sale 19.0.5.5.0 · notification 19.0.5.2.0 · `?v=1339` · test 761/761 · bấm thật 390/1440/1100 đạt. **ĐÃ DEPLOY UAT 10/10** (`841f329e`), đo UAT chỉ xem đạt; BA cần retest xoá thật.
+- **[12/10] Đổi hạ tầng**: UAT mới + repo mới + mô hình nhánh `deploy/production` · `deploy/staging` · `feature/*` · `staff/<name>/<task>` · `hotfix/*` — **mới ghi chú, CHƯA áp** (remote vẫn `huyban2003/…`, vẫn `main`). Phiên repo riêng: `docs/next-session-repo-migration.md`. Treo: tài khoản UAT mới, cách deploy máy mới.
+- **[12/10] Issue List có 9 `Ready for Dev`**: #182 UI-FORM-VALIDATION-001 (High) · cụm Home #175–#180 · #181 WJ-OPS-001 · #139 UI-FILTER-001 (đã có code + ledger, cần reconcile).
 - **Cụm H** chuẩn hoá component (`docs/next-session-clusters-H.md`): H-A (H0 → H1 → H3 → ★HR-1) không cần BA; H-B chờ BA duyệt spec.
 - **Phần O cụm J** (portal Vận hành nhượng quyền) — PEND theo BA 07/10 (`docs/next-session-clusters-J.md`).
 - **ADR-027**: 7 câu hỏi BA (chapter 74) + áp `auto_install` đồng loạt 1 phiên + nợ ch.77 (portal_sale write, `_sql_constraints`, bàn giao Thái).
@@ -136,27 +138,12 @@ ADR-001 odoo19 source độc lập / 002 venv conda `odoo` py3.10 / 003 PG role 
 
 ## §6 wujia-deploy
 
-**Deploy = thủ công** (dev server nội bộ, chưa CI/CD). Push `main` → user `git pull` + restart Odoo service Windows `D:\wujia-tea` tay. CSS change → bump `?v=NNNN` (§9 gotcha #1).
+**UAT = `https://dev.wujiatea.com.vn`** (máy quản lý bằng aaPanel, từ 12/10/2026). **Quy trình deploy máy mới CHƯA chốt** — repo, nhánh, cách deploy do phiên repo quyết (`docs/next-session-repo-migration.md`). Cho tới lúc đó: xong code thì báo chủ dự án **danh sách module cần `-u`** (mọi module đã bump version kể từ lần deploy trước, lấy từ `git diff --name-only <commit đã deploy>..HEAD -- custom/`; module mới thì `-i`), ghi vào dòng `Deploy:` của `f-progress.md`, và hỏi cách chạy.
 
-**⚠️ GOTCHA — MODULE MỚI KHÔNG TỰ CÀI:** restart chỉ load module ĐÃ cài + upgrade module bump version. Module HOÀN TOÀN MỚI phải `-i` 1 lần: `python odoo-bin -c <conf> -d <db> -i <module> --stop-after-init` (hoặc UI Apps → Install). Áp cho mọi sprint có module mới (vd dashboard `wj_ks_*`).
-
-**🔴 LỆNH DEPLOY SAU MỖI ISSUE/PHIÊN (chủ dự án yêu cầu 09/10/2026):** xong code + push, phiên nào cũng phải đưa cho chủ dự án
-**một lệnh chạy được ngay**, đúng dạng dưới, `-u` = mọi module đã bump version kể từ lần deploy trước (tự lấy từ
-`git diff --name-only <commit đã deploy>..HEAD -- custom/`, bỏ module anh Thái nếu không đổi). Module mới thêm `-i <module>`.
-Ghi lệnh này vào dòng `Deploy:` của mục `f-progress.md` + báo trong tin nhắn cuối phiên. KHÔNG thêm cờ lạ
-(`--logfile=`, `Tee-Object`… chủ dự án chạy không được):
-
-```powershell
-nssm stop Odoo; python D:\wujia-tea\odoo19\odoo-bin -c D:\wujia-tea\config\odoo-server.conf -d wujia_tea_19 --addons-path "D:\wujia-tea\custom,D:\wujia-tea\odoo19\addons" -u <mod1>,<mod2>,... --stop-after-init; nssm start Odoo
-```
-
-Sau deploy: kiểm version qua XML-RPC chỉ-đọc (repo manifest = `ir.module.module.latest_version`, 0 lệch) **trước** khi đo/ghi sheet.
-Log server ở `D:\wujia-tea\logs\odoo.log` (lệnh in vào file, màn hình im lặng kể cả khi gãy) ⇒ soi lỗi bằng
-`Select-String -Path D:\wujia-tea\logs\odoo.log -Pattern "Traceback|CRITICAL| ERROR " -CaseSensitive | Select-Object -Last 5`
-(không `-CaseSensitive` sẽ bắt nhầm "View error context" của cảnh báo view). Trước khi chạy: `Get-Process python*` — hai tiến trình `-u`
-chồng nhau khoá DB, nâng cấp dừng giữa chừng mà không báo lỗi (sự cố 09/10: 16 module cụm I kẹt bản cũ).
-
-**Windows reseed 1-lệnh:** `nssm stop Odoo; reseed_full.ps1; nssm start Odoo` (git pull → drop+create DB → install chain → seed → test). UTF-8 env bắt buộc (`PYTHONUTF8=1`, `chcp 65001`). → `DEPLOY_SPRINT5.md` + `CHECKLIST.tex`.
+- CSS change → bump `?v=NNNN` (§9 gotcha #1).
+- **Module mới không tự cài**: restart chỉ load module đã cài + upgrade module bump version; module hoàn toàn mới phải `-i` một lần.
+- **Sau deploy**: kiểm version qua XML-RPC chỉ-đọc (repo manifest = `ir.module.module.latest_version`, 0 lệch) **trước** khi đo/ghi sheet.
+- **Không chạy hai tiến trình `-u` cùng lúc** — khoá DB, nâng cấp dừng giữa chừng mà không báo lỗi (sự cố 09/10: 16 module cụm I kẹt bản cũ).
 
 ---
 
@@ -251,7 +238,7 @@ Postmortem chi tiết → `chapters/18-*.tex`.
 
 **QA Operating Standard** = `docs/01_NGO_GIA_QA_OPERATING_STANDARD.md`. Luồng: `New → Ready for Dev → Dev In Progress → Ready for Retest → BA Retesting → Done`. **Dev KHÔNG tự đóng `Done`** — tối đa `Ready for Retest`. Fork/thiếu spec → `Need Clarification` (owner BA), KHÔNG đoán.
 
-**UAT** `http://113.161.187.126:8019/` (`admin/Wujia@2026`) — tự smoke-test được. Giới hạn: không tạo đơn/hoá đơn/email thật, không đổi quyền, không drop data. Server info: `docs/CREDENTIALS.md`.
+**UAT** `https://dev.wujiatea.com.vn/` (từ 12/10/2026; IP 115.74.247.189, DB `wujia_tea_19`, cùng máy có `wujia_mn` + `huipeng_db`; **tài khoản chờ chủ dự án báo** — `admin/Wujia@2026` là của máy cũ `113.161.187.126:8019`, đã ngừng dùng) — tự smoke-test được. aaPanel (quản lý máy chủ) + Metabase: `docs/CREDENTIALS.md`. Giới hạn: không tạo đơn/hoá đơn/email thật, không đổi quyền, không drop data. Server info: `docs/CREDENTIALS.md`.
 
 **Sheet tabs BA log:** → §7 (Tasks + 5.Issue List gid=335593633). Chuẩn lên task cho AI = `docs/02_TASKS_INTAKE_SPEC_FOR_GPT.md` (đã gửi BA/GPT).
 

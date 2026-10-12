@@ -155,4 +155,4 @@ Bắt đầu bằng cách hỏi tôi công việc hôm nay là gì.
 
 - **Task** = việc cần làm (intake). **Issue** = lỗi QA cần retest (tab `5. Issue List`).
 - Một Task loại `UI-Issue`/`Bugfix` thường trỏ tới 1+ `Issue-ID`. Khi agent làm xong task đó, nó tự cập nhật Issue tương ứng sang `Ready for Retest` theo QA Operating Standard (điền Build/Deploy, Ghi chú FIX/IMPACT/RETEST/LIMIT, Odoo Fit, + dòng `7. ISSUE HISTORY`).
-- BA/Tester retest trên UAT `http://113.161.187.126:8019/` rồi mới chuyển `Done`.
+- BA/Tester retest trên UAT `https://dev.wujiatea.com.vn/` rồi mới chuyển `Done`.

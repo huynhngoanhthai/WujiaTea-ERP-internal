@@ -3326,7 +3326,7 @@ rồi đánh ✅ ở bảng Trạng thái §2 `docs/next-session-clusters-F.md`.
 ## Thông báo giỏ hàng — thẻ `wjToast` dùng chung + hộp hỏi xoá của portal · 10/10/2026 · Mac
 
 - Nguồn: BA gửi ảnh màn Giỏ hàng mobile (UAT, HCM-01) — thông báo "Đã bỏ khỏi giỏ" đè lên cờ/giỏ/tài khoản và không đọc được. Không có
-  Issue ID (hàng đợi Dev = 0) ⇒ làm theo yêu cầu chủ dự án, không ledger/`qa_sync`. ⏳ **ĐÃ PUSH (commit `841f329e`), CHỜ DEPLOY UAT.**
+  Issue ID (hàng đợi Dev = 0) ⇒ làm theo yêu cầu chủ dự án, không ledger/`qa_sync`. ✅ **ĐÃ DEPLOY UAT 10/10/2026** (commit `841f329e`), đo lại trên UAT đạt.
 - Gốc: toast viết tay `div.alert.alert-success` ghim `top:20px; right:20px` (ô 240×52 tại y 20–72 = đúng header mobile 72), màu theme
   nền xanh lá 20% + chữ xanh lá trên nền `#28A9DF`. Chỉ hiện khi `/cart/step` trả `removed` ("−" ở số tối thiểu); thùng rác đi `/cart/remove`:
   hỏi bằng `window.confirm`, xoá xong im lặng. Portal có 3 toast viết tay khác nhau (giỏ, đặt hàng, thông báo PC).
@@ -3354,6 +3354,37 @@ rồi đánh ✅ ở bảng Trạng thái §2 `docs/next-session-clusters-F.md`.
 - LIMIT: tiêu đề hộp dài ("Xoá sản phẩm này khỏi giỏ?") xuống 2 dòng ở 390 · trang Thông báo PC tải lại sau 0,6 giây nên thẻ chỉ kịp thoáng hiện
   (hành vi cũ) · `wj_back_guard.js` vẫn dùng `window.confirm` (ngoài phạm vi).
 - Deploy: `nssm stop Odoo; python D:\wujia-tea\odoo19\odoo-bin -c D:\wujia-tea\config\odoo-server.conf -d wujia_tea_19 --addons-path "D:\wujia-tea\custom,D:\wujia-tea\odoo19\addons" -u wujia_portal_layout,wujia_portal_sale,wujia_portal_notification --stop-after-init; nssm start Odoo`
-- Nợ: sau deploy kiểm version qua XML-RPC rồi đo UAT chỉ xem (không xoá dòng thật) · xoá DB `wujia_toast` +
-  filestore · báo BA đã đổi thông báo giỏ + cách tái hiện (bấm "−" ở số tối thiểu).
+- Sau deploy (UAT, chỉ xem — mở hộp hỏi rồi Hủy/Esc, gọi `wjToast` trong trình duyệt đo, 0 request đổi giỏ): XML-RPC đúng 3 version; 6 file
+  JS/CSS phục vụ khớp repo (chỉ khác CRLF). HCM-01 × 390 / 1440 / 1100, trang giỏ + trang đặt hàng + thông báo: hộp `#wjCartRemove` mở với tên
+  "Pudding Trứng", nút Hủy/Xoá, focus Hủy, Esc + Hủy đóng và giữ 2 dòng; thẻ mobile 366×48 tại x 12, `top` 84 (header 72); PC 360×48 cách phải
+  24, `top` 84; nền trắng, chữ `rgb(17,24,39)`, dấu `rgb(21,128,61)` / lỗi `rgb(220,38,38)` `role=alert`; mất sau 3 giây; không đè nút header;
+  0 hộp thoại trình duyệt, 0 lỗi JS, 0 tràn ngang. LIMIT: không bấm "Xoá"/"−" thật trên UAT (luồng xoá thật đo ở local); ca đã cuộn chỉ đo ở local.
+- Nợ: báo BA đã đổi thông báo giỏ + cách tái hiện (bấm "−" ở số tối thiểu) để BA retest xoá thật. DB `wujia_toast` + filestore đã xoá.
 - Phiên kế: cụm H (H-A không cần BA) / Phần O cụm J (chờ BA).
+
+## Ghi chú đổi hạ tầng — UAT mới, repo mới, aaPanel, Metabase, mô hình nhánh · 12/10/2026 · Mac
+
+- Kết quả: ✅ xong ghi chú + thay tham chiếu + dọn repo (xoá 330 file cũ trong `docs/` và `scripts/`, ~24 MB), push lên repo mới.
+  Nhánh/CI chưa đổi (phiên repo riêng).
+- Nguồn: chủ dự án báo đổi repo sang `huynhngoanhthai/WujiaTea-ERP-internal`, UAT sang `https://dev.wujiatea.com.vn`
+  (thay hẳn `113.161.187.126:8019`), thêm aaPanel + Metabase, kèm sơ đồ nhánh `deploy/production` · `deploy/staging` ·
+  `feature/*` · `staff/<name>/<task>` · `hotfix/*`.
+- Đã làm:
+  - `docs/CREDENTIALS.md` viết lại: repo mới, UAT mới, aaPanel, Metabase; máy Windows cũ gom vào mục "ngừng dùng".
+  - Thay địa chỉ UAT/link repo ở tài liệu sống (compact summary §1/§5/§6/§12, `UAT_ACCESS_AND_DEBUG.md`, chuẩn QA 01/02,
+    `CHECKLIST.tex`, `setup-server.ps1`), mặc định của 6 script `scripts/qa/` + 6 file `~/wujia-devkit/ba_spec/`
+    (kể cả nightly), và lệnh `/wujia-start`.
+  - **Mới** `docs/next-session-repo-migration.md`: hiện trạng đo được, sơ đồ nhánh, 6 nhận xét, danh sách việc đổi repo,
+    mục bảo mật, mục chưa biết.
+  - Bỏ lệnh deploy máy Windows (`nssm`) khỏi compact summary §6 và hai lệnh `/wujia-*`; §6 giờ ghi quy trình máy mới chưa chốt.
+  - Dọn repo theo yêu cầu chủ dự án: danh sách xoá/giữ ở `docs/next-session-repo-migration.md` §7. Ledger + chapter `.tex` giữ nguyên.
+- Đo (chỉ đọc): repo mới chỉ có `main` @ `edef2fed`; máy mới 115.74.247.189, Odoo 19, DB `wujia_tea_19` + `wujia_mn` +
+  `huipeng_db`; Metabase 200; link aaPanel 404 với request thường; cả hai repo GitHub đọc được không cần đăng nhập.
+- Kiểm: `py_compile` 10 script + `bash -n` 2 file nightly đạt; địa chỉ cũ chỉ còn ở mục "máy cũ" và file lịch sử.
+- LIMIT: chưa đăng nhập UAT mới / aaPanel / Metabase; chưa biết version module trên UAT mới ⇒ số đo UAT trước 12/10
+  là của máy cũ.
+- Nợ: chủ dự án báo tài khoản UAT mới + cách deploy máy mới · repo đang công khai mà `CREDENTIALS.md` có mật khẩu
+  (chủ dự án quyết ghi thẳng) · `wujia-end-sprint.md` còn `push origin master` · thay đổi ở `~/wujia-devkit` chưa commit.
+- Issue List 12/10: 9 `Ready for Dev` — #182 UI-FORM-VALIDATION-001 (High) · #175 #176 #177 #178 #180 (Home) · #179 ·
+  #181 WJ-OPS-001 · #139 UI-FILTER-001 (đã có code + ledger, cần reconcile).
+- Phiên kế: Issue List — #182 trước, rồi cụm Home 175–180, #181 phiên thiết kế riêng, reconcile #139. Phiên repo chạy riêng.

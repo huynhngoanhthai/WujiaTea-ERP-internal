@@ -9,7 +9,7 @@
     trên DOM, không đụng giỏ thật), chip vai trò nằm trong khối Cửa hàng hiện tại.
 
     python3 scripts/qa/wj_shell_g2.py --base http://127.0.0.1:8032 --login dung.multi
-    python3 scripts/qa/wj_shell_g2.py --base http://113.161.187.126:8019 --login em.hcm --readonly
+    python3 scripts/qa/wj_shell_g2.py --base https://dev.wujiatea.com.vn --login em.hcm --readonly
 """
 import argparse
 import json

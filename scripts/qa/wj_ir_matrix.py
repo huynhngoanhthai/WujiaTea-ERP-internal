@@ -10,7 +10,7 @@ pageerror, tràn ngang, ảnh. Kỳ vọng tính theo luật:
   - staff tại cửa hàng đang chọn ⇒ Công nợ / Báo cáo / Yêu cầu cập nhật trả 403;
   - owner/manager ⇒ 200, không khối nhắc, không 403.
 
-    python3 scripts/qa/wj_ir_matrix.py --base http://113.161.187.126:8019 \
+    python3 scripts/qa/wj_ir_matrix.py --base https://dev.wujiatea.com.vn \
         --ctx em.hcm:wujia@test123: --ctx admin:Wujia@2026:none --ctx admin:Wujia@2026:HCM-01 ... \
         --out docs/i-review/matrix.json --shots docs/i-review/shots
 """

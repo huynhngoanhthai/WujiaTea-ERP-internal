@@ -7,7 +7,7 @@ Mỗi khổ: bấm "Gửi đơn đặt hàng" → hộp mở, 0 request gửi đ
 2 nút cao ≥ 40 (mobile ≥ 44), focus ở Hủy, Tab/Shift+Tab không thoát hộp → Hủy → hộp đóng, focus về nút mở.
 
   python scripts/qa/wj_order_confirm_probe.py --base http://127.0.0.1:8055 --login dung.multi --fill --shots DIR
-  python scripts/qa/wj_order_confirm_probe.py --base http://113.161.187.126:8019 --login admin --password …
+  python scripts/qa/wj_order_confirm_probe.py --base https://dev.wujiatea.com.vn --login admin --password …
 """
 import argparse
 import json

@@ -4,7 +4,7 @@
 Chỉ GET trang + mở/đóng hộp thoại phía client; không bấm gửi/xác nhận, không đổi cửa hàng
 qua server (cookie đặt thẳng trong trình duyệt). Mỗi phép đo in PASS/FAIL + số đo.
 
-    python3 scripts/qa/wj_ir_checks.py --base http://113.161.187.126:8019 --out docs/i-review/checks.json
+    python3 scripts/qa/wj_ir_checks.py --base https://dev.wujiatea.com.vn --out docs/i-review/checks.json
 """
 import argparse
 import datetime

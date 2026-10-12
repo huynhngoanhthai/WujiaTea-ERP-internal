@@ -6,7 +6,9 @@ Ghi lại sau sự cố 05/08/2026 (toàn bộ `/portal/*` trả lỗi 500). Dù
 
 | | |
 |---|---|
-| Odoo | http://113.161.187.126:8019 — DB `wujia_tea_19`, đăng nhập `admin` / `Wujia@2026` |
+| Odoo | https://dev.wujiatea.com.vn — DB `wujia_tea_19`, tài khoản chờ chủ dự án báo (từ 12/10/2026) |
+| Quản lý máy chủ | aaPanel https://aapanel.hongtrangogia.com/4b9b3f91 — tài khoản ở `docs/CREDENTIALS.md` |
+| Máy cũ (ngừng dùng 12/10/2026) | http://113.161.187.126:8019 — `admin` / `Wujia@2026`; các dòng Windows/RDP dưới đây là của máy này |
 | Hệ điều hành | Windows, mã nguồn nằm ở `D:\wujia-tea` |
 | RDP | `113.161.187.126:5761`, tài khoản `dev` / `Dev@2026` |
 | SSH | **không có** |
