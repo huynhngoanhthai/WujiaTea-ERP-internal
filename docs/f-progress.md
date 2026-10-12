@@ -3426,4 +3426,5 @@ rồi đánh ✅ ở bảng Trạng thái §2 `docs/next-session-clusters-F.md`.
   webhook Discord viết thẳng trong `deploy.sh` · Huipeng còn bố cục cũ.
 - Issue List 12/10: 10 `Ready for Dev` — #182 UI-FORM-VALIDATION-001 (High) · #175–#180 (Home) · #181 WJ-OPS-001 · #183 UI-LISTCARD-003 ·
   #139 UI-FILTER-001 (reconcile).
+- Sau deploy: `admin` / `Wujia@2026` đăng nhập được UAT mới (161 module `installed`); bảng "Sửa ở đâu" ghi ở §6 compact summary + `CREDENTIALS.md`.
 - Phiên kế: Issue List (#182 trước). Việc máy chủ còn lại: xem Nợ.

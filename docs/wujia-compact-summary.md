@@ -23,7 +23,7 @@
 - DB `wujia_tea_19`, user `odoo19/1`, `127.0.0.1:5432`.
 - Log `logs/odoo.log` · config `config/odoo.conf` · python `/home/huyban/miniconda3/envs/odoo/bin/python3`.
 
-**UAT:** → §12 (`https://dev.wujiatea.com.vn/`, tài khoản chờ chủ dự án báo; máy cũ `113.161.187.126:8019` ngừng dùng 12/10).
+**UAT:** → §12 (`https://dev.wujiatea.com.vn/`, `admin` / `Wujia@2026` — kiểm đăng nhập được 12/10; máy cũ `113.161.187.126:8019` ngừng dùng 12/10).
 
 **Deploy:** → §6 (máy mới, quy trình chờ phiên repo; module mới cần `-i`).
 
@@ -145,9 +145,26 @@ ADR-001 odoo19 source độc lập / 002 venv conda `odoo` py3.10 / 003 PG role 
 
 **UAT = `https://dev.wujiatea.com.vn`** (máy 115.74.247.189, aaPanel; khảo sát chỉ đọc 12/10). Source `/www/wwwroot/dev.wujiatea.com.vn` nhánh `deploy/staging` · systemd `odoo-dev` (user `www`, cổng 8019/8020, nginx đứng trước) · config `config/odoo.conf` (ngoài git) · DB `wujia_tea_19`. Cùng máy còn `odoo-uat` (`wujia_mn`, cổng 8029, repo khác, thư mục `odoo_modules`) và `odoo-huipeng` (`huipeng_db`, cổng 8059, repo `huifeng.erp.staging`, clone bố cục cũ) — ba tiến trình riêng, restart `odoo-dev` không đụng hai cái kia.
 
-**Deploy tự động:** push/merge vào `deploy/staging` ⇒ aaPanel kéo code ⇒ git hook `post-merge` gọi `deploy.sh --no-pull` (file riêng của máy chủ, ngoài git): dò module đổi, `-u <module> --i18n-overwrite`, restart `odoo-dev`, gọi `/web/login`, báo Discord. Dev không chạy lệnh deploy tay; xong code thì ghi dòng `Deploy:` trong `f-progress.md` = `python3 scripts/wj_paths.py --changed-modules <commit đã deploy> HEAD` (module mới thì cần `-i` tay).
-
 **Deploy máy UAT (đo 12/10).** Merge vào `deploy/staging` **không tự deploy** (aaPanel *Automatic deployment: Off*, webhook của site chưa từng được gọi). Deploy = aaPanel → Website → `dev.wujiatea.com.vn` → Conf → Git Manager → *Deploy latest* (có hỏi một phép tính). Panel checkout nhánh rồi pull ⇒ hook `post-merge` gọi `deploy.sh --no-pull`. ⚠️ Ở đường này `OLD_HEAD = NEW_HEAD` và commit đầu là merge commit ⇒ `deploy.sh` **không dò ra module nào, chỉ restart, không `-u`**. PR có đổi view/data/security/migration thì phải `-u` tay. ADR-028 đã áp: `addons_path` trong `config/odoo.conf` = 17 folder của bố cục mới + 3 mục cũ ở cuối (`themes/oca_queue`, `custom`, `/www/wwwroot/wujia-uat.tipscode.io/odoo_modules`); `deploy.sh` dòng 222 = `CHANGED_MODULES=$("$PYTHON_BIN" scripts/wj_paths.py --changed-modules "$OLD_HEAD" "$NEW_HEAD")`; bản gốc hai file: đuôi `.bak-adr028`. Nợ: `custom/` và `themes/oca_queue` trên máy chủ chỉ còn vỏ `__pycache__` (xoá được, rồi bỏ hai mục đó khỏi `addons_path`); `latest_version` trong DB của `wujia_portal_layout`/`wujia_portal_base` còn `.0` (PR #7 chỉ đổi Python + `.po`, không cần `-u`).
+
+**Sửa ở đâu (ADR-028, chốt 12/10).**
+
+| Muốn | Sửa / chạy ở đâu |
+|---|---|
+| Thêm hoặc đổi **thư mục** module | `scripts/wj_paths.py` → `ADDON_DIRS` (nguồn duy nhất), rồi sinh lại `addons_path` ở mọi máy |
+| Module mới đặt thư mục nào | `README.md` §Module mới đặt ở đâu · kiểm `python3 scripts/qa/check_layers.py` (luật R8) |
+| Tìm một module | `python3 scripts/wj_paths.py --where <module>` · cả cây: `--list` |
+| `addons_path` máy local | `config/odoo.conf` (gitignore) ← `python3 scripts/wj_paths.py --addons-path` · mẫu: `config/odoo.conf.example` |
+| `addons_path` máy UAT | `/www/wwwroot/dev.wujiatea.com.vn/config/odoo.conf` (ngoài git) — sửa qua aaPanel → Files, rồi restart `odoo-dev` |
+| Cách deploy dò module cần `-u` | `/www/wwwroot/dev.wujiatea.com.vn/deploy.sh` dòng 222 (ngoài git) → gọi `scripts/wj_paths.py --changed-modules` |
+| Git hook gọi deploy | `/www/server/git_hooks/dev.wujiatea.com.vn/post-merge` + `post-checkout` |
+| Bấm deploy | aaPanel → Website → `dev.wujiatea.com.vn` → Conf → Git Manager → *Deploy latest* |
+| Đọc log máy UAT | `/www/wwwroot/dev.wujiatea.com.vn/logs/<năm>/<tháng>/<năm-tháng-ngày>.log`, giờ **UTC** (`logs/odoo.log` chỉ còn dòng chuyển hướng) |
+| Lùi cấu hình máy UAT về trước ADR-028 | `config/odoo.conf.bak-adr028` + `deploy.sh.bak-adr028` (nằm cạnh file gốc) |
+| Test cần đọc file của module khác | `base/wujia_portal_layout/tests/src_paths.py` (`src`, `src_modules`, `src_walk`, `src_rel`) |
+| Phân trang / giới hạn tần suất của portal | `base/wujia_portal_layout/controllers/utils.py` (`portal_base` chỉ import lại tên) |
+| Lệnh `/wujia-*` | `~/wujia-devkit/commands/*.md` (`~/.claude/commands/` là symlink tới đó) |
+| Lý do + bảng 81 module → thư mục | `docs/chapters/82-adr028-source-layout.tex` |
 
 - CSS change → bump `?v=NNNN` (§9 gotcha #1).
 - **Module mới không tự cài**: restart chỉ load module đã cài + upgrade module bump version; module hoàn toàn mới phải `-i` một lần.
@@ -251,7 +268,7 @@ Postmortem chi tiết → `chapters/18-*.tex`.
 
 **QA Operating Standard** = `docs/01_NGO_GIA_QA_OPERATING_STANDARD.md`. Luồng: `New → Ready for Dev → Dev In Progress → Ready for Retest → BA Retesting → Done`. **Dev KHÔNG tự đóng `Done`** — tối đa `Ready for Retest`. Fork/thiếu spec → `Need Clarification` (owner BA), KHÔNG đoán.
 
-**UAT** `https://dev.wujiatea.com.vn/` (từ 12/10/2026; IP 115.74.247.189, DB `wujia_tea_19`, cùng máy có `wujia_mn` + `huipeng_db`; **tài khoản chờ chủ dự án báo** — `admin/Wujia@2026` là của máy cũ `113.161.187.126:8019`, đã ngừng dùng) — tự smoke-test được. aaPanel (quản lý máy chủ) + Metabase: `docs/CREDENTIALS.md`. Giới hạn: không tạo đơn/hoá đơn/email thật, không đổi quyền, không drop data. Server info: `docs/CREDENTIALS.md`.
+**UAT** `https://dev.wujiatea.com.vn/` (từ 12/10/2026; IP 115.74.247.189, DB `wujia_tea_19`, cùng máy có `wujia_mn` + `huipeng_db`; tài khoản `admin` / `Wujia@2026`, kiểm đăng nhập được 12/10; máy cũ `113.161.187.126:8019` đã ngừng dùng) — tự smoke-test được. aaPanel (quản lý máy chủ) + Metabase: `docs/CREDENTIALS.md`. Giới hạn: không tạo đơn/hoá đơn/email thật, không đổi quyền, không drop data. Server info: `docs/CREDENTIALS.md`.
 
 **Sheet tabs BA log:** → §7 (Tasks + 5.Issue List gid=335593633). Chuẩn lên task cho AI = `docs/02_TASKS_INTAKE_SPEC_FOR_GPT.md` (đã gửi BA/GPT).
 
