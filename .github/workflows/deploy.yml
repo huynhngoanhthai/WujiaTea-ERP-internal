@@ -1,13 +1,14 @@
 name: Deploy
-on:
-      push:
-        branches:
-          - deploy/staging
 
-      workflow_dispatch:
-    jobs:
-      deploy:
-        runs-on: ubuntu-latest
-        steps:
-          - name: Kích hoạt aaPanel Webhook
-            run: curl -k -X GET "https://aapanel.hongtrangogia.com:16787/hook?access_key=LcdPl5lteNl6TiypEblA4oKdKjK9HeDdFx9kMqWypzH9eOxg"
+on:
+  push:
+    branches:
+      - deploy/staging
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Kích hoạt aaPanel Webhook
+        run: curl -k -X GET "https://aapanel.hongtrangogia.com:16787/hook?access_key=LcdPl5lteNl6TiypEblA4oKdKjK9HeDdFx9kMqWypzH9eOxg"
