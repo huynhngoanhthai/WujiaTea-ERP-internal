@@ -4,7 +4,6 @@ F5b dời khỏi `wujia_portal_layout`: `build_pager`/`parse_page_size` là hàm
 `portal_base`, và việc quét call site là việc của tầng ghép. Hợp đồng render của
 component `wj_pagination` vẫn ở layout.
 """
-import os
 import re
 
 from lxml import etree
@@ -14,12 +13,12 @@ from odoo.tests import TransactionCase, tagged
 from odoo.addons.wujia_portal_base.controllers.utils import (
     ELLIPSIS, build_pager, parse_page_size,
 )
+from odoo.addons.wujia_portal_layout.tests.src_paths import src
 
-CUSTOM = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 
 
 def _view(module, filename):
-    with open(os.path.join(CUSTOM, module, 'views', filename), 'rb') as fh:
+    with open(src(module, 'views', filename), 'rb') as fh:
         return etree.fromstring(fh.read())
 
 
@@ -190,7 +189,7 @@ class TestPaginationE3cCallSites(TransactionCase):
     LEGACY = TestPaginationCallSites.LEGACY
 
     def _file(self, module, relpath):
-        with open(os.path.join(CUSTOM, module, *relpath.split('/')),
+        with open(src(module, *relpath.split('/')),
                   encoding='utf-8') as fh:
             return re.sub(r'/\*.*?\*/', '', fh.read(), flags=re.S)
 
@@ -258,7 +257,7 @@ class TestPaginationE3cCallSites(TransactionCase):
             self.assertNotIn('page_previous', raw, '%s: còn pager dict cũ' % module)
             self.assertNotIn('querystring', raw, '%s: còn biến querystring' % module)
         for module in ('wujia_portal_exam', 'wujia_portal_debt', 'wujia_portal_sale'):
-            with open(os.path.join(CUSTOM, module, 'controllers', 'portal.py'),
+            with open(src(module, 'controllers', 'portal.py'),
                       encoding='utf-8') as fh:
                 py = fh.read()
             self.assertNotIn('_fallback_pager', py, '%s: còn pager tự chế' % module)

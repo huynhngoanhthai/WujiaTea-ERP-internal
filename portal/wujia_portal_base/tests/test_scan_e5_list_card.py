@@ -16,7 +16,7 @@ import re
 from odoo.tests import TransactionCase, tagged
 
 from odoo.addons.wujia_portal_base.tests.css_probe import (
-    CUSTOM, _mod_css, _strip_comments, _view,
+    src, src_walk, _mod_css, _strip_comments, _view,
 )
 
 TMPL = 'wujia_portal_layout.wj_list_card'
@@ -112,7 +112,7 @@ class TestListCardCallSites(TransactionCase):
         """Hai bộ dáng cùng sống là nguồn của mọi hồi quy specificity đã trả giá
         ở D3/D4 — nên họ cũ phải mất ở CẢ view lẫn CSS."""
         for module, filename, _n, cu, css_file, _chung in MIGRATED:
-            with open(os.path.join(CUSTOM, module, 'views', filename), encoding='utf-8') as fh:
+            with open(src(module, 'views', filename), encoding='utf-8') as fh:
                 view = fh.read()
             css = _strip_comments(_mod_css(module, css_file))
             for ho in cu:
@@ -144,7 +144,7 @@ class TestListCardCallSites(TransactionCase):
         riêng của màn (Thông báo tô đậm tên khi chưa đọc) không phải rule dáng —
         cấm nó là mất dấu chưa đọc, mà dáng thì vẫn nguyên ở khung."""
         thay = []
-        for root, _dirs, files in os.walk(CUSTOM):
+        for root, _dirs, files in src_walk():
             if '/static/' not in root or not root.endswith('css'):
                 continue
             if os.sep + 'wujia_portal_layout' + os.sep in root:

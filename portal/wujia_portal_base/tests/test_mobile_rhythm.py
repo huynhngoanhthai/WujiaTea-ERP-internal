@@ -13,8 +13,8 @@ import os
 import re
 
 from odoo.tests import TransactionCase, tagged
+from odoo.addons.wujia_portal_layout.tests.src_paths import src, src_modules, src_rel
 
-CUSTOM = os.path.normpath(os.path.join(os.path.dirname(__file__), '..', '..'))
 
 # Wrapper trang mobile — mọi lớp ở đây ăn nhịp từ rule chung trong _components.css.
 PAGE_WRAPPERS = (
@@ -24,7 +24,7 @@ PAGE_WRAPPERS = (
 
 
 def _read(*parts):
-    with open(os.path.join(CUSTOM, *parts), encoding='utf-8') as fh:
+    with open(src(*parts), encoding='utf-8') as fh:
         return fh.read()
 
 
@@ -69,16 +69,16 @@ def _media_block(css, header):
 def _module_css():
     """Mọi file CSS của portal, TRỪ phần của anh Thái (không đụng code nhóm Khảo sát)."""
     out = []
-    for mod in sorted(os.listdir(CUSTOM)):
+    for mod in sorted(src_modules()):
         if not mod.startswith('wujia_portal_') or 'inspection' in mod:
             continue
-        root = os.path.join(CUSTOM, mod, 'static')
+        root = src(mod, 'static')
         for dirpath, _dirs, files in os.walk(root):
             for f in files:
                 if f.endswith('.css'):
                     path = os.path.join(dirpath, f)
                     with open(path, encoding='utf-8') as fh:
-                        out.append((os.path.relpath(path, CUSTOM), fh.read()))
+                        out.append((src_rel(path), fh.read()))
     return out
 
 

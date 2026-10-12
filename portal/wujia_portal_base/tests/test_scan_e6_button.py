@@ -19,7 +19,7 @@ from lxml import etree
 from odoo.tests import TransactionCase, tagged
 
 from odoo.addons.wujia_portal_base.tests.css_probe import (
-    CUSTOM, _css, _mod_css, _strip_comments, _view,
+    src, src_rel, src_walk, _css, _mod_css, _strip_comments, _view,
 )
 
 # (module, file view, số call site .wj-btn, số .wj-iconbtn, họ cũ phải biến mất,
@@ -143,7 +143,7 @@ class TestButtonCallSites(TransactionCase):
     def test_khong_con_ho_class_cu(self):
         """Hai bộ dáng cùng sống là nguồn hồi quy specificity đã trả giá ở D3/D4."""
         for module, filename, _nb, _ni, cu, css_file in MIGRATED:
-            with open(os.path.join(CUSTOM, module, 'views', filename), encoding='utf-8') as fh:
+            with open(src(module, 'views', filename), encoding='utf-8') as fh:
                 view = fh.read()
             css = _strip_comments(_mod_css(module, css_file)) if css_file else ''
             for ho in cu:
@@ -158,7 +158,7 @@ class TestButtonCallSites(TransactionCase):
         cam = ('height', 'border-radius', 'background', 'border', 'font-size',
                'font-weight', 'padding', 'color')
         thay = []
-        for root, _dirs, files in os.walk(CUSTOM):
+        for root, _dirs, files in src_walk():
             if '/static/' not in root or not root.endswith('css'):
                 continue
             if os.sep + 'wujia_portal_layout' + os.sep in root:
@@ -183,8 +183,8 @@ class TestButtonCallSites(TransactionCase):
         cam = ('height', 'border-radius', 'background', 'border', 'font-size',
                'font-weight', 'padding', 'color')
         kem = set()
-        for root, _dirs, files in os.walk(CUSTOM):
-            if not os.path.relpath(root, CUSTOM).startswith('wujia_portal'):
+        for root, _dirs, files in src_walk():
+            if not src_rel(root).startswith('wujia_portal'):
                 continue
             for fn in files:
                 path = os.path.join(root, fn)
@@ -200,7 +200,7 @@ class TestButtonCallSites(TransactionCase):
                     if any(atom.match(c) for c in cls):
                         kem |= {c for c in cls if not atom.match(c) and re.match(r'^[a-z][\w-]*$', c)}
         thay = []
-        for root, _dirs, files in os.walk(CUSTOM):
+        for root, _dirs, files in src_walk():
             if '/static/' not in root or os.sep + 'wujia_portal_layout' + os.sep in root:
                 continue
             for fn in (f for f in files if f.endswith('.css')):
@@ -221,7 +221,7 @@ class TestButtonCallSites(TransactionCase):
         """LIMIT E6: `wujia_portal_inspection` (code anh Thái) còn dùng `.wj-pc-btn`
         ở 3 template + 1 JS ⇒ E6 thu hẹp, KHÔNG xoá."""
         con = []
-        for root, _dirs, files in os.walk(os.path.join(CUSTOM, 'wujia_portal_inspection')):
+        for root, _dirs, files in os.walk(src('wujia_portal_inspection')):
             for fn in files:
                 if fn.endswith(('.xml', '.js')):
                     txt = open(os.path.join(root, fn), encoding='utf-8').read()
@@ -385,10 +385,10 @@ class TestMocJsGioHang(TransactionCase):
 
     def test_moc_con_du_hai_phia(self):
         for moc, view_file, js_file in MOC_JS:
-            view = open(os.path.join(CUSTOM, 'wujia_portal_sale', 'views', view_file),
+            view = open(src('wujia_portal_sale', 'views', view_file),
                         encoding='utf-8').read()
-            js = open(os.path.join(CUSTOM, 'wujia_portal_sale', 'static', 'src', 'js',
-                                   js_file), encoding='utf-8').read()
+            js = open(src('wujia_portal_sale', 'static', 'src', 'js',
+                          js_file), encoding='utf-8').read()
             self.assertRegex(view, r'%s(?![-\w])' % re.escape(moc),
                              '%s: mất móc %s, JS không còn bắt được nút' % (view_file, moc))
             self.assertIn(moc, js, '%s: JS không còn bắt %s' % (js_file, moc))
@@ -450,7 +450,7 @@ class TestDangAuthVeAtom(TransactionCase):
 
     def test_template_auth_chet_van_chua_ai_render(self):
         goi = []
-        for root, _dirs, files in os.walk(CUSTOM):
+        for root, _dirs, files in src_walk():
             # Chỉ mã chạy thật mới tính; file test có nhắc tên template (kể cả
             # chính danh sách này) không phải là "đã nối controller".
             if os.sep + 'tests' in root:

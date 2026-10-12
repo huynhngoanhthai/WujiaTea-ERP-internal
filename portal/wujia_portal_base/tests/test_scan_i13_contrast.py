@@ -9,8 +9,8 @@ import re
 
 from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
+from odoo.addons.wujia_portal_layout.tests.src_paths import src, src_modules, src_rel
 
-CUSTOM = os.path.normpath(os.path.join(os.path.dirname(__file__), '..', '..'))
 THAI_MODULES = ('wujia_portal_inspection',)
 
 # #28A9DF 2.68 · #168FC2 3.66 · xám cũ 2.5–3.2 trên trắng.
@@ -25,13 +25,13 @@ WHITE = re.compile(r'(?<![\w-])color\s*:\s*(?:#fff(?:fff)?|white)\b', re.I)
 
 
 def _css_files():
-    for mod in sorted(os.listdir(CUSTOM)):
+    for mod in sorted(src_modules()):
         if not mod.startswith('wujia_portal_') or mod in THAI_MODULES:
             continue
-        for root, _dirs, files in os.walk(os.path.join(CUSTOM, mod, 'static')):
+        for root, _dirs, files in os.walk(src(mod, 'static')):
             for name in files:
                 if name.endswith('.css'):
-                    yield os.path.relpath(os.path.join(root, name), CUSTOM)
+                    yield src_rel(os.path.join(root, name))
 
 
 def _blocks(css):
@@ -46,7 +46,7 @@ class TestNoBrandColouredText(TransactionCase):
     def _scan(self, check):
         hits = []
         for rel in _css_files():
-            with open(os.path.join(CUSTOM, rel), encoding='utf-8') as fh:
+            with open(src(rel), encoding='utf-8') as fh:
                 for selector, body in _blocks(fh.read()):
                     for msg in check(selector, body):
                         hits.append('%s: %s → %s' % (rel, selector[:80], msg))

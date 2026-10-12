@@ -13,6 +13,7 @@ import os
 import re
 
 from odoo.tests import TransactionCase, tagged
+from odoo.addons.wujia_portal_layout.tests.src_paths import src, src_modules, src_rel
 
 CSS_DIR = os.path.join(os.path.dirname(__file__), '..', 'static', 'assets', 'css')
 MOBILE_MQ = '@media (max-width: 991.98px)'
@@ -59,12 +60,9 @@ class TestMobileHeaderHeight(TransactionCase):
 
     def test_khong_trang_nao_tu_khai_lai_chieu_cao_header(self):
         """Một nguồn duy nhất: sửa token là mọi trang ăn theo."""
-        root = os.path.normpath(os.path.join(CSS_DIR, '..', '..', '..', '..'))
         thua = []
-        for mod in sorted(os.listdir(root)):
-            if not mod.startswith('wujia_'):
-                continue
-            for base, _dirs, files in os.walk(os.path.join(root, mod)):
+        for mod in src_modules():
+            for base, _dirs, files in os.walk(src(mod)):
                 for fn in files:
                     if not fn.endswith('.css'):
                         continue
@@ -76,7 +74,7 @@ class TestMobileHeaderHeight(TransactionCase):
                         body = re.sub(r'/\*.*?\*/', '', fh.read(), flags=re.S)
                     for chunk in re.findall(r'\.wujia-mheader\s*\{([^}]*)\}', body):
                         if re.search(r'(?<!min-)(?<!max-)height:', chunk):
-                            thua.append(os.path.relpath(path, root))
+                            thua.append(src_rel(path))
         self.assertEqual(thua, [], 'chiều cao header phải do token cấp, không khai lại')
 
 

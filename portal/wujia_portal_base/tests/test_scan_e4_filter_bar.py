@@ -3,30 +3,29 @@
 F5b dời khỏi `wujia_portal_layout`: khung không được biết màn nào. Hợp đồng template
 + CSS của component vẫn ở layout.
 """
-import os
 import re
 
 from lxml import etree
 
 from odoo.tests import TransactionCase, tagged
+from odoo.addons.wujia_portal_layout.tests.src_paths import src
 
-CUSTOM = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 
 
 def _view(module, filename):
-    path = os.path.join(CUSTOM, module, 'views', filename)
+    path = src(module, 'views', filename)
     with open(path, 'rb') as fh:
         return etree.fromstring(fh.read())
 
 
 def _raw(module, filename):
-    with open(os.path.join(CUSTOM, module, 'views', filename),
+    with open(src(module, 'views', filename),
               encoding='utf-8') as fh:
         return fh.read()
 
 
 def _ctrl(module):
-    with open(os.path.join(CUSTOM, module, 'controllers', 'portal.py'),
+    with open(src(module, 'controllers', 'portal.py'),
               encoding='utf-8') as fh:
         return fh.read()
 
@@ -43,7 +42,7 @@ _DATE_VIEWS = (
 
 
 def _css(module, relpath):
-    with open(os.path.join(CUSTOM, module, *relpath.split('/')),
+    with open(src(module, *relpath.split('/')),
               encoding='utf-8') as fh:
         return fh.read()
 

@@ -11,19 +11,19 @@ import re
 
 from odoo.tests import TransactionCase, tagged
 
-from odoo.addons.wujia_portal_base.tests.css_probe import CUSTOM, _strip_comments
+from odoo.addons.wujia_portal_base.tests.css_probe import src, src_modules, src_rel, _strip_comments
 
 
 def _portal_css():
-    for mod in sorted(os.listdir(CUSTOM)):
+    for mod in sorted(src_modules()):
         if not mod.startswith('wujia_portal_') or 'inspection' in mod or mod == 'wujia_portal_layout':
             continue
-        for dirpath, _dirs, files in os.walk(os.path.join(CUSTOM, mod, 'static')):
+        for dirpath, _dirs, files in os.walk(src(mod, 'static')):
             for f in files:
                 if f.endswith('.css'):
                     path = os.path.join(dirpath, f)
                     with open(path, encoding='utf-8') as fh:
-                        yield os.path.relpath(path, CUSTOM), _strip_comments(fh.read())
+                        yield src_rel(path), _strip_comments(fh.read())
 
 
 @tagged('post_install', '-at_install', 'wujia_mobile_density_g1')

@@ -8,12 +8,12 @@ import os
 import re
 
 from odoo.tests import TransactionCase, tagged
+from odoo.addons.wujia_portal_layout.tests.src_paths import src, src_modules
 
-CUSTOM = os.path.normpath(os.path.join(os.path.dirname(__file__), '..', '..'))
 
 
 def _read(*parts):
-    with open(os.path.join(CUSTOM, *parts), encoding='utf-8') as fh:
+    with open(src(*parts), encoding='utf-8') as fh:
         return fh.read()
 
 
@@ -88,12 +88,11 @@ class TestF4InteractionCallSites(TransactionCase):
     def test_marker_never_on_a_plain_surface_card(self):
         """FR-B(b): template wj_surface_card bọc <a> khi có sc_href, còn lại là <div> thuần.
         Vậy marker phải đi với sc_link_class; đặt ở sc_class = hover trên chỗ bấm không ăn gì."""
-        root = CUSTOM
         offenders = []
-        for module in sorted(os.listdir(root)):
+        for module in src_modules():
             if not module.startswith('wujia_portal_') or module == 'wujia_portal_inspection':
                 continue
-            views = os.path.join(root, module, 'views')
+            views = src(module, 'views')
             if not os.path.isdir(views):
                 continue
             for name in sorted(os.listdir(views)):
@@ -106,13 +105,12 @@ class TestF4InteractionCallSites(TransactionCase):
 
     def test_marker_only_on_clickable_tags(self):
         """FR-B(b): marker gắn thẳng trên thẻ thì thẻ đó phải là a/button/input/select."""
-        root = CUSTOM
         offenders = []
         opening = re.compile(r'<([a-zA-Z]+)[\s>]')
-        for module in sorted(os.listdir(root)):
+        for module in src_modules():
             if not module.startswith('wujia_portal_') or module == 'wujia_portal_inspection':
                 continue
-            views = os.path.join(root, module, 'views')
+            views = src(module, 'views')
             if not os.path.isdir(views):
                 continue
             for name in sorted(os.listdir(views)):

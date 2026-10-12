@@ -14,6 +14,7 @@ import re
 from lxml import etree
 
 from odoo.addons.wujia_portal_base.controllers.utils import STATUS_BADGE_VARIANTS
+from odoo.addons.wujia_portal_layout.tests.src_paths import src, src_rel, src_walk
 from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
 
@@ -59,7 +60,7 @@ MIGRATED = {
 class TestStatusBadgeRemainder(TransactionCase):
 
     def _read(self, rel):
-        with open(os.path.join(os.path.dirname(__file__), '..', '..', rel),
+        with open(src(rel),
                   encoding='utf-8') as fh:
             return fh.read()
 
@@ -105,15 +106,14 @@ class TestStatusBadgeRemainder(TransactionCase):
 
     # --- 3. họ trợ giúp bị xoá hẳn ------------------------------------------
     def test_dead_helper_families_have_no_call_site_and_no_rule(self):
-        root = os.path.join(os.path.dirname(__file__), '..', '..')
         offenders = []
-        for mod_dir, _dirs, files in os.walk(root):
+        for mod_dir, _dirs, files in src_walk():
             if '/wujia_portal_inspection' in mod_dir or '/wujia_franchise_inspection' in mod_dir:
                 continue  # module Khảo sát — phạm vi cấm đụng
             for fn in files:
                 if not fn.endswith(('.xml', '.css')):
                     continue
-                text = self._read(os.path.relpath(os.path.join(mod_dir, fn), root))
+                text = self._read(src_rel(os.path.join(mod_dir, fn)))
                 for family in DEAD_FAMILIES:
                     if re.search(r'(?<![\w-])%s(?![\w-])' % re.escape(family), text):
                         offenders.append('%s → %s' % (fn, family))

@@ -13,9 +13,9 @@ import re
 
 from odoo.tests import TransactionCase, tagged
 
-from odoo.addons.wujia_portal_base.tests.css_probe import CUSTOM, _mod_css, _strip_comments, _view
+from odoo.addons.wujia_portal_base.tests.css_probe import src, _mod_css, _strip_comments, _view
 
-MOD = os.path.join(CUSTOM, 'wujia_portal_exam')
+MOD = src('wujia_portal_exam')
 BOUNDARY = ('wj-exam-pc-day', 'wj-exam-pc-slot', 'wujia-mexam-cal-day', 'wujia-mexam-slot',
             'wujia-mexam-fab', 'wujia-mexam-back')
 # (selector gốc của khối, khai kích thước phải đọc token)

@@ -11,10 +11,10 @@ from lxml import html
 from odoo.tests import TransactionCase, tagged
 
 from .common import find_view, need
+from odoo.addons.wujia_portal_layout.tests.src_paths import src
 
 TMPL = 'wujia_portal_layout.wj_surface_card'
-MOD_DIR = os.path.join(os.path.dirname(__file__), '..', '..')
-CSS_DIR = os.path.join(MOD_DIR, 'wujia_portal_layout', 'static', 'assets', 'css')
+CSS_DIR = src('wujia_portal_layout', 'static', 'assets', 'css')
 
 
 def _css(name):
@@ -76,7 +76,7 @@ class TestSurfaceCardLegacyFamilies(TransactionCase):
 
 
 def _mod_css(module, name):
-    with open(os.path.join(MOD_DIR, module, 'static', 'src', 'css', name),
+    with open(src(module, 'static', 'src', 'css', name),
               encoding='utf-8') as fh:
         return fh.read()
 

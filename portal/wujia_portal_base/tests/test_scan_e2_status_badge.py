@@ -20,8 +20,8 @@ from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
 
 from .common import legacy_vn_badge, load_vi
+from odoo.addons.wujia_portal_layout.tests.src_paths import src, src_modules, src_walk
 
-CUSTOM = os.path.normpath(os.path.join(os.path.dirname(__file__), '..', '..'))
 THAI_MODULES = ('wujia_portal_inspection',)
 
 # H2 (I10) — Bootstrap `badge` BA loại khỏi CMP-SB-001 (chờ CMP-TAG-001 / H4b), đếm đúng số dòng.
@@ -46,7 +46,7 @@ BOOTSTRAP_BADGE_EXCLUDED = {
 class TestStatusBadgeMapsAndCallSites(TransactionCase):
 
     def _read(self, rel):
-        with open(os.path.join(CUSTOM, rel), encoding='utf-8') as fh:
+        with open(src(rel), encoding='utf-8') as fh:
             return fh.read()
 
     # --- 2. một chủ sở hữu dáng -------------------------------------------
@@ -55,7 +55,7 @@ class TestStatusBadgeMapsAndCallSites(TransactionCase):
         shape = re.compile(r'\b(height|min-width|padding|border-radius|font-size|'
                            r'font-weight|line-height)\s*:')
         offenders = []
-        for root, _dirs, files in os.walk(CUSTOM):
+        for root, _dirs, files in src_walk():
             if '/static/' not in root or not root.endswith('css'):
                 continue
             for fn in files:
@@ -130,10 +130,10 @@ class TestStatusBadgeMapsAndCallSites(TransactionCase):
 
     def _portal_views(self):
         """Mọi view của module portal của mình (bỏ Khảo sát — code anh Thái)."""
-        for mod in sorted(os.listdir(CUSTOM)):
+        for mod in sorted(src_modules()):
             if not mod.startswith('wujia_portal_') or mod in THAI_MODULES:
                 continue
-            views = os.path.join(CUSTOM, mod, 'views')
+            views = src(mod, 'views')
             if not os.path.isdir(views):
                 continue
             for fn in sorted(os.listdir(views)):

@@ -8,9 +8,9 @@ import re
 
 from lxml import etree
 
-HERE = os.path.dirname(__file__)
-CUSTOM = os.path.abspath(os.path.join(HERE, '..', '..'))
-CSS_DIR = os.path.join(CUSTOM, 'wujia_portal_layout', 'static', 'assets', 'css')
+from odoo.addons.wujia_portal_layout.tests.src_paths import src, src_modules, src_rel, src_walk  # noqa: F401
+
+CSS_DIR = src('wujia_portal_layout', 'static', 'assets', 'css')
 
 
 def _css(name):
@@ -19,7 +19,7 @@ def _css(name):
 
 
 def _mod_css(module, name):
-    with open(os.path.join(CUSTOM, module, 'static', 'src', 'css', name), encoding='utf-8') as fh:
+    with open(src(module, 'static', 'src', 'css', name), encoding='utf-8') as fh:
         return fh.read()
 
 
@@ -81,5 +81,5 @@ def _chu_the(selector_part):
 
 def _view(module, filename):
     """Đọc dạng BYTES: file view có khai báo encoding, lxml từ chối chuỗi unicode."""
-    with open(os.path.join(CUSTOM, module, 'views', filename), 'rb') as fh:
+    with open(src(module, 'views', filename), 'rb') as fh:
         return etree.fromstring(fh.read())

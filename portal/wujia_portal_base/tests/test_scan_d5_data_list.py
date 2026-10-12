@@ -11,7 +11,7 @@ from lxml import html
 from odoo.tests import TransactionCase, tagged
 
 from odoo.addons.wujia_portal_base.tests.css_probe import (
-    CSS_DIR, CUSTOM, _chu_the, _css, _mod_css, _rule, _rule_in_media, _strip_comments,
+    CSS_DIR, src, _chu_the, _css, _mod_css, _rule, _rule_in_media, _strip_comments,
     _view,
 )
 
@@ -147,8 +147,8 @@ class TestDataListPcTable(TransactionCase):
 
     def test_hover_noti_khong_bi_zebra_nuot(self):
         """Zebra và hover cùng độ đặc hiệu (0,2,2) ⇒ row chẵn mất hover nếu không nâng."""
-        path = os.path.join(CUSTOM, 'wujia_portal_notification', 'static', 'src', 'css',
-                            'portal_notification.css')
+        path = src('wujia_portal_notification', 'static', 'src', 'css',
+                   'portal_notification.css')
         with open(path, encoding='utf-8') as fh:
             css = fh.read()
         body = _rule(css, '.wj-data-table.wj-pc-noti-table tbody tr:hover')
@@ -158,8 +158,8 @@ class TestDataListPcTable(TransactionCase):
 
     def test_skeleton_delivery_khop_row_that(self):
         """Skeleton giả hàng bảng — lệch số là loading nhảy hình khi đổ dữ liệu."""
-        path = os.path.join(CUSTOM, 'wujia_portal_delivery', 'static', 'src', 'css',
-                            'portal_delivery.css')
+        path = src('wujia_portal_delivery', 'static', 'src', 'css',
+                   'portal_delivery.css')
         with open(path, encoding='utf-8') as fh:
             body = _rule(fh.read(), '.wj-pc-dlv-skel-row')
         self.assertIsNotNone(body)

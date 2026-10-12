@@ -3,7 +3,6 @@
 Luồng trình duyệt thật (mở/Hủy/Esc/nền/double-click, 4 khổ) đo ở `scripts/qa/wj_order_confirm.py`
 và `scripts/qa/wj_resubmit.py`; ở đây khoá phần server + markup mà JS dựa vào.
 """
-import os
 import re
 from datetime import timedelta
 from unittest.mock import patch
@@ -12,15 +11,13 @@ from lxml import html as lhtml
 
 from odoo import fields
 from odoo.tests import tagged
+from odoo.addons.wujia_portal_layout.tests.src_paths import src
 
 from . import test_f6_cart_submit as f6  # module, không import class: loader sẽ chạy lại cả F6
 
-HERE = os.path.dirname(__file__)
-ADDONS = os.path.normpath(os.path.join(HERE, '..', '..'))
-
 
 def _read(*parts):
-    with open(os.path.join(ADDONS, *parts), encoding='utf-8') as fh:
+    with open(src(*parts), encoding='utf-8') as fh:
         return fh.read()
 
 

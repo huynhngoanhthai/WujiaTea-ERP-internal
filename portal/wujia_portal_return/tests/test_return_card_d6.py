@@ -15,6 +15,7 @@ import re
 
 from lxml import etree
 
+from odoo.modules.module import get_module_path
 from odoo.tests import TransactionCase, tagged
 
 from .common import load_vi
@@ -24,7 +25,7 @@ MOD = os.path.abspath(os.path.join(HERE, '..'))
 VIEW = os.path.join(MOD, 'views', 'portal_return_list.xml')
 CSS = os.path.join(MOD, 'static', 'src', 'css', 'portal_return.css')
 # E5b1: ruột card về CMP-LC-001 ⇒ clamp 2 dòng và lưới metadata nay khai ở khung.
-LC_CSS = os.path.join(os.path.dirname(MOD), 'wujia_portal_layout', 'static', 'assets',
+LC_CSS = os.path.join(get_module_path('wujia_portal_layout'), 'static', 'assets',
                       'css', '_components.css')
 
 

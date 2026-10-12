@@ -10,7 +10,7 @@ from odoo.exceptions import ValidationError
 from odoo.tests import HttpCase, TransactionCase, tagged
 
 from odoo.addons.wujia_portal_base.controllers.utils import _RateLimiter
-from odoo.addons.wujia_portal_base.tests.css_probe import CUSTOM
+from odoo.addons.wujia_portal_base.tests.css_probe import src
 from odoo.addons.wujia_portal_sale.controllers.portal import (
     ERROR_MESSAGES, LINE_INVALID_MESSAGES, QTY_MESSAGES, SUCCESS_MESSAGES,
 )
@@ -59,7 +59,7 @@ _BEFORE_LINE = {
 }
 _BEFORE_SUCCESS = {'order_submitted': "Đã gửi đơn đặt hàng thành công."}
 
-SALE_DIR = os.path.join(CUSTOM, 'wujia_portal_sale')
+SALE_DIR = src('wujia_portal_sale')
 JS_FILES = ('portal_order.js', 'portal_cart_sync.js')
 PAGES = ('portal_order_catalog.xml', 'portal_order_cart.xml', 'portal_order_product_detail.xml')
 

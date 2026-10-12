@@ -4,9 +4,9 @@ F5b dời khỏi `wujia_portal_layout`: khung không được biết màn nào. 
 D3f đều PHẢI kèm một rule scope trả dáng — bỏ rule đi thì component áp 18px và card
 52px/142px của Figma vỡ ngay mà build vẫn xanh.
 """
-import os
 
 from odoo.tests import TransactionCase, tagged
+from odoo.addons.wujia_portal_layout.tests.src_paths import src
 
 
 @tagged('post_install', '-at_install', 'wujia_card_header_d3')
@@ -22,8 +22,8 @@ class TestCardHeaderDebtD3f(TransactionCase):
         return self.env.ref(xmlid).arch_db
 
     def _css(self, module, name):
-        path = os.path.join(os.path.dirname(__file__), '..', '..', module,
-                            'static', 'src', 'css', name)
+        path = src(module,
+                   'static', 'src', 'css', name)
         with open(path, encoding='utf-8') as fh:
             return fh.read()
 
@@ -48,8 +48,8 @@ class TestCardHeaderDebtD3f(TransactionCase):
         # F4: nhãn 11px viết hoa trong thẻ số liệu (tổng "CÒN PHẢI TRẢ" + "THÔNG TIN
         # CHUYỂN KHOẢN") về biến thể chung `wj-card-header--eyebrow`; module không
         # còn tự khai cỡ chữ tiêu đề.
-        path = os.path.join(os.path.dirname(__file__), '..', '..', 'wujia_portal_debt',
-                            'views', 'portal_debt.xml')
+        path = src('wujia_portal_debt',
+                   'views', 'portal_debt.xml')
         with open(path, encoding='utf-8') as fh:
             xml = fh.read()
         self.assertIn("'wj-card-header--flush wj-card-header--eyebrow wj-debt-summary__hb'", xml)

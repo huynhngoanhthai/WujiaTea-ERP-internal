@@ -14,11 +14,11 @@ import re
 from lxml import etree, html
 
 from odoo.tests import TransactionCase, tagged
+from odoo.addons.wujia_portal_layout.tests.src_paths import src
 
 TMPL = 'wujia_portal_layout.wj_data_list'
 HERE = os.path.dirname(__file__)
 CSS_DIR = os.path.join(HERE, '..', 'static', 'assets', 'css')
-CUSTOM = os.path.abspath(os.path.join(HERE, '..', '..'))
 
 
 def _css(name):
@@ -27,7 +27,7 @@ def _css(name):
 
 
 def _mod_css(module, name):
-    with open(os.path.join(CUSTOM, module, 'static', 'src', 'css', name), encoding='utf-8') as fh:
+    with open(src(module, 'static', 'src', 'css', name), encoding='utf-8') as fh:
         return fh.read()
 
 
@@ -89,7 +89,7 @@ def _chu_the(selector_part):
 
 def _view(module, filename):
     """Đọc dạng BYTES: file view có khai báo encoding, lxml từ chối chuỗi unicode."""
-    with open(os.path.join(CUSTOM, module, 'views', filename), 'rb') as fh:
+    with open(src(module, 'views', filename), 'rb') as fh:
         return etree.fromstring(fh.read())
 
 

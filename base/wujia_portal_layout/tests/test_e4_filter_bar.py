@@ -17,11 +17,11 @@ from lxml import etree, html
 from odoo.tests import TransactionCase, tagged
 
 from .common import load_vi
+from odoo.addons.wujia_portal_layout.tests.src_paths import src
 
 TMPL = 'wujia_portal_layout.wj_filter_bar'
 HERE = os.path.dirname(__file__)
 CSS_DIR = os.path.join(HERE, '..', 'static', 'assets', 'css')
-CUSTOM = os.path.abspath(os.path.join(HERE, '..', '..'))
 
 
 def _css(name):
@@ -37,7 +37,7 @@ def _block(css, selector):
 
 
 def _view(module, filename):
-    with open(os.path.join(CUSTOM, module, 'views', filename), 'rb') as fh:
+    with open(src(module, 'views', filename), 'rb') as fh:
         return etree.fromstring(fh.read())
 
 

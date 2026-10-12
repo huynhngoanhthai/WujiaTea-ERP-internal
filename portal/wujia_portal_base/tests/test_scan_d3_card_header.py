@@ -3,12 +3,12 @@
 F5b dời khỏi `wujia_portal_layout`: khung không được biết màn nào. Hợp đồng render
 của component + rule dáng của chính khung vẫn ở layout.
 """
-import os
 import re
 
 from lxml import html
 
 from odoo.tests import TransactionCase, tagged
+from odoo.addons.wujia_portal_layout.tests.src_paths import src
 
 from .common import need
 
@@ -219,9 +219,8 @@ class TestCardHeaderD3eLayout(TransactionCase):
 
     def test_order_head_lead_shrinks_in_shared_css(self):
         # Rule gom về gốc `.wj-pc-order-head` (2 consumer: delivery D3c + history D3e).
-        path = os.path.join(os.path.dirname(__file__), '..', '..',
-                            'wujia_portal_layout', 'static', 'assets', 'css',
-                            '_pc_components.css')
+        path = src('wujia_portal_layout', 'static', 'assets', 'css',
+                   '_pc_components.css')
         with open(path, encoding='utf-8') as fh:
             css = fh.read()
         self.assertRegex(
@@ -234,8 +233,8 @@ class TestCardHeaderD3eLayout(TransactionCase):
         arch = self._arch('wujia_portal_return.portal_return_detail')
         # Từ D3 REVIEW, ch_class mở đầu bằng modifier chung rồi mới tới lớp module.
         self.assertEqual(arch.count("wj-card-header--sublabel wj-return-sublabel"), 4)
-        path = os.path.join(os.path.dirname(__file__), '..', '..', 'wujia_portal_return',
-                            'static', 'src', 'css', 'portal_return.css')
+        path = src('wujia_portal_return',
+                   'static', 'src', 'css', 'portal_return.css')
         with open(path, encoding='utf-8') as fh:
             css = fh.read()
         # Cỡ chữ đã về modifier dùng chung `wj-card-header--sublabel` (D3 REVIEW
@@ -261,7 +260,7 @@ class TestCardHeaderD3Review(TransactionCase):
     """
 
     def _read(self, rel):
-        path = os.path.join(os.path.dirname(__file__), '..', '..', rel)
+        path = src(rel)
         with open(path, encoding='utf-8') as fh:
             return fh.read()
 

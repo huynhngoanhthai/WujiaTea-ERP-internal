@@ -7,12 +7,12 @@ của nhóm Khảo sát theo luật cụm F §0 — nên chúng tạm trú ở �
 ⇒ Anh Thái dời trọn file này về `wujia_portal_inspection/tests/` khi tiện; nội dung
 assert giữ nguyên, không sửa gì thêm.
 """
-import os
 import re
 
 from odoo.tests import TransactionCase, tagged
 
 from .common import find_view, need
+from odoo.addons.wujia_portal_layout.tests.src_paths import src
 
 INSP = 'wujia_portal_inspection/static/src/css/portal_inspection.css'
 
@@ -42,13 +42,13 @@ class TestInspectionCardHeader(TransactionCase):
         return self.env.ref(xmlid).arch_db
 
     def _css(self, module, name):
-        path = os.path.join(os.path.dirname(__file__), '..', '..', module,
-                            'static', 'src', 'css', name)
+        path = src(module,
+                   'static', 'src', 'css', name)
         with open(path, encoding='utf-8') as fh:
             return fh.read()
 
     def _read(self, rel):
-        path = os.path.join(os.path.dirname(__file__), '..', '..', rel)
+        path = src(rel)
         with open(path, encoding='utf-8') as fh:
             return fh.read()
 
@@ -64,9 +64,8 @@ class TestInspectionCardHeader(TransactionCase):
         arch = self._arch('wujia_portal_inspection.portal_inspection_detail')
         for btn_id in ('pc_tab_btn_checklist', 'pc_tab_btn_exam'):
             self.assertIn(btn_id, arch)
-        js_path = os.path.join(os.path.dirname(__file__), '..', '..',
-                               'wujia_portal_inspection', 'static', 'src', 'js',
-                               'portal_inspection_detail.js')
+        js_path = src('wujia_portal_inspection', 'static', 'src', 'js',
+                      'portal_inspection_detail.js')
         with open(js_path, encoding='utf-8') as fh:
             js = fh.read()
         for btn_id in ('pc_tab_btn_checklist', 'pc_tab_btn_exam'):
@@ -157,11 +156,10 @@ def _has_card_token(arch):
     return False
 
 
-MOD_DIR = os.path.join(os.path.dirname(__file__), '..', '..')
 
 
 def _mod_css(module, name):
-    with open(os.path.join(MOD_DIR, module, 'static', 'src', 'css', name),
+    with open(src(module, 'static', 'src', 'css', name),
               encoding='utf-8') as fh:
         return fh.read()
 

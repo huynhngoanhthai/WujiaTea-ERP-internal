@@ -8,16 +8,15 @@ migrate rất dễ làm gãy, nên theo luật F5b chúng ở lại module Thi:
   · nút Chọn chỉ hiện với khoá CHƯA đóng và là control RIÊNG (LC-11);
   · ba trạng thái kết quả nhân sự vẫn ra badge compact.
 """
-import os
 import re
 
 from odoo.tests import TransactionCase, tagged
 
 from odoo.addons.wujia_exam.tests.common import load_vi
-from odoo.addons.wujia_portal_base.tests.css_probe import CUSTOM, _view
+from odoo.addons.wujia_portal_base.tests.css_probe import src, _view
 
-JS = os.path.join(CUSTOM, 'wujia_portal_exam', 'static', 'src', 'js',
-                  'portal_exam_wizard.js')
+JS = src('wujia_portal_exam', 'static', 'src', 'js',
+         'portal_exam_wizard.js')
 
 
 @tagged('post_install', '-at_install', 'wujia_list_card_e5')

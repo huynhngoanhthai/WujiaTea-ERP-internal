@@ -11,7 +11,7 @@ from odoo.tests import TransactionCase, tagged
 from odoo.addons.wujia_exam.tests.common import load_vi
 from odoo.addons.wujia_portal_base.controllers.utils import status_badge_for
 from odoo.addons.wujia_portal_base.tests.common import legacy_vn_badge
-from odoo.addons.wujia_portal_base.tests.css_probe import CUSTOM
+from odoo.addons.wujia_portal_base.tests.css_probe import src
 from odoo.addons.wujia_portal_exam.controllers.portal import (
     PC_PUBLISH_STATES, REG_STATES, SLOT_STATUS_LABELS, _WEEKDAYS, _course_meta,
 )
@@ -30,8 +30,8 @@ _NEUTRAL = ('unpublished', 'none', 'na')
 _TABLES = {'REG_STATES': REG_STATES,
            'PC_PUBLISH_STATES': PC_PUBLISH_STATES}
 
-JS_DIR = os.path.join(CUSTOM, 'wujia_portal_exam', 'static', 'src', 'js')
-XML = os.path.join(CUSTOM, 'wujia_portal_exam', 'views', 'portal_exam.xml')
+JS_DIR = src('wujia_portal_exam', 'static', 'src', 'js')
+XML = src('wujia_portal_exam', 'views', 'portal_exam.xml')
 
 
 @tagged('post_install', '-at_install', 'wujia_exam')

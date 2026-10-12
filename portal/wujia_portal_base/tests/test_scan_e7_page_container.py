@@ -20,7 +20,7 @@ from lxml import etree
 
 from odoo.tests import TransactionCase, tagged
 
-from odoo.addons.wujia_portal_base.tests.css_probe import CUSTOM, _strip_comments
+from odoo.addons.wujia_portal_base.tests.css_probe import src, src_modules, src_rel, _strip_comments
 
 SHELLS = ('content-wrapper', 'wujia-mpage', 'wj-mpage', 'wj-debt', 'wujia-home-wrapper',
           'wujia-mhome', 'wj-inspection-container')
@@ -88,10 +88,10 @@ MAX_WIDTH_OK = {
 def _portal_css():
     """Mọi file CSS của các module portal — kể cả Khảo sát (E7a đã đưa về container)."""
     out = []
-    for mod in sorted(os.listdir(CUSTOM)):
+    for mod in sorted(src_modules()):
         if not mod.startswith('wujia_portal_'):
             continue
-        for dirpath, _dirs, files in os.walk(os.path.join(CUSTOM, mod, 'static')):
+        for dirpath, _dirs, files in os.walk(src(mod, 'static')):
             if os.sep + 'lib' + os.sep in dirpath + os.sep:
                 continue
             for f in files:
@@ -99,7 +99,7 @@ def _portal_css():
                 if not f.endswith('.css') or f.endswith('.min.css'):
                     continue
                 path = os.path.join(dirpath, f)
-                rel = os.path.relpath(path, CUSTOM)
+                rel = src_rel(path)
                 if 'assets/css/' in rel and not f.startswith('_'):
                     continue
                 with open(path, encoding='utf-8') as fh:
@@ -150,8 +150,8 @@ class TestPageContainerScan(TransactionCase):
     def test_vo_route_khong_gan_utility_le(self):
         """Lề ngang bằng class Bootstrap trên vỏ (`p-3`, `px-2`…) cũng là lề thứ hai."""
         hits = []
-        for mod in sorted(os.listdir(CUSTOM)):
-            vdir = os.path.join(CUSTOM, mod, 'views')
+        for mod in sorted(src_modules()):
+            vdir = src(mod, 'views')
             if not mod.startswith('wujia_portal_') or not os.path.isdir(vdir):
                 continue
             for fname in os.listdir(vdir):
@@ -189,7 +189,7 @@ class TestPageContainerScan(TransactionCase):
         self.assertFalse(hits, 'đáy trang phải thuộc PageContainer:\n  ' + '\n  '.join(hits))
 
     def _template(self, module, fname, tid):
-        tree = etree.parse(os.path.join(CUSTOM, module, 'views', fname))
+        tree = etree.parse(src(module, 'views', fname))
         tpl = tree.xpath('//template[@id="%s"]' % tid)
         self.assertEqual(len(tpl), 1, '%s/%s: không thấy %s' % (module, fname, tid))
         return tpl[0]
@@ -208,8 +208,8 @@ class TestPageContainerScan(TransactionCase):
         """Form/chi tiết/Home/Tài khoản giữ lề 16 — bật `list` ngoài sổ là lệch chốt 24/09."""
         so = {tid for _m, _f, tid in LIST_ROUTES}
         thua = []
-        for mod in sorted(os.listdir(CUSTOM)):
-            vdir = os.path.join(CUSTOM, mod, 'views')
+        for mod in sorted(src_modules()):
+            vdir = src(mod, 'views')
             if not mod.startswith('wujia_portal_') or not os.path.isdir(vdir):
                 continue
             for fname in os.listdir(vdir):
@@ -229,8 +229,8 @@ class TestPageContainerScan(TransactionCase):
         return None
 
     def _all_templates(self):
-        for mod in sorted(os.listdir(CUSTOM)):
-            vdir = os.path.join(CUSTOM, mod, 'views')
+        for mod in sorted(src_modules()):
+            vdir = src(mod, 'views')
             if not mod.startswith('wujia_portal_') or not os.path.isdir(vdir):
                 continue
             for fname in sorted(os.listdir(vdir)):

@@ -2,7 +2,6 @@
 
 F5b dời khỏi `wujia_portal_layout`: guard này kiểm chính màn của module này.
 """
-import os
 import re
 
 from lxml import html
@@ -10,7 +9,7 @@ from lxml import html
 from odoo.tests import TransactionCase, tagged
 
 from odoo.addons.wujia_portal_base.tests.css_probe import (
-    CSS_DIR, CUSTOM, _chu_the, _css, _mod_css, _rule, _rule_in_media, _strip_comments,
+    CSS_DIR, src, _chu_the, _css, _mod_css, _rule, _rule_in_media, _strip_comments,
     _view,
 )
 
@@ -31,8 +30,8 @@ class TestDataListDebt(TransactionCase):
         return _view(*self.VIEW)
 
     def _css(self):
-        with open(os.path.join(CUSTOM, 'wujia_portal_debt', 'static', 'src', 'css',
-                               'portal_debt.css'), encoding='utf-8') as fh:
+        with open(src('wujia_portal_debt', 'static', 'src', 'css',
+                      'portal_debt.css'), encoding='utf-8') as fh:
             return fh.read()
 
     def _calls(self, variant=None):

@@ -5,12 +5,11 @@ Trước đây giỏ hàng, trang đặt hàng và trang thông báo PC mỗi n�
 bằng style inline: ô của giỏ ghim `top:20px; right:20px` nên đè lên header mobile.
 """
 import glob
-import os
 import re
 
 from odoo.tests import TransactionCase, tagged
 
-from odoo.addons.wujia_portal_base.tests.css_probe import CUSTOM
+from odoo.addons.wujia_portal_base.tests.css_probe import src, src_modules, src_rel
 
 CALLERS = (('wujia_portal_sale', 'portal_cart_sync.js'),
            ('wujia_portal_sale', 'portal_order.js'),
@@ -21,17 +20,18 @@ CALLERS = (('wujia_portal_sale', 'portal_cart_sync.js'),
 class TestScanToast(TransactionCase):
 
     def test_no_screen_builds_its_own_floating_box(self):
-        files = glob.glob(os.path.join(CUSTOM, 'wujia_portal_*', 'static', 'src', 'js', '*.js'))
+        files = [f for mod in src_modules() if mod.startswith('wujia_portal_')
+                 for f in glob.glob(src(mod, 'static', 'src', 'js', '*.js'))]
         self.assertGreater(len(files), 10)
         bad = []
         for path in files:
             with open(path, encoding='utf-8') as fh:
                 if re.search(r'position\s*:\s*fixed', fh.read()):
-                    bad.append(os.path.relpath(path, CUSTOM))
+                    bad.append(src_rel(path))
         self.assertFalse(bad, 'JS tự dựng ô position:fixed — dùng window.wjToast: %s' % bad)
 
     def test_callers_use_shared_toast(self):
         for module, name in CALLERS:
             with self.subTest(file=name):
-                with open(os.path.join(CUSTOM, module, 'static', 'src', 'js', name), encoding='utf-8') as fh:
+                with open(src(module, 'static', 'src', 'js', name), encoding='utf-8') as fh:
                     self.assertIn('window.wjToast(', fh.read())

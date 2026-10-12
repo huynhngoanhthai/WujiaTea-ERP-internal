@@ -11,8 +11,8 @@ import re
 from odoo.tests import TransactionCase, tagged
 
 from .test_e5_list_card import _block, _css, _resolved
+from odoo.addons.wujia_portal_layout.tests.src_paths import src, src_modules
 
-CUSTOM = os.path.normpath(os.path.join(os.path.dirname(__file__), '..', '..'))
 
 
 def _decl(block, prop):
@@ -92,10 +92,10 @@ class TestListCardTypographyI10(TransactionCase):
         """'Không tạo style riêng theo route': module màn chỉ được tô MÀU ruột ListCard."""
         typo = re.compile(r'\b(font-size|font-weight|line-height|font-family)\s*:')
         offenders = []
-        for mod in sorted(os.listdir(CUSTOM)):
+        for mod in sorted(src_modules()):
             if not mod.startswith('wujia_portal_') or mod in ('wujia_portal_layout', 'wujia_portal_inspection'):
                 continue
-            for root, _dirs, files in os.walk(os.path.join(CUSTOM, mod, 'static')):
+            for root, _dirs, files in os.walk(src(mod, 'static')):
                 for fn in files:
                     if not fn.endswith('.css'):
                         continue
