@@ -68,12 +68,12 @@ chốt thêm trước khi áp:
 - [~] `deploy/staging` + `deploy/production` đã có trên origin (12/10); default branch + branch protection chưa kiểm.
 - [ ] `.github/workflows/deploy.yml`: đang `on: push main`, runner self-hosted trên máy Windows cũ, danh sách
       module cứng ⇒ viết lại cho máy aaPanel, mỗi nhánh deploy một job.
-- [x] Cách deploy máy mới đã khảo sát (aaPanel kéo code → hook → `deploy.sh`), ghi ở §6 compact summary + §8 dưới đây.
+- [x] Cách deploy máy mới đã khảo sát và đã chạy một lần (bấm *Deploy latest* trong aaPanel → hook → `deploy.sh`; merge không tự deploy), ghi ở §6 compact summary + §8 dưới đây.
 - [ ] `~/wujia-devkit/commands/wujia-end-sprint.md`: đang ghi `git push origin master`.
 - [ ] Nightly agent `ba_spec/qa_nightly/agent_prompt_interactive.md`: "branch riêng từ main", "push main".
 - [ ] `.env.local` biến `GITHUB_REMOTE`.
 - [ ] Viết checklist dựng máy mới (checklist + script dựng máy Windows cũ đã xoá 12/10).
-- [x] Thiết kế lại cấu trúc source — ADR-028 (chapter 82), nhánh `feature/source-restructure` đã push; PR vào `deploy/staging` chưa mở (máy Mac chưa đăng nhập `gh`), mở tay rồi chờ merge.
+- [x] Thiết kế lại cấu trúc source — ADR-028 (chapter 82), PR #7 merge vào `deploy/staging` (`f3107562`) và deploy lên UAT 12/10 22:23.
 
 ## 5. Bảo mật
 
@@ -121,8 +121,9 @@ chốt thêm trước khi áp:
 - `addons_path` của `odoo-dev`: `odoo19/addons`, `themes`, `themes/oca_queue`, `custom`, và
   `/www/wwwroot/wujia-uat.tipscode.io/odoo_modules` (thư mục của instance khác, đứng cuối nên module trùng tên lấy bản của repo này).
 - `server_wide_modules = base,web` (máy dev local có thêm `queue_job`) — chưa đối chiếu.
-- Deploy: aaPanel kéo code, git hook (`/www/server/git_hooks/dev.wujiatea.com.vn/post-merge`, `post-checkout`) gọi
-  `deploy.sh --no-pull`. `deploy.sh` nằm trong thư mục source nhưng ngoài git; dòng 223 dò module đổi bằng `^(custom|themes)/`.
+- Deploy: bấm tay *Deploy latest* trong Git Manager của site (Automatic deployment đang Off, webhook của site chưa từng được gọi); aaPanel kéo code, git hook (`/www/server/git_hooks/dev.wujiatea.com.vn/post-merge`, `post-checkout`) gọi
+  `deploy.sh --no-pull`. `deploy.sh` nằm trong thư mục source nhưng ngoài git; dòng 222 dò module đổi (từ 12/10 gọi `scripts/wj_paths.py --changed-modules`).
+- Lỗ hổng của đường *Deploy latest*: hook `post-merge` không truyền commit cũ ⇒ `OLD_HEAD = NEW_HEAD`, `deploy.sh` rơi xuống `git diff-tree HEAD`; HEAD là merge commit thì kết quả rỗng ⇒ chỉ restart, không `-u`. Sửa gọn: trong `deploy.sh`, khi hai giá trị bằng nhau thì lấy `ORIG_HEAD` làm commit cũ. Chưa sửa (script của anh Thái).
 - `deploy.sh` chứa webhook Discord viết thẳng trong file — nên chuyển sang `deploy.env`.
 - Huipeng là một bản clone cùng bố cục cũ (`custom/` + `themes/`): ứng viên đầu tiên chuyển sang bố cục ADR-028 + `addons/`.
-- Việc phải làm trên máy chủ cho ADR-028: chapter 82 §Máy chủ.
+- ADR-028 đã áp trên máy chủ 12/10: `addons_path` thêm 16 folder mới (giữ các mục cũ, 3 mục ngoài bố cục mới đứng cuối), bản gốc `config/odoo.conf.bak-adr028` + `deploy.sh.bak-adr028`. `custom/` và `themes/oca_queue` chỉ còn vỏ `__pycache__`.

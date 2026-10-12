@@ -2,8 +2,8 @@
 \label{chap:adr28}
 \sloppy
 
-\emph{\textbf{Trạng thái: đã áp trên nhánh \texttt{feature/source-restructure}, PR vào \texttt{deploy/staging}
-chờ merge.} Máy chủ chưa đổi gì; các bước đổi ở \S\ref{sec:adr28-deploy}. ADR-027 (chapter 74) trả lời
+\emph{\textbf{Trạng thái: đã lên UAT 12/10/2026} (PR \#7 vào \texttt{deploy/staging}, commit \texttt{f3107562}).
+Các bước đã làm trên máy chủ ở \S\ref{sec:adr28-deploy}. ADR-027 (chapter 74) trả lời
 ``module phụ thuộc nhau thế nào''; ADR này trả lời ``module nằm ở thư mục nào''.}
 
 \section{Bối cảnh}
@@ -160,7 +160,7 @@ Tiến trình & systemd \texttt{odoo-dev}, user \texttt{www}, cổng 8019 (webso
 File cấu hình & \texttt{config/odoo.conf} trong thư mục source (không nằm trong git) \\
 \texttt{addons\_path} hiện tại & \texttt{odoo19/addons}, \texttt{themes}, \texttt{themes/oca\_queue}, \texttt{custom},
   và một thư mục ngoài repo: \texttt{/www/wwwroot/wujia-uat.tipscode.io/odoo\_modules} \\
-Deploy & aaPanel kéo code, git hook \texttt{post-merge} gọi \texttt{deploy.sh -{}-no-pull}: dò module đổi, chạy
+Deploy & bấm \emph{Deploy latest} trong Git Manager của site (Automatic deployment: Off); aaPanel kéo code, git hook \texttt{post-merge} gọi \texttt{deploy.sh -{}-no-pull}: dò module đổi, chạy
   \texttt{-u}, khởi động lại, gọi \texttt{/web/login}, báo Discord \\
 Hai instance còn lại & \texttt{odoo-uat} (DB \texttt{wujia\_mn}, cổng 8029, repo khác, thư mục
   \texttt{odoo\_modules}) và \texttt{odoo-huipeng} (DB \texttt{huipeng\_db}, cổng 8059, repo
@@ -169,25 +169,29 @@ Hai instance còn lại & \texttt{odoo-uat} (DB \texttt{wujia\_mn}, cổng 8029,
 \end{tabularx}
 \end{center}
 
-Hai điều rút ra. Một: khởi động lại \texttt{odoo-dev} không đụng hai instance kia. Hai: \textbf{merge PR là deploy
-ngay}, vì aaPanel tự kéo code và gọi \texttt{deploy.sh}. Nếu lúc đó \texttt{addons\_path} còn trỏ \texttt{custom/} thì
-Odoo khởi động lại mà không thấy module Wujia nào.
+Hai điều rút ra. Một: khởi động lại \texttt{odoo-dev} không đụng hai instance kia. Hai: \textbf{merge PR không tự deploy}; phải bấm \emph{Deploy latest}. Nếu lúc bấm \texttt{addons\_path} còn trỏ
+\texttt{custom/} thì Odoo khởi động lại mà không thấy module Wujia nào, nên hai chỗ dưới đây phải sửa trước.
 
-\subsection{Việc phải làm trên máy chủ, theo thứ tự}
+\subsection{Việc đã làm trên máy chủ (12/10/2026), theo thứ tự}
 
 \begin{enumerate}[nosep]
-\item \textbf{Trước khi merge}, sửa dòng \texttt{addons\_path} trong
+\item Sửa dòng \texttt{addons\_path} trong
   \texttt{/www/wwwroot/dev.wujiatea.com.vn/config/odoo.conf}: thêm 16 thư mục mới vào, \emph{giữ nguyên} các mục
   cũ. Odoo bỏ qua thư mục chưa tồn tại (chỉ ghi cảnh báo), nên dòng này đúng cả trước lẫn sau khi merge, và không cần
   khởi động lại ở bước này. Giá trị đầy đủ nằm trong mô tả PR.
-\item \textbf{Trước khi merge}, sửa dòng dò module trong \texttt{deploy.sh} (dòng 223) thành:
+\item Sửa dòng dò module trong \texttt{deploy.sh} (dòng 222) thành:
   \texttt{CHANGED\_MODULES=\$("\$PYTHON\_BIN" scripts/wj\_paths.py -{}-changed-modules "\$OLD\_HEAD" "\$NEW\_HEAD")}
-\item Merge PR. aaPanel kéo code, \texttt{deploy.sh} nâng cấp các module có đổi nội dung rồi khởi động lại.
-\item Kiểm: \texttt{/web/login} và \texttt{/portal/login} trả 200, log khởi động không có lỗi thiếu module.
-\item Sau khi ổn: bỏ hai mục cũ (\texttt{themes/oca\_queue}, \texttt{custom}) khỏi \texttt{addons\_path}.
+\item Merge PR \#7, bấm \emph{Deploy latest}. Máy chủ từ \texttt{ded91f1b} lên \texttt{f3107562}, \texttt{odoo-dev} khởi động lại.
+  \texttt{deploy.sh} \emph{không} chạy \texttt{-u}: ở đường này \texttt{OLD\_HEAD = NEW\_HEAD} và HEAD là merge commit, nên
+  dò ra rỗng. PR này chỉ đổi Python, \texttt{.po} và hai số version nên không cần \texttt{-u}; PR có đổi view, data,
+  security hay migration thì phải \texttt{-u} tay cho tới khi \texttt{deploy.sh} lấy \texttt{ORIG\_HEAD} làm commit cũ.
+\item Đã kiểm từ ngoài: \texttt{/web/login} và \texttt{/portal/login} trả 200, file tĩnh của 13 thư mục trả 200, log sau
+  khởi động lại không có ERROR, module nạp từ đường dẫn mới.
+\item Còn lại: \texttt{custom/} và \texttt{themes/oca\_queue} trên máy chủ chỉ còn vỏ \texttt{\_\_pycache\_\_}; xoá rồi bỏ hai
+  mục đó khỏi \texttt{addons\_path}.
 \end{enumerate}
 
-Lùi lại: trả \texttt{odoo.conf} và \texttt{deploy.sh} về bản sao lưu, \texttt{git reset} về commit cũ, khởi động lại.
+Lùi lại: trả \texttt{odoo.conf} và \texttt{deploy.sh} về bản sao lưu (đuôi \texttt{.bak-adr028}, nằm cạnh file), \texttt{git reset} về commit cũ, khởi động lại.
 Không có gì trong DB phải lùi.
 
 Hai nhánh đang mở khác (\texttt{jules}, việc dở của anh Thái) phải merge \texttt{deploy/staging} về sau khi PR vào.
