@@ -100,15 +100,18 @@ class MetabaseDashboard(models.Model):
 
     def _sync_dynamic_menu(self):
         """Synchronize ir.actions.client and ir.ui.menu records for dashboards."""
+        menus_to_unlink = self.env['ir.ui.menu']
+        actions_to_unlink = self.env['ir.actions.client']
+        records_to_clear = self.env['metabase.dashboard']
+
         for rec in self:
             if not rec.show_under_menu_id or not rec.active:
-                if rec.menu_id:
-                    menu = rec.menu_id
-                    action = rec.action_id
-                    rec.sudo().write({'menu_id': False, 'action_id': False})
-                    menu.sudo().unlink()
-                    if action:
-                        action.sudo().unlink()
+                if rec.menu_id or rec.action_id:
+                    records_to_clear |= rec
+                    if rec.menu_id:
+                        menus_to_unlink |= rec.menu_id
+                    if rec.action_id:
+                        actions_to_unlink |= rec.action_id
                 continue
 
             # 1. Create or update ir.actions.client
@@ -142,3 +145,10 @@ class MetabaseDashboard(models.Model):
             else:
                 menu = self.env['ir.ui.menu'].sudo().create(menu_vals)
                 rec.sudo().write({'menu_id': menu.id})
+
+        if records_to_clear:
+            records_to_clear.sudo().write({'menu_id': False, 'action_id': False})
+        if menus_to_unlink:
+            menus_to_unlink.sudo().unlink()
+        if actions_to_unlink:
+            actions_to_unlink.sudo().unlink()
