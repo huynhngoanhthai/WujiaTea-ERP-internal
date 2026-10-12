@@ -3,7 +3,7 @@
 Chạy:
   Windows PowerShell:
     Get-Content scripts\\check_modules.py | python odoo19\\odoo-bin shell `
-        -c config\\odoo-server.conf -d wujia_tea_19 --no-http
+        -c config\\odoo.conf -d wujia_tea_19 --no-http
 
   Linux/macOS:
     python odoo19/odoo-bin shell -c config/odoo.conf -d wujia_tea_19 --no-http \\

@@ -5,7 +5,7 @@
 Luồng (giữ nguyên thiết kế gốc của anh Thái — phần này đúng):
     odoo-bin i18n export -l pot   → lấy .pot THẬT từ DB (có cả model_terms:ir.ui.view
                                      nên dịch được cả chữ trong template QWeb)
-    → điền msgstr từ glossary CSV → ghi .po + .pot vào custom/<mod>/i18n/
+    → điền msgstr từ glossary CSV → ghi .po + .pot vào <mod>/i18n/
     → odoo-bin i18n import -w     → nạp vào DB
 
 Khác bản gốc ở 4 chỗ QUAN TRỌNG:
@@ -32,15 +32,17 @@ import sys
 import tempfile
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CUSTOM_DIR = os.path.join(BASE_DIR, 'custom')
-ODOO_BIN = os.path.join(BASE_DIR, 'odoo19', 'odoo-bin')
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import wj_paths  # noqa: E402
+
+ODOO_BIN = str(wj_paths.odoo_dir() / 'odoo-bin')
 DEFAULT_CONFIG = os.path.join(BASE_DIR, 'config', 'odoo.conf')
 DEFAULT_GLOSSARY = os.path.join(BASE_DIR, 'docs', 'i18n-glossary.csv')
 
 # Đọc glossary / ghi .po dùng chung với module wujia_i18n (J-T4) — một bản code duy nhất.
-# Nạp theo đường dẫn để không kéo theo odoo (custom/wujia_i18n/__init__.py import models).
+# Nạp theo đường dẫn để không kéo theo odoo (wujia_i18n/__init__.py import models).
 _spec = importlib.util.spec_from_file_location(
-    'wj_po_writer', os.path.join(CUSTOM_DIR, 'wujia_i18n', 'tools', 'po_writer.py'))
+    'wj_po_writer', str(wj_paths.module_path('wujia_i18n') / 'tools' / 'po_writer.py'))
 po_writer = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(po_writer)
 LANG_COLUMN = po_writer.LANG_COLUMN
@@ -62,10 +64,8 @@ def read_conf(path):
 
 
 def all_custom_modules():
-    return sorted(
-        d for d in os.listdir(CUSTOM_DIR)
-        if os.path.isfile(os.path.join(CUSTOM_DIR, d, '__manifest__.py'))
-    )
+    dirs = [d for d in wj_paths.ADDON_DIRS if d not in ('themes', 'third_party/oca_queue')]
+    return [p.name for p in wj_paths.iter_modules(dirs=dirs)]
 
 
 def export_pot(module, python, config, db, out_path):
@@ -146,9 +146,10 @@ def main():
     written, failed = [], []
     try:
         for mod in modules:
-            mod_dir = os.path.join(CUSTOM_DIR, mod)
-            if not os.path.isdir(mod_dir):
-                die(f"không có module {mod} trong custom/")
+            mod_dir = wj_paths.module_path(mod)
+            if not mod_dir:
+                die(f"không có module {mod}")
+            mod_dir = str(mod_dir)
             print(f"\n[{mod}]")
             pot_tmp = export_pot(mod, args.python, args.config, db,
                                  os.path.join(tmp, f'{mod}.pot'))

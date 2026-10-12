@@ -23,7 +23,8 @@ import sys
 from lxml import etree
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-CUSTOM = os.path.join(ROOT, 'custom')
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import wj_paths  # noqa: E402
 
 # Hai form của nhóm Khảo sát là defer (luật 08/09); form cỡ trang của
 # Pagination (E3) không phải Filter. Vẫn liệt kê, chỉ gắn cờ.
@@ -31,7 +32,7 @@ DEFER_MODULES = ('wujia_portal_inspection', 'wujia_franchise_inspection')
 NOT_FILTER_CLASSES = ('wj-pagination__size-form',)
 
 # Định nghĩa component, không phải call site.
-COMPONENT_FILES = ('custom/wujia_portal_layout/views/wj_filter_bar.xml',)
+COMPONENT_FILES = ('base/wujia_portal_layout/views/wj_filter_bar.xml',)
 
 CONTROL_TAGS = ('input', 'select', 'textarea')
 
@@ -114,7 +115,7 @@ def scan_file(path):
                 reset = _text(a)
         classes = _classes(form)
         rel = os.path.relpath(path, ROOT)
-        module = rel.split(os.sep)[1] if rel.startswith('custom' + os.sep) else '?'
+        module = wj_paths.module_of(path) or '?'
         flag = ''
         if rel in COMPONENT_FILES:
             flag = 'component'
@@ -143,10 +144,11 @@ def scan_file(path):
 
 def collect():
     rows = []
-    for base, _dirs, files in os.walk(CUSTOM):
-        for fn in sorted(files):
-            if fn.endswith('.xml') and '/static/' not in base.replace(os.sep, '/'):
-                rows.extend(scan_file(os.path.join(base, fn)))
+    for mod_dir in wj_paths.iter_modules():
+        for base, _dirs, files in os.walk(mod_dir):
+            for fn in sorted(files):
+                if fn.endswith('.xml') and '/static/' not in base.replace(os.sep, '/'):
+                    rows.extend(scan_file(os.path.join(base, fn)))
     rows.sort(key=lambda r: (r['file'], r['line']))
     return rows
 

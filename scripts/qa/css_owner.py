@@ -6,7 +6,7 @@
     python3 scripts/qa/css_owner.py --layout-domain --overrides --json out.json
     python3 scripts/qa/css_owner.py --who wujia-msheet-item     # class này dùng ở đâu
 
-Luật phân loại (--layout-domain), mỗi nhóm class (gốc BEM: bỏ `__x`, `--x`) khai trong custom/wujia_portal_layout/static/assets/css/_*.css:
+Luật phân loại (--layout-domain), mỗi nhóm class (gốc BEM: bỏ `__x`, `--x`) khai trong wujia_portal_layout/static/assets/css/_*.css:
   - tập module dùng = module portal (khác layout) có class đó trong view XML (lxml: mọi thuộc tính
     *class*, t-value/t-att-* chứa chuỗi), JS static/src, hoặc chuỗi Python controllers/;
   - dùng ở ≥2 module  ⇒ `component` (giữ ở layout);
@@ -29,9 +29,10 @@ from collections import defaultdict
 from lxml import etree
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
-CUSTOM = ROOT / 'custom'
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
+import wj_paths  # noqa: E402
 LAYOUT = 'wujia_portal_layout'
-LAYOUT_CSS = CUSTOM / LAYOUT / 'static/assets/css'
+LAYOUT_CSS = wj_paths.module_path(LAYOUT) / 'static/assets/css'
 THAI = {'wujia_portal_inspection'}
 
 TOKEN = re.compile(r'(?<![\w-])((?:wj|wujia)-[A-Za-z0-9_-]*)')
@@ -85,7 +86,7 @@ def bem_root(cls):
 # ---------- nơi dùng ----------
 
 def module_of(path):
-    return path.relative_to(CUSTOM).parts[0]
+    return wj_paths.module_of(path)
 
 
 def tokens_in(s):
@@ -95,7 +96,7 @@ def tokens_in(s):
 def usage_index():
     """{module: set(token)} — token kết thúc bằng '-' là tiền tố động."""
     used = defaultdict(set)
-    for mod_dir in sorted(CUSTOM.glob('wujia_portal_*')):
+    for mod_dir in wj_paths.iter_modules('wujia_portal_*'):
         mod = mod_dir.name
         for xml in mod_dir.glob('views/**/*.xml'):
             try:
@@ -180,7 +181,7 @@ def subject(sel):
 def overrides(domain):
     shared = {c for r in domain if r['owner'] in ('component', 'khung') for c in r['members']}
     out = []
-    for mod_dir in sorted(CUSTOM.glob('wujia_portal_*')):
+    for mod_dir in wj_paths.iter_modules('wujia_portal_*'):
         mod = mod_dir.name
         if mod == LAYOUT or mod in THAI:
             continue

@@ -7,7 +7,8 @@ import os
 import re
 import sys
 
-CUSTOM = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'custom')
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import wj_paths  # noqa: E402
 MOD_RE = re.compile(r'wujia_(?:portal|franchise|mobile)_[a-z_]+|wujia_(?:core|sale|fleet|delivery|account|franchise)\b')
 ASSERT_RE = re.compile(r'self\.assert\w*\(|self\.fail\(')
 DB_RE = re.compile(r'_arch\(|ir\.ui\.view|self\.env|url_open|_render\(')
@@ -85,12 +86,11 @@ def main():
 
     mods = args.modules
     if args.all_portal:
-        mods = sorted(m for m in os.listdir(CUSTOM)
-                      if m.startswith('wujia_') and os.path.isdir(os.path.join(CUSTOM, m, 'tests')))
+        mods = [p.name for p in wj_paths.iter_modules('wujia_*') if (p / 'tests').is_dir()]
 
     rows = []
     for mod in mods:
-        tests_dir = os.path.join(CUSTOM, mod, 'tests')
+        tests_dir = os.path.join(str(wj_paths.module_path(mod) or mod), 'tests')
         if not os.path.isdir(tests_dir):
             print(f'!! {mod}: không có tests/', file=sys.stderr)
             continue

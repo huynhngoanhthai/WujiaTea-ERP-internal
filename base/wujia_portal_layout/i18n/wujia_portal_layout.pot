@@ -1,0 +1,1247 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* wujia_portal_layout
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-05 12:44+0000\n"
+"PO-Revision-Date: 2026-10-05 12:44+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_pagination
+msgid "/ page"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "1,340,000 VND"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "2,450,000 VND"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "4,120,000 VND"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "860,000 VND"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "<i class=\"feather icon-download\"/>Export"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.mobile_bottomnav
+msgid ""
+"<i class=\"feather icon-grid\"/>\n"
+"                <span class=\"wujia-mhome-nav-label\">More</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_account_layout
+msgid ""
+"<i class=\"feather icon-lock\"/>\n"
+"                                <span>Change password</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_acct_menu_items
+msgid ""
+"<i class=\"feather icon-log-out\" aria-hidden=\"true\"/>\n"
+"                Sign out"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_account_layout
+msgid ""
+"<i class=\"feather icon-log-out\"/>\n"
+"                            <span>Sign out</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "<i class=\"feather icon-plus\"/>Create"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "<i class=\"feather icon-search\"/>Find"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_acct_menu_items
+msgid ""
+"<i class=\"feather icon-user\" aria-hidden=\"true\"/>\n"
+"                Account information"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_account_layout
+msgid ""
+"<i class=\"feather icon-user\"/>\n"
+"                                <span>Account information</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.forgot_pass_form
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.login_2fa_form
+msgid "<i class=\"wj-auth-note__icon wj-auth-note__icon--chip\">i</i>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "<select class=\"wj-pc-control\"><option>Select status</option></select>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_acct_menu_items
+msgid "<span class=\"wj-acct-menu__label\" aria-hidden=\"true\">Language</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_page_header
+msgid "<span class=\"wj-page-header__back-label\">Back</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_pagination
+msgid ""
+"<span class=\"wj-pagination__chev\" aria-hidden=\"true\">‹</span>\n"
+"                    <span class=\"wj-pagination__label\">Previous page</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_pagination
+msgid ""
+"<span class=\"wj-pagination__label\">Next page</span>\n"
+"                    <span class=\"wj-pagination__chev\" aria-hidden=\"true\">›</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.profile_page
+msgid ""
+"<span class=\"wj-pc-acct-field__label\">Account status</span>\n"
+"                                <span class=\"wj-pc-acct-field__value wj-pc-acct-field__value--chip\">\n"
+"                                    <span class=\"wj-status-badge wj-status-badge--success\">Enabled</span>\n"
+"                                </span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.profile_page
+msgid "<span class=\"wj-pc-acct-field__label\">Current store</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.profile_page
+msgid "<span class=\"wj-pc-acct-field__label\">Email</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.profile_page
+msgid "<span class=\"wj-pc-acct-field__label\">Full name</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.profile_page
+msgid "<span class=\"wj-pc-acct-field__label\">Phone number</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.profile_page
+msgid "<span class=\"wj-pc-acct-field__label\">Portal role</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.profile_page
+msgid "<span class=\"wj-pc-acct-headcard__box-label\">Current store</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.profile_page
+msgid ""
+"<span class=\"wj-pc-acct-headcard__box-sub\">Data is shown for the active "
+"store</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid ""
+"<span class=\"wj-pc-metric-card__icon wj-pc-metric-card__icon--blue\"><i class=\"feather icon-shopping-bag\"/></span>\n"
+"                            <span class=\"wj-pc-metric-card__body\">\n"
+"                                <span class=\"wj-pc-metric-card__label\">Today's orders</span>\n"
+"                                <span class=\"wj-pc-metric-card__value\">12</span>\n"
+"                            </span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid ""
+"<span class=\"wj-pc-metric-card__icon wj-pc-metric-card__icon--green\"><i class=\"feather icon-check-circle\"/></span>\n"
+"                            <span class=\"wj-pc-metric-card__body\">\n"
+"                                <span class=\"wj-pc-metric-card__label\">Finished</span>\n"
+"                                <span class=\"wj-pc-metric-card__value\">36</span>\n"
+"                            </span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid ""
+"<span class=\"wj-pc-metric-card__icon wj-pc-metric-card__icon--red\"><i class=\"feather icon-alert-circle\"/></span>\n"
+"                            <span class=\"wj-pc-metric-card__body\">\n"
+"                                <span class=\"wj-pc-metric-card__label\">Needs attention</span>\n"
+"                                <span class=\"wj-pc-metric-card__value\">03</span>\n"
+"                            </span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid ""
+"<span class=\"wj-pc-metric-card__icon wj-pc-metric-card__icon--yellow\"><i class=\"feather icon-clock\"/></span>\n"
+"                            <span class=\"wj-pc-metric-card__body\">\n"
+"                                <span class=\"wj-pc-metric-card__label\">Processing</span>\n"
+"                                <span class=\"wj-pc-metric-card__value\">08</span>\n"
+"                            </span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid ""
+"<span class=\"wj-status-badge wj-status-badge--pending\">Awaiting "
+"confirmation</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "<span class=\"wj-status-badge wj-status-badge--pending\">Submitted</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid ""
+"<span class=\"wj-status-badge wj-status-badge--pending\">Submitted</span>\n"
+"                        <span class=\"wj-status-badge wj-status-badge--processing\">Delivering</span>\n"
+"                        <span class=\"wj-status-badge wj-status-badge--success\">Finished</span>\n"
+"                        <span class=\"wj-status-badge wj-status-badge--pending\">Awaiting confirmation</span>\n"
+"                        <span class=\"wj-status-badge wj-status-badge--danger\">Cancelled</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid ""
+"<span class=\"wj-status-badge wj-status-badge--"
+"processing\">Delivering</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.profile_page
+msgid "<span class=\"wj-status-badge wj-status-badge--success\">Enabled</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "<span class=\"wj-status-badge wj-status-badge--success\">Finished</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.profile_page
+msgid "<span class=\"wujia-maccount-kv-key\">Email</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.profile_page
+msgid "<span class=\"wujia-maccount-kv-key\">Full name</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.profile_page
+msgid "<span class=\"wujia-maccount-kv-key\">Login</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.profile_page
+msgid "<span class=\"wujia-maccount-kv-key\">Phone</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.profile_page
+msgid "<span class=\"wujia-maccount-kv-key\">Role</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.profile_page
+msgid "<span class=\"wujia-maccount-kv-key\">Store</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.layout_sidenav
+msgid "<span>Finance &amp; processing</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.layout_sidenav
+msgid "<span>Main features</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.layout_sidenav
+msgid "<span>Operations support</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.login_container
+msgid ""
+"<span>Orders</span>\n"
+"                                <i/>\n"
+"                                <span>Deliveries</span>\n"
+"                                <i/>\n"
+"                                <span>Debts</span>\n"
+"                                <i/>\n"
+"                                <span>Notifications</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "A summary or warning is shown here."
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.layout_top_navbar
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.mobile_header
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.profile_page
+msgid "Account"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.profile_page
+msgid ""
+"Account details are managed by {brand}. Please contact the administrator to "
+"update them."
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.login_form
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.reset_pass_form
+msgid "Account security"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Actions"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_filter_bar
+msgid "All"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Amount"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Are you sure you want to perform this action?"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
+msgid "At least 8 characters"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.profile_page
+msgid "Avatar"
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py:0
+msgid "Avatar exceeds 2MB"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_page_header
+msgid "Back"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.forgot_pass_back
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.signup_form
+msgid "Back to Login"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.profile_page
+msgid "Basic details of your portal account"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_page_header
+msgid "Breadcrumb"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Buttons (h42 · radius 12)"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Cancel"
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py:0
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_acct_menu_items
+msgid "Change password"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_filter_bar
+msgid "Clear filters"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.mobile_bottomnav
+msgid "Close"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.layout_sidenav
+msgid "Close menu"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Code"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.login_2fa_form
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.signup_form
+msgid "Confirm"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.signup_form
+msgid "Confirm Password"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Confirm action"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
+msgid "Confirm new password"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.reset_pass_form
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.signup_form
+msgid "Confirm password"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Confirmed"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Content"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_page_header
+msgid "Create"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.reset_pass_form
+msgid "Create a new password for your account"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
+msgid "Current password"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
+msgid "Current password is incorrect."
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py:0
+msgid "Current password is incorrect. Please check again."
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Data table (header 50 · row 58)"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Date"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Delete"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model:ir.model.fields,field_description:wujia_portal_layout.field_ir_http__display_name
+#: model:ir.model.fields,field_description:wujia_portal_layout.field_ir_qweb__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
+msgid "Do not reuse easy-to-guess passwords."
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.login_form
+msgid "Do not share your login details with anyone."
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
+msgid "Do not share your password via messages or group chats."
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Draft"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.forgot_pass_back
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.signup_form
+msgid "Email"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.login_form
+msgid "Email / Username"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Empty state"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.login_2fa_form
+msgid "Enter 6 digits"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.login_form
+msgid "Enter email or username"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.login_form
+msgid "Enter password"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Enter store name"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.forgot_pass_form
+msgid "Enter the email issued to you"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
+msgid "Enter your current and new password to update your account."
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.forgot_pass_form
+msgid ""
+"Enter your login email. If it matches an account, we will send password "
+"reset instructions to your email."
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.login_container
+msgid "FRANCHISE PORTAL"
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py:0
+msgid "Failed to save image"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Filter bar (CMP-FB-001 · control h42)"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.forgot_pass_form
+msgid "Forgot password"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.login_form
+msgid "Forgot password?"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Form fields (h42)"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_filter_bar
+msgid "From"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_filter_bar
+msgid "From date"
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py:0
+msgid "Full name is required"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model:ir.model,name:wujia_portal_layout.model_ir_http
+msgid "HTTP Routing"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_msgs
+msgid "Hide"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.mobile_header
+msgid "Home"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model:ir.model.fields,field_description:wujia_portal_layout.field_ir_http__id
+#: model:ir.model.fields,field_description:wujia_portal_layout.field_ir_qweb__id
+msgid "ID"
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/auth.py:0
+msgid ""
+"If the email exists in our system, password reset instructions have been "
+"sent to your inbox."
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
+msgid ""
+"If you forgot your current password or your account is locked, please "
+"contact the {brand} administrator for help."
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Ingredient purchase order"
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py:0
+msgid "Invalid phone number"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "June POSM"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.mobile_header
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_acct_menu_items
+msgid "Language"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.forgot_pass_form
+msgid "Login email"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.layout_sidenav
+msgid "Main navigation"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.profile_page
+msgid "Manage the signed-in portal user"
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py:0
+msgid "Manager"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Metric cards (h96 · icon 52)"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.reset_pass_form
+msgid "Minimum 8 characters"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
+msgid "Mix letters, numbers and special characters."
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Modal (panel 420 · backdrop #111827/0.18)"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.mobile_bottomnav
+msgid "More features"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.profile_page
+msgid "My profile"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.signup_form
+msgid "Name"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
+msgid "Need help?"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.forgot_pass_form
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.login_2fa_form
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.login_form
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.reset_pass_form
+msgid "Need help? Contact the system administrator"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.reset_pass_form
+msgid "New password"
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py:0
+msgid "New password must be at least 8 characters."
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py:0
+msgid "New password must differ from the old password."
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "No data yet"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Note"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.layout_top_navbar
+msgid "Open menu"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.login_2fa_form
+msgid ""
+"Open the authenticator app on your device to get a code and verify your "
+"identity."
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Order list"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.mobile_bottomnav
+msgid "Other tools for your store"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "PC Component Gallery"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "PC Components (dev)"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Packaging top-up"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_pagination
+msgid "Page"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_pagination
+msgid "Pagination"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.login_form
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.signup_form
+msgid "Password"
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py:0
+msgid "Password confirmation does not match the new password."
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/auth.py:0
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
+msgid "Password confirmation does not match."
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
+msgid "Password details"
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/auth.py:0
+msgid "Password must be at least 8 characters."
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.reset_pass_form
+msgid ""
+"Password must be at least 8 characters.<br/>Do not share your login details "
+"with anyone."
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.profile_page
+msgid "Personal information"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.forgot_pass_back
+msgid ""
+"Please enter your email address and we'll send you instructions on how to "
+"reset your password."
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/auth.py:0
+msgid "Please enter your email."
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py:0
+msgid "Please fill in all fields."
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_account_layout
+msgid "Portal user"
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py:0
+msgid "Profile"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.forgot_pass_form
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.login_2fa_form
+msgid "Protect your account"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model:ir.model,name:wujia_portal_layout.model_ir_qweb
+msgid "Qweb"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.reset_pass_form
+msgid "Re-enter new password"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Records will appear here once available."
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.forgot_pass_back
+msgid "Recover Password"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.forgot_pass_back
+msgid "Recover your password"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Reset"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.reset_pass_form
+msgid "Reset password"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_pagination
+msgid "Rows per page"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.login_container
+msgid "Run your store<br/>on one platform"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "SO0238"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "SO0239"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "SO0240"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "SO0241"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
+msgid "Save password"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_filter_bar
+msgid "Search"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Search by order code, product name, content..."
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
+msgid "Secure your portal account"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
+msgid "Security tips"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.forgot_pass_form
+msgid "Send instructions"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_msgs
+msgid "Show"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.login_form
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.reset_pass_form
+msgid "Show password"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
+msgid "Show/hide password"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_pagination
+msgid "Showing"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.login_form
+msgid "Sign in"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.login_form
+msgid "Sign in to your account"
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/auth.py:0
+#: code:addons/wujia_portal_layout/controllers/portal.py:0
+msgid "Something went wrong. Please try again."
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Sprint PC-1 · BA pc_source_ui_v1_4 · dev-only"
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py:0
+msgid "Staff"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Status"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Status badges CMP-SB-001 (h28 · min-w84 · r14 · 13/600)"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Store name"
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py:0
+msgid "Store owner"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
+msgid "Support requests are handled according to account permissions."
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Textarea / note"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_filter_bar
+msgid "To"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_filter_bar
+msgid "To date"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.login_container
+msgid ""
+"Track daily operations for the {brand} franchise store network in a single "
+"portal."
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/utils.py:0
+msgid "Too many requests. Please try again later."
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Track purchase orders of the active store"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.login_2fa_form
+msgid "Two-factor authentication"
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py:0
+msgid "Unsupported image format"
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py:0
+msgid "Updated successfully"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
+msgid "Use at least 8 characters for your new password."
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.login_form
+msgid "Use the {brand} account issued to you to access the system."
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.login_2fa_form
+msgid "Verification code (6 digits)"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.login_2fa_form
+msgid ""
+"Verification codes are valid for a short time only.<br/>Do not share the "
+"code with anyone."
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "View"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_card_header
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_section_header
+msgid "View all"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.forgot_pass_form
+msgid ""
+"We do not confirm whether an email exists.<br/>Please check your inbox and "
+"spam folder after sending."
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
+msgid "Week 24 recurring order"
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/auth.py:0
+msgid "Wrong login/password"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_account_layout
+msgid "Wujia Portal / Account"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_msgs
+msgid "You have unsaved changes. Leave this page?"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.signup_form
+msgid "Your Email"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.signup_form
+msgid "Your Name"
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py:0
+msgid "Your password has been updated."
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.layout_top_navbar
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.mobile_header
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_account_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.profile_page
+msgid "avatar"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.forgot_pass_back
+msgid "branding logo"
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/pc_preview.py:0
+#: code:addons/wujia_portal_layout/controllers/utils.py:0
+msgid "records"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.forgot_pass_form
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.login_2fa_form
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.reset_pass_form
+msgid "← Back to sign in"
+msgstr ""

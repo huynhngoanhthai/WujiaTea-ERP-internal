@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Kiểm luật tầng module ADR-027 trên __manifest__.py của custom/wujia_* — chỉ báo, exit 0.
+"""Kiểm luật tầng module ADR-027 + luật folder ADR-028 trên __manifest__.py của mọi module wujia_* — chỉ báo, exit 0.
 
     python3 scripts/qa/check_layers.py
     python3 scripts/qa/check_layers.py --json out.json
@@ -22,12 +22,13 @@ import re
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
-CUSTOM = ROOT / 'custom'
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
+import wj_paths  # noqa: E402
 
 CORE, BIZ, FRAME, BASE, CHANNEL = 'L1 core', 'L2 nghiệp vụ', 'L2 khung', 'L3a portal_base', 'L3b ghép'
 
 LAYER = {
-    'wujia_core': CORE, 'wujia_i18n': CORE,
+    'wujia_core': CORE, 'wujia_i18n': CORE, 'wujia_audit': CORE,
     'wujia_sale': BIZ, 'wujia_order_window': BIZ, 'wujia_info_request': BIZ, 'wujia_knowledge': BIZ, 'wujia_support': BIZ, 'wujia_notification': BIZ, 'wujia_exam': BIZ, 'wujia_return': BIZ, 'wujia_fleet': BIZ, 'wujia_delivery': BIZ, 'wujia_account': BIZ,
     'wujia_franchise': BIZ, 'wujia_franchise_contract': BIZ,
     'wujia_franchise_inspection': BIZ, 'wujia_franchise_operations': BIZ,
@@ -65,7 +66,8 @@ def channel_of(name):
 
 def load_manifests():
     out = {}
-    for mf in sorted(CUSTOM.glob('wujia_*/__manifest__.py')):
+    for mod_dir in wj_paths.iter_modules('wujia_*'):
+        mf = mod_dir / '__manifest__.py'
         data = ast.literal_eval(mf.read_text(encoding='utf-8'))
         out[mf.parent.name] = [d for d in data.get('depends', [])]
     return out
@@ -89,7 +91,7 @@ OWN_ROUTE_RE = re.compile(r"@http\.route\(\s*\[?\s*(['\"])(/portal[^'\"]*)\1")
 def frame_own_routes():
     """Route do CHÍNH khung khai bằng @http.route (bỏ phần converter <...>)."""
     own = {'/portal'}
-    for py in sorted((CUSTOM / FRAME_MODULE / 'controllers').glob('*.py')):
+    for py in sorted((wj_paths.module_path(FRAME_MODULE) / 'controllers').glob('*.py')):
         for _q, route in OWN_ROUTE_RE.findall(py.read_text(encoding='utf-8')):
             own.add(route.split('<')[0].rstrip('/') or '/portal')
     return own
@@ -104,7 +106,7 @@ def check_frame_routes():
     """
     own = frame_own_routes()
     out = []
-    root = CUSTOM / FRAME_MODULE
+    root = wj_paths.module_path(FRAME_MODULE)
     for f in sorted(list((root / 'views').glob('*.xml')) + list((root / 'controllers').glob('*.py'))):
         for i, line in enumerate(f.read_text(encoding='utf-8').split('\n'), 1):
             if line.lstrip().startswith(('<!--', '#')):
@@ -120,8 +122,9 @@ def check_frame_routes():
 
 
 def _py_files(mod):
-    for f in sorted((CUSTOM / mod).rglob('*.py')):
-        if 'tests' in f.relative_to(CUSTOM / mod).parts or '__pycache__' in f.parts:
+    root = wj_paths.module_path(mod)
+    for f in sorted(root.rglob('*.py')):
+        if 'tests' in f.relative_to(root).parts or '__pycache__' in f.parts:
             continue
         yield f
 
@@ -129,7 +132,7 @@ def _py_files(mod):
 def _method_owners():
     """Tên method → các module wujia_* định nghĩa nó (bỏ tests/)."""
     out = {}
-    for mod in sorted(p.name for p in CUSTOM.glob('wujia_*') if p.is_dir()):
+    for mod in (p.name for p in wj_paths.iter_modules('wujia_*')):
         for f in _py_files(mod):
             try:
                 tree = ast.parse(f.read_text(encoding='utf-8'))
@@ -144,7 +147,8 @@ def _method_owners():
 def _in_odoo_core(name):
     """Method trùng tên với method của Odoo/addons ⇒ không kết luận được, bỏ qua."""
     pat = re.compile(rf'^\s*def {re.escape(name)}\s*\(', re.M)
-    for base in (ROOT / 'odoo19' / 'odoo', ROOT / 'odoo19' / 'addons'):
+    odoo = wj_paths.odoo_dir()
+    for base in (odoo / 'odoo', odoo / 'addons'):
         if not base.is_dir():
             continue
         for f in base.rglob('*.py'):
@@ -226,6 +230,24 @@ def check(deps):
     return violations, unknown
 
 
+def check_folders(deps):
+    """R8 — folder khớp tầng (ADR-028): L1 + khung ở base/, module ghép ở portal/ | mobile/, nghiệp vụ ở folder miền."""
+    out = []
+    for mod in deps:
+        lay, folder = layer_of(mod), wj_paths.folder_of(mod)
+        if lay is None:
+            continue
+        if lay in (CORE, FRAME):
+            want = folder == 'base'
+        elif lay in (BASE, CHANNEL):
+            want = folder == channel_of(mod)
+        else:
+            want = folder in wj_paths.WUJIA_DIRS and folder not in ('base', 'portal', 'mobile')
+        if not want:
+            out.append({'module': mod, 'folder': folder, 'layer': lay})
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--json')
@@ -261,12 +283,17 @@ def main():
         for v in calls:
             print(f"| `{v['module']}` | `{v['file']}`:{v['line']} | `{v['method']}` | `{v['owner_module']}` |")
 
+    folders = check_folders(deps)
+    print(f'\n# R8 — module nằm sai folder so với tầng: {len(folders)} vi phạm')
+    for v in folders:
+        print(f"- `{v['module']}` ({v['layer']}) đang ở `{v['folder']}/`")
+
     if args.json:
         pathlib.Path(args.json).write_text(json.dumps(
             {'violations': violations, 'unknown': unknown, 'frame_routes': frame,
-             'runtime_calls': calls},
+             'runtime_calls': calls, 'folders': folders},
             ensure_ascii=False, indent=2))
-    return 1 if args.strict and (violations or unknown or frame or calls) else 0
+    return 1 if args.strict and (violations or unknown or frame or calls or folders) else 0
 
 
 if __name__ == '__main__':

@@ -1,0 +1,1133 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * wujia_portal_layout
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-05 12:44+0000\n"
+"PO-Revision-Date: 2026-10-05 12:44+0000\n"
+"Last-Translator: \n"
+"Language: vi_VN\n"
+"Language-Team: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.10.3\n"
+
+#. module: wujia_portal_layout
+msgid "/ page"
+msgstr "/ trang"
+
+#. module: wujia_portal_layout
+msgid "1,340,000 VND"
+msgstr "1.340.000đ"
+
+#. module: wujia_portal_layout
+msgid "2,450,000 VND"
+msgstr "2.450.000đ"
+
+#. module: wujia_portal_layout
+msgid "4,120,000 VND"
+msgstr "4.120.000đ"
+
+#. module: wujia_portal_layout
+msgid "860,000 VND"
+msgstr "860.000đ"
+
+#. module: wujia_portal_layout
+msgid "<i class=\"feather icon-download\"/>Export"
+msgstr ""
+
+#. module: wujia_portal_layout
+msgid ""
+"<i class=\"feather icon-grid\"/>\n"
+"                <span class=\"wujia-mhome-nav-label\">More</span>"
+msgstr ""
+"<i class=\"feather icon-grid\"/>\n"
+"                <span class=\"wujia-mhome-nav-label\">Thêm</span>"
+
+#. module: wujia_portal_layout
+msgid ""
+"<i class=\"feather icon-lock\"/>\n"
+"                                <span>Change password</span>"
+msgstr ""
+"<i class=\"feather icon-lock\"/>\n"
+"                                <span>Đổi mật khẩu</span>"
+
+#. module: wujia_portal_layout
+msgid ""
+"<i class=\"feather icon-log-out\" aria-hidden=\"true\"/>\n"
+"                Sign out"
+msgstr ""
+"<i class=\"feather icon-log-out\" aria-hidden=\"true\"/>\n"
+"                Đăng xuất"
+
+#. module: wujia_portal_layout
+msgid ""
+"<i class=\"feather icon-log-out\"/>\n"
+"                            <span>Sign out</span>"
+msgstr ""
+"<i class=\"feather icon-log-out\"/>\n"
+"                            <span>Đăng xuất</span>"
+
+#. module: wujia_portal_layout
+msgid "<i class=\"feather icon-plus\"/>Create"
+msgstr "<i class=\"feather icon-plus\"/>Tạo mới"
+
+#. module: wujia_portal_layout
+msgid "<i class=\"feather icon-search\"/>Find"
+msgstr "<i class=\"feather icon-search\"/>Tìm"
+
+#. module: wujia_portal_layout
+msgid ""
+"<i class=\"feather icon-user\" aria-hidden=\"true\"/>\n"
+"                Account information"
+msgstr ""
+"<i class=\"feather icon-user\" aria-hidden=\"true\"/>\n"
+"                Thông tin tài khoản"
+
+#. module: wujia_portal_layout
+msgid ""
+"<i class=\"feather icon-user\"/>\n"
+"                                <span>Account information</span>"
+msgstr ""
+"<i class=\"feather icon-user\"/>\n"
+"                                <span>Thông tin tài khoản</span>"
+
+#. module: wujia_portal_layout
+msgid "<i class=\"wj-auth-note__icon wj-auth-note__icon--chip\">i</i>"
+msgstr ""
+
+#. module: wujia_portal_layout
+msgid "<select class=\"wj-pc-control\"><option>Select status</option></select>"
+msgstr "<select class=\"wj-pc-control\"><option>Chọn trạng thái</option></select>"
+
+#. module: wujia_portal_layout
+msgid "<span class=\"wj-acct-menu__label\" aria-hidden=\"true\">Language</span>"
+msgstr "<span class=\"wj-acct-menu__label\" aria-hidden=\"true\">Ngôn ngữ</span>"
+
+#. module: wujia_portal_layout
+msgid "<span class=\"wj-page-header__back-label\">Back</span>"
+msgstr "<span class=\"wj-page-header__back-label\">Quay lại</span>"
+
+#. module: wujia_portal_layout
+msgid ""
+"<span class=\"wj-pagination__chev\" aria-hidden=\"true\">‹</span>\n"
+"                    <span class=\"wj-pagination__label\">Previous page</span>"
+msgstr ""
+"<span class=\"wj-pagination__chev\" aria-hidden=\"true\">‹</span>\n"
+"                    <span class=\"wj-pagination__label\">Trang trước</span>"
+
+#. module: wujia_portal_layout
+msgid ""
+"<span class=\"wj-pagination__label\">Next page</span>\n"
+"                    <span class=\"wj-pagination__chev\" aria-"
+"hidden=\"true\">›</span>"
+msgstr ""
+"<span class=\"wj-pagination__label\">Trang sau</span>\n"
+"                    <span class=\"wj-pagination__chev\" aria-"
+"hidden=\"true\">›</span>"
+
+#. module: wujia_portal_layout
+msgid ""
+"<span class=\"wj-pc-acct-field__label\">Account status</span>\n"
+"                                <span class=\"wj-pc-acct-field__value wj-pc-"
+"acct-field__value--chip\">\n"
+"                                    <span class=\"wj-status-badge wj-status-"
+"badge--success\">Enabled</span>\n"
+"                                </span>"
+msgstr ""
+"<span class=\"wj-pc-acct-field__label\">Trạng thái tài khoản</span>\n"
+"                                <span class=\"wj-pc-acct-field__value wj-pc-"
+"acct-field__value--chip\">\n"
+"                                    <span class=\"wj-status-badge wj-status-"
+"badge--success\">Đang hoạt động</span>\n"
+"                                </span>"
+
+#. module: wujia_portal_layout
+msgid "<span class=\"wj-pc-acct-field__label\">Current store</span>"
+msgstr "<span class=\"wj-pc-acct-field__label\">Cửa hàng hiện tại</span>"
+
+#. module: wujia_portal_layout
+msgid "<span class=\"wj-pc-acct-field__label\">Email</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+msgid "<span class=\"wj-pc-acct-field__label\">Full name</span>"
+msgstr "<span class=\"wj-pc-acct-field__label\">Họ tên</span>"
+
+#. module: wujia_portal_layout
+msgid "<span class=\"wj-pc-acct-field__label\">Phone number</span>"
+msgstr "<span class=\"wj-pc-acct-field__label\">Số điện thoại</span>"
+
+#. module: wujia_portal_layout
+msgid "<span class=\"wj-pc-acct-field__label\">Portal role</span>"
+msgstr "<span class=\"wj-pc-acct-field__label\">Vai trò portal</span>"
+
+#. module: wujia_portal_layout
+msgid "<span class=\"wj-pc-acct-headcard__box-label\">Current store</span>"
+msgstr "<span class=\"wj-pc-acct-headcard__box-label\">Cửa hàng hiện tại</span>"
+
+#. module: wujia_portal_layout
+msgid ""
+"<span class=\"wj-pc-acct-headcard__box-sub\">Data is shown for the active "
+"store</span>"
+msgstr ""
+"<span class=\"wj-pc-acct-headcard__box-sub\">Dữ liệu hiển thị theo cửa hàng "
+"đang thao tác</span>"
+
+#. module: wujia_portal_layout
+msgid ""
+"<span class=\"wj-pc-metric-card__icon wj-pc-metric-card__icon--blue\"><i "
+"class=\"feather icon-shopping-bag\"/></span>\n"
+"                            <span class=\"wj-pc-metric-card__body\">\n"
+"                                <span class=\"wj-pc-metric-"
+"card__label\">Today's orders</span>\n"
+"                                <span class=\"wj-pc-metric-"
+"card__value\">12</span>\n"
+"                            </span>"
+msgstr ""
+"<span class=\"wj-pc-metric-card__icon wj-pc-metric-card__icon--blue\"><i "
+"class=\"feather icon-shopping-bag\"/></span>\n"
+"                            <span class=\"wj-pc-metric-card__body\">\n"
+"                                <span class=\"wj-pc-metric-card__label\">Đơn"
+" hôm nay</span>\n"
+"                                <span class=\"wj-pc-metric-"
+"card__value\">12</span>\n"
+"                            </span>"
+
+#. module: wujia_portal_layout
+msgid ""
+"<span class=\"wj-pc-metric-card__icon wj-pc-metric-card__icon--green\"><i "
+"class=\"feather icon-check-circle\"/></span>\n"
+"                            <span class=\"wj-pc-metric-card__body\">\n"
+"                                <span class=\"wj-pc-metric-"
+"card__label\">Finished</span>\n"
+"                                <span class=\"wj-pc-metric-"
+"card__value\">36</span>\n"
+"                            </span>"
+msgstr ""
+"<span class=\"wj-pc-metric-card__icon wj-pc-metric-card__icon--green\"><i "
+"class=\"feather icon-check-circle\"/></span>\n"
+"                            <span class=\"wj-pc-metric-card__body\">\n"
+"                                <span class=\"wj-pc-metric-"
+"card__label\">Hoàn tất</span>\n"
+"                                <span class=\"wj-pc-metric-"
+"card__value\">36</span>\n"
+"                            </span>"
+
+#. module: wujia_portal_layout
+msgid ""
+"<span class=\"wj-pc-metric-card__icon wj-pc-metric-card__icon--red\"><i "
+"class=\"feather icon-alert-circle\"/></span>\n"
+"                            <span class=\"wj-pc-metric-card__body\">\n"
+"                                <span class=\"wj-pc-metric-"
+"card__label\">Needs attention</span>\n"
+"                                <span class=\"wj-pc-metric-"
+"card__value\">03</span>\n"
+"                            </span>"
+msgstr ""
+"<span class=\"wj-pc-metric-card__icon wj-pc-metric-card__icon--red\"><i "
+"class=\"feather icon-alert-circle\"/></span>\n"
+"                            <span class=\"wj-pc-metric-card__body\">\n"
+"                                <span class=\"wj-pc-metric-card__label\">Cần"
+" chú ý</span>\n"
+"                                <span class=\"wj-pc-metric-"
+"card__value\">03</span>\n"
+"                            </span>"
+
+#. module: wujia_portal_layout
+msgid ""
+"<span class=\"wj-pc-metric-card__icon wj-pc-metric-card__icon--yellow\"><i "
+"class=\"feather icon-clock\"/></span>\n"
+"                            <span class=\"wj-pc-metric-card__body\">\n"
+"                                <span class=\"wj-pc-metric-"
+"card__label\">Processing</span>\n"
+"                                <span class=\"wj-pc-metric-"
+"card__value\">08</span>\n"
+"                            </span>"
+msgstr ""
+"<span class=\"wj-pc-metric-card__icon wj-pc-metric-card__icon--yellow\"><i "
+"class=\"feather icon-clock\"/></span>\n"
+"                            <span class=\"wj-pc-metric-card__body\">\n"
+"                                <span class=\"wj-pc-metric-"
+"card__label\">Đang xử lý</span>\n"
+"                                <span class=\"wj-pc-metric-"
+"card__value\">08</span>\n"
+"                            </span>"
+
+#. module: wujia_portal_layout
+msgid ""
+"<span class=\"wj-status-badge wj-status-badge--pending\">Awaiting "
+"confirmation</span>"
+msgstr "<span class=\"wj-status-badge wj-status-badge--pending\">Chờ xác nhận</span>"
+
+#. module: wujia_portal_layout
+msgid "<span class=\"wj-status-badge wj-status-badge--pending\">Submitted</span>"
+msgstr "<span class=\"wj-status-badge wj-status-badge--pending\">Đã gửi</span>"
+
+#. module: wujia_portal_layout
+msgid ""
+"<span class=\"wj-status-badge wj-status-badge--pending\">Submitted</span>\n"
+"                        <span class=\"wj-status-badge wj-status-badge--"
+"processing\">Delivering</span>\n"
+"                        <span class=\"wj-status-badge wj-status-badge--"
+"success\">Finished</span>\n"
+"                        <span class=\"wj-status-badge wj-status-badge--"
+"pending\">Awaiting confirmation</span>\n"
+"                        <span class=\"wj-status-badge wj-status-badge--"
+"danger\">Cancelled</span>"
+msgstr ""
+"<span class=\"wj-status-badge wj-status-badge--pending\">Đã gửi</span>\n"
+"                        <span class=\"wj-status-badge wj-status-badge--"
+"processing\">Đang giao</span>\n"
+"                        <span class=\"wj-status-badge wj-status-badge--"
+"success\">Hoàn tất</span>\n"
+"                        <span class=\"wj-status-badge wj-status-badge--"
+"pending\">Chờ xác nhận</span>\n"
+"                        <span class=\"wj-status-badge wj-status-badge--"
+"danger\">Đã hủy</span>"
+
+#. module: wujia_portal_layout
+msgid "<span class=\"wj-status-badge wj-status-badge--processing\">Delivering</span>"
+msgstr "<span class=\"wj-status-badge wj-status-badge--processing\">Đang giao</span>"
+
+#. module: wujia_portal_layout
+msgid "<span class=\"wj-status-badge wj-status-badge--success\">Enabled</span>"
+msgstr ""
+"<span class=\"wj-status-badge wj-status-badge--success\">Đang hoạt "
+"động</span>"
+
+#. module: wujia_portal_layout
+msgid "<span class=\"wj-status-badge wj-status-badge--success\">Finished</span>"
+msgstr "<span class=\"wj-status-badge wj-status-badge--success\">Hoàn tất</span>"
+
+#. module: wujia_portal_layout
+msgid "<span class=\"wujia-maccount-kv-key\">Email</span>"
+msgstr ""
+
+#. module: wujia_portal_layout
+msgid "<span class=\"wujia-maccount-kv-key\">Full name</span>"
+msgstr "<span class=\"wujia-maccount-kv-key\">Họ tên</span>"
+
+#. module: wujia_portal_layout
+msgid "<span class=\"wujia-maccount-kv-key\">Login</span>"
+msgstr "<span class=\"wujia-maccount-kv-key\">Tên đăng nhập</span>"
+
+#. module: wujia_portal_layout
+msgid "<span class=\"wujia-maccount-kv-key\">Phone</span>"
+msgstr "<span class=\"wujia-maccount-kv-key\">SĐT</span>"
+
+#. module: wujia_portal_layout
+msgid "<span class=\"wujia-maccount-kv-key\">Role</span>"
+msgstr "<span class=\"wujia-maccount-kv-key\">Vai trò</span>"
+
+#. module: wujia_portal_layout
+msgid "<span class=\"wujia-maccount-kv-key\">Store</span>"
+msgstr "<span class=\"wujia-maccount-kv-key\">Cửa hàng</span>"
+
+#. module: wujia_portal_layout
+msgid "<span>Finance &amp; processing</span>"
+msgstr "<span>Tài chính &amp; xử lý</span>"
+
+#. module: wujia_portal_layout
+msgid "<span>Main features</span>"
+msgstr "<span>Chức năng chính</span>"
+
+#. module: wujia_portal_layout
+msgid "<span>Operations support</span>"
+msgstr "<span>Hỗ trợ vận hành</span>"
+
+#. module: wujia_portal_layout
+msgid ""
+"<span>Orders</span>\n"
+"                                <i/>\n"
+"                                <span>Deliveries</span>\n"
+"                                <i/>\n"
+"                                <span>Debts</span>\n"
+"                                <i/>\n"
+"                                <span>Notifications</span>"
+msgstr ""
+"<span>Đơn hàng</span>\n"
+"                                <i/>\n"
+"                                <span>Giao nhận</span>\n"
+"                                <i/>\n"
+"                                <span>Công nợ</span>\n"
+"                                <i/>\n"
+"                                <span>Thông báo</span>"
+
+#. module: wujia_portal_layout
+msgid "A summary or warning is shown here."
+msgstr "Thông tin tóm tắt hoặc cảnh báo hiển thị tại đây."
+
+#. module: wujia_portal_layout
+msgid "Account"
+msgstr "Tài khoản"
+
+#. module: wujia_portal_layout
+msgid ""
+"Account details are managed by {brand}. Please contact the administrator to "
+"update them."
+msgstr ""
+"Thông tin tài khoản được quản lý bởi {brand}. Vui lòng liên hệ quản trị nếu "
+"cần cập nhật."
+
+#. module: wujia_portal_layout
+msgid "Account security"
+msgstr "Bảo mật tài khoản"
+
+#. module: wujia_portal_layout
+msgid "Actions"
+msgstr "Thao tác"
+
+#. module: wujia_portal_layout
+msgid "All"
+msgstr "Tất cả"
+
+#. module: wujia_portal_layout
+msgid "Amount"
+msgstr "Số tiền"
+
+#. module: wujia_portal_layout
+msgid "Are you sure you want to perform this action?"
+msgstr "Bạn có chắc chắn muốn thực hiện thao tác này không?"
+
+#. module: wujia_portal_layout
+msgid "At least 8 characters"
+msgstr "Ít nhất 8 ký tự"
+
+#. module: wujia_portal_layout
+msgid "Avatar"
+msgstr "Ảnh đại diện"
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py
+msgid "Avatar exceeds 2MB"
+msgstr "Ảnh đại diện vượt quá 2MB"
+
+#. module: wujia_portal_layout
+msgid "Back"
+msgstr "Quay lại"
+
+#. module: wujia_portal_layout
+msgid "Back to Login"
+msgstr ""
+
+#. module: wujia_portal_layout
+msgid "Basic details of your portal account"
+msgstr "Các thông tin cơ bản của tài khoản portal"
+
+#. module: wujia_portal_layout
+msgid "Breadcrumb"
+msgstr "Đường dẫn trang"
+
+#. module: wujia_portal_layout
+msgid "Buttons (h42 · radius 12)"
+msgstr ""
+
+#. module: wujia_portal_layout
+msgid "Cancel"
+msgstr "Hủy"
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py
+msgid "Change password"
+msgstr "Đổi mật khẩu"
+
+#. module: wujia_portal_layout
+msgid "Clear filters"
+msgstr "Xóa lọc"
+
+#. module: wujia_portal_layout
+msgid "Close"
+msgstr "Đóng"
+
+#. module: wujia_portal_layout
+msgid "Close menu"
+msgstr "Đóng menu"
+
+#. module: wujia_portal_layout
+msgid "Code"
+msgstr "Mã"
+
+#. module: wujia_portal_layout
+msgid "Confirm"
+msgstr "Xác nhận"
+
+#. module: wujia_portal_layout
+msgid "Confirm Password"
+msgstr ""
+
+#. module: wujia_portal_layout
+msgid "Confirm action"
+msgstr "Xác nhận thao tác"
+
+#. module: wujia_portal_layout
+msgid "Confirm new password"
+msgstr "Xác nhận mật khẩu mới"
+
+#. module: wujia_portal_layout
+msgid "Confirm password"
+msgstr "Xác nhận mật khẩu"
+
+#. module: wujia_portal_layout
+msgid "Confirmed"
+msgstr "Đã xác nhận"
+
+#. module: wujia_portal_layout
+msgid "Content"
+msgstr "Nội dung"
+
+#. module: wujia_portal_layout
+msgid "Create"
+msgstr "Tạo mới"
+
+#. module: wujia_portal_layout
+msgid "Create a new password for your account"
+msgstr "Tạo mật khẩu mới cho tài khoản"
+
+#. module: wujia_portal_layout
+msgid "Current password"
+msgstr "Mật khẩu hiện tại"
+
+#. module: wujia_portal_layout
+msgid "Current password is incorrect."
+msgstr "Mật khẩu hiện tại không đúng."
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py
+msgid "Current password is incorrect. Please check again."
+msgstr "Mật khẩu hiện tại không đúng. Vui lòng kiểm tra lại."
+
+#. module: wujia_portal_layout
+msgid "Data table (header 50 · row 58)"
+msgstr ""
+
+#. module: wujia_portal_layout
+msgid "Date"
+msgstr "Ngày"
+
+#. module: wujia_portal_layout
+msgid "Delete"
+msgstr "Xóa"
+
+#. module: wujia_portal_layout
+msgid "Display Name"
+msgstr "Tên hiển thị"
+
+#. module: wujia_portal_layout
+msgid "Do not reuse easy-to-guess passwords."
+msgstr "Không dùng lại mật khẩu dễ đoán."
+
+#. module: wujia_portal_layout
+msgid "Do not share your login details with anyone."
+msgstr "Không chia sẻ thông tin đăng nhập cho người khác."
+
+#. module: wujia_portal_layout
+msgid "Do not share your password via messages or group chats."
+msgstr "Không chia sẻ mật khẩu qua tin nhắn hoặc nhóm chat."
+
+#. module: wujia_portal_layout
+msgid "Draft"
+msgstr "Nháp"
+
+#. module: wujia_portal_layout
+msgid "Email"
+msgstr ""
+
+#. module: wujia_portal_layout
+msgid "Email / Username"
+msgstr "Email / Tên đăng nhập"
+
+#. module: wujia_portal_layout
+msgid "Empty state"
+msgstr ""
+
+#. module: wujia_portal_layout
+msgid "Enter 6 digits"
+msgstr "Nhập 6 chữ số"
+
+#. module: wujia_portal_layout
+msgid "Enter email or username"
+msgstr "Nhập email hoặc tên đăng nhập"
+
+#. module: wujia_portal_layout
+msgid "Enter password"
+msgstr "Nhập mật khẩu"
+
+#. module: wujia_portal_layout
+msgid "Enter store name"
+msgstr "Nhập tên cửa hàng"
+
+#. module: wujia_portal_layout
+msgid "Enter the email issued to you"
+msgstr "Nhập email đã được cấp"
+
+#. module: wujia_portal_layout
+msgid "Enter your current and new password to update your account."
+msgstr "Nhập mật khẩu hiện tại và mật khẩu mới để cập nhật tài khoản."
+
+#. module: wujia_portal_layout
+msgid ""
+"Enter your login email. If it matches an account, we will send password "
+"reset instructions to your email."
+msgstr ""
+"Nhập email đăng nhập. Nếu thông tin phù hợp, hệ thống sẽ gửi hướng dẫn đặt "
+"lại mật khẩu đến email của bạn."
+
+#. module: wujia_portal_layout
+msgid "FRANCHISE PORTAL"
+msgstr "CỔNG THÔNG TIN NHƯỢNG QUYỀN"
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py
+msgid "Failed to save image"
+msgstr "Lưu ảnh thất bại"
+
+#. module: wujia_portal_layout
+msgid "Filter bar (CMP-FB-001 · control h42)"
+msgstr ""
+
+#. module: wujia_portal_layout
+msgid "Forgot password"
+msgstr "Quên mật khẩu"
+
+#. module: wujia_portal_layout
+msgid "Forgot password?"
+msgstr "Quên mật khẩu?"
+
+#. module: wujia_portal_layout
+msgid "Form fields (h42)"
+msgstr ""
+
+#. module: wujia_portal_layout
+msgid "From"
+msgstr "Từ"
+
+#. module: wujia_portal_layout
+msgid "From date"
+msgstr "Từ ngày"
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py
+msgid "Full name is required"
+msgstr "Họ tên không được trống"
+
+#. module: wujia_portal_layout
+msgid "HTTP Routing"
+msgstr ""
+
+#. module: wujia_portal_layout
+msgid "Hide"
+msgstr "Ẩn"
+
+#. module: wujia_portal_layout
+msgid "Home"
+msgstr "Trang chủ"
+
+#. module: wujia_portal_layout
+msgid "ID"
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/auth.py
+msgid ""
+"If the email exists in our system, password reset instructions have been "
+"sent to your inbox."
+msgstr ""
+"Nếu email tồn tại trong hệ thống, hướng dẫn đặt lại mật khẩu đã được gửi tới"
+" hộp thư của bạn."
+
+#. module: wujia_portal_layout
+msgid ""
+"If you forgot your current password or your account is locked, please "
+"contact the {brand} administrator for help."
+msgstr ""
+"Nếu bạn không nhớ mật khẩu hiện tại hoặc tài khoản bị khóa, vui lòng liên hệ"
+" quản trị {brand} để được hỗ trợ."
+
+#. module: wujia_portal_layout
+msgid "Ingredient purchase order"
+msgstr "Đơn đặt hàng nguyên liệu"
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py
+msgid "Invalid phone number"
+msgstr "Số điện thoại không hợp lệ"
+
+#. module: wujia_portal_layout
+msgid "June POSM"
+msgstr "POSM tháng 06"
+
+#. module: wujia_portal_layout
+msgid "Language"
+msgstr "Ngôn ngữ"
+
+#. module: wujia_portal_layout
+msgid "Login email"
+msgstr "Email đăng nhập"
+
+#. module: wujia_portal_layout
+msgid "Main navigation"
+msgstr "Điều hướng chính"
+
+#. module: wujia_portal_layout
+msgid "Manage the signed-in portal user"
+msgstr "Quản lý thông tin người dùng portal đang đăng nhập"
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py
+msgid "Manager"
+msgstr "Quản lý"
+
+#. module: wujia_portal_layout
+msgid "Metric cards (h96 · icon 52)"
+msgstr ""
+
+#. module: wujia_portal_layout
+msgid "Minimum 8 characters"
+msgstr "Tối thiểu 8 ký tự"
+
+#. module: wujia_portal_layout
+msgid "Mix letters, numbers and special characters."
+msgstr "Nên kết hợp chữ, số và ký tự đặc biệt."
+
+#. module: wujia_portal_layout
+msgid "Modal (panel 420 · backdrop #111827/0.18)"
+msgstr ""
+
+#. module: wujia_portal_layout
+msgid "More features"
+msgstr "Thêm chức năng"
+
+#. module: wujia_portal_layout
+msgid "My profile"
+msgstr "Hồ sơ cá nhân"
+
+#. module: wujia_portal_layout
+msgid "Name"
+msgstr ""
+
+#. module: wujia_portal_layout
+msgid "Need help?"
+msgstr "Cần hỗ trợ?"
+
+#. module: wujia_portal_layout
+msgid "Need help? Contact the system administrator"
+msgstr "Cần hỗ trợ? Liên hệ quản trị hệ thống"
+
+#. module: wujia_portal_layout
+msgid "New password"
+msgstr "Mật khẩu mới"
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py
+msgid "New password must be at least 8 characters."
+msgstr "Mật khẩu mới tối thiểu 8 ký tự."
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py
+msgid "New password must differ from the old password."
+msgstr "Mật khẩu mới phải khác mật khẩu cũ."
+
+#. module: wujia_portal_layout
+msgid "No data yet"
+msgstr "Chưa có dữ liệu"
+
+#. module: wujia_portal_layout
+msgid "Note"
+msgstr "Ghi chú"
+
+#. module: wujia_portal_layout
+msgid "Open menu"
+msgstr "Mở menu"
+
+#. module: wujia_portal_layout
+msgid ""
+"Open the authenticator app on your device to get a code and verify your "
+"identity."
+msgstr "Mở ứng dụng xác thực trên thiết bị của bạn để lấy mã và xác minh danh tính."
+
+#. module: wujia_portal_layout
+msgid "Order list"
+msgstr "Danh sách đơn hàng"
+
+#. module: wujia_portal_layout
+msgid "Other tools for your store"
+msgstr "Các tiện ích khác cho cửa hàng"
+
+#. module: wujia_portal_layout
+msgid "PC Component Gallery"
+msgstr ""
+
+#. module: wujia_portal_layout
+msgid "PC Components (dev)"
+msgstr ""
+
+#. module: wujia_portal_layout
+msgid "Packaging top-up"
+msgstr "Bổ sung bao bì"
+
+#. module: wujia_portal_layout
+msgid "Page"
+msgstr "Trang"
+
+#. module: wujia_portal_layout
+msgid "Pagination"
+msgstr "Phân trang"
+
+#. module: wujia_portal_layout
+msgid "Password"
+msgstr "Mật khẩu"
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py
+msgid "Password confirmation does not match the new password."
+msgstr "Mật khẩu xác nhận không khớp với mật khẩu mới."
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/auth.py
+msgid "Password confirmation does not match."
+msgstr "Mật khẩu xác nhận không khớp."
+
+#. module: wujia_portal_layout
+msgid "Password details"
+msgstr "Thông tin mật khẩu"
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/auth.py
+msgid "Password must be at least 8 characters."
+msgstr "Mật khẩu tối thiểu 8 ký tự."
+
+#. module: wujia_portal_layout
+msgid ""
+"Password must be at least 8 characters.<br/>Do not share your login details "
+"with anyone."
+msgstr ""
+"Mật khẩu tối thiểu 8 ký tự.<br/>Không chia sẻ thông tin đăng nhập cho người "
+"khác."
+
+#. module: wujia_portal_layout
+msgid "Personal information"
+msgstr "Thông tin cá nhân"
+
+#. module: wujia_portal_layout
+msgid ""
+"Please enter your email address and we'll send you instructions on how to "
+"reset your password."
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/auth.py
+msgid "Please enter your email."
+msgstr "Vui lòng nhập email."
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py
+msgid "Please fill in all fields."
+msgstr "Vui lòng nhập đầy đủ."
+
+#. module: wujia_portal_layout
+msgid "Portal user"
+msgstr "Người dùng portal"
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py
+msgid "Profile"
+msgstr "Hồ sơ"
+
+#. module: wujia_portal_layout
+msgid "Protect your account"
+msgstr "Bảo vệ thông tin tài khoản"
+
+#. module: wujia_portal_layout
+msgid "Qweb"
+msgstr ""
+
+#. module: wujia_portal_layout
+msgid "Re-enter new password"
+msgstr "Nhập lại mật khẩu mới"
+
+#. module: wujia_portal_layout
+msgid "Records will appear here once available."
+msgstr "Khi có dữ liệu, hệ thống sẽ hiển thị danh sách tại đây."
+
+#. module: wujia_portal_layout
+msgid "Recover Password"
+msgstr ""
+
+#. module: wujia_portal_layout
+msgid "Recover your password"
+msgstr ""
+
+#. module: wujia_portal_layout
+msgid "Reset"
+msgstr ""
+
+#. module: wujia_portal_layout
+msgid "Reset password"
+msgstr "Đặt lại mật khẩu"
+
+#. module: wujia_portal_layout
+msgid "Rows per page"
+msgstr "Số dòng mỗi trang"
+
+#. module: wujia_portal_layout
+msgid "Run your store<br/>on one platform"
+msgstr "Vận hành cửa hàng<br/>trên một nền tảng"
+
+#. module: wujia_portal_layout
+msgid "SO0238"
+msgstr ""
+
+#. module: wujia_portal_layout
+msgid "SO0239"
+msgstr ""
+
+#. module: wujia_portal_layout
+msgid "SO0240"
+msgstr ""
+
+#. module: wujia_portal_layout
+msgid "SO0241"
+msgstr ""
+
+#. module: wujia_portal_layout
+msgid "Save password"
+msgstr "Lưu mật khẩu"
+
+#. module: wujia_portal_layout
+msgid "Search"
+msgstr "Tìm kiếm"
+
+#. module: wujia_portal_layout
+msgid "Search by order code, product name, content..."
+msgstr "Tìm theo mã đơn, tên sản phẩm, nội dung..."
+
+#. module: wujia_portal_layout
+msgid "Secure your portal account"
+msgstr "Bảo mật tài khoản portal của bạn"
+
+#. module: wujia_portal_layout
+msgid "Security tips"
+msgstr "Lưu ý bảo mật"
+
+#. module: wujia_portal_layout
+msgid "Send instructions"
+msgstr "Gửi hướng dẫn"
+
+#. module: wujia_portal_layout
+msgid "Show"
+msgstr "Hiện"
+
+#. module: wujia_portal_layout
+msgid "Show password"
+msgstr "Hiện mật khẩu"
+
+#. module: wujia_portal_layout
+msgid "Show/hide password"
+msgstr "Hiện/ẩn mật khẩu"
+
+#. module: wujia_portal_layout
+msgid "Showing"
+msgstr "Hiển thị"
+
+#. module: wujia_portal_layout
+msgid "Sign in"
+msgstr "Đăng nhập"
+
+#. module: wujia_portal_layout
+msgid "Sign in to your account"
+msgstr "Đăng nhập tài khoản"
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/auth.py
+#: code:addons/wujia_portal_layout/controllers/portal.py
+msgid "Something went wrong. Please try again."
+msgstr "Có lỗi xảy ra. Vui lòng thử lại."
+
+#. module: wujia_portal_layout
+msgid "Sprint PC-1 · BA pc_source_ui_v1_4 · dev-only"
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py
+msgid "Staff"
+msgstr "Nhân viên"
+
+#. module: wujia_portal_layout
+msgid "Status"
+msgstr "Trạng thái"
+
+#. module: wujia_portal_layout
+msgid "Status badges CMP-SB-001 (h28 · min-w84 · r14 · 13/600)"
+msgstr ""
+
+#. module: wujia_portal_layout
+msgid "Store name"
+msgstr "Tên cửa hàng"
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py
+msgid "Store owner"
+msgstr "Chủ tiệm"
+
+#. module: wujia_portal_layout
+msgid "Support requests are handled according to account permissions."
+msgstr "Yêu cầu hỗ trợ sẽ được xử lý theo quyền tài khoản."
+
+#. module: wujia_portal_layout
+msgid "Textarea / note"
+msgstr "Textarea / ghi chú"
+
+#. module: wujia_portal_layout
+msgid "To"
+msgstr "Đến"
+
+#. module: wujia_portal_layout
+msgid "To date"
+msgstr "Đến ngày"
+
+#. module: wujia_portal_layout
+msgid ""
+"Track daily operations for the {brand} franchise store network in a single "
+"portal."
+msgstr ""
+"Theo dõi nghiệp vụ dành cho hệ thống cửa hàng nhượng quyền {brand} trong "
+"cùng một cổng thông tin."
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/utils.py
+msgid "Too many requests. Please try again later."
+msgstr "Quá nhiều yêu cầu. Vui lòng thử lại sau."
+
+#. module: wujia_portal_layout
+msgid "Track purchase orders of the active store"
+msgstr "Theo dõi đơn đặt hàng của cửa hàng đang thao tác"
+
+#. module: wujia_portal_layout
+msgid "Two-factor authentication"
+msgstr "Xác thực hai lớp"
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py
+msgid "Unsupported image format"
+msgstr "Định dạng ảnh không hỗ trợ"
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py
+msgid "Updated successfully"
+msgstr "Cập nhật thành công"
+
+#. module: wujia_portal_layout
+msgid "Use at least 8 characters for your new password."
+msgstr "Mật khẩu mới nên có ít nhất 8 ký tự."
+
+#. module: wujia_portal_layout
+msgid "Use the {brand} account issued to you to access the system."
+msgstr "Sử dụng tài khoản {brand} đã cấp để truy cập hệ thống."
+
+#. module: wujia_portal_layout
+msgid "Verification code (6 digits)"
+msgstr "Mã xác thực (6 chữ số)"
+
+#. module: wujia_portal_layout
+msgid ""
+"Verification codes are valid for a short time only.<br/>Do not share the "
+"code with anyone."
+msgstr ""
+"Mã xác thực chỉ có hiệu lực trong thời gian ngắn.<br/>Không chia sẻ mã cho "
+"người khác."
+
+#. module: wujia_portal_layout
+msgid "View"
+msgstr "Xem"
+
+#. module: wujia_portal_layout
+msgid "View all"
+msgstr "Xem tất cả"
+
+#. module: wujia_portal_layout
+msgid ""
+"We do not confirm whether an email exists.<br/>Please check your inbox and "
+"spam folder after sending."
+msgstr ""
+"Hệ thống không xác nhận email có tồn tại hay không.<br/>Vui lòng kiểm tra "
+"hộp thư và thư rác sau khi gửi."
+
+#. module: wujia_portal_layout
+msgid "Week 24 recurring order"
+msgstr "Đơn định kỳ tuần 24"
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/auth.py
+msgid "Wrong login/password"
+msgstr "Sai tên đăng nhập/mật khẩu"
+
+#. module: wujia_portal_layout
+msgid "Wujia Portal / Account"
+msgstr "Wujia Portal / Tài khoản"
+
+#. module: wujia_portal_layout
+msgid "You have unsaved changes. Leave this page?"
+msgstr "Bạn có thay đổi chưa lưu. Rời khỏi trang?"
+
+#. module: wujia_portal_layout
+msgid "Your Email"
+msgstr ""
+
+#. module: wujia_portal_layout
+msgid "Your Name"
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py
+msgid "Your password has been updated."
+msgstr "Mật khẩu đã được cập nhật thành công."
+
+#. module: wujia_portal_layout
+msgid "avatar"
+msgstr "ảnh đại diện"
+
+#. module: wujia_portal_layout
+msgid "branding logo"
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/pc_preview.py
+#: code:addons/wujia_portal_layout/controllers/utils.py
+msgid "records"
+msgstr "bản ghi"
+
+#. module: wujia_portal_layout
+msgid "← Back to sign in"
+msgstr "← Quay lại đăng nhập"
+

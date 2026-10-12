@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Kiểm kê @http.route của custom/wujia_* bằng AST — dựng bảng controller cho BA.
+"""Kiểm kê @http.route của mọi module wujia_* bằng AST — dựng bảng controller cho BA.
 
     python3 scripts/qa/controller_inventory.py
     python3 scripts/qa/controller_inventory.py --json docs/controller-inventory/routes.json
@@ -16,7 +16,8 @@ import pathlib
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
-CUSTOM = ROOT / 'custom'
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
+import wj_paths  # noqa: E402
 
 
 def literal(node):
@@ -108,12 +109,12 @@ def main():
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--json', dest='out', help='ghi JSON ra file')
     ap.add_argument('--all', action='store_true',
-                    help='quét mọi module trong custom/, không chỉ wujia_*')
+                    help='quét mọi module trong repo, không chỉ wujia_*')
     args = ap.parse_args()
 
     pattern = '*' if args.all else 'wujia*'
     rows, classes, files, helpers = [], [], [], []
-    for mod_dir in sorted(CUSTOM.glob(pattern)):
+    for mod_dir in wj_paths.iter_modules(pattern):
         cdir = mod_dir / 'controllers'
         if not cdir.is_dir():
             continue

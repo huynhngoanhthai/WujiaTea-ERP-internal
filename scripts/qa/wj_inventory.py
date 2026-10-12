@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Đếm call site SHELL của một họ lớp CSS trong custom/ — loại tên con BEM.
+"""Đếm call site SHELL của một họ lớp CSS trong mọi module — loại tên con BEM.
 
 Vì sao có file này: hai lần liên tiếp con số bàn giao bị thổi lên vì đếm thô.
 D4d bàn giao "51 lượt" trong khi thật là 50; D4e bàn giao "36 lượt" trong khi
@@ -20,7 +20,8 @@ import re
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
-CUSTOM = ROOT / 'custom'
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
+import wj_paths  # noqa: E402
 
 
 def shell_sites(cls, path):
@@ -68,11 +69,10 @@ def main():
     ap.add_argument('--sites', action='store_true', help='in từng dòng call site')
     args = ap.parse_args()
 
-    if not CUSTOM.is_dir():
-        sys.exit(f'không thấy {CUSTOM}')
-
-    xml = sorted(CUSTOM.glob('*/views/*.xml')) + sorted(CUSTOM.glob('*/templates/*.xml'))
-    css = sorted(CUSTOM.glob('*/static/**/*.css'))
+    mods = wj_paths.iter_modules()
+    xml = [f for m in mods for f in sorted(m.glob('views/*.xml'))] + \
+        [f for m in mods for f in sorted(m.glob('templates/*.xml'))]
+    css = [f for m in mods for f in sorted(m.glob('static/**/*.css'))]
 
     grand = 0
     for cls in args.classes:

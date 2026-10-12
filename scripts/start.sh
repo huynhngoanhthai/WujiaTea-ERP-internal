@@ -14,7 +14,7 @@ if [ ! -x "$PYTHON" ]; then
     done
 fi
 [ -x "$PYTHON" ] || { echo "Không tìm thấy python — đặt WUJIA_PYTHON=..." >&2; exit 1; }
-ODOO_DIR="${PROJECT_DIR}/odoo19"
+ODOO_DIR="$("$PYTHON" "${PROJECT_DIR}/scripts/wj_paths.py" --odoo-dir)"
 CONFIG="${PROJECT_DIR}/config/odoo.conf"
 
 cd "${ODOO_DIR}"

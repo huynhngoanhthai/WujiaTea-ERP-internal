@@ -25,6 +25,16 @@ Cập nhật 12/10/2026: chuyển sang hạ tầng mới (repo, máy UAT, aaPane
 | Username | `wujia` |
 | Password | `admin` |
 
+Đăng nhập phải qua trình duyệt (request thường trả 404). Đường dẫn trên máy:
+
+| | |
+|---|---|
+| Source UAT | `/www/wwwroot/dev.wujiatea.com.vn` (nhánh `deploy/staging`) |
+| Service | `odoo-dev` (systemd, user `www`, cổng 8019) |
+| Config Odoo | `/www/wwwroot/dev.wujiatea.com.vn/config/odoo.conf` |
+| Deploy | `/www/wwwroot/dev.wujiatea.com.vn/deploy.sh` (aaPanel gọi qua git hook) |
+| Log | `/www/wwwroot/dev.wujiatea.com.vn/logs/odoo.log` · `journalctl -u odoo-dev` |
+
 ## Metabase
 | | |
 |---|---|
