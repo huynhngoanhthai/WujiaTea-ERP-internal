@@ -1,38 +1,13 @@
 name: Deploy
 on:
-  push:
-    branches: [main]
-  workflow_dispatch:
+      push:
+        branches:
+          - deploy/staging
 
-jobs:
-  deploy:
-    runs-on: self-hosted
-    steps:
-      - name: Pull latest code
-        run: |
-          cd /d D:\wujia-tea
-          git pull origin main
-        shell: cmd
-
-      # Phải stop service trước khi chạy odoo-bin upgrade vì cùng DB lock.
-      - name: Stop Odoo service
-        run: nssm stop Odoo
-        shell: cmd
-        continue-on-error: true
-
-      # Auto install + upgrade modules Wujia mỗi lần deploy.
-      # -i: install nếu chưa có. -u: upgrade nếu đã có. Odoo cho phép cùng lúc:
-      # module nào chưa cài → -i tạo mới, đã có → -u update schema + assets bundle.
-      # --stop-after-init: chạy 1 lần rồi exit, không bind port.
-      - name: Install / Upgrade Wujia modules
-        run: |
-          cd /d D:\wujia-tea
-          python odoo19\odoo-bin -c config\odoo-server.conf -d wujia_tea_19 ^
-            -u wujia_core,wujia_franchise,wujia_sale,wujia_fleet,wujia_delivery,wujia_portal_layout,wujia_portal_base,wujia_portal_sale,wujia_portal_purchase_history,wujia_portal_return,wujia_portal_delivery,wujia_portal_exam,wujia_portal_knowledge,wujia_portal_notification,wujia_portal_support,wujia_portal_report,wujia_portal_info_request,wujia_order_window,wujia_info_request,wujia_knowledge,wujia_support,wujia_notification,wujia_exam,wujia_return ^
-            -i wujia_core,wujia_franchise,wujia_sale,wujia_fleet,wujia_delivery,wujia_portal_layout,wujia_portal_base,wujia_portal_sale,wujia_portal_purchase_history,wujia_portal_return,wujia_portal_delivery,wujia_portal_exam,wujia_portal_knowledge,wujia_portal_notification,wujia_portal_support,wujia_portal_report,wujia_portal_info_request,wujia_order_window,wujia_info_request,wujia_knowledge,wujia_support,wujia_notification,wujia_exam,wujia_return ^
-            --stop-after-init --no-http
-        shell: cmd
-
-      - name: Start Odoo service
-        run: nssm start Odoo
-        shell: cmd
+      workflow_dispatch:
+    jobs:
+      deploy:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Kích hoạt aaPanel Webhook
+            run: curl -k -X GET "https://aapanel.hongtrangogia.com:16787/hook?access_key=LcdPl5lteNl6TiypEblA4oKdKjK9HeDdFx9kMqWypzH9eOxg"
