@@ -413,8 +413,8 @@ class DynamicDashboardAnalysis(models.Model):
             'date_filter_selection': 'none',
         })
         try:
-            prepared, limit = helper._prepare_sql_query(self.query or '', kwargs)
-            rows = helper._execute_sql_query(prepared, self.external_connection_id) or []
+            prepared, limit, params = helper._prepare_sql_query(self.query or '', kwargs)
+            rows = helper._execute_sql_query(prepared, self.external_connection_id, params=params) or []
             if len(rows) > limit:
                 rows = rows[:limit]
         except Exception as e:
