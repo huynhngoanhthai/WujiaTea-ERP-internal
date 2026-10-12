@@ -63,17 +63,17 @@ chốt thêm trước khi áp:
 
 ## 4. Việc phải làm khi đổi repo
 
-- [ ] `git remote set-url origin` cho repo chính và cho `~/wujia-devkit`; quyết nhánh `devkit` ở repo mới hay tách repo.
+- [~] `git remote set-url origin`: repo chính đã trỏ repo mới (repo cũ = remote `old`); `~/wujia-devkit` CHƯA đổi; quyết nhánh `devkit` ở repo mới hay tách repo.
 - [ ] Số phận nhánh cũ: `thai`, `feature/khang`, `devkit`, 10 nhánh `dev/2026-*` (kiểm đã merge hết chưa rồi mới bỏ).
-- [ ] `main` → `deploy/staging`; tạo `deploy/production`; đặt default branch + branch protection.
+- [~] `deploy/staging` + `deploy/production` đã có trên origin (12/10); default branch + branch protection chưa kiểm.
 - [ ] `.github/workflows/deploy.yml`: đang `on: push main`, runner self-hosted trên máy Windows cũ, danh sách
       module cứng ⇒ viết lại cho máy aaPanel, mỗi nhánh deploy một job.
-- [ ] Chốt lệnh deploy máy mới rồi ghi vào §6 compact summary (lệnh máy Windows cũ đã bỏ 12/10).
+- [x] Cách deploy máy mới đã khảo sát (aaPanel kéo code → hook → `deploy.sh`), ghi ở §6 compact summary + §8 dưới đây.
 - [ ] `~/wujia-devkit/commands/wujia-end-sprint.md`: đang ghi `git push origin master`.
 - [ ] Nightly agent `ba_spec/qa_nightly/agent_prompt_interactive.md`: "branch riêng từ main", "push main".
 - [ ] `.env.local` biến `GITHUB_REMOTE`.
 - [ ] Viết checklist dựng máy mới (checklist + script dựng máy Windows cũ đã xoá 12/10).
-- [ ] Thiết kế lại cấu trúc source theo cách Besco tổ chức các dự án trong repo (chủ dự án có kế hoạch riêng).
+- [x] Thiết kế lại cấu trúc source — ADR-028 (chapter 82), nhánh `feature/source-restructure`, PR vào `deploy/staging` chờ merge.
 
 ## 5. Bảo mật
 
@@ -105,3 +105,24 @@ chốt thêm trước khi áp:
   `next-session-clusters-F/H/J`, backlog); file code đọc (`i18n-*`, `handover-*`); tài liệu gửi BA (controller-spec,
   controller-inventory, ba-component-spec-proposal, portal-component-standard, figma-brief); toàn bộ `scripts/qa/`.
 - Số đo UAT trong chapter và ledger trước 12/10 là đo trên máy cũ `113.161.187.126:8019`.
+
+## 8. Khảo sát máy chủ (chỉ đọc qua aaPanel, 12/10/2026)
+
+| | `dev.wujiatea.com.vn` | `wujia-uat.tipscode.io` | `huipeng.hongtrangogia.com` |
+|---|---|---|---|
+| systemd | `odoo-dev` | `odoo-uat` | `odoo-huipeng` |
+| Source | `/www/wwwroot/dev.wujiatea.com.vn` | `/www/wwwroot/wujia-uat.tipscode.io` | `/www/wwwroot/huipeng.hongtrangogia.com` |
+| Repo / nhánh | `WujiaTea-ERP-internal` / `deploy/staging` @ `ded91f1b` | repo khác (thư mục `odoo_modules`, module `co_*`) | `huifeng.erp.staging` / `main` |
+| DB | `wujia_tea_19` | `wujia_mn` | `huipeng_db` |
+| Cổng | 8019 (ws 8020) | 8029 | 8059 (ws 8060) |
+| Config | `config/odoo.conf` | `odoo.conf` | `config/odoo.conf` |
+
+- Ba tiến trình riêng, user `www`, `workers = 0`. Docker chỉ chạy `metabase` và `pgadmin4`.
+- `addons_path` của `odoo-dev`: `odoo19/addons`, `themes`, `themes/oca_queue`, `custom`, và
+  `/www/wwwroot/wujia-uat.tipscode.io/odoo_modules` (thư mục của instance khác, đứng cuối nên module trùng tên lấy bản của repo này).
+- `server_wide_modules = base,web` (máy dev local có thêm `queue_job`) — chưa đối chiếu.
+- Deploy: aaPanel kéo code, git hook (`/www/server/git_hooks/dev.wujiatea.com.vn/post-merge`, `post-checkout`) gọi
+  `deploy.sh --no-pull`. `deploy.sh` nằm trong thư mục source nhưng ngoài git; dòng 223 dò module đổi bằng `^(custom|themes)/`.
+- `deploy.sh` chứa webhook Discord viết thẳng trong file — nên chuyển sang `deploy.env`.
+- Huipeng là một bản clone cùng bố cục cũ (`custom/` + `themes/`): ứng viên đầu tiên chuyển sang bố cục ADR-028 + `addons/`.
+- Việc phải làm trên máy chủ cho ADR-028: chapter 82 §Máy chủ.

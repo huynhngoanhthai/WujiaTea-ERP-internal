@@ -3388,3 +3388,37 @@ rồi đánh ✅ ở bảng Trạng thái §2 `docs/next-session-clusters-F.md`.
 - Issue List 12/10: 9 `Ready for Dev` — #182 UI-FORM-VALIDATION-001 (High) · #175 #176 #177 #178 #180 (Home) · #179 ·
   #181 WJ-OPS-001 · #139 UI-FILTER-001 (đã có code + ledger, cần reconcile).
 - Phiên kế: Issue List — #182 trước, rồi cụm Home 175–180, #181 phiên thiết kế riêng, reconcile #139. Phiên repo chạy riêng.
+
+## ADR-028 — dời source theo miền (kiểu Beesuite) · 12/10/2026 · Mac
+
+- Kết quả: ✅ code xong trên nhánh `feature/source-restructure` (4 commit code + 1 commit tài liệu), PR vào `deploy/staging` **chờ merge**.
+  Máy chủ chưa đổi gì.
+- Nguồn: chủ dự án chốt chia folder theo miền, Wujia là core, mỗi nước/bên nhượng quyền clone cả core + module riêng trong `addons/`.
+- Đã làm:
+  - `8fbd0c68` dời 59 module khỏi `custom/` + `themes/oca_queue` vào `base/ franchise/ sales/ logistics/ account/ academy/ service/ portal/
+    mobile/ bi/ tools/ third_party/{oca,oca_queue,om,misc}/`; `addons/` rỗng; `UI/` → `docs/design/`. Thuần `git mv`.
+  - `a2c1d1ac` `scripts/wj_paths.py` = nguồn duy nhất của bố cục (`--addons-path`, `--where`, `--list`, `--changed-modules`); 10 script QA,
+    2 script i18n, 4 script shell chuyển sang dùng nó; `check_layers.py` thêm luật R8; `config/odoo.conf.example`; `README.md` gốc.
+  - `3a241ca0` 30 file test quét source thôi ghép đường dẫn từ thư mục cha, dùng `wujia_portal_layout/tests/src_paths.py`.
+  - `ae72cd63` dời `build_pager` / `rate_limit` từ `portal_base` xuống khung `portal_layout` (khung hết import ngược); `portal_base` import
+    lại tên cũ. layout 19.0.60.13.1 · base 19.0.7.48.1.
+  - Tài liệu: chapter 82 (ADR-028), compact summary §1/§2/§3/§5/§6/§11, `next-session-repo-migration.md` §4 + §8, `CREDENTIALS.md`.
+- Kiểm: tree SHA 81 module trước = sau · cùng lệnh test trên 2 bản sao `wujia_vr` (bố cục cũ qua worktree, bố cục mới): **1359/1359, 0 đỏ** ở
+  cả hai, số test 21 module khớp từng module; chạy lại sau `ae72cd63` vẫn 1359/0 · file source test quét thấy: 2092 = 2092 · `check_layers`
+  0 vi phạm tầng, 0 vi phạm R8 · khởi động server bố cục mới: `/web/login` + `/portal/login` 200, file tĩnh từ 4 folder khác nhau 200,
+  92 module `installed` ở cả hai bản · 2 câu chữ dời sang layout vẫn ra tiếng Việt.
+- Bài học: (1) test quét source dựng đường dẫn bằng `dirname(__file__)/../..` ⇒ dời folder thì 72 test đỏ, và vài test **xanh giả** vì vòng
+  quét không còn thấy module nào — phải so tập file quét được, không chỉ đếm test. (2) Tạo DB copy bằng `createdb -T` phải kèm `-O odoo19`:
+  DB thuộc user khác thì Odoo không tự chọn DB cho khách ⇒ test HTTP chưa đăng nhập trả 404.
+- Khảo sát máy chủ (chỉ đọc qua aaPanel): `odoo-dev` systemd, source `/www/wwwroot/dev.wujiatea.com.vn` @ `ded91f1b`, config
+  `config/odoo.conf`; aaPanel kéo code → hook → `deploy.sh --no-pull` ⇒ **merge là deploy**. Ba instance Odoo là ba tiến trình riêng.
+- LIMIT: chưa đo trên UAT (chưa có tài khoản UAT mới) · không sửa gì trên máy chủ · `scripts/qa/css_move/` (script một lần) còn đường dẫn cũ.
+- Deploy: **trước khi merge** sửa trên máy chủ (1) `addons_path` trong `config/odoo.conf` thêm 16 folder mới, giữ mục cũ; (2) `deploy.sh`
+  dòng 223 → `CHANGED_MODULES=$("$PYTHON_BIN" scripts/wj_paths.py --changed-modules "$OLD_HEAD" "$NEW_HEAD")`. Merge xong `deploy.sh` tự `-u`
+  `wujia_portal_base,wujia_portal_debt,wujia_portal_exam,wujia_portal_layout,wujia_portal_return,wujia_portal_sale`. Chi tiết: chapter 82 §Máy chủ.
+- Nợ: báo anh Thái trước khi merge (đường dẫn module của anh ấy đổi, nội dung không đổi; nhánh đang mở phải merge `deploy/staging` về) ·
+  `~/wujia-devkit` đã sửa 4 file theo bố cục mới, chưa commit, vẫn trỏ repo cũ · `server_wide_modules` máy chủ thiếu `queue_job` so với local ·
+  webhook Discord viết thẳng trong `deploy.sh` · Huipeng còn bố cục cũ.
+- Issue List 12/10: 10 `Ready for Dev` — #182 UI-FORM-VALIDATION-001 (High) · #175–#180 (Home) · #181 WJ-OPS-001 · #183 UI-LISTCARD-003 ·
+  #139 UI-FILTER-001 (reconcile).
+- Phiên kế: sửa 2 chỗ trên máy chủ → merge PR → kiểm UAT; rồi Issue List (#182 trước).

@@ -11,7 +11,7 @@
 **Project:** Odoo 19 ERP + custom Vuexy portal cho chuỗi nhượng quyền trà sữa (~1500 portal user). Migrate v14 → v19.
 
 **Dir:**
-- `WujiaTea/odoo19/` Odoo 19 Community (read-only) · `custom/` 18 module (§2) · `themes/` 8 Vuexy · `data/` seed · `scripts/` seed+deploy · `docs/` (`wujia-tea-doc.tex` master + `chapters/` + `wujia-design-system.md` + `0[1-3]_*` chuẩn QA/Task/OAuth).
+- `WujiaTea/odoo19/` Odoo 19 Community (read-only; script dò `WUJIA_ODOO` → `../Odoo19C` → `./odoo19`) · module chia folder theo miền (ADR-028, §2): `base/ franchise/ sales/ logistics/ account/ academy/ service/ portal/ mobile/ bi/` (Wujia) · `tools/ themes/ third_party/{oca,oca_queue,om,misc}/` (bên ngoài) · `addons/` (rỗng ở core, module riêng từng bản clone). **Không còn `custom/`.** Tìm module: `python3 scripts/wj_paths.py --where <mod>` · `data/` seed · `scripts/` seed+deploy · `docs/` (`wujia-tea-doc.tex` master + `chapters/` + `wujia-design-system.md` + `0[1-3]_*` chuẩn QA/Task/OAuth).
 - v14 reference: `/home/huyban/odoo-dev/wujia_tea_odoo14` — template ref, **không sửa**.
 
 **BA spec = Google Sheet "Internal ERP Master Plan_Update"** online (§7 tab/gid). Xlsm local = legacy fallback.
@@ -30,6 +30,8 @@
 ---
 
 ## §2 wujia-modules (21 active + `wujia_order_window` từ F7 + `wujia_info_request` từ F8 + `wujia_knowledge` từ F9 + `wujia_support` từ F10 + `wujia_notification` từ F11 + `wujia_exam` từ F12 + `wujia_return` từ F13)
+
+**Folder (ADR-028, `python3 scripts/wj_paths.py --list`):** `base/` core · portal_layout · mobile_core · i18n · audit │ `franchise/` franchise · _contract · _inspection · _operations · info_request │ `sales/` sale · order_window · return │ `logistics/` fleet · delivery │ `account/` account │ `academy/` knowledge · exam │ `service/` support · notification │ `portal/` portal_base + 12 `portal_<x>` │ `mobile/` 7 `mobile_<x>` │ `bi/` metabase_connector · 2 dashboard ninja │ `tools/` mcp · login_as · fields_value │ `themes/` MuK · Legion │ `third_party/` oca (4) · oca_queue (8) · om (8) · misc (5). 81 module, 17 mục `addons_path`. `portal_<x>` luôn ở `portal/`, `mobile_<x>` luôn ở `mobile/`; folder mới ⇒ thêm vào `ADDON_DIRS` (`scripts/wj_paths.py`).
 
 | Module | Vai trò |
 |---|---|
@@ -69,11 +71,13 @@
 
 ---
 
-## §3 wujia-adr-summary (ADR-001…027 — số 017–026 nằm rải trong chapter sprint 6/8–12)
+## §3 wujia-adr-summary (ADR-001…028 — số 017–026 nằm rải trong chapter sprint 6/8–12)
 
 ADR-001 odoo19 source độc lập / 002 venv conda `odoo` py3.10 / 003 PG role `odoo19` / 004 custom portal Vuexy thay `/my` / 005 `wujia.franchise.member` / 006 realtime `bus.bus` native / 007 tách Order+History / 008 URL kebab + 301 redirect / 009 block feature→defer / 010 3 field địa chỉ / 011 branch picker TẠI LOGIN / 012 *overruled by 015* / 013 `res.area`/`res.ward` ở `wujia_core` / 014 member UI độc lập / 015 gộp `wujia_franchise_management`→`wujia_franchise` / 016 dùng `mail.message` via `message_post()`.
 
 **ADR-027 (đề xuất 17/09, ✅ ĐÃ CHỐT 26/09 — đã áp khối A F7–F13; bổ sung 3 ý ở chapter 74 §addendum: portal chia theo CHỨC NĂNG / mobile theo module backend · mobile kế thừa view chỉ extension+xpath, cấm `mode=primary`/`replace` · `auto_install` chỉ module ghép thuần — GHI, CHƯA ÁP)** tầng module (**4 tầng, chỉnh lại cùng ngày**): L0 Odoo → L1 `wujia_core` (+ `ui_core`/platform `*_core` chỉ tạo khi cần) → L2 **nghiệp vụ CÙNG CẤP khung kênh** (`wujia_portal_layout` | `wujia_mobile_core` = `web`+`muk_web_theme`, chỉ `assets_backend`; hai nhóm không depend nhau) → L3 module ghép `wujia_portal_base`→`wujia_portal_<x>` | `wujia_mobile_<x>` (`auto_install`, chỉ tạo khi có view riêng). `portal_base` = **L3a** nền ghép portal ("tầng 2.5"; luật: mọi `portal_<x>` depend nó, nó không depend `portal_<x>`), `portal_<x>`/`mobile_<x>` = L3b; giữ depend franchise+sale, **cấm thêm depend**, KHÔNG tách Home. Giữ tên `mobile_core` (khớp BA). 4 luật: nghiệp vụ không depend khung/ghép · khung không depend nghiệp vụ · hai kênh không depend chéo · module ghép không model nghiệp vụ. L1 thêm `wujia_ui_core` + platform `*_core` (theo bảng BA, chỉ tạo khi ≥2 phân hệ cần). Tách 7 phân hệ khỏi `wujia_portal_*` từng phiên: order_window → info_request → knowledge → support → notification (từ portal_notification, giữ tên `wujia_notification`) → exam → return (khuôn `pre_init_hook` đổi chủ `ir_model_data` như `wujia_franchise_inspection/hooks.py`). Doc: `docs/adr-027-module-layering.pdf` + chapter 74.
+
+**ADR-028 (chốt + áp 12/10, chapter 82)** bố cục source theo miền kiểu Beesuite: folder = miền, tầng vẫn theo ADR-027; Wujia là core, mỗi nước/bên nhượng quyền = một bản clone + module riêng trong `addons/`; `third_party/` + `themes/` là code ngoài (đổi hành vi thì kế thừa); `scripts/wj_paths.py` là nguồn duy nhất của bố cục (`--addons-path`, `--where`, `--list`, `--changed-modules`); `check_layers.py` thêm luật R8 (module đúng folder của tầng). Tên module không đổi ⇒ 0 migration, chỉ đổi `addons_path`.
 
 → Chi tiết: `wujia-tea-doc.tex` chap 2 + 13.
 
@@ -105,8 +109,9 @@ ADR-001 odoo19 source độc lập / 002 venv conda `odoo` py3.10 / 003 PG role 
 - ✅ **[10/10] #142 UI-PC-HOME-REDESIGN-001 → Ready for Retest** kèm phản hồi BA (LIMIT): lỗi `$` do dữ liệu — bảng giá duy nhất "Default" trên UAT là USD (76/77 đơn USD), code in đúng tiền tệ đơn, PC = mobile. BA đổi bảng giá sang VND rồi đặt đơn mới để retest.
 - ✅ **[10/10] Chỉnh UI header (chủ dự án yêu cầu, không Issue ID)** — badge đỏ `--wujia-danger-fill` #DC2626; topbar PC thẻ trắng (khối cửa hàng ôm nội dung ≤430, tài khoản cao 48, cụm phải áp từ 992). **Lệch Figma UI-01/UI-03 do chủ dự án chốt.** layout 19.0.60.11.0 · base 19.0.7.47.0 · `?v=1337` · test 637/637. Lần 1 thẻ trắng (`c592558c`), cùng ngày **chủ dự án đổi sang kính mờ + chữ trắng đúng Figma** — **ĐÃ DEPLOY UAT 10/10** (`8f72a740`, layout 19.0.60.12.0 · base 19.0.7.48.0 · `?v=1338`, test 637/637, đo UAT đạt). ⚠️ Ngoại lệ #170: chữ topbar PC 1.77–2.24:1, phải báo BA.
 - ✅ **[10/10] Thông báo giỏ hàng (BA gửi ảnh, không Issue ID)** — thẻ báo dùng chung `window.wjToast` (khung, `wj_toast.js` + `.wj-toast*`): nền trắng, mobile ngay dưới header, PC góc phải dưới thanh trên, tự tắt 3 giây; giỏ + đặt hàng + thông báo PC cùng gọi. Thùng rác hỏi bằng hộp portal `#wjCartRemove` (thay `window.confirm`), `/cart/remove` trả `removed`. layout 19.0.60.13.0 · sale 19.0.5.5.0 · notification 19.0.5.2.0 · `?v=1339` · test 761/761 · bấm thật 390/1440/1100 đạt. **ĐÃ DEPLOY UAT 10/10** (`841f329e`), đo UAT chỉ xem đạt; BA cần retest xoá thật.
-- **[12/10] Đổi hạ tầng**: UAT mới + repo mới + mô hình nhánh `deploy/production` · `deploy/staging` · `feature/*` · `staff/<name>/<task>` · `hotfix/*` — **mới ghi chú, CHƯA áp** (remote vẫn `huyban2003/…`, vẫn `main`). Phiên repo riêng: `docs/next-session-repo-migration.md`. Treo: tài khoản UAT mới, cách deploy máy mới.
-- **[12/10] Issue List có 9 `Ready for Dev`**: #182 UI-FORM-VALIDATION-001 (High) · cụm Home #175–#180 · #181 WJ-OPS-001 · #139 UI-FILTER-001 (đã có code + ledger, cần reconcile).
+- **[12/10] Hạ tầng mới ĐÃ ÁP một phần**: `origin` của repo chính = `huynhngoanhthai/WujiaTea-ERP-internal` (repo cũ còn là remote `old`); trên origin đã có `deploy/production` (= `main`) và `deploy/staging` (nhánh làm việc, máy UAT chạy nhánh này). Làm việc: tách `feature/*` từ `deploy/staging`, PR về `deploy/staging`. **Merge vào `deploy/staging` = deploy UAT ngay** (§6). Còn treo: tài khoản UAT mới · `~/wujia-devkit` vẫn trỏ repo cũ, có file sửa chưa commit.
+- **[12/10] ADR-028 dời source theo miền — CHỜ MERGE**: nhánh `feature/source-restructure`, PR vào `deploy/staging`. Trước khi merge phải sửa 2 chỗ trên máy chủ (`addons_path` + 1 dòng `deploy.sh`, §6). Sau khi merge: nhánh đang mở khác phải merge `deploy/staging` về; file MỚI thêm vào `custom/` phải dời tay.
+- **[12/10] Issue List có 10 `Ready for Dev`**: #182 UI-FORM-VALIDATION-001 (High) · cụm Home #175–#180 · #181 WJ-OPS-001 · #139 UI-FILTER-001 (đã có code + ledger, cần reconcile). · #183 UI-LISTCARD-003 (mới).
 - **Cụm H** chuẩn hoá component (`docs/next-session-clusters-H.md`): H-A (H0 → H1 → H3 → ★HR-1) không cần BA; H-B chờ BA duyệt spec.
 - **Phần O cụm J** (portal Vận hành nhượng quyền) — PEND theo BA 07/10 (`docs/next-session-clusters-J.md`).
 - **ADR-027**: 7 câu hỏi BA (chapter 74) + áp `auto_install` đồng loạt 1 phiên + nợ ch.77 (portal_sale write, `_sql_constraints`, bàn giao Thái).
@@ -123,8 +128,8 @@ ADR-001 odoo19 source độc lập / 002 venv conda `odoo` py3.10 / 003 PG role 
 **Phase 2 (future):** account.move Công nợ (CT-014) / Employee Mgmt / Payment History / Training Reports / User Invitations.
 
 **Non-negotiable rules (mọi session):**
-- ⚠️ **ĐỌC SOURCE TRƯỚC KHI SỬA — KHÔNG ĐOÁN model/field/method.** `grep -rn "_name = '" custom/<mod>/models/`. `wujia.franchise.management` (NOT `res.franchise`) — tên thực → §11 đầy đủ. Helper portal → §11.
-- ⚠️ **REGRESSION CHECK trước khi sửa CSS/token/template**: `grep -rn "<selector|token>" custom/` xem blast radius (token global `--wujia-*` ảnh hưởng MỌI page); sau ship smoke 3-5 page khác.
+- ⚠️ **ĐỌC SOURCE TRƯỚC KHI SỬA — KHÔNG ĐOÁN model/field/method.** `grep -rn "_name = '" $(python3 scripts/wj_paths.py --where <mod>)/models/`. `wujia.franchise.management` (NOT `res.franchise`) — tên thực → §11 đầy đủ. Helper portal → §11.
+- ⚠️ **REGRESSION CHECK trước khi sửa CSS/token/template**: `git grep -n "<selector|token>" -- base portal` xem blast radius (token global `--wujia-*` ảnh hưởng MỌI page); sau ship smoke 3-5 page khác.
 - CSS bắt buộc `var(--wujia-*)` + class share `_components.css`. Không hex cứng.
 - Demo data KHÔNG vào manifest XML → `scripts/seed_*.py` local-only.
 - Odoo 19 view: không `attrs=`, không `decoration-secondary`, `_sql_constraints`→`models.Constraint`, search group `name="group_by"`, bỏ `expand="0"`.
@@ -138,7 +143,11 @@ ADR-001 odoo19 source độc lập / 002 venv conda `odoo` py3.10 / 003 PG role 
 
 ## §6 wujia-deploy
 
-**UAT = `https://dev.wujiatea.com.vn`** (máy quản lý bằng aaPanel, từ 12/10/2026). **Quy trình deploy máy mới CHƯA chốt** — repo, nhánh, cách deploy do phiên repo quyết (`docs/next-session-repo-migration.md`). Cho tới lúc đó: xong code thì báo chủ dự án **danh sách module cần `-u`** (mọi module đã bump version kể từ lần deploy trước, lấy từ `git diff --name-only <commit đã deploy>..HEAD -- custom/`; module mới thì `-i`), ghi vào dòng `Deploy:` của `f-progress.md`, và hỏi cách chạy.
+**UAT = `https://dev.wujiatea.com.vn`** (máy 115.74.247.189, aaPanel; khảo sát chỉ đọc 12/10). Source `/www/wwwroot/dev.wujiatea.com.vn` nhánh `deploy/staging` · systemd `odoo-dev` (user `www`, cổng 8019/8020, nginx đứng trước) · config `config/odoo.conf` (ngoài git) · DB `wujia_tea_19`. Cùng máy còn `odoo-uat` (`wujia_mn`, cổng 8029, repo khác, thư mục `odoo_modules`) và `odoo-huipeng` (`huipeng_db`, cổng 8059, repo `huifeng.erp.staging`, clone bố cục cũ) — ba tiến trình riêng, restart `odoo-dev` không đụng hai cái kia.
+
+**Deploy tự động:** push/merge vào `deploy/staging` ⇒ aaPanel kéo code ⇒ git hook `post-merge` gọi `deploy.sh --no-pull` (file riêng của máy chủ, ngoài git): dò module đổi, `-u <module> --i18n-overwrite`, restart `odoo-dev`, gọi `/web/login`, báo Discord. Dev không chạy lệnh deploy tay; xong code thì ghi dòng `Deploy:` trong `f-progress.md` = `python3 scripts/wj_paths.py --changed-modules <commit đã deploy> HEAD` (module mới thì cần `-i` tay).
+
+**⚠️ ADR-028 chưa lên máy chủ.** `addons_path` máy chủ còn trỏ `custom` + `themes/oca_queue`, và `deploy.sh` dòng 223 dò module bằng `^(custom|themes)/`. Trước khi merge PR `feature/source-restructure` phải (1) thêm 16 folder mới vào `addons_path` (giữ mục cũ, giữ mục cuối `/www/wwwroot/wujia-uat.tipscode.io/odoo_modules`; Odoo bỏ qua folder chưa có), (2) đổi dòng 223 thành `CHANGED_MODULES=$("$PYTHON_BIN" scripts/wj_paths.py --changed-modules "$OLD_HEAD" "$NEW_HEAD")`. Chi tiết + cách lùi: chapter 82 §Máy chủ.
 
 - CSS change → bump `?v=NNNN` (§9 gotcha #1).
 - **Module mới không tự cài**: restart chỉ load module đã cài + upgrade module bump version; module hoàn toàn mới phải `-i` một lần.
@@ -229,6 +238,10 @@ Postmortem chi tiết → `chapters/18-*.tex`.
 **Datetime portal (BẮT BUỘC dùng, đừng `.strftime()` thẳng):** `portal_tz()` / `to_local_dt(dt, tz)` / `local_day_range_utc(d1, d2, tz)` / **`fmt_local_dt(dt, fmt, tz=None)`** (S52) ở `wujia_portal_base/controllers/utils.py`. Template lấy qua key qcontext **`wj_dt`** — controller nào render datetime phải tự inject `'wj_dt': fmt_local_dt`. Odoo lưu naive UTC ⇒ in thẳng = lệch −7h (WJ-NOTI-001, WJ-PH-002).
 
 **Python helper (portal):** `get_active_franchise_id()` / `get_active_franchise_ids_filter()` ở `wujia_portal_base/controllers/portal.py` (KHÔNG `utils.py`) · `wujia.franchise.member.find_active_membership(user_id, franchise_id)` → membership record (hay `False` nếu không có); để lấy role dùng `.role` trên record trả về · `res.config.settings._is_within_order_window(area_id)` (dùng qua `self.env['res.config.settings']._is_within_order_window(area_id=...)`) · `rate_limit` + `attach_files_to_record` ở `controllers/utils.py`.
+
+**Pager + rate limit:** `build_pager` / `page_numbers` / `rate_limit` nằm ở khung `wujia_portal_layout/controllers/utils.py` (ADR-028); `wujia_portal_base/controllers/utils.py` import lại nên controller cứ import từ `portal_base` như cũ. `parse_page_size` vẫn ở `portal_base`.
+
+**Test đọc file module khác:** `from odoo.addons.wujia_portal_layout.tests.src_paths import src, src_modules, src_walk, src_rel` (hoặc qua `wujia_portal_base.tests.css_probe`). KHÔNG ghép đường dẫn từ thư mục cha của module — module nằm ở nhiều folder.
 
 **Model names thực:** `wujia.franchise.management` / `.member` / `wujia.order.window` / `wujia.notification` / `wujia.notification.type` / `wujia.notification.read` / `wujia.knowledge.article` / `wujia.support.ticket` / `wujia.info.update.request` / `wujia.compensation.allocation` / `wujia.exam.*` / `wujia.portal.cart[.line]` / `res.area` / `res.ward`.
 

@@ -1,0 +1,213 @@
+\chapter{ADR-028 --- Bố cục source theo miền (chốt và áp 2026-10-12)}
+\label{chap:adr28}
+\sloppy
+
+\emph{\textbf{Trạng thái: đã áp trên nhánh \texttt{feature/source-restructure}, PR vào \texttt{deploy/staging}
+chờ merge.} Máy chủ chưa đổi gì; các bước đổi ở \S\ref{sec:adr28-deploy}. ADR-027 (chapter 74) trả lời
+``module phụ thuộc nhau thế nào''; ADR này trả lời ``module nằm ở thư mục nào''.}
+
+\section{Bối cảnh}
+
+Trước 12/10 repo có \texttt{odoo19/} và một thư mục \texttt{custom/} phẳng chứa 66 module: 44 module Wujia trộn với
+22 module bên ngoài (\texttt{om\_*}, \texttt{eh\_*}, OCA, MuK, MCP, dashboard). \texttt{themes/} giữ thêm 15 module,
+trong đó 8 module \texttt{queue\_job} của OCA nằm lồng trong \texttt{themes/oca\_queue}. Nhìn cây thư mục không biết
+phân hệ nào ở đâu, không tách được code của mình với code người khác, và không có chỗ cho phần riêng của từng nơi
+triển khai.
+
+Chủ dự án chốt hướng đi theo cách Beesuite tổ chức: Odoo để riêng, module chia thư mục theo phân hệ, thêm một thư mục
+\texttt{addons/} cho phần riêng. Wujia là \textbf{core}; mỗi quốc gia hoặc bên nhượng quyền triển khai bằng một bản
+clone cả core, phần riêng bỏ vào \texttt{addons/}.
+
+\section{Quyết định}
+
+\begin{lstlisting}[style=shell]
+Odoo19C/          Odoo 19 Community, ngoai repo (hoac odoo19/ trong repo, gitignore)
+WujiaTea/
+  config/  docs/  scripts/
+  base/           wujia_core, wujia_portal_layout, wujia_mobile_core, wujia_i18n, wujia_audit
+  franchise/      wujia_franchise, _contract, _inspection, _operations, wujia_info_request
+  sales/          wujia_sale, wujia_order_window, wujia_return
+  logistics/      wujia_fleet, wujia_delivery
+  account/        wujia_account
+  academy/        wujia_knowledge, wujia_exam
+  service/        wujia_support, wujia_notification
+  portal/         wujia_portal_base + 12 wujia_portal_<chuc nang>
+  mobile/         7 wujia_mobile_<x>
+  bi/             wujia_metabase_connector, wj_ks_dashboard_ninja, wj_ks_dn_advance
+  tools/          mcp_server, muk_mcp, muk_web_utils, login_as_any_user, wujia_fields_value
+  themes/         7 muk_web_*, legion_enterprise_theme
+  third_party/    oca/ (4)  oca_queue/ (8)  om/ (8)  misc/ (5)
+  addons/         rong o core, module rieng cua tung ban trien khai
+\end{lstlisting}
+
+81 module, 17 mục \texttt{addons\_path}. Tên thư mục viết thường, vì máy chủ Linux phân biệt hoa/thường còn máy Mac
+thì không. \texttt{UI/} (file thiết kế) dời vào \texttt{docs/design/}.
+
+\subsection{Luật đặt module}
+
+\begin{enumerate}[nosep]
+\item Thư mục là \textbf{miền nghiệp vụ}; tầng module vẫn theo ADR-027. \texttt{base/} chứa nền và hai khung kênh,
+  \texttt{portal/} và \texttt{mobile/} chứa module ghép, các thư mục còn lại chứa module nghiệp vụ.
+\item \texttt{wujia\_portal\_<x>} luôn ở \texttt{portal/}, \texttt{wujia\_mobile\_<x>} luôn ở \texttt{mobile/}, kể cả
+  khi nghiệp vụ của nó nằm ở thư mục khác.
+\item \texttt{third\_party/} và \texttt{themes/} là code bên ngoài: muốn đổi hành vi thì kế thừa ở module Wujia.
+  Ngoại lệ đang có: \texttt{dynamic\_dashboard\_ai\_nexgen} và \texttt{dynamic\_approval\_workflow} đã bị vá tại
+  chỗ (vá SQL injection); sửa tại chỗ thì ghi rõ trong commit.
+\item \texttt{addons/} ở core luôn rỗng. Bản clone chỉ thêm module vào \texttt{addons/}, không sửa thư mục core;
+  thiếu điểm mở thì sửa ở core rồi kéo về.
+\item Thêm thư mục mới: khai trong \texttt{ADDON\_DIRS} của \texttt{scripts/wj\_paths.py}, rồi sinh lại
+  \texttt{addons\_path} ở mọi máy.
+\end{enumerate}
+
+Luật 1 và 2 được máy kiểm: \texttt{scripts/qa/check\_layers.py} thêm luật \textbf{R8} (module đặt đúng thư mục của
+tầng nó). Kết quả sau khi dời: 0 vi phạm tầng, 0 vi phạm R8.
+
+\subsection{Vì sao gom theo miền, không mỗi phân hệ một thư mục}
+
+Nhiều phân hệ hiện chỉ có một module (công nợ, hỗ trợ, thông báo). Mỗi phân hệ một thư mục sẽ ra gần 20 thư mục một
+module. Gom theo miền cho 10 thư mục Wujia, mỗi thư mục 1--13 module, và vẫn đọc ra phân hệ. \texttt{portal/} và
+\texttt{mobile/} đứng riêng vì chúng là \emph{kênh}: một màn portal ghép nhiều nghiệp vụ, không thuộc riêng miền nào.
+
+\subsection{Mô hình clone}
+
+Bản triển khai mới = clone repo core, thêm module vào \texttt{addons/}, sinh \texttt{addons\_path} bằng
+\texttt{wj\_paths.py}. Module trong \texttt{addons/} được kế thừa hoặc depend mọi module core; core không bao giờ
+depend ngược lại. Trên máy chủ đã có một bản clone kiểu này: \texttt{huipeng.hongtrangogia.com} (repo
+\texttt{huifeng.erp.staging}), còn ở bố cục cũ \texttt{custom/} + \texttt{themes/}.
+
+\section{Một nguồn đường dẫn}
+
+\texttt{scripts/wj\_paths.py} là chỗ duy nhất biết bố cục thư mục.
+
+\begin{lstlisting}[style=shell]
+python3 scripts/wj_paths.py --addons-path            # dong addons_path cho odoo.conf
+python3 scripts/wj_paths.py --where wujia_exam       # thu muc cua mot module
+python3 scripts/wj_paths.py --list                   # folder -> module
+python3 scripts/wj_paths.py --changed-modules A B    # module doi noi dung giua 2 commit
+\end{lstlisting}
+
+Mười script trong \texttt{scripts/qa/}, \texttt{i18n\_tool.py}, \texttt{sync\_translations.py} và bốn script shell
+(\texttt{start}, \texttt{upgrade}, \texttt{init-db}, \texttt{reseed\_full}) đã chuyển sang hỏi \texttt{wj\_paths}
+thay vì ghép chuỗi \texttt{custom/<module>}. Odoo core được dò theo thứ tự: biến \texttt{WUJIA\_ODOO}, rồi
+\texttt{../Odoo19C}, rồi \texttt{./odoo19}; dời Odoo ra ngoài repo lúc nào cũng được, không phải sửa script.
+
+\texttt{--changed-modules} bỏ qua file chỉ đổi chỗ. Thiếu điều này thì lần deploy đầu sau khi dời sẽ thấy cả 81
+module ``có thay đổi'' và nâng cấp tất cả.
+
+\section{Vì sao dời mà không phải migrate}
+
+Tên kỹ thuật module không đổi. Vì vậy \texttt{ir\_module\_module}, \texttt{ir\_model\_data}, đường dẫn view trong
+DB, URL \texttt{/<module>/static/\ldots}, thư mục \texttt{migrations/} và file dịch đều không đổi. Odoo tìm module
+bằng cách quét các thư mục trong \texttt{addons\_path}, nên việc duy nhất phải làm trên máy chạy là đổi dòng
+\texttt{addons\_path} rồi khởi động lại.
+
+\section{Phát hiện trong lúc làm}
+
+\begin{enumerate}[nosep]
+\item \textbf{30 file test đọc source bằng thư mục cha.} Các test ``quét source'' (kiểm CSS, QWeb của mọi màn portal)
+  tự tính thư mục \texttt{custom/} rồi đọc file của module bên cạnh. Sau khi dời, 72 test đỏ, và tệ hơn là vài test
+  khác \emph{xanh giả}: vòng quét không còn thấy module nào nên không kiểm gì. Đã thêm
+  \texttt{wujia\_portal\_layout/tests/src\_paths.py} (hỏi Odoo module nằm ở đâu) và chuyển cả 30 file sang dùng nó.
+  Chỉ đổi cách tìm đường dẫn, không đổi điều test kiểm.
+\item \textbf{Khung portal import ngược lên \texttt{wujia\_portal\_base}.} \texttt{wujia\_portal\_layout} lấy
+  \texttt{rate\_limit} và \texttt{build\_pager} từ \texttt{portal\_base}, trái luật 2 ADR-027 (khung không phụ thuộc
+  module ghép). Đã dời hai helper này xuống khung; \texttt{portal\_base} import lại đúng tên cũ nên các controller
+  đang gọi không đổi dòng nào.
+\item \textbf{\texttt{wujia\_mobile\_core} depend \texttt{base, web}}, trong khi ADR-027 ghi \texttt{web} +
+  \texttt{muk\_web\_theme}. Chỉ ghi nhận; đây là code anh Thái.
+\item \textbf{\texttt{deploy.sh} trên máy chủ dò module đổi bằng \texttt{\^{}(custom|themes)/}.} Sau khi dời, phép dò
+  này luôn trả rỗng. Phải sửa một dòng trong file đó (\S\ref{sec:adr28-deploy}).
+\end{enumerate}
+
+\section{Kiểm chứng}
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{5.2cm}>{\raggedright\arraybackslash}X}
+\toprule
+\textbf{Phép kiểm} & \textbf{Kết quả} \\
+\midrule
+Nội dung 81 module trước và sau khi dời (tree SHA của git) & giống nhau cả 81 \\
+Cùng một lệnh test, hai bản sao DB: bố cục cũ và bố cục mới &
+  cả hai: 1359 test, 0 đỏ (chạy lại sau khi sửa test và vá khung: vẫn 1359, 0 đỏ) \\
+Số test theo từng module (21 module) & giống nhau từng module \\
+File source mà các test quét nhìn thấy & 2092 file ở cả hai bố cục (bố cục mới thêm đúng 1 file helper) \\
+\texttt{check\_layers.py} & 0 vi phạm tầng, 0 vi phạm R8 \\
+Kết quả các script QA trước và sau & giống nhau; \texttt{controller\_inventory -{}-all} nay thấy thêm 8 module
+  \texttt{queue\_job} \\
+Khởi động server trên bố cục mới & \texttt{/web/login}, \texttt{/portal/login} trả 200; file tĩnh từ \texttt{base/}, \texttt{themes/}, \texttt{third\_party/oca\_queue}, \texttt{third\_party/om} trả 200; 92 module \texttt{installed} ở cả hai bản \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Bộ test: \texttt{-u} 21 module (khung, \texttt{portal\_base}, 11 module portal, 7 module nghiệp vụ khối A,
+\texttt{wujia\_i18n}) kèm \texttt{-{}-test-enable}, chạy trên bản sao của DB \texttt{wujia\_vr}. Chưa đo được trên
+UAT vì chưa có tài khoản UAT mới.
+
+\section{Máy chủ: hiện trạng và các bước đổi}
+\label{sec:adr28-deploy}
+
+Khảo sát chỉ đọc qua aaPanel ngày 12/10/2026. Không sửa, không khởi động lại gì.
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{3.3cm}>{\raggedright\arraybackslash}X}
+\toprule
+\textbf{Mục} & \textbf{Hiện trạng} \\
+\midrule
+Source & \texttt{/www/wwwroot/dev.wujiatea.com.vn}, nhánh \texttt{deploy/staging}, commit \texttt{ded91f1b} \\
+Tiến trình & systemd \texttt{odoo-dev}, user \texttt{www}, cổng 8019 (websocket 8020), nginx đứng trước \\
+File cấu hình & \texttt{config/odoo.conf} trong thư mục source (không nằm trong git) \\
+\texttt{addons\_path} hiện tại & \texttt{odoo19/addons}, \texttt{themes}, \texttt{themes/oca\_queue}, \texttt{custom},
+  và một thư mục ngoài repo: \texttt{/www/wwwroot/wujia-uat.tipscode.io/odoo\_modules} \\
+Deploy & aaPanel kéo code, git hook \texttt{post-merge} gọi \texttt{deploy.sh -{}-no-pull}: dò module đổi, chạy
+  \texttt{-u}, khởi động lại, gọi \texttt{/web/login}, báo Discord \\
+Hai instance còn lại & \texttt{odoo-uat} (DB \texttt{wujia\_mn}, cổng 8029, repo khác, thư mục
+  \texttt{odoo\_modules}) và \texttt{odoo-huipeng} (DB \texttt{huipeng\_db}, cổng 8059, repo
+  \texttt{huifeng.erp.staging}). Ba tiến trình riêng, ba thư mục source riêng \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Hai điều rút ra. Một: khởi động lại \texttt{odoo-dev} không đụng hai instance kia. Hai: \textbf{merge PR là deploy
+ngay}, vì aaPanel tự kéo code và gọi \texttt{deploy.sh}. Nếu lúc đó \texttt{addons\_path} còn trỏ \texttt{custom/} thì
+Odoo khởi động lại mà không thấy module Wujia nào.
+
+\subsection{Việc phải làm trên máy chủ, theo thứ tự}
+
+\begin{enumerate}[nosep]
+\item \textbf{Trước khi merge}, sửa dòng \texttt{addons\_path} trong
+  \texttt{/www/wwwroot/dev.wujiatea.com.vn/config/odoo.conf}: thêm 16 thư mục mới vào, \emph{giữ nguyên} các mục
+  cũ. Odoo bỏ qua thư mục chưa tồn tại (chỉ ghi cảnh báo), nên dòng này đúng cả trước lẫn sau khi merge, và không cần
+  khởi động lại ở bước này. Giá trị đầy đủ nằm trong mô tả PR.
+\item \textbf{Trước khi merge}, sửa dòng dò module trong \texttt{deploy.sh} (dòng 223) thành:
+  \texttt{CHANGED\_MODULES=\$("\$PYTHON\_BIN" scripts/wj\_paths.py -{}-changed-modules "\$OLD\_HEAD" "\$NEW\_HEAD")}
+\item Merge PR. aaPanel kéo code, \texttt{deploy.sh} nâng cấp các module có đổi nội dung rồi khởi động lại.
+\item Kiểm: \texttt{/web/login} và \texttt{/portal/login} trả 200, log khởi động không có lỗi thiếu module.
+\item Sau khi ổn: bỏ hai mục cũ (\texttt{themes/oca\_queue}, \texttt{custom}) khỏi \texttt{addons\_path}.
+\end{enumerate}
+
+Lùi lại: trả \texttt{odoo.conf} và \texttt{deploy.sh} về bản sao lưu, \texttt{git reset} về commit cũ, khởi động lại.
+Không có gì trong DB phải lùi.
+
+Hai nhánh đang mở khác (\texttt{jules}, việc dở của anh Thái) phải merge \texttt{deploy/staging} về sau khi PR vào.
+Git nhận ra file đổi chỗ nên sửa nội dung vẫn merge được; riêng file \emph{mới thêm} vào \texttt{custom/} phải dời
+tay sang thư mục mới.
+
+\section{Ngoài phạm vi, để lại}
+
+\begin{itemize}[nosep]
+\item Dời thật \texttt{odoo19/} ra \texttt{../Odoo19C} (script đã hỗ trợ cả hai).
+\item Chuyển bản clone Huipeng sang bố cục mới.
+\item Gỡ module bên ngoài không dùng: cần đo trạng thái cài trên UAT trước.
+\item \texttt{server\_wide\_modules} trên máy chủ là \texttt{base,web}, máy dev là \texttt{base,web,queue\_job}:
+  chưa đối chiếu.
+\item \texttt{scripts/qa/css\_move/}: script một lần, còn đường dẫn máy cũ, không sửa.
+\item Sửa depend của \texttt{wujia\_mobile\_core}; viết lại CI cho máy aaPanel; chuyển repo sang private.
+\end{itemize}
+
+\section{Kết quả nghiệp vụ của phiên}
+
+Người dùng không thấy thay đổi nào. Thứ thay đổi là cách tổ chức mã nguồn: mở repo là thấy phân hệ, code của Wujia
+tách khỏi code mua và code cộng đồng, và có sẵn chỗ để mỗi nước hoặc mỗi bên nhượng quyền thêm phần riêng mà không
+sửa vào lõi. Việc dời đã được chứng minh là không đổi nội dung và không đổi kết quả test.
