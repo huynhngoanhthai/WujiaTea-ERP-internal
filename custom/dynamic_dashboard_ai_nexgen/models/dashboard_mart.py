@@ -127,8 +127,8 @@ class DynamicDashboardMart(models.Model):
             'external_connection_id': self.external_connection_id.id,
             'date_filter_selection': 'none',
         })
-        prepared, limit = helper._prepare_sql_query(self.query or '', {})
-        rows = helper._execute_sql_query(prepared, self.external_connection_id) or []
+        prepared, limit, params = helper._prepare_sql_query(self.query or '', {})
+        rows = helper._execute_sql_query(prepared, self.external_connection_id, params=params) or []
         return rows[:limit]
 
     def _run_python(self):

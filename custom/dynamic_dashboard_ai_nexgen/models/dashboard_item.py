@@ -2100,11 +2100,11 @@ class DynamicDashboardItem(models.Model):
                     res = self._execute_sql_query(f"SELECT * FROM mview_dyn_dashboard_{self.id}", item.external_connection_id) or []
                 except Exception as e:
                     # If materialized view fails (maybe not created yet), fallback to raw query
-                    prepared, row_limit = self._prepare_sql_query(item.query, kwargs)
-                    res = self._execute_sql_query(prepared, item.external_connection_id) or []
+                    prepared, row_limit, params = self._prepare_sql_query(item.query, kwargs)
+                    res = self._execute_sql_query(prepared, item.external_connection_id, params=params) or []
             else:
-                prepared, row_limit = self._prepare_sql_query(item.query, kwargs)
-                res = self._execute_sql_query(prepared, item.external_connection_id) or []
+                prepared, row_limit, params = self._prepare_sql_query(item.query, kwargs)
+                res = self._execute_sql_query(prepared, item.external_connection_id, params=params) or []
             if len(res) > row_limit:
                 res = res[:row_limit]
 
@@ -2682,28 +2682,38 @@ class DynamicDashboardItem(models.Model):
         end_s = _fmt(end_date) or '2099-12-31'
         uid = str(self.env.uid)
         company_id = str(self.env.company.id)
-        replacements = {
-            '{start_date}': start_s,
-            '{end_date}': end_s,
-            '{uid}': uid,
-            '{user_id}': uid,
-            '{company_id}': company_id,
-            '%START_DATE%': start_s,
-            '%END_DATE%': end_s,
-            '%UID%': uid,
-            '%USER_ID%': uid,
-            '%COMPANY_ID%': company_id,
+
+        prepared = prepared.replace('%', '%%')
+
+        params = {
+            'start_date': start_s,
+            'end_date': end_s,
+            'uid': int(uid) if uid.isdigit() else uid,
+            'company_id': int(company_id) if company_id.isdigit() else company_id,
         }
-        for key, val in replacements.items():
-            prepared = prepared.replace(key, val)
+
+        replacements_map = {
+            '{start_date}': 'start_date', '{end_date}': 'end_date',
+            '{uid}': 'uid', '{user_id}': 'uid', '{company_id}': 'company_id',
+            '%%START_DATE%%': 'start_date', '%%END_DATE%%': 'end_date',
+            '%%UID%%': 'uid', '%%USER_ID%%': 'uid', '%%COMPANY_ID%%': 'company_id',
+        }
+        for key, param_name in replacements_map.items():
+            pattern_with_quotes = r"['\"]" + re.escape(key) + r"['\"]"
+            prepared = re.sub(pattern_with_quotes, f"%({param_name})s", prepared, flags=re.IGNORECASE)
+            pattern_without = re.escape(key)
+            prepared = re.sub(pattern_without, f"%({param_name})s", prepared, flags=re.IGNORECASE)
 
         limit = max(1, int(self.sql_row_limit or 5000))
         if not re.search(r'\bLIMIT\s+\d+', prepared, re.IGNORECASE):
             prepared = f"{prepared} LIMIT {limit}"
-        return prepared, limit
+        return prepared, limit, params
 
-    def _execute_sql_query(self, query, connection=None):
+    def _execute_sql_query(self, query, connection=None, params=None):
         """Run a prepared SELECT against local DB or an external connection."""
+        if params is None:
+            params = {}
+
         if connection:
             if connection.connection_type == 'postgres':
                 import psycopg2
@@ -2719,7 +2729,7 @@ class DynamicDashboardItem(models.Model):
                 conn = psycopg2.connect(**conn_kwargs)
                 try:
                     cur = conn.cursor()
-                    cur.execute(query)
+                    cur.execute(query, params)
                     columns = [desc[0] for desc in cur.description] if cur.description else []
                     return [dict(zip(columns, row)) for row in cur.fetchall()]
                 finally:
@@ -2738,7 +2748,7 @@ class DynamicDashboardItem(models.Model):
                 conn = mysql.connector.connect(**conn_kwargs)
                 try:
                     cur = conn.cursor(dictionary=True)
-                    cur.execute(query)
+                    cur.execute(query, params)
                     return list(cur.fetchall() or [])
                 finally:
                     conn.close()
@@ -2753,7 +2763,7 @@ class DynamicDashboardItem(models.Model):
                 )
                 try:
                     cur = conn.cursor(as_dict=True)
-                    cur.execute(query)
+                    cur.execute(query, params)
                     return list(cur.fetchall() or [])
                 finally:
                     conn.close()
@@ -2762,14 +2772,14 @@ class DynamicDashboardItem(models.Model):
         # Protect the ambient ORM transaction: a failed user SELECT would otherwise
         # abort the whole PostgreSQL transaction (InFailedSqlTransaction on save).
         with self.env.cr.savepoint(flush=False):
-            self.env.cr.execute(query)
+            self.env.cr.execute(query, params)
             return self.env.cr.dictfetchall()
 
     def action_validate_sql(self):
         self.ensure_one()
-        prepared, _limit = self._prepare_sql_query(self.query or '', {})
+        prepared, _limit, params = self._prepare_sql_query(self.query or '', {})
         try:
-            rows = self._execute_sql_query(prepared, self.external_connection_id)
+            rows = self._execute_sql_query(prepared, self.external_connection_id, params=params)
             cols = list(rows[0].keys()) if rows else []
             return {
                 'type': 'ir.actions.client',
@@ -2802,8 +2812,8 @@ class DynamicDashboardItem(models.Model):
             'sql_row_limit': 20,
         })
         try:
-            prepared, _limit = shell._prepare_sql_query(query or '', {})
-            rows = shell._execute_sql_query(prepared, connection)
+            prepared, _limit, params = shell._prepare_sql_query(query or '', {})
+            rows = shell._execute_sql_query(prepared, connection, params=params)
             cols = list(rows[0].keys()) if rows else []
             return {
                 'ok': True,
@@ -4850,7 +4860,20 @@ class DynamicDashboardItem(models.Model):
             
             # Prepare without kwargs to test if it relies on dynamic kwargs
             try:
-                prepared, row_limit = item._prepare_sql_query(item.query, {})
+                prepared, row_limit, params = item._prepare_sql_query(item.query, {})
+
+                # We can't pass params to CREATE MATERIALIZED VIEW via standard driver execute binding.
+                # However, since the parameters returned by _prepare_sql_query are only uid, company_id,
+                # start_date, and end_date (which are safe primitives), we can substitute them manually here,
+                # or use mogrify if applicable. Since mviews are Postgres only, we can use mogrify.
+                # But to avoid dependency on mogrify availability across all driver versions easily,
+                # we format the string safely since params only contains controlled primitives.
+                for k, v in params.items():
+                    val_str = str(v).replace("'", "''")
+                    prepared = prepared.replace(f"%({k})s", f"'{val_str}'")
+                # Also restore the pyformat %% back to % since we're no longer using execute with params
+                prepared = prepared.replace("%%", "%")
+
                 # Execute create statement
                 self.env.cr.execute(f"CREATE MATERIALIZED VIEW {view_name} AS {prepared}")
                 item.write({'mview_status': 'active'})
