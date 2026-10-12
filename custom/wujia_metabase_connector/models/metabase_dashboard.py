@@ -104,6 +104,9 @@ class MetabaseDashboard(models.Model):
         actions_to_unlink = self.env['ir.actions.client']
         records_to_clear = self.env['metabase.dashboard']
 
+        actions_to_create_vals = []
+        records_for_new_actions = self.env['metabase.dashboard']
+
         for rec in self:
             if not rec.show_under_menu_id or not rec.active:
                 if rec.menu_id or rec.action_id:
@@ -114,7 +117,7 @@ class MetabaseDashboard(models.Model):
                         actions_to_unlink |= rec.action_id
                 continue
 
-            # 1. Create or update ir.actions.client
+            # 1. Prepare create or update ir.actions.client
             action_vals = {
                 'name': rec.name,
                 'tag': 'wujia_metabase_dashboard_client_action',
@@ -126,10 +129,23 @@ class MetabaseDashboard(models.Model):
             if rec.action_id:
                 rec.action_id.sudo().write(action_vals)
             else:
-                action = self.env['ir.actions.client'].sudo().create(action_vals)
+                actions_to_create_vals.append(action_vals)
+                records_for_new_actions |= rec
+
+        # Create actions in batch
+        if actions_to_create_vals:
+            new_actions = self.env['ir.actions.client'].sudo().create(actions_to_create_vals)
+            for rec, action in zip(records_for_new_actions, new_actions):
                 rec.sudo().write({'action_id': action.id})
 
-            # 2. Create or update ir.ui.menu
+        menus_to_create_vals = []
+        records_for_new_menus = self.env['metabase.dashboard']
+
+        for rec in self:
+            if not rec.show_under_menu_id or not rec.active:
+                continue
+
+            # 2. Prepare create or update ir.ui.menu
             groups_cmd = [(6, 0, rec.group_ids.ids)] if rec.group_ids else [(5, 0, 0)]
             menu_vals = {
                 'name': rec.name,
@@ -143,7 +159,13 @@ class MetabaseDashboard(models.Model):
             if rec.menu_id:
                 rec.menu_id.sudo().write(menu_vals)
             else:
-                menu = self.env['ir.ui.menu'].sudo().create(menu_vals)
+                menus_to_create_vals.append(menu_vals)
+                records_for_new_menus |= rec
+
+        # Create menus in batch
+        if menus_to_create_vals:
+            new_menus = self.env['ir.ui.menu'].sudo().create(menus_to_create_vals)
+            for rec, menu in zip(records_for_new_menus, new_menus):
                 rec.sudo().write({'menu_id': menu.id})
 
         if records_to_clear:
