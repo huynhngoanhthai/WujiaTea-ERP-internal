@@ -1115,6 +1115,12 @@ msgid ""
 msgstr ""
 
 #. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/utils.py:0
+msgid "Too many requests. Please try again later."
+msgstr ""
+
+#. module: wujia_portal_layout
 #: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
 msgid "Track purchase orders of the active store"
 msgstr ""
@@ -1229,6 +1235,7 @@ msgstr ""
 #. module: wujia_portal_layout
 #. odoo-python
 #: code:addons/wujia_portal_layout/controllers/pc_preview.py:0
+#: code:addons/wujia_portal_layout/controllers/utils.py:0
 msgid "records"
 msgstr ""
 

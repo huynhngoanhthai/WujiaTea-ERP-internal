@@ -1258,12 +1258,6 @@ msgid "To update store information (address, phone, documents...), please"
 msgstr ""
 
 #. module: wujia_portal_base
-#. odoo-python
-#: code:addons/wujia_portal_base/controllers/utils.py:0
-msgid "Too many requests. Please try again later."
-msgstr ""
-
-#. module: wujia_portal_base
 #: model_terms:ir.ui.view,arch_db:wujia_portal_base.portal_home_page
 msgid "Total:"
 msgstr ""
@@ -1478,12 +1472,6 @@ msgstr ""
 #. module: wujia_portal_base
 #: model_terms:ir.ui.view,arch_db:wujia_portal_base.portal_home_page
 msgid "orders in 30 days"
-msgstr ""
-
-#. module: wujia_portal_base
-#. odoo-python
-#: code:addons/wujia_portal_base/controllers/utils.py:0
-msgid "records"
 msgstr ""
 
 #. module: wujia_portal_base

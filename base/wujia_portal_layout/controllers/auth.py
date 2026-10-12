@@ -16,8 +16,8 @@ from odoo.exceptions import UserError
 from odoo.http import request
 from odoo.addons.web.controllers.home import ensure_db
 
-from odoo.addons.wujia_portal_base.controllers.utils import rate_limit
 from odoo.addons.wujia_portal_layout.controllers.portal import PRE_LOGIN_LANG
+from odoo.addons.wujia_portal_layout.controllers.utils import rate_limit
 
 _logger = logging.getLogger(__name__)
 

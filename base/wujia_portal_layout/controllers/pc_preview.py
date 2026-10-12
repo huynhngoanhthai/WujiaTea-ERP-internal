@@ -7,6 +7,8 @@ screens in later sprints. Not linked in any portal menu; harmless static markup.
 from odoo import _, http
 from odoo.http import request
 
+from .utils import build_pager
+
 
 class WujiaPcPreview(http.Controller):
 
@@ -17,9 +19,7 @@ class WujiaPcPreview(http.Controller):
         if not request.env.user.has_group('base.group_user'):
             return request.redirect('/portal')
         # Gallery mẫu: dựng pager bằng chính `build_pager` để trang mẫu không bao giờ
-        # lệch với component thật (trước E3c là markup tĩnh, đã lạc hậu). Import TẠI CHỖ:
-        # `wujia_portal_base` phụ thuộc vào module này, import ở đầu file là vòng tròn.
-        from odoo.addons.wujia_portal_base.controllers.utils import build_pager
+        # lệch với component thật (trước E3c là markup tĩnh, đã lạc hậu).
         return request.render('wujia_portal_layout.pc_preview_page', {
             'pgn': build_pager(128, 2, 10, path='/portal/_pc-preview',
                                item_label=_('records'), page_size_options=(10, 20, 50)),

@@ -1019,6 +1019,12 @@ msgstr ""
 "cùng một cổng thông tin."
 
 #. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/utils.py
+msgid "Too many requests. Please try again later."
+msgstr "Quá nhiều yêu cầu. Vui lòng thử lại sau."
+
+#. module: wujia_portal_layout
 msgid "Track purchase orders of the active store"
 msgstr "Theo dõi đơn đặt hàng của cửa hàng đang thao tác"
 
@@ -1117,6 +1123,7 @@ msgstr ""
 #. module: wujia_portal_layout
 #. odoo-python
 #: code:addons/wujia_portal_layout/controllers/pc_preview.py
+#: code:addons/wujia_portal_layout/controllers/utils.py
 msgid "records"
 msgstr "bản ghi"
 

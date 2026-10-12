@@ -1084,12 +1084,6 @@ msgid "To update store information (address, phone, documents...), please"
 msgstr "Để cập nhật thông tin cửa hàng (địa chỉ, SĐT, giấy tờ...), vui lòng"
 
 #. module: wujia_portal_base
-#. odoo-python
-#: code:addons/wujia_portal_base/controllers/utils.py
-msgid "Too many requests. Please try again later."
-msgstr "Quá nhiều yêu cầu. Vui lòng thử lại sau."
-
-#. module: wujia_portal_base
 msgid "Total:"
 msgstr "Tổng tiền:"
 
@@ -1270,12 +1264,6 @@ msgstr "đơn trong 30 ngày"
 #. module: wujia_portal_base
 msgid "orders in 30 days"
 msgstr "đơn trong 30 ngày"
-
-#. module: wujia_portal_base
-#. odoo-python
-#: code:addons/wujia_portal_base/controllers/utils.py
-msgid "records"
-msgstr "bản ghi"
 
 #. module: wujia_portal_base
 msgid "submit a support request"
