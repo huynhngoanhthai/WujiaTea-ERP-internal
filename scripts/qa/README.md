@@ -104,8 +104,8 @@ python3 scripts/qa/check_layers.py            # báo cáo, exit 0
 python3 scripts/qa/check_layers.py --strict   # exit 1 nếu vi phạm — bật sau khi mục D chốt
 ```
 
-Đọc `__manifest__.py` của `custom/wujia_*`, bảng tầng khai tay trong script (module mới chưa
-khai ⇒ báo "chưa phân tầng", không đoán theo tên cho tầng L1/L2). Luật R1–R5 theo chapter 74.
+Đọc `__manifest__.py` của mọi module `wujia_*` (dò qua `scripts/wj_paths.py`), bảng tầng khai tay trong script (module mới chưa
+khai ⇒ báo "chưa phân tầng", không đoán theo tên cho tầng L1/L2). Luật R1–R7 theo chapter 74, R8 (folder khớp tầng) theo chapter 82.
 
 ## Phần V — Việt hoá source (quy trình 1 phiên, chốt J-V0 05/10)
 
@@ -126,7 +126,7 @@ Quy ước + lý do: `docs/next-session-clusters-J.md` §6. Python env Odoo (c�
 ## Bản dịch — nhập/xuất (J-T4, `scripts/i18n_tool.py`)
 
 Một bản code duy nhất: logic ở model `wujia.i18n.transfer` (module `wujia_i18n`), phần đọc glossary / ghi `.po` ở
-`custom/wujia_i18n/tools/po_writer.py` (babel, không import odoo) — màn backend (menu Translation Tool → Import / Export),
+`base/wujia_i18n/tools/po_writer.py` (babel, không import odoo) — màn backend (menu Translation Tool → Import / Export),
 `scripts/i18n_tool.py` (chạy qua `odoo-bin shell`) và `scripts/sync_translations.py` cùng gọi vào đó.
 
 - `i18n_tool.py import-csv FILE --db X [--scan]` — CSV `key,option,VN,CN,TH` (cột `option` có thể thiếu, ô = key bỏ qua).
@@ -134,7 +134,7 @@ Một bản code duy nhất: logic ở model `wujia.i18n.transfer` (module `wuji
   (`--update-all-matches` để đè). Bản sửa tay trong tool giữ nguyên (`--overwrite-edited` để đè). Nhãn/menu/view áp ngay.
 - `i18n_tool.py export-csv --modules … --langs … -o F` — cùng định dạng Thái (`--only-edited`).
 - `i18n_tool.py export-po --modules … --langs … -o Z.zip | --write-source` — `.pot` + `.po` từng module; msgstr = bản sửa tay >
-  bản đang chạy (DB / `.po` đã nạp) > `.po` trong source. `--write-source` ghi vào `custom/<mod>/i18n/`, từ chối module Thái.
+  bản đang chạy (DB / `.po` đã nạp) > `.po` trong source. `--write-source` ghi vào `<mod>/i18n/`, từ chối module Thái.
   Chuỗi Python/JS chỉ có hiệu lực sau commit + deploy + `-u` + **restart**.
 - Đo 07/10 (DB copy): `docs/i18n-glossary.csv` 2 195 dòng / file Thái 1 280 dòng nạp 0,3 s; file Thái có 773 ref cũ
   (`wujia_franchise.*` đã sang `wujia_franchise_inspection`) ⇒ rơi xuống khớp câu nguồn.

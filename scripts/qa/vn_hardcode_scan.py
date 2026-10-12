@@ -30,7 +30,8 @@ from collections import Counter, defaultdict
 from lxml import etree
 
 BASE = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-CUSTOM = os.path.join(BASE, 'custom')
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import wj_paths  # noqa: E402
 VN = re.compile('[àáảãạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵđ]', re.I)
 THAI = {
     'wujia_franchise', 'wujia_franchise_contract', 'wujia_franchise_inspection', 'wujia_franchise_operations',
@@ -45,10 +46,9 @@ def owner(module):
 
 
 def modules():
-    for name in sorted(os.listdir(CUSTOM)):
-        if (name.startswith('wujia_') or name.startswith('wj_')) and \
-                os.path.isfile(os.path.join(CUSTOM, name, '__manifest__.py')):
-            yield name
+    for p in wj_paths.iter_modules():
+        if p.name.startswith(('wujia_', 'wj_')):
+            yield p.name
 
 
 def clip(text):
@@ -179,14 +179,14 @@ VENDOR_FILES = {
 }
 
 # Dữ liệu mẫu `noupdate` là tên riêng (cửa hàng, người, địa chỉ) — dữ liệu chứ không phải chữ giao diện,
-# không dịch (J-V2). Đường dẫn tính từ custom/.
+# không dịch (J-V2). Đường dẫn tính từ thư mục chứa module.
 DATA_FILES = {
     'wujia_portal_base/data/sample_data.xml',
     'wujia_return/legacy_seed.py',  # J-V6: câu VN cũ của seed loại lỗi để migration đối chiếu
     'wujia_notification/legacy_seed.py',  # J-V7: câu VN cũ của seed loại thông báo
 }
 
-# Hằng tên riêng trong code (không phải chữ giao diện): (đường dẫn từ custom/, câu). J-V8b: thương hiệu mặc định.
+# Hằng tên riêng trong code (không phải chữ giao diện): (đường dẫn từ thư mục chứa module, câu). J-V8b: thương hiệu mặc định.
 LITERAL_EXEMPT = {
     ('wujia_core/models/res_company.py', 'Ngô Gia'),
     # J-T5: thuật ngữ "giữ nguyên" của dịch máy + bảng chữ nhận diện câu nguồn tiếng Việt (không phải chữ giao diện).
@@ -202,7 +202,8 @@ def scan(only=None, raw=False):
     for mod in modules():
         if only and mod not in only:
             continue
-        root = os.path.join(CUSTOM, mod)
+        root = str(wj_paths.module_path(mod))
+        parent = os.path.dirname(root)
         for dirpath, dirnames, files in os.walk(root):
             dirnames[:] = [d for d in dirnames if d not in ('i18n', '__pycache__', 'lib', 'node_modules', 'vendors', 'vendor')]
             rel_dir = os.path.relpath(dirpath, root)
@@ -214,9 +215,9 @@ def scan(only=None, raw=False):
                 path = os.path.join(dirpath, f)
                 if os.path.relpath(path, root).replace(os.sep, '/') in VENDOR_FILES:
                     continue
-                if os.path.relpath(path, CUSTOM).replace(os.sep, '/') in DATA_FILES:
+                if os.path.relpath(path, parent).replace(os.sep, '/') in DATA_FILES:
                     continue
-                rel_custom = os.path.relpath(path, CUSTOM).replace(os.sep, '/')
+                rel_custom = os.path.relpath(path, parent).replace(os.sep, '/')
                 for cat, line, text in SCANNERS[ext](path, is_test):
                     if (rel_custom, text) in LITERAL_EXEMPT:
                         continue

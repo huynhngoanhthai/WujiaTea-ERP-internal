@@ -23,7 +23,8 @@ import pathlib
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
-CUSTOM = ROOT / 'custom'
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
+import wj_paths  # noqa: E402
 
 SEARCH_OPS = {'search', 'search_count', 'search_read', 'read_group', '_read_group'}
 WRITE_OPS = {'create', 'write', 'unlink', 'copy'}
@@ -287,7 +288,7 @@ def main():
     args = ap.parse_args()
 
     rows, helpers = [], {}
-    for mod_dir in sorted(CUSTOM.glob('wujia*')):
+    for mod_dir in wj_paths.iter_modules('wujia*'):
         if args.module and mod_dir.name != args.module:
             continue
         cdir = mod_dir / 'controllers'

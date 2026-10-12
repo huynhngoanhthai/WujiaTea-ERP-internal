@@ -6,7 +6,7 @@ qua `odoo-bin shell`, không có bản logic thứ hai. Module phải đã cài 
 Lệnh:
     import-csv FILE      nạp glossary CSV (key,option,VN,CN,TH) vào tool, áp ngay nhãn/menu/view
     export-csv           xuất CSV cùng định dạng
-    export-po            xuất zip .po + .pot từng module (hoặc --write-source ghi thẳng vào custom/<mod>/i18n/)
+    export-po            xuất zip .po + .pot từng module (hoặc --write-source ghi thẳng vào <mod>/i18n/)
 
 Ví dụ:
     python3 scripts/i18n_tool.py import-csv docs/i18n-glossary.csv --db wujia_x --scan
@@ -25,8 +25,10 @@ import sys
 import zipfile
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CUSTOM_DIR = os.path.join(BASE_DIR, 'custom')
-ODOO_BIN = os.path.join(BASE_DIR, 'odoo19', 'odoo-bin')
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import wj_paths  # noqa: E402
+
+ODOO_BIN = str(wj_paths.odoo_dir() / 'odoo-bin')
 DEFAULT_CONFIG = os.path.join(BASE_DIR, 'config', 'odoo.conf')
 # Module của anh Thái: không ghi đè source (cụm J §0).
 THAI_PREFIXES = ('wujia_franchise', 'wujia_portal_inspection', 'wujia_mobile_', 'wujia_fields_value',
@@ -82,7 +84,7 @@ def run_shell(args, payload):
 
 
 def write_source(zip_bytes):
-    """Giải zip vào custom/<mod>/i18n/; bỏ module không nằm trong custom/ hoặc của Thái."""
+    """Giải zip vào <mod>/i18n/; bỏ module không có trong repo hoặc của Thái."""
     written, skipped = [], set()
     with zipfile.ZipFile(io.BytesIO(zip_bytes)) as zf:
         for name in zf.namelist():
@@ -90,11 +92,11 @@ def write_source(zip_bytes):
             if len(parts) != 3 or parts[1] != 'i18n':
                 continue
             module = parts[0]
-            mod_dir = os.path.join(CUSTOM_DIR, module)
-            if is_thai(module) or not os.path.isfile(os.path.join(mod_dir, '__manifest__.py')):
+            mod_dir = wj_paths.module_path(module)
+            if is_thai(module) or not mod_dir:
                 skipped.add(module)
                 continue
-            path = os.path.join(mod_dir, 'i18n', parts[2])
+            path = os.path.join(str(mod_dir), 'i18n', parts[2])
             os.makedirs(os.path.dirname(path), exist_ok=True)
             with open(path, 'wb') as f:
                 f.write(zf.read(name))
@@ -120,7 +122,7 @@ def main():
     ap.add_argument('--only-edited', action='store_true', help='export-csv: chỉ term có bản sửa tay')
     ap.add_argument('-o', '--output', help='file ra (export-csv / export-po)')
     ap.add_argument('--write-source', action='store_true',
-                    help='export-po: ghi thẳng .po/.pot vào custom/<mod>/i18n/ (từ chối module của Thái)')
+                    help='export-po: ghi thẳng .po/.pot vào <mod>/i18n/ (từ chối module của Thái)')
     args = ap.parse_args()
 
     cp = configparser.ConfigParser()
@@ -168,9 +170,9 @@ def main():
         print(f"  → {args.output} ({len(data)} byte)")
     if args.write_source:
         written, skipped = write_source(data)
-        print(f"  → ghi {len(written)} file vào custom/")
+        print(f"  → ghi {len(written)} file vào thư mục module")
         if skipped:
-            print(f"  bỏ qua (ngoài custom/ hoặc module Thái): {', '.join(skipped)}")
+            print(f"  bỏ qua (không có trong repo hoặc module Thái): {', '.join(skipped)}")
 
 
 if __name__ == '__main__':

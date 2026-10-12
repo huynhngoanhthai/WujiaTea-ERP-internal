@@ -19,7 +19,7 @@ Run trên Windows server (D:\\wujia-tea):
     [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
     nssm stop Odoo
     python odoo19\\odoo-bin shell `
-        -c config\\odoo-server.conf `
+        -c config\\odoo.conf `
         -d wujia_tea_19 --no-http `
         < scripts\\seed_ui12_demo.py
     nssm start Odoo

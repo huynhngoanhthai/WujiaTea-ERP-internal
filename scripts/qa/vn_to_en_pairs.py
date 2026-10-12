@@ -23,7 +23,7 @@ import sys
 from collections import defaultdict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from vn_hardcode_scan import BASE, VN, modules, scan  # noqa: E402
+from vn_hardcode_scan import BASE, VN, modules, scan, wj_paths  # noqa: E402
 
 PAIRS_DIR = os.path.join(BASE, 'docs', 'i18n-pairs')
 GLOSSARY = os.path.join(BASE, 'docs', 'i18n-glossary.csv')
@@ -271,8 +271,9 @@ def main():
     elif a.cmd == 'check':
         return 1 if check(a.module) else 0
     else:
-        if os.path.abspath(a.base) != BASE and not os.path.isdir(os.path.join(a.base, 'custom', a.module)):
-            shutil.copytree(os.path.join(BASE, 'custom', a.module), os.path.join(a.base, 'custom', a.module))
+        rel = os.path.join(wj_paths.folder_of(a.module), a.module)
+        if os.path.abspath(a.base) != BASE and not os.path.isdir(os.path.join(a.base, rel)):
+            shutil.copytree(os.path.join(BASE, rel), os.path.join(a.base, rel))
         apply(a.module, a.dry_run, os.path.abspath(a.base))
     return 0
 

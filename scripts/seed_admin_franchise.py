@@ -13,13 +13,13 @@ Cách chạy:
 
   Windows cmd.exe:
     cd D:\\wujia-tea
-    python odoo19\\odoo-bin shell -c config\\odoo-server.conf -d wujia_tea_19 ^
+    python odoo19\\odoo-bin shell -c config\\odoo.conf -d wujia_tea_19 ^
         --no-http < scripts\\seed_admin_franchise.py
 
   Windows PowerShell (KHÔNG hỗ trợ < redirect — dùng Get-Content pipe):
     cd D:\\wujia-tea
     Get-Content scripts\\seed_admin_franchise.py | `
-        python odoo19\\odoo-bin shell -c config\\odoo-server.conf `
+        python odoo19\\odoo-bin shell -c config\\odoo.conf `
         -d wujia_tea_19 --no-http
 
 Idempotent: search-or-create theo (user_id, franchise_id).

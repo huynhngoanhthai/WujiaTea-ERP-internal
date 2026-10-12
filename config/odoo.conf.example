@@ -1,0 +1,41 @@
+[options]
+; ---------------------------------------------------------------------------
+; WujiaTea — Odoo 19, file mẫu. Chép thành config/odoo.conf (gitignore) rồi sửa.
+; <REPO> = thư mục repo này, <ODOO> = thư mục Odoo 19 Community (ngoài repo).
+; ---------------------------------------------------------------------------
+
+; KHÔNG gõ tay dòng này — sinh bằng:  python3 scripts/wj_paths.py --addons-path
+; Bố cục thư mục: README.md + docs/chapters/82-adr028-source-layout.tex
+addons_path = <ODOO>/addons,<REPO>/base,<REPO>/franchise,<REPO>/sales,<REPO>/logistics,<REPO>/account,<REPO>/academy,<REPO>/service,<REPO>/portal,<REPO>/mobile,<REPO>/bi,<REPO>/tools,<REPO>/themes,<REPO>/third_party/oca,<REPO>/third_party/oca_queue,<REPO>/third_party/om,<REPO>/third_party/misc,<REPO>/addons
+
+data_dir = <REPO>/data
+
+db_host = 127.0.0.1
+db_port = 5432
+db_user = odoo19
+db_password = <mật khẩu>
+db_name = wujia_tea_19
+dbfilter = ^wujia_tea_19$
+list_db = False
+
+http_enable = True
+http_interface = 127.0.0.1
+http_port = 8019
+gevent_port = 8020
+
+; Dev: 0. Máy chủ: 2-4 và proxy_mode = True khi đứng sau nginx.
+workers = 0
+max_cron_threads = 1
+proxy_mode = False
+
+logfile = <REPO>/logs/odoo.log
+log_level = info
+log_handler = :INFO,werkzeug:WARNING
+
+admin_passwd = <mật khẩu master>
+
+without_demo = True
+server_wide_modules = base,web,queue_job
+
+[queue_job]
+channels = root:1
