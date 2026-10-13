@@ -1,17 +1,19 @@
-name: Code Quality & Syntax Check
+name: CI/CD Pipeline - Code Quality & Deployment
 
 on:
   pull_request:
     branches:
       - deploy/staging
+      - deploy/production
   push:
     branches:
       - deploy/staging
+      - deploy/production
   workflow_dispatch:
 
 jobs:
   validate-code:
-    name: Kiểm định mã nguồn (Python & XML)
+    name: Kiểm định mã nguồn (Python, XML & Manifest)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout mã nguồn
@@ -122,3 +124,50 @@ jobs:
               sys.exit(1)
           print("✅ Tất cả file __manifest__.py hợp lệ!")
           EOF
+
+  deploy-staging:
+    name: Triển khai Staging (dev.wujiatea.com.vn)
+    needs: validate-code
+    # Chỉ deploy khi PUSH vào nhánh deploy/staging hoặc trigger thủ công
+    # Tuyệt đối KHÔNG deploy khi mở Pull Request
+    if: github.ref == 'refs/heads/deploy/staging' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Kích hoạt aaPanel Webhook
+        env:
+          WEBHOOK_URL: ${{ secrets.AAPANEL_STAGING_WEBHOOK_URL || 'https://aapanel.hongtrangogia.com:16787/hook?access_key=OUAptF2RjpvtddxOFd0YTis3N1GoGqoQHF06ea4I8wryQbj1&site_id=10' }}
+        run: |
+          echo "🚀 Gửi yêu cầu triển khai đến máy chủ aaPanel..."
+          RESPONSE=$(curl -k -s -w "\nHTTP_STATUS:%{http_code}" "$WEBHOOK_URL")
+          HTTP_CODE=$(echo "$RESPONSE" | grep "HTTP_STATUS" | cut -d':' -f2)
+          BODY=$(echo "$RESPONSE" | grep -v "HTTP_STATUS")
+          echo "Mã phản hồi HTTP: $HTTP_CODE"
+          echo "Nội dung phản hồi: $BODY"
+
+          if [ "$HTTP_CODE" -ne 200 ]; then
+            echo "❌ Lỗi: Máy chủ webhook phản hồi mã $HTTP_CODE"
+            exit 1
+          fi
+          echo "✅ Đã kích hoạt lệnh triển khai trên máy chủ!"
+
+      - name: Kiểm tra Health Check sau Deploy
+        run: |
+          echo "⏳ Chờ Odoo nâng cấp module và khởi động lại..."
+          sleep 15
+          SUCCESS=0
+          for i in {1..12}; do
+            STATUS=$(curl -k -s -o /dev/null -w "%{http_code}" "https://dev.wujiatea.com.vn/web/login" || echo "000")
+            echo "[Lần $i/12] Health-check https://dev.wujiatea.com.vn/web/login -> HTTP $STATUS"
+            if [ "$STATUS" = "200" ] || [ "$STATUS" = "303" ]; then
+              SUCCESS=1
+              break
+            fi
+            sleep 5
+          done
+
+          if [ "$SUCCESS" -eq 1 ]; then
+            echo "🎉 Hệ thống dev.wujiatea.com.vn đã trực tuyến và phản hồi thành công!"
+          else
+            echo "⚠️ Cảnh báo: Server chưa trả về HTTP 200 trong vòng 75 giây. Vui lòng kiểm tra log trên máy chủ."
+            exit 1
+          fi
