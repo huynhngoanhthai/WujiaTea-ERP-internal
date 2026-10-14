@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-06 16:48+0000\n"
-"PO-Revision-Date: 2026-10-06 16:48+0000\n"
+"POT-Creation-Date: 2026-10-14 04:37+0000\n"
+"PO-Revision-Date: 2026-10-14 04:37+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -41,40 +41,6 @@ msgid "<i class=\"feather icon-send\"/>Send"
 msgstr ""
 
 #. module: wujia_portal_support
-#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_form
-msgid "<option value=\"\">Select a request type</option>"
-msgstr ""
-
-#. module: wujia_portal_support
-#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_form
-msgid ""
-"<select name=\"priority\" class=\"wj-pc-control\">\n"
-"                                        <option value=\"normal\" selected=\"selected\">Normal</option>\n"
-"                                        <option value=\"urgent\">Urgent</option>\n"
-"                                    </select>"
-msgstr ""
-
-#. module: wujia_portal_support
-#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_detail
-msgid "<span class=\"wujia-mdash-row-sub\">Created on</span>"
-msgstr ""
-
-#. module: wujia_portal_support
-#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_detail
-msgid "<span class=\"wujia-mdash-row-sub\">Group</span>"
-msgstr ""
-
-#. module: wujia_portal_support
-#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_detail
-msgid "<span class=\"wujia-mdash-row-sub\">Priority</span>"
-msgstr ""
-
-#. module: wujia_portal_support
-#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_detail
-msgid "<span class=\"wujia-mdash-row-sub\">Sender</span>"
-msgstr ""
-
-#. module: wujia_portal_support
 #: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_detail
 msgid "Add a reply..."
 msgstr ""
@@ -95,7 +61,8 @@ msgid "All statuses"
 msgstr ""
 
 #. module: wujia_portal_support
-#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_detail
+#. odoo-python
+#: code:addons/wujia_portal_support/controllers/portal.py:0
 msgid "Assignee"
 msgstr ""
 
@@ -111,11 +78,7 @@ msgstr ""
 
 #. module: wujia_portal_support
 #: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_form
-msgid "Attachments"
-msgstr ""
-
-#. module: wujia_portal_support
-#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_form
+#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_form_alert
 msgid "Attachments must be images or PDF files, up to 6 files, each ≤ 5MB."
 msgstr ""
 
@@ -137,7 +100,8 @@ msgid "Canceled"
 msgstr ""
 
 #. module: wujia_portal_support
-#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_detail
+#. odoo-python
+#: code:addons/wujia_portal_support/controllers/portal.py:0
 #: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_form
 #: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_list
 msgid "Classification"
@@ -181,22 +145,12 @@ msgstr ""
 
 #. module: wujia_portal_support
 #: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_form
-msgid "Critical"
-msgstr ""
-
-#. module: wujia_portal_support
-#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_form
 msgid "Describe the issue, when it happened and any related document numbers."
 msgstr ""
 
 #. module: wujia_portal_support
 #: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_form
 msgid "Describe the situation, the steps you tried, screenshots..."
-msgstr ""
-
-#. module: wujia_portal_support
-#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_form
-msgid "Detailed content"
 msgstr ""
 
 #. module: wujia_portal_support
@@ -220,7 +174,7 @@ msgid "Info"
 msgstr ""
 
 #. module: wujia_portal_support
-#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_form
+#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_form_alert
 msgid "Invalid store."
 msgstr ""
 
@@ -259,8 +213,19 @@ msgstr ""
 #. module: wujia_portal_support
 #. odoo-python
 #: code:addons/wujia_portal_support/controllers/portal.py:0
-#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_form
 msgid "Normal"
+msgstr ""
+
+#. module: wujia_portal_support
+#. odoo-python
+#: code:addons/wujia_portal_support/controllers/portal.py:0
+msgid "Not assigned yet"
+msgstr ""
+
+#. module: wujia_portal_support
+#. odoo-python
+#: code:addons/wujia_portal_support/controllers/portal.py:0
+msgid "Not resolved yet"
 msgstr ""
 
 #. module: wujia_portal_support
@@ -270,17 +235,27 @@ msgstr ""
 
 #. module: wujia_portal_support
 #: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_form
+msgid "Please enter a title."
+msgstr ""
+
+#. module: wujia_portal_support
+#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_form_alert
 msgid "Please fill in all required fields."
+msgstr ""
+
+#. module: wujia_portal_support
+#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_form
+msgid "Please select a classification."
+msgstr ""
+
+#. module: wujia_portal_support
+#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_form
+msgid "Please select a store."
 msgstr ""
 
 #. module: wujia_portal_support
 #: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_list
 msgid "Priority"
-msgstr ""
-
-#. module: wujia_portal_support
-#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_form
-msgid "Priority level"
 msgstr ""
 
 #. module: wujia_portal_support
@@ -314,24 +289,15 @@ msgid "Request content"
 msgstr ""
 
 #. module: wujia_portal_support
-#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_form
-msgid "Request type"
-msgstr ""
-
-#. module: wujia_portal_support
 #. odoo-python
 #: code:addons/wujia_portal_support/controllers/portal.py:0
 msgid "Resolved"
 msgstr ""
 
 #. module: wujia_portal_support
-#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_detail
+#. odoo-python
+#: code:addons/wujia_portal_support/controllers/portal.py:0
 msgid "Resolved on"
-msgstr ""
-
-#. module: wujia_portal_support
-#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_form
-msgid "Rush"
 msgstr ""
 
 #. module: wujia_portal_support
@@ -340,17 +306,30 @@ msgid "Search ticket code / title"
 msgstr ""
 
 #. module: wujia_portal_support
+#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_form
+msgid "Select a request type"
+msgstr ""
+
+#. module: wujia_portal_support
 #: model_terms:ir.ui.view,arch_db:wujia_portal_support.mobile_bottomnav_support
 msgid "Send tickets and see replies from {brand}"
 msgstr ""
 
 #. module: wujia_portal_support
-#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_detail
+#. odoo-python
+#: code:addons/wujia_portal_support/controllers/portal.py:0
+msgid "Sender"
+msgstr ""
+
+#. module: wujia_portal_support
+#. odoo-python
+#: code:addons/wujia_portal_support/controllers/portal.py:0
 msgid "Sent on"
 msgstr ""
 
 #. module: wujia_portal_support
-#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_detail
+#. odoo-python
+#: code:addons/wujia_portal_support/controllers/portal.py:0
 #: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_form
 msgid "Severity"
 msgstr ""
@@ -361,7 +340,6 @@ msgid "Status"
 msgstr ""
 
 #. module: wujia_portal_support
-#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_detail
 #: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_form
 #: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_list
 msgid "Store"
@@ -401,7 +379,7 @@ msgid "Support requests"
 msgstr ""
 
 #. module: wujia_portal_support
-#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_form
+#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_form_alert
 msgid "The submitted data is invalid."
 msgstr ""
 
@@ -456,6 +434,7 @@ msgstr ""
 #. module: wujia_portal_support
 #. odoo-python
 #: code:addons/wujia_portal_support/controllers/portal.py:0
+#: code:addons/wujia_portal_support/tests/test_jv7_i18n.py:0
 msgid "requests"
 msgstr ""
 

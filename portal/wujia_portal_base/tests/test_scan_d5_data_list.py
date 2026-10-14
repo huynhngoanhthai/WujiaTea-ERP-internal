@@ -335,9 +335,9 @@ class TestDataListCompactRowMobile(TransactionCase):
         self.assertEqual(len(stacked), 3, 'số khối is-stacked đổi')
 
     def test_muoi_hang_mdash_khong_phai_danh_sach_giu_nguyen(self):
-        """`wujia-mdash-row` còn 13 chỗ KHÔNG phải danh sách record (lối tắt Home,
-        hàng thông tin tĩnh Home/support; G3b +3 lối tắt Hỗ trợ nhanh của Home PC) — đụng
-        vào là đổi dáng 13 chỗ ngoài phạm vi."""
+        """`wujia-mdash-row` còn 10 chỗ KHÔNG phải danh sách record (lối tắt Home,
+        hàng thông tin tĩnh Home/support; G3b +3 lối tắt Hỗ trợ nhanh của Home PC; K1: 4 hàng
+        thông tin ticket viết tay → 1 hàng lặp `meta`) — đụng vào là đổi dáng 10 chỗ ngoài phạm vi."""
         con_lai = 0
         for module, filename in (('wujia_portal_base', 'portal_home.xml'),
                                  ('wujia_portal_support', 'portal_support.xml')):
@@ -346,7 +346,7 @@ class TestDataListCompactRowMobile(TransactionCase):
                 cls = el.get('class') or el.get('t-attf-class') or ''
                 if re.match(r'wujia-mdash-row(\s|$)', cls) and 'wj-data-item' not in cls.split():
                     con_lai += 1
-        self.assertEqual(con_lai, 13, 'số hàng mdash ngoài phạm vi đổi')
+        self.assertEqual(con_lai, 10, 'số hàng mdash ngoài phạm vi đổi')
 
     def test_mot_chu_so_huu_dang_bon_ho(self):
         """Rule cũ chỉ được chạm hàng CHƯA migrate. Xét compound CUỐI của mỗi

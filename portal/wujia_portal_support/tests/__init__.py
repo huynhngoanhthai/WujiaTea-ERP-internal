@@ -4,3 +4,4 @@ from . import test_portal_support_f10
 from . import test_jv7_i18n
 from . import test_i4b_support_scope
 from . import test_i8_mobile_content
+from . import test_k1_form_detail

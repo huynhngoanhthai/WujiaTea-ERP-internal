@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Ô lỗi dưới một control: id `<fe_for>-err`, ẩn tới khi lỗi (server: fe_show; client: wj_form_validate.js). -->
+    <template id="wj_field_error" name="Wujia — Field error">
+        <p t-att-id="'%s-err' % fe_for" class="wj-field-error" t-att-hidden="None if fe_show else 'hidden'">
+            <i class="feather icon-alert-circle wj-field-error__icon" aria-hidden="true"/>
+            <span t-out="fe_msg"/>
+        </p>
+    </template>
+
+</odoo>

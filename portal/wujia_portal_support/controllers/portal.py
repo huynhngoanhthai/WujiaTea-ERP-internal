@@ -11,6 +11,7 @@ from odoo.addons.wujia_portal_base.controllers.utils import (
     DEFAULT_DOC_MIME,
     attach_files_to_record,
     build_pager,
+    fmt_local_dt,
     status_badge,
     status_badge_for,
 )
@@ -49,6 +50,28 @@ PRIORITY_LABELS = {
 }
 
 
+# Mã lỗi form → field bị đánh dấu lỗi, cùng cho PC + mobile.
+ERROR_FIELDS = {
+    'missing_fields': ('title', 'category_id'),
+    'invalid_franchise': ('franchise_id',),
+    'invalid_input': ('category_id',),
+    'invalid_attachment': ('attachments',),
+}
+
+META_LABELS = {
+    'category': _lt('Classification'),
+    'priority': _lt('Severity'),
+    'sender': _lt('Sender'),
+    'sent': _lt('Sent on'),
+    'assignee': _lt('Assignee'),
+    'resolved': _lt('Resolved on'),
+}
+META_EMPTY = {
+    'assignee': _lt('Not assigned yet'),
+    'resolved': _lt('Not resolved yet'),
+}
+
+
 def _translated(labels):
     """{key: (nhãn, class)} với nhãn `_lt` dịch theo ngôn ngữ người xem (không `str(lazy)`)."""
     result = {}
@@ -63,6 +86,22 @@ def _label_ctx():
         'priority_labels': _translated(PRIORITY_LABELS),
         'm_ticket_badges': _translated(MOBILE_TICKET_BADGES),
     }
+
+
+def _ticket_meta(ticket):
+    """Thẻ thông tin chi tiết ticket — một danh sách cho PC + mobile."""
+    tr = request.env._
+    prio = PRIORITY_LABELS.get(ticket.priority)
+    rows = (
+        ('category', 'tag', ticket.category_id.name or '—'),
+        ('priority', 'flag', tr(prio[0]) if prio else ticket.priority),
+        ('sender', 'user', ticket.created_by_id.name or '—'),
+        ('sent', 'calendar', fmt_local_dt(ticket.create_date, '%d/%m/%Y %H:%M') or '—'),
+        ('assignee', 'user-check', ticket.assigned_user_id.name or tr(META_EMPTY['assignee'])),
+        ('resolved', 'check-circle', fmt_local_dt(ticket.resolved_date, '%d/%m/%Y') or tr(META_EMPTY['resolved'])),
+    )
+    return [{'key': key, 'icon': icon, 'label': tr(META_LABELS[key]), 'value': value}
+            for key, icon, value in rows]
 
 
 def _categories():
@@ -109,7 +148,7 @@ class WujiaPortalSupport(http.Controller):
         pgn = build_pager(total, page, PAGE_SIZE, path='/portal/support',
                           item_label=_lt('requests'))
         return request.render('wujia_portal_support.portal_support_list', {
-            'tickets': tickets, 'pgn': pgn,
+            'tickets': tickets, 'pgn': pgn, 'wj_dt': fmt_local_dt,
             **_label_ctx(),
             'state': state,
             'q': q,
@@ -122,10 +161,15 @@ class WujiaPortalSupport(http.Controller):
         if not franchise_ids:
             return request.redirect('/portal/support')
         franchises = request.env['wujia.franchise.management'].sudo().browse(franchise_ids)
+        error = kw.get('error', '')
+        if error not in ERROR_FIELDS:
+            error = ''
         return request.render('wujia_portal_support.portal_support_form', {
             'franchises': franchises,
             'categories': _categories(),
-            'error': kw.get('error', ''),
+            'priority_options': [(key, label) for key, (label, _css) in _translated(PRIORITY_LABELS).items()],
+            'error': error,
+            'error_fields': ERROR_FIELDS.get(error, ()),
         })
 
     @http.route(['/portal/support/new'], type='http', auth='user', sitemap=False,
@@ -161,6 +205,8 @@ class WujiaPortalSupport(http.Controller):
             return request.redirect('/portal/support')
         return request.render('wujia_portal_support.portal_support_detail', {
             'ticket': ticket,
+            'meta': _ticket_meta(ticket),
+            'wj_dt': fmt_local_dt,
             **_label_ctx(),
         })
 

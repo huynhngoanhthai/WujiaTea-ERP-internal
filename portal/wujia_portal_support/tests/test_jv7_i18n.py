@@ -47,8 +47,8 @@ def _pc_severity(html):
 
 
 def _mobile_priority(html):
-    """Dòng "Ưu tiên"/"Priority" của thẻ thông tin mobile."""
-    m = re.search(r'<span class="wujia-mdash-row-sub">(?:Ưu tiên|Priority)</span>\s*'
+    """Dòng "Mức độ"/"Severity" của thẻ thông tin mobile (cùng nhãn PC từ K1)."""
+    m = re.search(r'<span class="wujia-mdash-row-sub">(?:Mức độ|Severity)</span>\s*'
                   r'<span class="wujia-mdash-row-sub is-strong">([^<]*)</span>', html)
     return m and m.group(1).strip()
 
@@ -103,17 +103,23 @@ class TestJv7Labels(TransactionCase):
         self.assertEqual(self.env_vi._(ctrl._lt('requests')), 'yêu cầu')
 
     def test_pc_detail_reads_translated_priority(self):
-        """WJ-SUPPORT-003: PC không còn đọc selection thô của field."""
+        """WJ-SUPPORT-003: PC + mobile đọc mức độ từ một bảng nhãn đã dịch (`_ticket_meta`)."""
+        from odoo.addons.wujia_portal_support.controllers import portal as ctrl
         view = self.env.ref('wujia_portal_support.portal_support_detail')
         arch = view.with_context(lang='en_US').arch
         self.assertNotIn("_fields['priority'].selection", arch)
-        self.assertEqual(arch.count("priority_labels.get(ticket.priority"), 2)
+        self.assertNotIn("ticket.priority", arch)
+        self.assertEqual(arch.count('t-foreach="meta"'), 2)
+        src = open(ctrl.__file__, encoding='utf-8').read()
+        self.assertIn("PRIORITY_LABELS.get(ticket.priority)", src)
+        self.assertEqual(self.env_vi._(ctrl.META_LABELS['priority']), 'Mức độ')
+        self.assertEqual(self.env_vi._(ctrl.META_LABELS['category']), 'Phân loại')
 
     def test_view_labels_in_arch(self):
         cases = {
             'wujia_portal_support.portal_support_list': (
                 'Trạng thái', 'Tất cả trạng thái', 'Tìm mã / tiêu đề ticket', 'Xem ticket'),
-            'wujia_portal_support.portal_support_detail': ('Mức độ', 'Phân loại', 'phản hồi'),
+            'wujia_portal_support.portal_support_detail': ('Mã yêu cầu', 'phản hồi'),
         }
         for xmlid, words in cases.items():
             view = self.env.ref(xmlid)
