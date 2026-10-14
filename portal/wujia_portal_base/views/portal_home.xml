@@ -226,13 +226,12 @@
                                         <span class="wujia-mdash-row-main">
                                             <span class="wujia-mdash-row-title is-code" t-out="r.name"/>
                                             <span class="wujia-mdash-row-sub">
-                                                Request date: <t t-out="r.request_date and r.request_date.strftime('%d/%m/%Y') or '—'"/>
+                                                Request date: <t t-out="wj_dt(r.request_date, '%d/%m/%Y') or '—'"/>
                                             </span>
                                             <span class="wujia-mdash-row-sub is-strong">
                                                 Reason: <t t-out="r.issue_type_id.name or '—'"/>
                                             </span>
-                                            <!-- UI-only: model chưa có field tổng tiền (như mobile, NOTE BA) -->
-                                            <span class="wujia-mdash-row-sub is-strong is-xs">Total: —</span>
+                                            <span class="wujia-mdash-row-sub is-strong is-xs" t-out="'%s · %s' % (wj_pname(r.product_id) or '—', r._portal_qty_label())"/>
                                         </span>
                                         <t t-set="lbl" t-value="wj_return_status(r)"/>
                                         <span t-attf-class="wj-status-badge #{lbl[1]}" t-out="lbl[0]"/>
@@ -741,13 +740,12 @@
                                             <span class="wujia-mdash-row-main">
                                                 <span class="wujia-mdash-row-title" t-out="r.name"/>
                                                 <span class="wujia-mdash-row-sub">
-                                                    Request date: <t t-out="r.request_date and r.request_date.strftime('%d/%m/%Y') or '—'"/>
+                                                    Request date: <t t-out="wj_dt(r.request_date, '%d/%m/%Y') or '—'"/>
                                                 </span>
                                                 <span class="wujia-mdash-row-sub is-strong">
                                                     Reason: <t t-out="r.issue_type_id.name or '—'"/>
                                                 </span>
-                                                <!-- UI-only: model chưa có field tổng tiền (NOTE BA) -->
-                                                <span class="wujia-mdash-row-sub is-strong is-xs">Total: —</span>
+                                                <span class="wujia-mdash-row-sub is-strong is-xs" t-out="'%s · %s' % (wj_pname(r.product_id) or '—', r._portal_qty_label())"/>
                                             </span>
                                             <t t-set="lbl" t-value="wj_return_status(r)"/>
                                             <span t-attf-class="wj-status-badge #{lbl[1]}" t-out="lbl[0]"/>

@@ -8,6 +8,16 @@
 .wujia-return-progress { height: 8px; border-radius: 6px; background: var(--wujia-border); }
 .wujia-return-progress .progress-bar { background-color: var(--wujia-primary); border-radius: 6px; }
 
+/* Chi tiết: thẻ tóm tắt + khối phản hồi dùng chung PC/mobile (#175). */
+.wujia-mreturn-row-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+.wujia-mreturn-row-code { font-size: 15px; font-weight: 700; color: var(--wujia-morder-text); overflow-wrap: anywhere; }
+.wujia-mreturn-summary-meta {
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px;
+    margin-top: 8px; font-size: 13px; color: var(--wujia-morder-text-sub);
+}
+.wujia-mreturn-response { border-left: 3px solid var(--wujia-morder-primary); }
+.wujia-mreturn-resp-body { margin: 0; font-size: 14px; color: var(--wujia-morder-text); white-space: pre-line; overflow-wrap: anywhere; }
+
 /* ===== Mobile Đổi trả/Bù hàng — Figma 4449:81 (S20). Token --wujia-morder-* ===== */
 @media (max-width: 991.98px) {
     /* Tắt font-boosting (Chromium phình h1 22→32px → tiêu đề wrap) */
@@ -26,8 +36,6 @@
 
     /* ListScreen — ReturnCard */
     .wujia-mreturn-list { display: flex; flex-direction: column; gap: 12px; }
-    .wujia-mreturn-row-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-    .wujia-mreturn-row-code { font-size: 15px; font-weight: 700; color: var(--wujia-morder-text); }
 
     /* FormScreen */
     .wujia-mreturn-banner {
@@ -47,20 +55,13 @@
     .wujia-mreturn-cta > .wj-btn--secondary { flex: 0 0 auto; }
 
     /* DetailScreen */
-    .wujia-mreturn-summary-meta {
-        display: flex; justify-content: space-between; gap: 8px;
-        margin-top: 8px; font-size: 13px; color: var(--wujia-morder-text-sub);
-    }
     .wujia-mreturn-thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
     .wujia-mreturn-thumbs img {
         width: 100%; aspect-ratio: 1/1; object-fit: cover;
         border-radius: 10px; border: 1px solid var(--wujia-morder-border);
     }
-    .wujia-mreturn-response { border-left: 3px solid var(--wujia-morder-primary); }
-    .wujia-mreturn-resp-body { margin: 0; font-size: 14px; color: var(--wujia-morder-text); }
 
     /* Tiến độ bù — mobile (Sprint K portal wire) */
-    .wujia-mreturn-row-head { flex-wrap: wrap; }
     .wujia-mreturn-progress-wrap { margin-top: 8px; }
     .wujia-mreturn-progress-meta {
         display: flex; justify-content: space-between; gap: 8px;

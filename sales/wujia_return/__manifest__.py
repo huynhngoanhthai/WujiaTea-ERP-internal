@@ -1,6 +1,6 @@
 {
     'name': 'Wujia Returns',
-    'version': '19.0.2.1.1',
+    'version': '19.0.2.2.0',
     'category': 'Wujia',
     'summary': 'Returns / compensation — 1 product per request, HQ approval, 0-value compensation SO, compensation delivery tracking.',
     'description': """

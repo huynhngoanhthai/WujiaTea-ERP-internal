@@ -126,10 +126,6 @@ msgid "<span class=\"wujia-maccount-kv-key\">Start date</span>"
 msgstr "<span class=\"wujia-maccount-kv-key\">Ngày bắt đầu</span>"
 
 #. module: wujia_portal_base
-msgid "<span class=\"wujia-mdash-row-sub is-strong is-xs\">Total: —</span>"
-msgstr "<span class=\"wujia-mdash-row-sub is-strong is-xs\">Tổng tiền: —</span>"
-
-#. module: wujia_portal_base
 msgid "<span class=\"wujia-mdash-row-sub\">Address</span>"
 msgstr "<span class=\"wujia-mdash-row-sub\">Địa chỉ</span>"
 

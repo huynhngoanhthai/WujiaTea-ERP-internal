@@ -45,7 +45,8 @@ class TestCardHeaderCallSites(TransactionCase):
         'wujia_portal_exam.portal_exam_register': 8,
         'wujia_portal_exam.portal_exam_registration_detail': 3,
         # D3e — chi tiết bù hàng + lịch sử đặt hàng
-        'wujia_portal_return.portal_return_detail': 15,
+        'wujia_portal_return.portal_return_detail': 11,
+        'wujia_portal_return.portal_return_feedback_body': 1,
         'wujia_portal_purchase_history.portal_history_results_part': 1,
         # I7 WJ-PH-009: +1 card "Ghi chú khi đặt hàng" bản PC.
         'wujia_portal_purchase_history.portal_history_detail': 9,
@@ -230,9 +231,10 @@ class TestCardHeaderD3eLayout(TransactionCase):
     def test_return_sublabels_keep_their_own_shape(self):
         # 4 nhãn phụ trong thân card: chuẩn hoá cấu trúc nhưng KHÔNG được to bằng
         # tiêu đề card cha, nếu không một card có ba dòng chữ cùng cỡ.
-        arch = self._arch('wujia_portal_return.portal_return_detail')
+        arch = self._arch('wujia_portal_return.portal_return_detail') + self._arch(
+            'wujia_portal_return.portal_return_feedback_body')
         # Từ D3 REVIEW, ch_class mở đầu bằng modifier chung rồi mới tới lớp module.
-        self.assertEqual(arch.count("wj-card-header--sublabel wj-return-sublabel"), 4)
+        self.assertEqual(arch.count("wj-card-header--sublabel wj-return-sublabel"), 2)
         path = src('wujia_portal_return',
                    'static', 'src', 'css', 'portal_return.css')
         with open(path, encoding='utf-8') as fh:
@@ -249,7 +251,7 @@ class TestCardHeaderD3eLayout(TransactionCase):
             css,
             r'\.wj-card-header\.wj-return-sublabel--danger'
             r'\s+\.wj-card-header__title\s*\{[^}]*color:')
-        self.assertEqual(arch.count('wj-card-header--sublabel'), 4)
+        self.assertEqual(arch.count('wj-card-header--sublabel'), 2)
 
 
 @tagged('post_install', '-at_install', 'wujia_card_header_d3')
@@ -286,10 +288,11 @@ class TestCardHeaderD3Review(TransactionCase):
                     r'[^}]*font-size')
 
     def test_sublabel_call_sites_carry_the_shared_modifier(self):
-        # 5 chỗ: 4 ở phiếu trả hàng (D3e) + 1 ở khảo sát (D3f).
+        # 3 chỗ: 2 ở phiếu trả hàng (#175 tách phản hồi) + 1 ở khảo sát (D3f).
         self.assertEqual(
-            self._arch('wujia_portal_return.portal_return_detail')
-            .count('wj-card-header--sublabel'), 4)
+            (self._arch('wujia_portal_return.portal_return_detail')
+             + self._arch('wujia_portal_return.portal_return_feedback_body'))
+            .count('wj-card-header--sublabel'), 2)
         self.assertEqual(
             self._arch('wujia_portal_inspection.portal_inspection_detail')
             .count('wj-card-header--sublabel'), 1)
