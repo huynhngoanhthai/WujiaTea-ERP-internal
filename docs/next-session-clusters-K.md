@@ -59,7 +59,8 @@ Issue List 179 dòng: 152 Done · 6 Ready for Retest · 4 Need Clarification · 
 |---|---|---|---|---|
 | K0 | #139 · #73 · #37 | Enter gửi tìm kiếm + ngày ngược · H1 `payment-history` một tên · bỏ mã nội bộ khỏi tên sản phẩm | portal_layout (FilterBar), portal_debt, portal_report |✅ 14/10 · `319a16fb` · sheet `Ready for Retest` |
 | K1 | #187 · #188 · #186 | Form Hỗ trợ một cấu hình PC/mobile (phân loại rỗng bắt buộc, 2 mức ưu tiên) · nhãn gắn control + lỗi có `aria-*` · metadata chi tiết ticket | portal_layout (hạt giống `wj_form_validate.js` + `wj_field_error`), portal_support | ✅ 14/10 · `00e9443f` · sheet chờ `--apply` |
-| K2 | #182 | Shared Form Validation — **K1 đã có** lỗi tại field + `aria-invalid`/`aria-describedby` + focus ô đầu (`data-wj-validate`, chỉ `support/new`). Còn: Error Summary đầu form, giữ dữ liệu khi server trả lỗi, áp `return/new`, kiểm số tệp trước POST. Gộp H9 FormField của cụm H | portal_layout, portal_support, portal_return | ☐ |
+| K2a | #182 | Khung Error Summary (`wj_error_summary` + `wj_form_validate.js`: danh sách link, luật số/dung lượng/loại tệp qua `data-wj-*`) · `support/new` render lại tại chỗ giữ giá trị · `return/new` giữ mọi giá trị + `ReturnPortalError.field` đánh dấu đúng ô · Khắc phục luôn bắt buộc ảnh (chủ dự án cho sửa module anh Thái) | portal_layout, portal_support, wujia_return, portal_return, portal_inspection | ✅ code 14/10 · PR #14 **chưa merge** (`4ac86ac3`) |
+| K2b | #182 | Áp khung cho `info-request`, `change-password`, `exam/register` · rồi **merge PR #14 + K2b một lượt** → kiểm version UAT → đo UAT → ledger #182 `Ready for Retest` · xử lý LIMIT K2a còn cần (xem `f-progress.md` mục K2a) | portal_info_request, portal_base, portal_exam | ☐ |
 | K3 | #175 | Đổi trả: Home + danh sách + chi tiết theo cửa hàng đang chọn, bỏ Tổng tiền, thêm Sản phẩm · SL ĐVT | wujia_return, portal_return, portal_base | ☐ |
 | K4 | #178 | Giao hàng: một bộ nhãn trạng thái Home/danh sách/chi tiết, "Chưa có lịch", thứ tự, bỏ Tổng tiền | portal_delivery, portal_base | ☐ |
 | K5 | #177 · #176 | Thông báo nổi bật (ghim → mức độ → ngày, badge Mức độ) · khối Hỗ trợ nhanh (thêm Theo dõi yêu cầu, ẩn hotline/chat chưa cấu hình) | wujia_notification, portal_base | ☐ |
@@ -78,7 +79,7 @@ Issue List 179 dòng: 152 Done · 6 Ready for Retest · 4 Need Clarification · 
 | ★SR | #185 | Đo tải trên DB copy: không bán vượt, không cam kết âm, không deadlock | — | ☐ |
 | J-O0…★JR | #181 | Portal Vận hành 14 màn — bảng trạng thái ở `next-session-clusters-J.md` §2 | wujia_portal_operations (mới) | ☐ |
 
-**Thứ tự đề xuất:** K0 → K1 → K2 → S0 → K3 → K4 → K5 → K6 → J-O0 → K7a → K7b → (S1… và J-O1… xen kẽ) → ★KR.
+**Thứ tự đề xuất:** K0 → K1 → K2a → K2b → S0 → K3 → K4 → K5 → K6 → J-O0 → K7a → K7b → (S1… và J-O1… xen kẽ) → ★KR.
 S0 và J-O0 đặt sớm để BA có thời gian trả lời trong lúc làm các phiên Home. K7 đứng sau K3–K5 vì #183 dùng lại nội
 dung card của #175, #177, #178.
 
@@ -103,8 +104,8 @@ Riêng S0 và J-O0: không code, sản phẩm là một file thiết kế trong 
 | Phiên | Câu hỏi | Hỏi ai |
 |---|---|---|
 | K0 | Ngày ngược: danh sách hiển thị gì (BA chỉ nói không được ra 0 dòng kèm EmptyState) | BA |
-| K2 | `/portal/inspection/remediation` gửi được khi thiếu ảnh — module anh Thái: bàn giao hay được phép sửa | Chủ dự án |
-| K2 | Danh sách form trong phạm vi ngoài `support/new` và `return/new` | BA |
+| K2 | `/portal/inspection/remediation` gửi được khi thiếu ảnh — module anh Thái: bàn giao hay được phép sửa | Chủ dự án — ✅ 14/10: cho sửa, luôn bắt buộc ảnh |
+| K2 | Danh sách form trong phạm vi ngoài `support/new` và `return/new` | BA — ✅ 14/10 chủ dự án chốt: K2b = info-request, change-password, exam/register |
 | K5 | Số hotline và kênh chat cấu hình ở đâu (công ty, Settings, hay theo khu vực) | BA |
 | S0 | Trạng thái đơn nào tính cam kết · khi nào nhả cam kết · cấu hình location mục Q đã có trong source chưa | BA + chủ dự án |
 | J-O1 | Luật portal: thêm file mới vào `wujia_franchise_operations` hay anh Thái viết | Chủ dự án + anh Thái |

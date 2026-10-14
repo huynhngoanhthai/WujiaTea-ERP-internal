@@ -6,7 +6,7 @@ from odoo.addons.wujia_core.tools.module_split import imd_names
 from odoo.addons.wujia_support.hooks import EXTRA, MODELS, NEW_MODULE, OLD_MODULE
 
 PORTAL_VIEWS = {
-    'portal_support_list', 'portal_support_form', 'portal_support_detail',
+    'portal_support_list', 'portal_support_form', 'portal_support_form_alert', 'portal_support_detail',
     'layout_sidenav_support', 'mobile_bottomnav_support',
 }
 

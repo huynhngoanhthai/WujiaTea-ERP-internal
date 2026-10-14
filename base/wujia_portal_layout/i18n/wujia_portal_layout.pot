@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-05 12:44+0000\n"
-"PO-Revision-Date: 2026-10-05 12:44+0000\n"
+"POT-Creation-Date: 2026-10-14 08:20+0000\n"
+"PO-Revision-Date: 2026-10-14 08:20+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -494,11 +494,6 @@ msgid "Current password"
 msgstr ""
 
 #. module: wujia_portal_layout
-#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
-msgid "Current password is incorrect."
-msgstr ""
-
-#. module: wujia_portal_layout
 #. odoo-python
 #: code:addons/wujia_portal_layout/controllers/portal.py:0
 msgid "Current password is incorrect. Please check again."
@@ -567,6 +562,13 @@ msgid "Enter 6 digits"
 msgstr ""
 
 #. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py:0
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
+msgid "Enter a new password of at least 8 characters."
+msgstr ""
+
+#. module: wujia_portal_layout
 #: model_terms:ir.ui.view,arch_db:wujia_portal_layout.login_form
 msgid "Enter email or username"
 msgstr ""
@@ -589,6 +591,13 @@ msgstr ""
 #. module: wujia_portal_layout
 #: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
 msgid "Enter your current and new password to update your account."
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py:0
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
+msgid "Enter your current password."
 msgstr ""
 
 #. module: wujia_portal_layout
@@ -867,7 +876,6 @@ msgstr ""
 #. module: wujia_portal_layout
 #. odoo-python
 #: code:addons/wujia_portal_layout/controllers/auth.py:0
-#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
 msgid "Password confirmation does not match."
 msgstr ""
 
@@ -908,9 +916,8 @@ msgid "Please enter your email."
 msgstr ""
 
 #. module: wujia_portal_layout
-#. odoo-python
-#: code:addons/wujia_portal_layout/controllers/portal.py:0
-msgid "Please fill in all fields."
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_error_summary
+msgid "Please fix {n} field(s) below."
 msgstr ""
 
 #. module: wujia_portal_layout
@@ -939,6 +946,17 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
 #: model_terms:ir.ui.view,arch_db:wujia_portal_layout.reset_pass_form
 msgid "Re-enter new password"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
+msgid "Re-enter the new password exactly as above."
+msgstr ""
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py:0
+msgid "Re-enter the new password."
 msgstr ""
 
 #. module: wujia_portal_layout
@@ -1118,16 +1136,16 @@ msgid "To date"
 msgstr ""
 
 #. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/utils.py:0
+msgid "Too many requests. Please try again later."
+msgstr ""
+
+#. module: wujia_portal_layout
 #: model_terms:ir.ui.view,arch_db:wujia_portal_layout.login_container
 msgid ""
 "Track daily operations for the {brand} franchise store network in a single "
 "portal."
-msgstr ""
-
-#. module: wujia_portal_layout
-#. odoo-python
-#: code:addons/wujia_portal_layout/controllers/utils.py:0
-msgid "Too many requests. Please try again later."
 msgstr ""
 
 #. module: wujia_portal_layout

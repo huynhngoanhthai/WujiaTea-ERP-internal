@@ -75,5 +75,5 @@ class TestPortalSupportF10(SupportCommon, HttpCase):
         res = self.url_open('/portal/support/new', allow_redirects=False, data={
             'franchise_id': self.other_franchise.id, 'category_id': self.cat.id, 'title': 'lạc cửa hàng',
             'csrf_token': http.Request.csrf_token(self)})
-        self.assertTrue(res.headers['Location'].endswith('/portal/support/new?error=invalid_franchise'))
+        self.assertIn('data-wj-error="invalid_franchise"', res.text)
         self.assertEqual(self.Ticket.search_count([]), before)

@@ -193,33 +193,34 @@ class WujiaPortalLayout(http.Controller):
         new_pwd = post.get('new-password') or ''
         confirm = post.get('con-password') or ''
 
-        # error_field = ô cần viền đỏ; template đọc mã này, không dò chữ trong câu lỗi
-        # (câu lỗi đã dịch theo ngôn ngữ user).
-        if not old_pwd or not new_pwd:
-            values['error'] = _('Please fill in all fields.')
-        elif new_pwd != confirm:
-            values['error'] = _('Password confirmation does not match the new password.')
-            values['error_field'] = 'confirm'
+        # field_errors = {ô: câu lỗi}; mật khẩu không bao giờ được render lại.
+        errors = {}
+        if not old_pwd:
+            errors['old'] = _('Enter your current password.')
+        if not new_pwd:
+            errors['new'] = _('Enter a new password of at least 8 characters.')
         elif len(new_pwd) < 8:
-            values['error'] = _('New password must be at least 8 characters.')
-            values['error_field'] = 'new'
-        elif new_pwd == old_pwd:
-            values['error'] = _('New password must differ from the old password.')
-            values['error_field'] = 'new'
-        else:
+            errors['new'] = _('New password must be at least 8 characters.')
+        elif old_pwd and new_pwd == old_pwd:
+            errors['new'] = _('New password must differ from the old password.')
+        if not confirm:
+            errors['confirm'] = _('Re-enter the new password.')
+        elif new_pwd and new_pwd != confirm:
+            errors['confirm'] = _('Password confirmation does not match the new password.')
+        if not errors:
             try:
                 # change_password(old, new) tự verify old qua _check_credentials.
                 request.env['res.users'].change_password(old_pwd, new_pwd)
                 values['message'] = _('Your password has been updated.')
             except AccessDenied:
-                values['error'] = _('Current password is incorrect. Please check again.')
-                values['error_field'] = 'old'
+                errors['old'] = _('Current password is incorrect. Please check again.')
             except UserError as e:
                 values['error'] = str(e)
             except Exception:
                 _logger.exception('Change password failed for %s',
                                   request.env.user.login)
                 values['error'] = _('Something went wrong. Please try again.')
+        values['field_errors'] = errors
 
         return request.render('wujia_portal_layout.change_password_page', values)
 

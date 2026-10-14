@@ -35,6 +35,16 @@ from odoo.addons.wujia_info_request.models.wujia_info_update_request import REQU
 _logger = logging.getLogger(__name__)
 
 PAGE_SIZE = 20
+MAX_FILES = 6
+MAX_FILE_MB = 5
+
+
+class InfoRequestFormError(ValidationError):
+    """Lỗi đầu vào form, ``errors`` = {ô: câu lỗi}."""
+
+    def __init__(self, message, errors):
+        super().__init__(message)
+        self.errors = dict(errors)
 
 # Nhãn portal của request_type (khác nhãn backend), dịch lúc render. Key khớp REQUEST_TYPE của wujia_info_request.
 REQUEST_TYPE_LABELS = {
@@ -147,15 +157,15 @@ class WujiaPortalInfoRequest(http.Controller):
         # ---------- POST ----------
         try:
             vals, action = self._parse_payload(post, franchise_ids)
-        except ValidationError as e:
-            return self._render_form(error=str(e), prefill=post)
+        except InfoRequestFormError as e:
+            return self._render_form(error=str(e), prefill=post, field_errors=e.errors)
 
         files = request.httprequest.files.getlist('attachments')
         try:
             rec = Model.create_from_portal(
                 vals, submit=action == 'submit',
                 attach=lambda r: attach_files_to_record(
-                    r, files, allowed_mime=DEFAULT_DOC_MIME, max_size_mb=5, max_count=6),
+                    r, files, allowed_mime=DEFAULT_DOC_MIME, max_size_mb=MAX_FILE_MB, max_count=MAX_FILES),
             )
         except (ValidationError, UserError) as e:
             return self._render_form(error=str(e), prefill=post)
@@ -239,7 +249,7 @@ class WujiaPortalInfoRequest(http.Controller):
             franchise, request_type, field_target)}
 
     # ============================================================== helpers
-    def _render_form(self, error=None, prefill=None):
+    def _render_form(self, error=None, prefill=None, field_errors=None):
         franchise_ids = get_current_store_ids()
         franchises = request.env['wujia.franchise.management'].sudo().browse(franchise_ids)
         return request.render(
@@ -248,29 +258,43 @@ class WujiaPortalInfoRequest(http.Controller):
                 'franchises': franchises,
                 'request_type_options': _type_options(),
                 'error': error,
+                'field_errors': field_errors or {},
                 'values': prefill or {},
+                'max_files': MAX_FILES,
+                'max_file_mb': MAX_FILE_MB,
             },
         )
 
     def _parse_payload(self, post, accessible_fids):
+        errors = []
         try:
             franchise_id = int(post.get('franchise_id') or 0)
         except (TypeError, ValueError):
-            raise ValidationError(_("Invalid store."))
-        if franchise_id not in set(accessible_fids):
-            raise ValidationError(_("You cannot access this store."))
+            franchise_id = None
+            errors.append(('franchise_id', _("Invalid store.")))
+        if franchise_id is None:
+            pass
+        elif not franchise_id:
+            errors.append(('franchise_id', _("Please select a store.")))
+        elif franchise_id not in set(accessible_fids):
+            errors.append(('franchise_id', _("You cannot access this store.")))
 
         request_type = post.get('request_type') or ''
-        if request_type not in dict(REQUEST_TYPE):
-            raise ValidationError(_("Invalid information type."))
-
-        new_value = (post.get('new_value') or '').strip()
-        if not new_value:
-            raise ValidationError(_("Please enter the new value."))
+        if not request_type:
+            errors.append(('request_type', _("Please select an information type.")))
+        elif request_type not in dict(REQUEST_TYPE):
+            errors.append(('request_type', _("Invalid information type.")))
 
         field_target = (post.get('field_target') or '').strip()
         if request_type == 'other' and not field_target:
-            raise ValidationError(_("Enter the field name when choosing 'Other'."))
+            errors.append(('field_target', _("Enter the field name when choosing 'Other'.")))
+
+        new_value = (post.get('new_value') or '').strip()
+        if not new_value:
+            errors.append(('new_value', _("Please enter the new value.")))
+        if errors:
+            message = errors[0][1] if len(errors) == 1 else _("Please fill in all required fields.")
+            raise InfoRequestFormError(message, errors)
 
         action = (post.get('action') or 'draft').strip()
         if action not in ('draft', 'submit'):

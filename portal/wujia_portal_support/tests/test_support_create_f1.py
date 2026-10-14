@@ -37,26 +37,26 @@ class TestSupportCreateF1(HttpCase):
     def _count(self):
         return self.Ticket.search_count([('created_by_id', '=', self.user.id)])
 
-    def test_non_int_id_redirects_invalid_input(self):
+    def test_non_int_id_renders_invalid_input(self):
         res = self._post(franchise_id='abc')
-        self.assertEqual(res.status_code, 303)
-        self.assertIn('error=invalid_input', res.headers['Location'])
+        self.assertEqual(res.status_code, 200)
+        self.assertIn('data-wj-error="invalid_input"', res.text)
 
     def test_archived_category_rejected(self):
         res = self._post(category_id=self.cat_archived.id)
-        self.assertIn('error=invalid_input', res.headers['Location'])
+        self.assertIn('data-wj-error="invalid_input"', res.text)
         self.assertEqual(self._count(), 0)
 
     def test_html_attachment_rejected_without_ticket(self):
         res = self._post(files=[('attachments', ('x.html', b'<script>1</script>', 'text/html'))])
-        self.assertIn('error=invalid_attachment', res.headers['Location'])
+        self.assertIn('data-wj-error="invalid_attachment"', res.text)
         self.assertEqual(self._count(), 0)
         self.assertFalse(self.env['ir.attachment'].sudo().search([('name', '=', 'x.html')]))
 
     def test_more_than_six_files_rejected(self):
         files = [('attachments', (f'f{i}.pdf', PDF, 'application/pdf')) for i in range(7)]
         res = self._post(files=files)
-        self.assertIn('error=invalid_attachment', res.headers['Location'])
+        self.assertIn('data-wj-error="invalid_attachment"', res.text)
         self.assertEqual(self._count(), 0)
 
     def test_pdf_attachment_accepted(self):

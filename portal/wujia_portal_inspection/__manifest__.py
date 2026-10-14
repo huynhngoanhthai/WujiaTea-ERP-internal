@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Wujia Portal — Inspection (Khảo sát)',
-    'version': '19.0.1.8.0',
+    'version': '19.0.1.8.1',
     'category': 'Wujia',
     'summary': 'Giao diện xem phiếu khảo sát đánh giá cửa hàng nhượng quyền',
     'author': 'WujiaTea',

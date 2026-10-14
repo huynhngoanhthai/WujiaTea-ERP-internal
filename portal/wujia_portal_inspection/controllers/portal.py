@@ -429,15 +429,9 @@ class WujiaPortalInspectionController(http.Controller):
                     write_vals['remediation_image'] = base64.b64encode(img_data).decode('utf-8')
                     has_new_image = True
 
-        has_image = has_new_image or bool(line.remediation_image)
-        has_note = bool(store_note) or bool(line.remediation_note)
-        require_ev = line.require_evidence_if_fail_snapshot or line.require_evidence_if_fail
-
-        if require_ev and not has_image:
-            return request.make_json_response({'status': 'error', 'message': 'Tiêu chí này yêu cầu bắt buộc phải có ảnh minh chứng.'})
-
-        if not has_image and not has_note:
-            return request.make_json_response({'status': 'error', 'message': 'Vui lòng nhập ghi chú khắc phục hoặc tải lên ảnh minh chứng trước khi gửi.'})
+        # Khắc phục luôn phải có ảnh, kể cả khi tiêu chí không bật cờ bắt buộc minh chứng.
+        if not (has_new_image or line.remediation_image):
+            return request.make_json_response({'status': 'error', 'message': 'Vui lòng tải lên ảnh khắc phục trước khi gửi.'})
 
         write_vals['remediation_state'] = RemediationState.REMEDIATED.value
         try:

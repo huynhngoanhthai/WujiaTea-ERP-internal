@@ -348,3 +348,33 @@ msgstr "kết quả"
 #: code:addons/wujia_portal_info_request/controllers/portal.py:0
 msgid "You do not have permission to view this store's information update requests."
 msgstr "Bạn không có quyền xem yêu cầu cập nhật thông tin của cửa hàng."
+
+#. module: wujia_portal_info_request
+msgid "<small id=\"info-attachments-hint\" class=\"text-muted\">PDF / JPG / PNG / WEBP, up to 5MB per file, up to 6 files.</small>"
+msgstr "<small id=\"info-attachments-hint\" class=\"text-muted\">PDF / JPG / PNG / WEBP, tối đa 5MB mỗi tệp, tối đa 6 tệp.</small>"
+
+#. module: wujia_portal_info_request
+msgid "PDF / JPG / PNG / WEBP, up to 5MB per file, up to 6 files."
+msgstr "PDF / JPG / PNG / WEBP, tối đa 5MB mỗi tệp, tối đa 6 tệp."
+
+#. module: wujia_portal_info_request
+#. odoo-python
+#: code:addons/wujia_portal_info_request/controllers/portal.py
+msgid "Please fill in all required fields."
+msgstr "Vui lòng điền đầy đủ các trường bắt buộc."
+
+#. module: wujia_portal_info_request
+#. odoo-python
+#: code:addons/wujia_portal_info_request/controllers/portal.py
+msgid "Please select a store."
+msgstr "Vui lòng chọn cửa hàng."
+
+#. module: wujia_portal_info_request
+#. odoo-python
+#: code:addons/wujia_portal_info_request/controllers/portal.py
+msgid "Please select an information type."
+msgstr "Vui lòng chọn loại thông tin."
+
+#. module: wujia_portal_info_request
+msgid "Technical field name (when \"Other\" is selected) <span class=\"text-danger\">*</span>"
+msgstr "Tên field kỹ thuật (khi chọn \"Khác\") <span class=\"text-danger\">*</span>"

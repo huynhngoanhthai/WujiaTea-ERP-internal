@@ -50,6 +50,9 @@ PRIORITY_LABELS = {
 }
 
 
+MAX_FILES = 6
+MAX_FILE_MB = 5
+
 # Mã lỗi form → field bị đánh dấu lỗi, cùng cho PC + mobile.
 ERROR_FIELDS = {
     'missing_fields': ('title', 'category_id'),
@@ -157,20 +160,9 @@ class WujiaPortalSupport(http.Controller):
     @http.route(['/portal/support/new'], type='http', auth='user', sitemap=False,
                 methods=['GET'])
     def portal_support_new(self, **kw):
-        franchise_ids = get_current_store_ids()
-        if not franchise_ids:
+        if not get_current_store_ids():
             return request.redirect('/portal/support')
-        franchises = request.env['wujia.franchise.management'].sudo().browse(franchise_ids)
-        error = kw.get('error', '')
-        if error not in ERROR_FIELDS:
-            error = ''
-        return request.render('wujia_portal_support.portal_support_form', {
-            'franchises': franchises,
-            'categories': _categories(),
-            'priority_options': [(key, label) for key, (label, _css) in _translated(PRIORITY_LABELS).items()],
-            'error': error,
-            'error_fields': ERROR_FIELDS.get(error, ()),
-        })
+        return self._render_form(kw.get('error', ''))
 
     @http.route(['/portal/support/new'], type='http', auth='user', sitemap=False,
                 methods=['POST'], csrf=True)
@@ -179,7 +171,7 @@ class WujiaPortalSupport(http.Controller):
             franchise_id = int(post.get('franchise_id') or 0)
             category_id = int(post.get('category_id') or 0)
         except (TypeError, ValueError):
-            return request.redirect('/portal/support/new?error=invalid_input')
+            return self._render_form('invalid_input', post)
         # Accept both 'title' (new) and 'subject' (legacy) form keys.
         title = (post.get('title') or post.get('subject') or '').strip()
         files = request.httprequest.files.getlist('attachments')
@@ -191,11 +183,34 @@ class WujiaPortalSupport(http.Controller):
             'category_id': category_id,
             'priority': post.get('priority', 'normal'),
         }, get_current_store_ids(), attach=lambda t: attach_files_to_record(
-            t, files, allowed_mime=DEFAULT_DOC_MIME, max_size_mb=5, max_count=6,
+            t, files, allowed_mime=DEFAULT_DOC_MIME, max_size_mb=MAX_FILE_MB, max_count=MAX_FILES,
         ))
         if error:
-            return request.redirect(f'/portal/support/new?error={error}')
+            return self._render_form(error, post)
         return request.redirect(f'/portal/support/{ticket.id}')
+
+    def _render_form(self, error='', values=None):
+        """Form tạo ticket; lỗi máy chủ render lại tại chỗ với giá trị đã nhập (không redirect)."""
+        franchises = request.env['wujia.franchise.management'].sudo().browse(get_current_store_ids())
+        if error not in ERROR_FIELDS:
+            error = ''
+        posted = bool(values)
+        values = dict(values or {})
+        values.setdefault('title', values.get('subject', ''))
+        error_fields = ERROR_FIELDS.get(error, ())
+        if error == 'missing_fields' and posted:
+            error_fields = tuple(f for f in ('franchise_id', 'category_id', 'title')
+                                 if not str(values.get(f) or '').strip()) or error_fields
+        return request.render('wujia_portal_support.portal_support_form', {
+            'franchises': franchises,
+            'categories': _categories(),
+            'priority_options': [(key, label) for key, (label, _css) in _translated(PRIORITY_LABELS).items()],
+            'error': error,
+            'error_fields': error_fields,
+            'values': values,
+            'max_files': MAX_FILES,
+            'max_file_mb': MAX_FILE_MB,
+        })
 
     @http.route(['/portal/support/<int:ticket_id>'],
                 type='http', auth='user', sitemap=False)

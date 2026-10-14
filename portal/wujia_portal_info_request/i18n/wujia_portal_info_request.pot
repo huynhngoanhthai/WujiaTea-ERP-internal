@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-09 06:14+0000\n"
-"PO-Revision-Date: 2026-10-09 06:14+0000\n"
+"POT-Creation-Date: 2026-10-14 08:20+0000\n"
+"PO-Revision-Date: 2026-10-14 08:20+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -38,8 +38,8 @@ msgstr ""
 #. module: wujia_portal_info_request
 #: model_terms:ir.ui.view,arch_db:wujia_portal_info_request.portal_info_request_form
 msgid ""
-"<small class=\"text-muted\">PDF / JPG / PNG, up to 5MB per file, up to 6 "
-"files.</small>"
+"<small id=\"info-attachments-hint\" class=\"text-muted\">PDF / JPG / PNG / "
+"WEBP, up to 5MB per file, up to 6 files.</small>"
 msgstr ""
 
 #. module: wujia_portal_info_request
@@ -133,6 +133,7 @@ msgstr ""
 #. module: wujia_portal_info_request
 #. odoo-python
 #: code:addons/wujia_portal_info_request/controllers/portal.py:0
+#: model_terms:ir.ui.view,arch_db:wujia_portal_info_request.portal_info_request_form
 msgid "Enter the field name when choosing 'Other'."
 msgstr ""
 
@@ -238,6 +239,11 @@ msgid "Other"
 msgstr ""
 
 #. module: wujia_portal_info_request
+#: model_terms:ir.ui.view,arch_db:wujia_portal_info_request.portal_info_request_form
+msgid "PDF / JPG / PNG / WEBP, up to 5MB per file, up to 6 files."
+msgstr ""
+
+#. module: wujia_portal_info_request
 #. odoo-python
 #: code:addons/wujia_portal_info_request/controllers/portal.py:0
 msgid "Phone number"
@@ -246,7 +252,28 @@ msgstr ""
 #. module: wujia_portal_info_request
 #. odoo-python
 #: code:addons/wujia_portal_info_request/controllers/portal.py:0
+#: model_terms:ir.ui.view,arch_db:wujia_portal_info_request.portal_info_request_form
 msgid "Please enter the new value."
+msgstr ""
+
+#. module: wujia_portal_info_request
+#. odoo-python
+#: code:addons/wujia_portal_info_request/controllers/portal.py:0
+msgid "Please fill in all required fields."
+msgstr ""
+
+#. module: wujia_portal_info_request
+#. odoo-python
+#: code:addons/wujia_portal_info_request/controllers/portal.py:0
+#: model_terms:ir.ui.view,arch_db:wujia_portal_info_request.portal_info_request_form
+msgid "Please select a store."
+msgstr ""
+
+#. module: wujia_portal_info_request
+#. odoo-python
+#: code:addons/wujia_portal_info_request/controllers/portal.py:0
+#: model_terms:ir.ui.view,arch_db:wujia_portal_info_request.portal_info_request_form
+msgid "Please select an information type."
 msgstr ""
 
 #. module: wujia_portal_info_request
@@ -337,7 +364,9 @@ msgstr ""
 
 #. module: wujia_portal_info_request
 #: model_terms:ir.ui.view,arch_db:wujia_portal_info_request.portal_info_request_form
-msgid "Technical field name (when \"Other\" is selected)"
+msgid ""
+"Technical field name (when \"Other\" is selected) <span class=\"text-"
+"danger\">*</span>"
 msgstr ""
 
 #. module: wujia_portal_info_request

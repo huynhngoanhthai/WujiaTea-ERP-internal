@@ -20,20 +20,28 @@
                     <t t-set="ph_back_url" t-value="'/portal/info-request'"/>
                 </t>
 
+                <t t-set="_e_store">Please select a store.</t>
+                <t t-set="_e_type">Please select an information type.</t>
+                <t t-set="_e_target">Enter the field name when choosing 'Other'.</t>
+                <t t-set="_e_value">Please enter the new value.</t>
+                <t t-set="_e_files">PDF / JPG / PNG / WEBP, up to 5MB per file, up to 6 files.</t>
                 <div class="content-body">
-                    <div t-if="error" class="alert alert-danger" role="alert">
-                        <i class="fa fa-exclamation-triangle me-1"/> <t t-out="error"/>
+                    <div t-if="error and not field_errors" class="alert alert-danger" role="alert">
+                        <i class="fa fa-exclamation-triangle me-1" aria-hidden="true"/> <t t-out="error"/>
                     </div>
 
-                    <form method="post" action="/portal/info-request/new"
+                    <form method="post" action="/portal/info-request/new" data-wj-validate="1"
                           enctype="multipart/form-data" class="wj-surface-card wj-surface-card--section wj-surface-card--compact wj-surface-card--flush wj-mform" id="info-request-form">
                         <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                         <div class="wj-surface-card__body">
+                            <t t-call="wujia_portal_layout.wj_error_summary"/>
                             <div class="row g-2">
                                 <div class="col-md-6 col-12">
                                     <label class="form-label" for="info-franchise-id">Store <span class="text-danger">*</span></label>
                                     <select name="franchise_id" id="info-franchise-id"
-                                            class="form-select" required="required">
+                                            class="form-select" required="required"
+                                            t-att-aria-invalid="'true' if 'franchise_id' in field_errors else None"
+                                            t-att-aria-describedby="'info-franchise-id-err' if 'franchise_id' in field_errors else None">
                                         <option value="">— Select store —</option>
                                         <t t-foreach="franchises" t-as="f">
                                             <option t-att-value="f.id"
@@ -41,11 +49,18 @@
                                                     t-out="f.name"/>
                                         </t>
                                     </select>
+                                    <t t-call="wujia_portal_layout.wj_field_error">
+                                        <t t-set="fe_for" t-value="'info-franchise-id'"/>
+                                        <t t-set="fe_msg" t-value="field_errors.get('franchise_id') or _e_store"/>
+                                        <t t-set="fe_show" t-value="'franchise_id' in field_errors"/>
+                                    </t>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <label class="form-label" for="info-request-type">Information type <span class="text-danger">*</span></label>
                                     <select name="request_type" id="info-request-type"
-                                            class="form-select" required="required">
+                                            class="form-select" required="required"
+                                            t-att-aria-invalid="'true' if 'request_type' in field_errors else None"
+                                            t-att-aria-describedby="'info-request-type-err' if 'request_type' in field_errors else None">
                                         <option value="">— Select type —</option>
                                         <t t-foreach="request_type_options" t-as="rt">
                                             <option t-att-value="rt[0]"
@@ -53,15 +68,29 @@
                                                     t-out="rt[1]"/>
                                         </t>
                                     </select>
+                                    <t t-call="wujia_portal_layout.wj_field_error">
+                                        <t t-set="fe_for" t-value="'info-request-type'"/>
+                                        <t t-set="fe_msg" t-value="field_errors.get('request_type') or _e_type"/>
+                                        <t t-set="fe_show" t-value="'request_type' in field_errors"/>
+                                    </t>
                                 </div>
 
                                 <div class="col-md-6 col-12" id="info-field-target-wrap"
                                      t-att-style="'' if values.get('request_type') == 'other' else 'display:none;'">
-                                    <label class="form-label" for="info-field-target">Technical field name (when "Other" is selected)</label>
+                                    <label class="form-label" for="info-field-target">Technical field name (when "Other" is selected) <span class="text-danger">*</span></label>
                                     <input type="text" name="field_target" id="info-field-target"
                                            class="form-control"
                                            placeholder="e.g. tax_code, website, ..."
+                                           t-att-required="'required' if values.get('request_type') == 'other' else None"
+                                           t-att-disabled="None if values.get('request_type') == 'other' else 'disabled'"
+                                           t-att-aria-invalid="'true' if 'field_target' in field_errors else None"
+                                           t-att-aria-describedby="'info-field-target-err' if 'field_target' in field_errors else None"
                                            t-att-value="values.get('field_target') or ''"/>
+                                    <t t-call="wujia_portal_layout.wj_field_error">
+                                        <t t-set="fe_for" t-value="'info-field-target'"/>
+                                        <t t-set="fe_msg" t-value="field_errors.get('field_target') or _e_target"/>
+                                        <t t-set="fe_show" t-value="'field_target' in field_errors"/>
+                                    </t>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <label class="form-label" for="info-priority">Severity</label>
@@ -90,7 +119,14 @@
                                     <textarea id="info-new-value" name="new_value" rows="3" class="form-control"
                                               required="required"
                                               placeholder="Enter the new value to update..."
+                                              t-att-aria-invalid="'true' if 'new_value' in field_errors else None"
+                                              t-att-aria-describedby="'info-new-value-err' if 'new_value' in field_errors else None"
                                               t-out="values.get('new_value') or ''"/>
+                                    <t t-call="wujia_portal_layout.wj_field_error">
+                                        <t t-set="fe_for" t-value="'info-new-value'"/>
+                                        <t t-set="fe_msg" t-value="field_errors.get('new_value') or _e_value"/>
+                                        <t t-set="fe_show" t-value="'new_value' in field_errors"/>
+                                    </t>
                                 </div>
 
                                 <div class="col-12">
@@ -103,8 +139,15 @@
                                 <div class="col-12">
                                     <label class="form-label" for="info-attachments">Evidence (optional)</label>
                                     <input type="file" id="info-attachments" name="attachments" class="form-control"
-                                           multiple="multiple"/>
-                                    <small class="text-muted">PDF / JPG / PNG, up to 5MB per file, up to 6 files.</small>
+                                           multiple="multiple" accept=".pdf,.png,.jpg,.jpeg,.webp"
+                                           t-att-data-wj-max-files="max_files" t-att-data-wj-max-mb="max_file_mb"
+                                           aria-describedby="info-attachments-hint"/>
+                                    <small id="info-attachments-hint" class="text-muted">PDF / JPG / PNG / WEBP, up to 5MB per file, up to 6 files.</small>
+                                    <t t-call="wujia_portal_layout.wj_field_error">
+                                        <t t-set="fe_for" t-value="'info-attachments'"/>
+                                        <t t-set="fe_msg" t-value="field_errors.get('attachments') or _e_files"/>
+                                        <t t-set="fe_show" t-value="'attachments' in field_errors"/>
+                                    </t>
                                 </div>
                             </div>
                         </div>
@@ -131,6 +174,9 @@
                     var wrap = document.getElementById('info-field-target-wrap');
                     if (wrap) {
                         wrap.style.display = (rt === 'other') ? '' : 'none';
+                        var ftInput = document.getElementById('info-field-target');
+                        ftInput.required = rt === 'other';
+                        ftInput.disabled = rt !== 'other';
                     }
                     if (!fid || !rt) {
                         oldBox.value = '';

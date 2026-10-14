@@ -76,5 +76,5 @@ class TestSupportStoreScope(SupportCommon, HttpCase):
     def test_submit_for_other_store_rejected(self):
         res = self._post('/portal/support/new', self.franchise, franchise_id=self.other_franchise.id,
                          category_id=self.cat.id, title='I4B gửi sang B', description='x')
-        self.assertIn('error=invalid_franchise', res.headers['Location'])
+        self.assertIn('data-wj-error="invalid_franchise"', res.text)
         self.assertFalse(self.Ticket.search([('title', '=', 'I4B gửi sang B')]))

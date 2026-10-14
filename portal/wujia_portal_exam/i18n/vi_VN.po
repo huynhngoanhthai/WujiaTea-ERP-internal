@@ -1201,3 +1201,15 @@ msgstr "Trung tâm đào tạo {brand}"
 msgid "· local time"
 msgstr "· giờ địa phương"
 
+
+#. module: wujia_portal_exam
+msgid "Enter a valid phone number (e.g. 0901234567)."
+msgstr "Nhập số điện thoại hợp lệ (vd: 0901234567)."
+
+#. module: wujia_portal_exam
+msgid "Enter the participant's full name."
+msgstr "Nhập họ tên người thi."
+
+#. module: wujia_portal_exam
+msgid "Full name"
+msgstr "Họ và tên"

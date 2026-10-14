@@ -1,6 +1,6 @@
 {
     'name': 'Wujia Portal — Info Update Request',
-    'version': '19.0.3.3.0',
+    'version': '19.0.3.4.0',
     'category': 'Wujia',
     'summary': 'Portal screens to request store information updates '
                '(business rules in wujia_info_request).',

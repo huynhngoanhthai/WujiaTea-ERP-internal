@@ -211,7 +211,7 @@
     <!-- ============== Form ============== -->
     <!-- Câu lỗi server — PC + mobile cùng gọi. -->
     <template id="portal_support_form_alert" name="Wujia Portal — Support Form Alert">
-        <div t-if="error" class="wj-sup-form-alert" role="alert">
+        <div t-if="error" class="wj-sup-form-alert" role="alert" t-att-data-wj-error="error">
             <p t-if="error == 'missing_fields'" class="text-danger small mb-0">Please fill in all required fields.</p>
             <p t-if="error == 'invalid_franchise'" class="text-danger small mb-0">Invalid store.</p>
             <p t-if="error == 'invalid_input'" class="text-danger small mb-0">The submitted data is invalid.</p>
@@ -250,6 +250,7 @@
                     <form method="post" action="/portal/support/new" enctype="multipart/form-data"
                           data-wj-dirty-guard="1" data-wj-validate="1" class="wj-surface-card wj-pc-card">
                         <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <t t-call="wujia_portal_layout.wj_error_summary"/>
                         <t t-call="wujia_portal_support.portal_support_form_alert"/>
                         <div class="row g-3">
                             <div class="col-md-6 col-12">
@@ -259,7 +260,8 @@
                                             t-att-aria-invalid="'true' if 'franchise_id' in error_fields else None"
                                             t-att-aria-describedby="'wj-sup-pc-franchise-err' if 'franchise_id' in error_fields else None">
                                         <t t-foreach="franchises" t-as="f">
-                                            <option t-att-value="f.id" t-out="f.name"/>
+                                            <option t-att-value="f.id" t-out="f.name"
+                                                    t-att-selected="'selected' if str(f.id) == str(values.get('franchise_id')) else None"/>
                                         </t>
                                     </select>
                                     <t t-call="wujia_portal_layout.wj_field_error">
@@ -275,9 +277,10 @@
                                     <select id="wj-sup-pc-category" name="category_id" class="wj-pc-control" required="required"
                                             t-att-aria-invalid="'true' if 'category_id' in error_fields else None"
                                             t-att-aria-describedby="'wj-sup-pc-category-err' if 'category_id' in error_fields else None">
-                                        <option value="" selected="selected" t-out="_l_category_ph"/>
+                                        <option value="" t-att-selected="None if values.get('category_id') else 'selected'" t-out="_l_category_ph"/>
                                         <t t-foreach="categories" t-as="c">
-                                            <option t-att-value="c.id" t-out="c.name"/>
+                                            <option t-att-value="c.id" t-out="c.name"
+                                                    t-att-selected="'selected' if str(c.id) == str(values.get('category_id')) else None"/>
                                         </t>
                                     </select>
                                     <t t-call="wujia_portal_layout.wj_field_error">
@@ -292,7 +295,7 @@
                                     <label class="wj-pc-field__label" for="wj-sup-pc-priority" t-out="_l_priority"/>
                                     <select id="wj-sup-pc-priority" name="priority" class="wj-pc-control">
                                         <option t-foreach="priority_options" t-as="po" t-att-value="po[0]"
-                                                t-att-selected="'selected' if po[0] == 'normal' else None" t-out="po[1]"/>
+                                                t-att-selected="'selected' if po[0] == values.get('priority', 'normal') else None" t-out="po[1]"/>
                                     </select>
                                 </div>
                             </div>
@@ -300,7 +303,7 @@
                                 <div class="wj-pc-field">
                                     <label class="wj-pc-field__label" for="wj-sup-pc-title" t-out="_l_title"/>
                                     <input type="text" id="wj-sup-pc-title" name="title" class="wj-pc-control" required="required"
-                                           placeholder="E.g. Cannot place order no. ..."
+                                           placeholder="E.g. Cannot place order no. ..." t-att-value="values.get('title')"
                                            t-att-aria-invalid="'true' if 'title' in error_fields else None"
                                            t-att-aria-describedby="'wj-sup-pc-title-err' if 'title' in error_fields else None"/>
                                     <t t-call="wujia_portal_layout.wj_field_error">
@@ -314,14 +317,15 @@
                                 <div class="wj-pc-field">
                                     <label class="wj-pc-field__label" for="wj-sup-pc-description" t-out="_l_description"/>
                                     <textarea id="wj-sup-pc-description" name="description" rows="6" class="wj-pc-control"
-                                              placeholder="Describe the situation, the steps you tried, screenshots..."/>
+                                              placeholder="Describe the situation, the steps you tried, screenshots..." t-out="values.get('description') or ''"/>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="wj-pc-field">
                                     <label class="wj-pc-field__label" for="wj-sup-pc-attachments" t-out="_l_files"/>
                                     <input type="file" id="wj-sup-pc-attachments" name="attachments" class="wj-pc-control"
-                                           multiple="multiple"
+                                           multiple="multiple" accept=".png,.jpg,.jpeg,.webp,.pdf"
+                                           t-att-data-wj-max-files="max_files" t-att-data-wj-max-mb="max_file_mb"
                                            t-att-aria-invalid="'true' if 'attachments' in error_fields else None"
                                            t-att-aria-describedby="'wj-sup-pc-attachments-err' if 'attachments' in error_fields else None"/>
                                     <t t-call="wujia_portal_layout.wj_field_error">
@@ -355,6 +359,7 @@
                 <form method="post" action="/portal/support/new" enctype="multipart/form-data"
                       class="wj-mform" data-wj-dirty-guard="1" data-wj-validate="1">
                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <t t-call="wujia_portal_layout.wj_error_summary"/>
                     <t t-call="wujia_portal_layout.wj_surface_card">
                         <t t-set="sc_variant" t-value="'section'"/>
                         <t t-set="sc_class" t-value="'wujia-mdash-card'"/>
@@ -369,9 +374,10 @@
                             <select id="wj-sup-m-category" name="category_id" class="form-select" required="required"
                                     t-att-aria-invalid="'true' if 'category_id' in error_fields else None"
                                     t-att-aria-describedby="'wj-sup-m-category-err' if 'category_id' in error_fields else None">
-                                <option value="" selected="selected" t-out="_l_category_ph"/>
+                                <option value="" t-att-selected="None if values.get('category_id') else 'selected'" t-out="_l_category_ph"/>
                                 <t t-foreach="categories" t-as="c">
-                                    <option t-att-value="c.id" t-out="c.name"/>
+                                    <option t-att-value="c.id" t-out="c.name"
+                                            t-att-selected="'selected' if str(c.id) == str(values.get('category_id')) else None"/>
                                 </t>
                             </select>
                             <t t-call="wujia_portal_layout.wj_field_error">
@@ -384,7 +390,7 @@
                         <div class="mb-3">
                             <label class="wujia-mticket-label" for="wj-sup-m-title" t-out="_l_title"/>
                             <input type="text" id="wj-sup-m-title" name="title" class="form-control" required="required"
-                                   placeholder="Enter a short title"
+                                   placeholder="Enter a short title" t-att-value="values.get('title')"
                                    t-att-aria-invalid="'true' if 'title' in error_fields else None"
                                    t-att-aria-describedby="'wj-sup-m-title-err' if 'title' in error_fields else None"/>
                             <t t-call="wujia_portal_layout.wj_field_error">
@@ -396,20 +402,21 @@
 
                         <label class="wujia-mticket-label" for="wj-sup-m-description" t-out="_l_description"/>
                         <textarea id="wj-sup-m-description" name="description" rows="4" class="form-control mb-3"
-                                  placeholder="Describe the issue, when it happened and any related document numbers."/>
+                                  placeholder="Describe the issue, when it happened and any related document numbers." t-out="values.get('description') or ''"/>
 
                         <p class="wujia-mticket-label" id="wj-sup-m-priority-label" t-out="_l_priority"/>
                         <div class="wj-filter-chips mb-3" role="radiogroup" aria-labelledby="wj-sup-m-priority-label">
                             <label t-foreach="priority_options" t-as="po" class="wj-filter-chip">
                                 <input type="radio" name="priority" t-att-value="po[0]" class="d-none"
-                                       t-att-checked="'checked' if po[0] == 'normal' else None"/> <t t-out="po[1]"/>
+                                       t-att-checked="'checked' if po[0] == values.get('priority', 'normal') else None"/> <t t-out="po[1]"/>
                             </label>
                         </div>
 
                         <label class="wujia-mticket-label" for="wj-sup-m-attachments" t-out="_l_files"/>
                         <p class="wujia-mticket-hint">Add screenshots / error files — PNG, JPG, PDF — up to 5 files</p>
                         <input type="file" id="wj-sup-m-attachments" name="attachments" class="form-control mb-1"
-                               multiple="multiple" accept=".png,.jpg,.jpeg,.pdf"
+                               multiple="multiple" accept=".png,.jpg,.jpeg,.webp,.pdf"
+                               t-att-data-wj-max-files="max_files" t-att-data-wj-max-mb="max_file_mb"
                                t-att-aria-invalid="'true' if 'attachments' in error_fields else None"
                                t-att-aria-describedby="'wj-sup-m-attachments-err' if 'attachments' in error_fields else None"/>
                         <t t-call="wujia_portal_layout.wj_field_error">
@@ -424,11 +431,19 @@
                         </t>
                         <t t-elif="franchises">
                             <label class="wujia-mticket-label mt-3" for="wj-sup-m-franchise" t-out="_l_store"/>
-                            <select id="wj-sup-m-franchise" name="franchise_id" class="form-select" required="required">
+                            <select id="wj-sup-m-franchise" name="franchise_id" class="form-select" required="required"
+                                    t-att-aria-invalid="'true' if 'franchise_id' in error_fields else None"
+                                    t-att-aria-describedby="'wj-sup-m-franchise-err' if 'franchise_id' in error_fields else None">
                                 <t t-foreach="franchises" t-as="f">
-                                    <option t-att-value="f.id" t-out="f.name"/>
+                                    <option t-att-value="f.id" t-out="f.name"
+                                            t-att-selected="'selected' if str(f.id) == str(values.get('franchise_id')) else None"/>
                                 </t>
                             </select>
+                            <t t-call="wujia_portal_layout.wj_field_error">
+                                <t t-set="fe_for" t-value="'wj-sup-m-franchise'"/>
+                                <t t-set="fe_msg" t-value="_e_store"/>
+                                <t t-set="fe_show" t-value="'franchise_id' in error_fields"/>
+                            </t>
                         </t>
                     </t>
 
