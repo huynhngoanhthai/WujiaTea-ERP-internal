@@ -3505,3 +3505,45 @@ rồi đánh ✅ ở bảng Trạng thái §2 `docs/next-session-clusters-F.md`.
   lỗi 500 của URL lạ dưới `/portal` trên UAT · ô ngày cho Thông báo mobile + tên trang `/portal/info-request` (chờ BA) ·
   xếp #189 vào cụm K.
 - Phiên kế: **K1** — #187 · #188 · #186 form Hỗ trợ.
+
+## K1 — #187 form Hỗ trợ một cấu hình · #188 nhãn + lỗi có aria · #186 thẻ thông tin ticket · 14/10/2026 · Mac
+
+- Kết quả: ✅ xong. PR #12 merge vào `deploy/staging` @ `00e9443f` (code `842b4ffc`) · **đã lên UAT 14/10** (CI tự `-u`),
+  `wujia_portal_layout` 19.0.60.14.0 · `wujia_portal_support` 19.0.5.4.0 · đo lại trên UAT đạt. Bảng đo: `docs/k1-uat-measure.md`.
+  Ledger + bảng đo ở nhánh `feature/k1-ledger`.
+- Chủ dự án chốt 14/10: bỏ dòng Cửa hàng ở chi tiết cả hai khổ · một bộ nhãn theo PC cho form + chi tiết · ý "lỗi đọc được
+  bằng trình đọc màn hình" của #188 làm luôn, không ghi LIMIT.
+- Đã làm:
+  - **Khung** (`wujia_portal_layout`): `static/assets/js/wj_form_validate.js` — form có `data-wj-validate` ⇒ `noValidate`,
+    submit (capture) control sai ⇒ `aria-invalid` + hiện `#<id>-err` + nối `aria-describedby`, focus ô đầu, chặn submit +
+    `wj:form:release`; `input`/`change` tự gỡ. Partial `wj_field_error` (`fe_for`, `fe_msg`, `fe_show`). CSS `.wj-field-error`
+    màu `--wujia-danger-text` + viền `[aria-invalid]`. `?v=1341`.
+  - **Form** (`portal_support`): nhãn + câu lỗi `t-set` một lần, hai khổ cùng đọc; Phân loại option rỗng đầu + `required`;
+    Mức độ lặp `priority_options` (từ `PRIORITY_LABELS`) ⇒ `normal`/`urgent`; PC id `wj-sup-pc-*` + `label for`; template con
+    `portal_support_form_alert` (`role=alert`) gọi ở hai khổ; controller `ERROR_FIELDS` đánh dấu sẵn ô theo mã lỗi.
+  - **Chi tiết**: `_ticket_meta()` + `META_LABELS`/`META_EMPTY` (`_lt`), PC `<dl>` và mobile cùng lặp `meta`; bỏ Cửa hàng;
+    mọi `.strftime` trong file → `wj_dt` (`fmt_local_dt`) — trước lệch −7 giờ.
+  - `.po` + `.pot` dựng lại theo export Odoo (7 câu mới), `msgfmt -c` sạch.
+- Số đo (UAT sau deploy, chỉ đọc; tạo ticket chỉ trên DB copy):
+
+  | Hạng mục | Trước | Sau |
+  |---|---|---|
+  | Phân loại mở ra trống + bắt buộc (PC / mobile) | chọn sẵn / trống | trống + `required` cả hai |
+  | Mức độ (PC / mobile) | 2 / 3 (2 cái cùng `urgent`) | 2 / 2, `normal` mặc định |
+  | Control PC có `id` + `label[for]`, bấm nhãn → focus | 0/6 | 6/6 |
+  | Gửi trống: `aria-invalid` + câu lỗi + focus, nút không kẹt | bong bóng trình duyệt | đạt hai khổ |
+  | Lỗi máy chủ `role=alert` | chỉ mobile, không aria | hai khổ, ô liên quan đánh dấu |
+  | Thẻ thông tin PC = mobile (đã giải quyết + mới) | lệch 4 dòng | trùng 6/6 dòng |
+  | Tràn ngang 3 URL × 10 khổ · lỗi JS | 0 · 0 | 0 · 0 |
+  | Hồi quy 4 màn form × 2 khổ | — | 8/8 |
+
+- Test: `-u` layout + support + portal_base, 4 tag ⇒ **698 test 0 fail** (14 mới `test_k1_form_detail.py`, tag
+  `wujia_support_k1`); sửa `test_jv7_i18n.py` theo nguồn nhãn mới; `test_scan_d5_data_list` 13 → 10 hàng mdash tĩnh.
+  `check_layers` 0 vi phạm tầng.
+- Bẫy gặp: test sửa `resolved_date` bằng SQL phải `env.flush_all()` trước — `invalidate_recordset()` flush `write()` đang chờ
+  *sau* câu SQL và ghi đè. Babel bắt nhầm msgid khi `_lt` lồng trong alias `_` cục bộ ⇒ đặt tên alias `tr`.
+- LIMIT / ngoài phạm vi: gợi ý file mobile "tối đa 5 tệp" ≠ máy chủ 6 (chờ BA) · chip Mức độ mobile `d-none` ⇒ không đi được
+  bằng Tab · nhánh `t-elif="franchises"` của form mobile đã chết · ticket mẫu 00013 trên UAT có `resolved_date` sớm hơn
+  `create_date` 12 giờ (dữ liệu seed) · #189 chưa xếp phiên.
+- Việc dở: merge nhánh `feature/k1-ledger` (chỉ tài liệu). DB `wujia_k1` + filestore đã xoá.
+- Phiên kế: **K2** — #182 Shared Form Validation (mở rộng `wj_form_validate.js`: Error Summary, giữ dữ liệu, `return/new`).
