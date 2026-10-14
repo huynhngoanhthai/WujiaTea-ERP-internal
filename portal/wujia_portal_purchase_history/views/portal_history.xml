@@ -20,11 +20,13 @@
         <!-- Meta PageHeader (CMP-PG-001 matrix: "{tổng số đơn} đơn") — slot AJAX riêng để
              lọc xong vẫn thay được số. -->
         <t t-set="_ph_n" t-value="(pgn or {}).get('total_items', len(rows))"/>
-        <span t-if="part == 'pccount'" id="wj-hist-pccount" class="wj-page-header__meta">
-            <t t-out="_ph_n"/> <t t-if="_ph_n == 1">order</t><t t-else="">orders</t>
+        <span t-if="part == 'pccount'" id="wj-hist-pccount" class="wj-page-header__meta"
+              t-att-hidden="'hidden' if filter_error else None">
+            <t t-if="not filter_error"><t t-out="_ph_n"/> <t t-if="_ph_n == 1">order</t><t t-else="">orders</t></t>
         </span>
-        <span t-if="part == 'mcount'" id="wj-hist-mcount" class="wj-page-header__meta">
-            <t t-out="_ph_n"/> <t t-if="_ph_n == 1">order</t><t t-else="">orders</t>
+        <span t-if="part == 'mcount'" id="wj-hist-mcount" class="wj-page-header__meta"
+              t-att-hidden="'hidden' if filter_error else None">
+            <t t-if="not filter_error"><t t-out="_ph_n"/> <t t-if="_ph_n == 1">order</t><t t-else="">orders</t></t>
         </span>
 
         <!-- ===== PC: card bảng danh sách đơn ===== -->
@@ -37,17 +39,17 @@
                 <t t-set="ch_subtitle">Track purchase orders of the active store</t>
                 <t t-set="ch_level" t-value="3"/>
                 <t t-set="ch_platform" t-value="'pc'"/>
-                <t t-set="ch_meta">
+                <t t-set="ch_meta" t-if="not filter_error">
                     <span class="wj-pc-card__count"><t t-out="(pgn or {}).get('total_items', len(rows))"/> records</span>
                 </t>
             </t>
 
-            <t t-call="wujia_portal_layout.wj_data_list">
+            <t t-if="filter_error" t-call="wujia_portal_layout.wj_filter_invalid"/>
+            <t t-call="wujia_portal_layout.wj_data_list" t-if="not filter_error">
                 <t t-set="dl_table_class" t-value="'wj-pc-table'"/>
                 <t t-set="dl_empty" t-value="not rows"/>
                 <t t-set="dl_state">
-                    <!-- filter_error đã báo ở FilterBar → không hiện thêm empty state (2 thông điệp mâu thuẫn) -->
-                    <div t-if="not filter_error" class="wj-pc-empty">
+                    <div class="wj-pc-empty">
                         <span class="wj-pc-empty__icon"><i class="feather icon-inbox"/></span>
                         <h3 class="wj-pc-empty__title">No orders yet</h3>
                         <p class="wj-pc-empty__sub">No orders match the filters.</p>
@@ -100,8 +102,9 @@
 
         <!-- ===== Mobile: thân kết quả (listhead + list/empty + pager) ===== -->
         <div t-if="part == 'mbody'" id="wj-hist-mbody" class="wj-ajax-slot">
+            <t t-if="filter_error" t-call="wujia_portal_layout.wj_filter_invalid"/>
             <!-- Header danh sách (CMP-SH-001) -->
-            <t t-call="wujia_portal_layout.wj_section_header">
+            <t t-call="wujia_portal_layout.wj_section_header" t-if="not filter_error">
                 <t t-set="sh_title">List of orders</t>
                 <t t-set="sh_level" t-value="3"/>
                 <t t-set="sh_platform" t-value="'m'"/>

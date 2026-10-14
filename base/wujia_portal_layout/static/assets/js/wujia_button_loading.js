@@ -19,7 +19,9 @@
         if (!form || form.tagName !== "FORM" || form.hasAttribute("data-wj-no-loading")) {
             return;
         }
-        if (form.dataset.wjSubmitting === "1") {
+        // Form GET (lọc/tìm) gửi lại vô hại: lượt mới nhất phải thắng, không nuốt im.
+        var isGet = (form.getAttribute("method") || "get").toLowerCase() === "get";
+        if (form.dataset.wjSubmitting === "1" && !isGet) {
             ev.preventDefault();
             return;
         }

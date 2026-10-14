@@ -64,6 +64,8 @@
                 </t>
 
                 <div id="wj-rep-m-body" class="wj-rep-mbody">
+                    <t t-if="filter_error" t-call="wujia_portal_layout.wj_filter_invalid"/>
+                    <t t-else="">
                     <!-- KPI lưới 2 cột, thanh màu ở đỉnh thay cho icon -->
                     <div class="wj-rep-mkpi-grid">
                         <div class="wj-rep-mkpi wj-rep-mkpi--primary">
@@ -170,6 +172,7 @@
                             </ul>
                         </div>
                     </section>
+                    </t>
                 </div>
                 </t>
             </div>
@@ -207,6 +210,8 @@
                 </t>
 
                 <div id="wj-rep-pc-body">
+                    <t t-if="filter_error" t-call="wujia_portal_layout.wj_filter_invalid"/>
+                    <t t-else="">
                     <div class="wj-pc-metric-grid wj-rep-pcmetrics">
                         <t t-call="wujia_portal_layout.wj_surface_card">
                             <t t-set="sc_variant" t-value="'summary'"/>
@@ -361,6 +366,7 @@
                             </table>
                         </div>
                     </section>
+                    </t>
                 </div>
                 </t>
             </div>

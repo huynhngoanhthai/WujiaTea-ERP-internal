@@ -7,14 +7,17 @@ ghi `f-progress.md`. Nguồn gom: compact summary §5, `f-progress.md` (mục N�
 
 > 07/10: cụm J Phần B + T + V **xong, đã lên UAT** (END-SPRINT 66, chapter 79 + 80). Phần O **pend theo ý BA**.
 > Issue List: 15 Ready for Dev gom thành **cụm I mở rộng** (11 phiên + ★IR), rồi cụm H.
+> 14/10: cụm I xong (END-SPRINT 67). Issue List có 17 Ready for Dev ⇒ **cụm K** + 2 tính năng (#185, #181 — Phần O mở lại).
 
 | # | Lô | Nội dung | Số phiên | Plan |
 |---|---|---|---|---|
 | ~~1~~ | ~~Phần V~~ ✅ 07/10 | Việt hoá source V0…V8b + ★VR — ch.79 | — | `next-session-clusters-J.md` §6 |
 | ~~2~~ | ~~J-T4 · J-T5 · J-T5b~~ ✅ 07/10 | Nhập/xuất `.po` + dịch máy DeepL (key thật đã chạy trên UAT) — ch.80 | — | `next-session-clusters-J.md` §6b |
-| **1** | **Issue List — cụm I mở rộng** | I1 #155 → I2 #156 → I3 #154 → I4a #152 → I4b #152+#157 → I5 #153 → I6 #159 → I7 #62+#163 → I8 #160+#162+#166 → I9 #167+#164 → I10 #168+H2 → ★IR | 12 | `next-session-clusters-H.md` §2–3 |
-| 2 | Cụm H | Chuẩn hoá component lượt 2 (H0, H1, H3 → ★HR-1 chờ BA 19 câu → H4–H10 → ★HR-2; H2 đã gộp vào I10) | 11 | `next-session-clusters-H.md` |
-| ⏸ | J-O0…O4 + ★JR | Portal Vận hành — **pend theo ý BA (07/10)**, mở lại khi BA trả lời §3 "Vận hành" | 5 | `next-session-clusters-J.md` §5 |
+| ~~3~~ | ~~Issue List — cụm I mở rộng~~ ✅ 10/10 | I1 → I13 + ★IR, 21 issue — ch.81 | — | `next-session-clusters-H.md` §2–3 |
+| **1** | **Issue List — cụm K** (lập 14/10) | 17 `Ready for Dev`: K0 #139+#73+#37 (BA mở lại) → K1 #187+#188+#186 → K2 #182 → K3 #175 → K4 #178 → K5 #177+#176 → K6 #179+#180 → K7a/b #183+#184 → ★KR | 10 | `next-session-clusters-K.md` |
+| 1b | Tính năng #185 bán theo tồn | S0 thiết kế → S1 → S2 → ★SR, xen kẽ cụm K | 4 | `next-session-clusters-K.md` §2 |
+| 1c | J-O0…O4 + ★JR | Portal Vận hành — **mở lại 14/10** theo #181 WJ-OPS-001 (14 màn), xen kẽ cụm K | 6 | `next-session-clusters-J.md` §5 |
+| 2 | Cụm H | Chuẩn hoá component lượt 2 (H0, H1, H3 → ★HR-1 chờ BA 19 câu → H4–H10 → ★HR-2; H2 đã gộp vào I10; H9 FormField gộp vào K2) | 10 | `next-session-clusters-H.md` |
 
 Issue List vẫn là task thường trực: đầu mỗi phiên chạy `issue_queue.py --dev`; issue **Retest Failed** / Severity High mới thì báo
 chủ dự án trước khi làm lô kế.
@@ -32,7 +35,7 @@ chủ dự án trước khi làm lô kế.
 | Chủ đề | Câu hỏi | Chặn lô |
 |---|---|---|
 | ~~Phần V~~ | ✅ chốt 05/10 (§6 plan J): JS qua `data-wj-msg-*` · mặc định vi_VN · bật hết vi/en/th/zh · EN không cần BA duyệt, ZH/TH DeepL — **gửi BA 1 danh sách câu cần sửa ở ★VR** | — |
-| Vận hành (**pend theo BA 07/10**) | Chấm công/nghỉ phép có trong portal? · duyệt ca (cửa hàng/HQ) · Staff xem gì · gắn nhân viên ↔ tài khoản portal · spec Model Field mục G lệch backend · Figma | J-O0 |
+| Vận hành (**BA trả lời 11/10 bằng #181**) | Phạm vi MVP + 2 gói mockup FINAL đã có. Còn phải soi ở J-O0: Staff xem gì · gắn nhân viên ↔ tài khoản portal · lệch spec mục G ↔ backend · luật portal đặt ở module anh Thái | J-O1 |
 | Dịch tự động | ~~key DeepL~~ ✅ đã nhập UAT, smoke thật 07/10 đạt · **ai rà bản th/zh** | rà bản dịch máy |
 | ADR-027 | 7 câu hỏi BA (chapter 74 §Câu hỏi) | áp `auto_install` |
 | Chuẩn component | 19 câu "CẦN BA CHỐT" (`ba-component-spec-proposal.xlsx`) + gửi 2 PDF chuẩn component | cụm H |

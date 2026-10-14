@@ -58,7 +58,8 @@
                 </t>
             </t>
 
-            <t t-call="wujia_portal_layout.wj_data_list">
+            <t t-if="filter_error" t-call="wujia_portal_layout.wj_filter_invalid"/>
+            <t t-call="wujia_portal_layout.wj_data_list" t-if="not filter_error">
                 <t t-set="dl_table_class" t-value="'wj-pc-table wj-pc-noti-table'"/>
                 <t t-set="dl_table_id" t-value="'wj-noti-table'"/>
                 <t t-set="dl_empty" t-value="not notifications"/>
@@ -136,7 +137,8 @@
 
         <div t-if="part == 'mbody'" id="wj-noti-mbody" class="wj-ajax-slot">
             <!-- List -->
-            <div t-if="not notifications" class="wj-empty-state wj-empty-state--rich">
+            <t t-if="filter_error" t-call="wujia_portal_layout.wj_filter_invalid"/>
+            <div t-elif="not notifications" class="wj-empty-state wj-empty-state--rich">
                 <span class="wj-empty-state-icon"/>
                 <p class="wj-empty-state-title">No notifications yet</p>
                 <p class="wj-empty-state-sub">There are no notifications to show yet.</p>

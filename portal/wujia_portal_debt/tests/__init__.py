@@ -6,3 +6,4 @@ from . import test_list_card_e5b2
 from . import test_g3a_home_debt_kpi
 from . import test_jv5_i18n
 from . import test_i5_debt_role
+from . import test_k0_page_title

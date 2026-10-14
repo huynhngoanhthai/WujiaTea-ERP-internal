@@ -1,6 +1,6 @@
 {
     'name': 'Wujia Portal — Notification',
-    'version': '19.0.5.2.0',
+    'version': '19.0.5.2.1',
     'category': 'Wujia',
     'summary': 'Notification screens on the store portal + header bell — business logic in wujia_notification (F11)',
     'author': 'WujiaTea',

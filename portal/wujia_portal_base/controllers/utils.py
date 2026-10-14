@@ -86,6 +86,11 @@ def local_day_range_utc(date_from, date_to, tz):
     return _bound(date_from, dt_time.min), _bound(date_to, dt_time.max)
 
 
+def portal_product_name(product):
+    """Tên sản phẩm cho cửa hàng: giữ biến thể, bỏ mã nội bộ. Template dùng qua `wj_pname`."""
+    return product.with_context(display_default_code=False).display_name or ''
+
+
 # Nguồn DUY NHẤT của thông điệp khoảng ngày ngược — mọi màn dùng chung câu chữ và chỗ hiển thị.
 ERR_DATE_RANGE = _lt('From date cannot be later than To date')
 

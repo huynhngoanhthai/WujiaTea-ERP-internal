@@ -210,6 +210,21 @@
         load(url, true, form);
     }
 
+    /* Enter trong ô lọc luôn gửi form, kể cả khi trình duyệt không tự gửi ngầm
+       (sự kiện phím không kèm ký tự). Đang gõ IME thì Enter là chốt chữ, bỏ qua. */
+    function onKeydown(ev) {
+        if (ev.key !== "Enter" || ev.isComposing || ev.defaultPrevented) {
+            return;
+        }
+        var el = ev.target;
+        if (!el || el.tagName !== "INPUT" || !el.form || !isFilterForm(el.form) ||
+            /^(submit|button|reset|checkbox|radio|file)$/.test(el.type)) {
+            return;
+        }
+        ev.preventDefault();
+        el.form.requestSubmit();
+    }
+
     function onPopState() {
         var url = new URL(window.location.href);
         if (isListUrl(url)) {
@@ -224,6 +239,7 @@
         }
         document.addEventListener("click", onClick);
         document.addEventListener("submit", onSubmit);
+        document.addEventListener("keydown", onKeydown);
         window.addEventListener("popstate", onPopState);
     }
 

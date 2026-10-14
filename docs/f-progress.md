@@ -3428,3 +3428,71 @@ rồi đánh ✅ ở bảng Trạng thái §2 `docs/next-session-clusters-F.md`.
   #139 UI-FILTER-001 (reconcile).
 - Sau deploy: `admin` / `Wujia@2026` đăng nhập được UAT mới (161 module `installed`); bảng "Sửa ở đâu" ghi ở §6 compact summary + `CREDENTIALS.md`.
 - Phiên kế: Issue List (#182 trước). Việc máy chủ còn lại: xem Nợ.
+
+## Lập plan cụm K — chia 17 issue + ghi chú máy chủ · 14/10/2026 · Mac
+
+- Kết quả: ✅ xong, chỉ tài liệu, 0 code. Nhánh `feature/cluster-k-plan` (từ `deploy/staging` @ `f878ed65`), chưa commit.
+- Nguồn: chủ dự án muốn chia cụm trước khi code vì 17 dòng `Ready for Dev` có cả tính năng mới; anh Thái nêu `wwwroot`
+  chỉ nên chứa folder domain.
+- Đã làm:
+  - **Mới** `docs/next-session-clusters-K.md`: K0 → K7 + ★KR (15 issue lỗi/UI), S0 → ★SR (#185 bán theo tồn),
+    trỏ Phần O cụm J cho #181; bảng fork phải hỏi.
+  - `next-session-clusters-J.md`: Phần O mở lại theo #181 (BA xác nhận 11/10, 14 màn, có tạo/sửa, không Nháp); tách J-O3 / J-O4.
+  - `pending-backlog.md` §1 + §3, compact summary §5 + §6, `next-session-repo-migration.md` §8.
+- Phát hiện:
+  - #139, #73, #37 **không phải đã fix chỉ cần sync**: tab `7. ISSUE HISTORY` ghi BA mở lại sau retest fail 11–12/10
+    (Enter không gửi tìm kiếm ở Giao hàng và Lịch sử thanh toán; ngày ngược vẫn ra 0 dòng; H1 `payment-history` PC ≠ mobile;
+    Top sản phẩm Báo cáo lộ mã nội bộ). Reconcile bằng `git log -S` + ledger là chưa đủ, phải đọc cả History.
+  - `deploy/staging` có `f878ed65` (13/10): job CI gọi webhook aaPanel khi push. Câu "merge không tự deploy" có thể đã cũ.
+  - Tab Tasks: STT 5 (controller Notification) và STT 7 (controller Ticket) trống cột trạng thái AI — chưa đối chiếu.
+- Quyết định: bố cục `odoo19` trên máy UAT để anh Thái lo, chỉ ghi chú (compact summary §6, repo-migration §8) ·
+  portal Vận hành mình làm.
+- LIMIT: không đăng nhập được aaPanel trong phiên (bị chặn) ⇒ bố cục máy chủ ghi theo khảo sát 12/10, chưa đo lại ·
+  chưa xem được kết quả chạy của job CI ⇒ chưa biết webhook có `-u` không.
+- Nợ: báo anh Thái khoá webhook nằm thẳng trong file workflow · `/wujia-start` còn câu "merge không tự deploy" (sửa khi
+  đã xác nhận job CI) · các nợ máy chủ của mục ADR-028 giữ nguyên.
+- Phiên kế: **K0** — #139 + #73 + #37. Sửa Enter ở khuôn FilterBar dùng chung, hỏi BA cách hiển thị khi ngày ngược.
+
+## K0 — #139 Enter + ngày ngược · #73 H1 Lịch sử thanh toán · #37 bỏ mã nội bộ · 14/10/2026 · Mac
+
+- Kết quả: 🟡 code xong + đo đạt trên DB copy, **chưa push / chưa lên UAT / chưa ghi sheet**. Nhánh
+  `feature/k0-filter-header-sku` (trên `feature/cluster-k-plan`), commit `8c01ba9f`.
+- Nguồn: ba dòng BA mở lại 11–12/10 (tab `7. ISSUE HISTORY`). Chủ dự án chốt: Enter = thử kỹ + thêm phòng thủ ·
+  ngày ngược = một khối nhắc trung tính, Dev tự dịch · H1 = "Lịch sử thanh toán" ở cả hai khổ.
+- Đã làm:
+  - **#139 Enter** (2 seam chung, không vá từng màn): `wj_ajax_list.js` thêm `onKeydown` — Enter trong ô của form lọc ⇒
+    `requestSubmit()`, bỏ qua khi đang gõ IME; `wujia_button_loading.js` khoá chống gửi lặp chỉ còn áp cho form không phải GET.
+  - **#139 ngày ngược**: partial mới `wujia_portal_layout.wj_filter_invalid` + CSS `.wj-filter-invalid`; sáu màn có ô ngày
+    (Giao hàng, Lịch sử đặt hàng, Thông báo, Thi, Bù hàng, Báo cáo) khi `filter_error` chỉ còn khối này ở thân — không số đếm,
+    không EmptyState, không phân trang. Giao hàng có `view_state='invalid'` riêng.
+  - **#73**: `ph_title` bản PC của `portal_debt_payment_history` "Debts" → "Payment history".
+  - **#37**: `portal_product_name()` ở `portal_base/controllers/utils.py` (công tắc core `display_default_code=False`), thay 8 chỗ
+    `display_name` ở Báo cáo, chi tiết đơn, chi tiết giao hàng, Bù hàng (template nhận qua `wj_pname`).
+  - Bump patch 9 module · `?v=1339` → `1340` · 2 câu mới vào `.po` + `.pot` của layout.
+- Số đo (script `k0_measure.py`, chromium, khổ 1440 + 390; "trước" = UAT bản `f878ed65`, "sau" = DB copy `wujia_k0`):
+
+  | Hạng mục | Trước | Sau |
+  |---|---|---|
+  | Enter phím thật, 15 ô / 11 màn | 15/15 | 15/15 |
+  | Enter ca đặc biệt (phím không kèm ký tự ×4, hai Enter liền, Enter khi lượt trước còn treo, ô ngày, NumpadEnter, IME) | 3/9 | 9/9 |
+  | Ngày ngược 6 màn × 2 khổ × (URL, AJAX, sửa lại) | 11/35 | 33/35 (2 ô còn lại: Thông báo mobile không có ô ngày) |
+  | H1 `payment-history` PC / mobile | "Công nợ" / "Lịch sử thanh toán" | "Lịch sử thanh toán" cả hai |
+  | Lượt xem còn mã sản phẩm `[TS-…]` | 8/32 | 0/34 |
+  | Hồi quy 13 màn × 2 khổ (200, 0 lỗi JS, 0 tràn) | 26/26 | 26/26, cao thanh lọc 26/26 không đổi |
+
+- Test: `-u` 20 module lệch version trên `wujia_k0` RC=0, 0 ERROR · 9 module đụng tới **1017 test 0 fail** (24 test mới) ·
+  4 module portal còn lại 144 test 0 fail · `check_layers` 0 vi phạm · `msgfmt -c` sạch.
+- Phát hiện:
+  - Enter bằng phím thật **không tái hiện được lỗi** trên UAT mới; hỏng thật ở 2 đường: phím không kèm ký tự (công cụ test,
+    CDP) và Enter lần hai khi lượt một chưa về (bị khoá nuốt, ô tìm bị ghi đè về từ khoá cũ).
+  - Thông báo mobile không có ô ngày ⇒ ngày ngược qua URL hiện khối nhắc "Sửa Từ ngày…" mà không có ô để sửa (thoát bằng chip).
+    Lệch PC/mobile này có từ trước, chạm FB-10.
+  - UAT: URL lạ dưới `/portal/…` trả **500** (local trả 404); `/khong-co-…` ngoài `/portal` vẫn 404. Chưa rõ nguyên nhân.
+  - `wujia_vr` (DB mẫu duy nhất trên Mac) đứng ở layout `60.4.0` ⇒ DB copy phải `-u` 20 module trước khi đo.
+- LIMIT: webkit/firefox chưa đo (máy chỉ có chromium) · câu chữ khối nhắc do Dev đặt, chờ BA duyệt · H1 PC lệch Figma v1.1
+  ở dòng tiêu đề theo chốt chủ dự án · số "sau" đo trên DB copy, chưa phải UAT.
+- Việc dở: hỏi push → PR về `deploy/staging` → kiểm version 9 module trên UAT (XML-RPC) → đo lại trên UAT →
+  ledger (`UI-FILTER-001`, `UI-PAGEHEADER-001`, thêm `WJ-ORD-008`) → `qa_sync --dry-run` → chờ duyệt → `--apply`.
+- Nợ: báo anh Thái khoá webhook nằm trong file workflow · `/wujia-start` còn câu "merge không tự deploy" ·
+  lỗi 500 của URL lạ dưới `/portal` · ô ngày cho Thông báo mobile (hỏi BA).
+- Phiên kế: khép K0 (deploy + sheet), rồi **K1** — #187 · #188 · #186 form Hỗ trợ.

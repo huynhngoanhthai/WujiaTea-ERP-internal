@@ -11,7 +11,7 @@ from odoo.addons.wujia_portal_base.controllers.utils import (
     DELIVERY_NEUTRAL_STATUSES, DELIVERY_OVERRIDE_META, SALE_STATE_META,
     build_pager, date_range_error, local_day_range_utc,
     portal_line_price_vals, portal_money, portal_order_badge, portal_order_state_meta, portal_order_status,
-    portal_tax_mapper, portal_tz, to_local_dt,
+    portal_product_name, portal_tax_mapper, portal_tz, to_local_dt,
 )
 
 
@@ -138,7 +138,7 @@ def _history_line_vals(line, taxes_of=None):
         taxes=taxes_of(product) if taxes_of else None,
     )
     return {
-        'product_name': product.display_name or line.name,
+        'product_name': portal_product_name(product) or line.name,
         'spec': product.wujia_packaging or '',
         'uom_name': line.product_uom_id.name or '',
         'quantity': qty,

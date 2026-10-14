@@ -96,4 +96,13 @@
             <t t-if="fb_chips" t-out="fb_chips"/>
         </form>
     </template>
+
+    <!-- Thân danh sách khi khoảng ngày ngược: không số đếm, không EmptyState (FB-05). -->
+    <template id="wj_filter_invalid" name="Wujia — Filter invalid range notice">
+        <div class="wj-filter-invalid" role="status">
+            <i class="feather icon-calendar wj-filter-invalid__icon"/>
+            <p class="wj-filter-invalid__title">Invalid date range</p>
+            <p class="wj-filter-invalid__sub">Change From date or To date to see the list.</p>
+        </div>
+    </template>
 </odoo>

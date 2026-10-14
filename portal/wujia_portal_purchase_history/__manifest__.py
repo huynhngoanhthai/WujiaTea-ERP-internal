@@ -1,6 +1,6 @@
 {
     'name': 'Wujia Portal — Purchase History',
-    'version': '19.0.4.1.0',
+    'version': '19.0.4.1.1',
     'category': 'Wujia',
     'summary': 'Portal order history — list + detail (BA controller CT-024/025)',
     'author': 'WujiaTea',

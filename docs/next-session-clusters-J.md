@@ -7,6 +7,8 @@
 > Thứ tự: V0 → V1…V8 → ★VR → J-T4 → J-O0…O4 → ★JR → Issue List. Tồn đọng toàn dự án: `docs/pending-backlog.md`.
 > **07/10 — END-SPRINT 66: Phần B + T + V XONG, đã lên UAT (chapter 79 + 80). Phần O (J-O0…★JR) TẠM DỪNG theo ý BA**
 > (chờ BA trả lời câu hỏi Vận hành, `pending-backlog.md` §3) ⇒ việc kế là Issue List cụm I mở rộng (`next-session-clusters-H.md`).
+> **14/10 — Phần O MỞ LẠI**: BA xác nhận 11/10 bằng issue #181 WJ-OPS-001 (14 màn, 2 gói mockup FINAL ở cột F của issue).
+> Chủ dự án chốt mình làm. Xếp chung thứ tự với cụm K: `next-session-clusters-K.md` §2.
 
 ## 0. Luật áp suốt cụm
 
@@ -66,11 +68,12 @@ draft/confirmed/cancelled) · `.expense` (+category, draft/confirmed/cancelled) 
 | ★J-VR | Review Phần V: quét = 0, vi_VN 0 lệch, en/th 156 trang sạch, bỏ nhánh tra ngược badge VN, danh sách BA (1 361 cặp) + Thái (284) ở `docs/i18n-review/`, chapter 79 | portal_base, sale, purchase_history, delivery | ✅ 07/10 — `457ff953` đã lên UAT 07/10 |
 | J-T4 | Nhập/xuất CSV kiểu Thái + zip `.po`/`.pot`; `po_writer` dùng chung + CLI `scripts/i18n_tool.py`; dòng chỉ khớp câu nguồn chỉ điền chỗ trống (chủ dự án 07/10) | wujia_i18n, scripts | ✅ 07/10 — `ca198ace` đã lên UAT (cùng 19.0.1.3.0) |
 | J-T5 | Dịch tự động (DeepL): wizard chọn ngôn ngữ → hàng đợi + cron theo lô → state `machine` áp ngay, rà sau · bảng thuật ngữ · khoá ở Settings (chủ dự án 07/10: chưa có key ⇒ giả lập) | wujia_i18n | ✅ 07/10 — `78a68ea5` đã lên UAT 07/10 |
-| J-O0 | Bảng đối chiếu CT-059…067 ↔ backend + danh sách màn + câu hỏi BA (0 code) | docs | ⏸ pend theo BA (07/10) |
-| J-O1 | Luật portal ở L2 (file mới `portal_rules.py`, báo Thái) | franchise_operations (thêm file) | ⏸ pend theo BA (07/10) |
-| J-O2 | Hub + Nhân viên + Lịch ca (chỉ đọc) | wujia_portal_operations (mới) | ⏸ pend theo BA (07/10) |
-| J-O3+O4 | Chi phí + Doanh thu ngày: danh sách + tạo/khai nháp (gộp 05/10) | portal_operations | ⏸ pend theo BA (07/10) |
-| ★JR | Review: ma trận role × cửa hàng × route, ảnh, query, mutation, quét chuỗi mới vào tool dịch | — | ⏸ pend theo BA (07/10) |
+| J-O0 | Bảng đối chiếu 2 gói mockup FINAL (14 màn) + CT-059…067 ↔ backend + câu hỏi còn lại (0 code) | docs | ☐ mở lại 14/10 (#181) |
+| J-O1 | Luật portal ở L2 (file mới `portal_rules.py`, báo Thái) | franchise_operations (thêm file) | ☐ mở lại 14/10 |
+| J-O2 | Home vận hành + Nhân viên (danh sách, thêm, hồ sơ, sửa; CCCD bắt buộc, ảnh) | wujia_portal_operations (mới) | ☐ mở lại 14/10 |
+| J-O3 | Lịch làm việc (một ca chọn nhiều nhân viên, MVP không chặn trùng lịch) | portal_operations | ☐ mở lại 14/10 |
+| J-O4 | Chi phí + Doanh thu: danh sách, tạo, chi tiết; chỉ Xác nhận/Hủy, không hiện Nháp, mã backend, nguồn | portal_operations | ☐ mở lại 14/10 |
+| ★JR | Review: ma trận role × cửa hàng × route, ảnh, query, mutation, quét chuỗi mới vào tool dịch | — | ☐ mở lại 14/10 |
 
 ## 3. Đã làm ở J-B1 (để B2 dùng)
 
@@ -168,6 +171,14 @@ Ngoài phạm vi (ghi lại để khỏi mở lại): các hằng nhãn portal �
 ## Phần O — Portal Vận hành, module mới `wujia_portal_operations` (4–5 phiên)
 
 L3b, depends `wujia_portal_base` + `wujia_franchise_operations`. Chia theo **chức năng** (ADR-027 addendum). Không model nghiệp vụ.
+
+> **Phạm vi mới theo #181 (14/10) — thay các chỗ lệch bên dưới.** 14 màn PC + mobile: Home, Nhân viên (danh sách, thêm,
+> hồ sơ, sửa), Lịch làm việc, Chi phí, Doanh thu, điều hướng. Nhân viên chỉ thuộc cửa hàng đang chọn, không hiện mã nhân
+> viên, CCCD bắt buộc, có ảnh, hồ sơ một nút Sửa. Một ca chọn nhiều nhân viên, MVP không chặn trùng lịch. Chi phí/doanh
+> thu không hiện mã backend, nguồn, trạng thái Nháp; chỉ Xác nhận/Hủy. Khổ nghiệm thu: mobile 360/390/430, PC từ 992.
+> Vậy O2 không còn "chỉ đọc" và O3/O4 không còn "khai nháp". Mockup nằm ở **hyperlink** cột F của issue: tải `xlsx`
+> rồi đọc `cell.hyperlink` (bài học L9), `export?format=csv` làm mất link. J-O0 phải soi lại từng field với backend
+> anh Thái (backend đang có `draft/confirmed/cancelled` và lịch phẳng một dòng = một nhân viên × một ngày × một ca).
 
 **O0 — Bảng đối chiếu + màn (0 code)**: `docs/operations-portal-spec.md` gồm CT-059…067 ↔ model/field thật của Thái, danh sách màn PC + mobile dựng từ component chuẩn (`portal-component-standard.pdf`: PageHeader, FilterBar, DataList/ListCard, StatusBadge, EmptyState, Pagination) và câu hỏi gửi BA (chấm công, nghỉ phép, duyệt ca, Staff có thấy gì không, gắn nhân viên ↔ member). Chưa có Figma thì bám chuẩn component.
 

@@ -23,7 +23,7 @@ from odoo.addons.wujia_portal_base.controllers.portal import (
     render_no_permission,
 )
 from odoo.addons.wujia_portal_base.controllers.utils import (
-    date_range_error, portal_money,
+    date_range_error, portal_money, portal_product_name,
 )
 
 
@@ -178,7 +178,7 @@ class WujiaPortalReport(http.Controller):
             order='product_uom_qty:sum desc',
         )
         top_products = [{
-            'name': product.display_name,
+            'name': portal_product_name(product),
             'qty': qty or 0,
             'uom': product.uom_id.name or '',
             'total': total or 0,

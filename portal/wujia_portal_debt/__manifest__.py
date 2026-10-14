@@ -1,6 +1,6 @@
 {
     'name': 'Wujia Portal — Debts & payments',
-    'version': '19.0.5.2.1',
+    'version': '19.0.5.2.2',
     'category': 'Wujia',
     'summary': 'Weekly debts, payment history and bank transfer screen (portal mobile + PC)',
     'description': """

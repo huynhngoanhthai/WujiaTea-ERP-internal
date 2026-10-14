@@ -79,7 +79,8 @@
                             </t>
                         </div>
 
-                        <t t-call="wujia_portal_layout.wj_data_list">
+                        <t t-if="filter_error" t-call="wujia_portal_layout.wj_filter_invalid"/>
+                        <t t-call="wujia_portal_layout.wj_data_list" t-if="not filter_error">
                             <t t-set="dl_table_class" t-value="'wj-pc-table wj-exam-pc-list-table'"/>
                             <t t-set="dl_empty" t-value="not pc_regs"/>
                             <t t-set="dl_state">
@@ -142,7 +143,7 @@
                     <t t-set="sp_scope" t-value="store_scope"/>
                 </t>
                 <t t-else="">
-                <p class="wj-count-meta" id="wj-exam-mcount"><t t-out="pgn['total_items']"/> registrations in the current store</p>
+                <p class="wj-count-meta" id="wj-exam-mcount" t-att-hidden="'hidden' if filter_error else None"><t t-if="not filter_error"><t t-out="pgn['total_items']"/> registrations in the current store</t></p>
 
                 <!-- Filter canonical 04-DateRangeOnly (Figma 4785:862) — E4c: khối dựng tay
                      trước đây có 2 ô ngày KHÔNG `name` nên bấm tìm không gửi gì. -->
@@ -163,7 +164,8 @@
                 </t>
 
                 <div id="wj-exam-mbody" class="wj-ajax-slot">
-                <t t-call="wujia_portal_layout.wj_data_list">
+                <t t-if="filter_error" t-call="wujia_portal_layout.wj_filter_invalid"/>
+                <t t-call="wujia_portal_layout.wj_data_list" t-if="not filter_error">
                     <t t-set="dl_variant" t-value="'detail-card'"/>
                     <t t-set="dl_empty" t-value="not m_exam_items"/>
                     <t t-set="dl_state">

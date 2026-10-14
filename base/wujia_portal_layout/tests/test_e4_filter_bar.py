@@ -398,3 +398,55 @@ class TestFilterBarE4b2MobileContract(TransactionCase):
                 self.fail('luật 44 quét rộng còn sống: %s' % head)
         self.assertIn('min-height: 48px', _block(css, '.wj-mform .form-control,'
                                                       '\n    .wj-mform .form-select'))
+
+
+@tagged('post_install', '-at_install', 'wujia_filter_e4')
+class TestFilterInvalidNotice(TransactionCase):
+    """FB-05: khoảng ngày ngược là trạng thái riêng, không đọc thành "không có dữ liệu"."""
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.env = load_vi(cls.env)
+
+    def _notice(self):
+        arch = ('<t t-name="wujia_portal_layout.wj_fi_probe"><div>'
+                '<t t-call="wujia_portal_layout.wj_filter_invalid"/></div></t>')
+        view = self.env['ir.ui.view'].create({
+            'name': 'wj_fi_probe', 'type': 'qweb',
+            'key': 'wujia_portal_layout.wj_fi_probe', 'arch_db': arch,
+        })
+        return html.fromstring(self.env['ir.qweb']._render(view.id, {}))
+
+    def test_khoi_nhac_khong_mang_class_empty_state(self):
+        root = self._notice()
+        box = root.xpath('.//div[@class="wj-filter-invalid"]')
+        self.assertEqual(len(box), 1)
+        self.assertEqual(box[0].get('role'), 'status')
+        for el in root.iter():
+            self.assertNotRegex(el.get('class') or '', r'empty')
+
+    def test_khoi_nhac_noi_tieng_viet(self):
+        text = self._notice().text_content()
+        self.assertIn('Khoảng ngày chưa hợp lệ', text)
+        self.assertIn('Sửa Từ ngày hoặc Đến ngày để xem danh sách.', text)
+
+    def test_css_khoi_nhac_dung_token(self):
+        css = _css('_components.css')
+        for sel in ('.wj-filter-invalid', '.wj-filter-invalid__title'):
+            block = _block(css, sel)
+            self.assertIn('var(--wujia-', block)
+            self.assertNotRegex(block, r'#[0-9a-fA-F]{3,8}\b')
+
+
+@tagged('post_install', '-at_install', 'wujia_filter_e4')
+class TestFilterResubmit(TransactionCase):
+    """FB-04: form lọc là GET, gửi lại phải chạy — khoá chống gửi lặp chỉ dành cho POST."""
+
+    def test_khoa_gui_lap_bo_qua_form_get(self):
+        with open(src('wujia_portal_layout', 'static', 'assets', 'js',
+                      'wujia_button_loading.js'), encoding='utf-8') as fh:
+            js = fh.read()
+        self.assertRegex(
+            js, r'dataset\.wjSubmitting === "1" && !isGet\)\s*\{\s*ev\.preventDefault\(\)')
+        self.assertIn('(form.getAttribute("method") || "get").toLowerCase() === "get"', js)
