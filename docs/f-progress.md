@@ -3617,3 +3617,17 @@ rồi đánh ✅ ở bảng Trạng thái §2 `docs/next-session-clusters-F.md`.
 - LIMIT: ô tệp không điền lại · mật khẩu không điền lại (chốt) · th/zh chưa dịch · câu Việt cứng ở Khắc phục · Khắc phục chưa
   đo trên UAT · chỉ Chromium · ảnh/video Bù hàng mobile dùng `aria-label`.
 - Phiên kế: **S0** — #185 WJ-ORD-033 thiết kế bán theo tồn (theo thứ tự `next-session-clusters-K.md`).
+
+## K3 — #175 WJ-RETURN-002 Đổi trả: Home + danh sách + chi tiết · merge + UAT · 14/10/2026 · Mac
+
+- Chủ dự án chốt 14/10: chi tiết PC một cột · số lượng bỏ số 0 thừa · bộ câu thiếu dữ liệu đề xuất.
+- Đã làm (commit `61c2971d`, merge PR #15 `a8347586`): `wujia_return` 19.0.2.2.0 (`_portal_recent_domain` loại Nháp,
+  `_portal_qty_label()`), `wujia_portal_base` 19.0.7.49.0 (Home bỏ "Total: —", thêm Sản phẩm · SL, sắp ngày + id),
+  `wujia_portal_return` 19.0.5.6.0 (danh sách bỏ cột Cửa hàng; chi tiết PC/mobile chung nhóm `wj-ret-g--*`, bỏ Cửa hàng,
+  tách ghi chú và phản hồi; template `portal_return_feedback_body`, `portal_return_photo_count`).
+- Test: 611/611 (7 module) trên DB copy `wujia_k3`; mới `test_k3_return_content.py` (4 test, user khoá `en_US`).
+- UAT (3/3 version khớp, chỉ đọc): Home + danh sách HCM-01/HN-01 × 390/1440, chi tiết 6 phiếu × 6 khổ: đúng nhóm, không
+  cửa hàng, 0 tràn, 0 lỗi JS. Ledger #175 ghi kết quả đo (không tách file đo riêng).
+- Nhánh: đã xoá các `feature/*` đã merge (máy + GitHub); `main` = `deploy/staging`. Từ K3 làm thẳng trên `main`.
+- LIMIT: câu thiếu dữ liệu chờ BA sửa chữ · th/zh chưa dịch · UAT chưa có phiếu có ảnh/video của HCM-01.
+- Phiên kế: **S0** — #185 WJ-ORD-033 hoặc **K4** theo `next-session-clusters-K.md`.
