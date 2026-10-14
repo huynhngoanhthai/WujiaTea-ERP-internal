@@ -3428,3 +3428,27 @@ rồi đánh ✅ ở bảng Trạng thái §2 `docs/next-session-clusters-F.md`.
   #139 UI-FILTER-001 (reconcile).
 - Sau deploy: `admin` / `Wujia@2026` đăng nhập được UAT mới (161 module `installed`); bảng "Sửa ở đâu" ghi ở §6 compact summary + `CREDENTIALS.md`.
 - Phiên kế: Issue List (#182 trước). Việc máy chủ còn lại: xem Nợ.
+
+## Lập plan cụm K — chia 17 issue + ghi chú máy chủ · 14/10/2026 · Mac
+
+- Kết quả: ✅ xong, chỉ tài liệu, 0 code. Nhánh `feature/cluster-k-plan` (từ `deploy/staging` @ `f878ed65`), chưa commit.
+- Nguồn: chủ dự án muốn chia cụm trước khi code vì 17 dòng `Ready for Dev` có cả tính năng mới; anh Thái nêu `wwwroot`
+  chỉ nên chứa folder domain.
+- Đã làm:
+  - **Mới** `docs/next-session-clusters-K.md`: K0 → K7 + ★KR (15 issue lỗi/UI), S0 → ★SR (#185 bán theo tồn),
+    trỏ Phần O cụm J cho #181; bảng fork phải hỏi.
+  - `next-session-clusters-J.md`: Phần O mở lại theo #181 (BA xác nhận 11/10, 14 màn, có tạo/sửa, không Nháp); tách J-O3 / J-O4.
+  - `pending-backlog.md` §1 + §3, compact summary §5 + §6, `next-session-repo-migration.md` §8.
+- Phát hiện:
+  - #139, #73, #37 **không phải đã fix chỉ cần sync**: tab `7. ISSUE HISTORY` ghi BA mở lại sau retest fail 11–12/10
+    (Enter không gửi tìm kiếm ở Giao hàng và Lịch sử thanh toán; ngày ngược vẫn ra 0 dòng; H1 `payment-history` PC ≠ mobile;
+    Top sản phẩm Báo cáo lộ mã nội bộ). Reconcile bằng `git log -S` + ledger là chưa đủ, phải đọc cả History.
+  - `deploy/staging` có `f878ed65` (13/10): job CI gọi webhook aaPanel khi push. Câu "merge không tự deploy" có thể đã cũ.
+  - Tab Tasks: STT 5 (controller Notification) và STT 7 (controller Ticket) trống cột trạng thái AI — chưa đối chiếu.
+- Quyết định: bố cục `odoo19` trên máy UAT để anh Thái lo, chỉ ghi chú (compact summary §6, repo-migration §8) ·
+  portal Vận hành mình làm.
+- LIMIT: không đăng nhập được aaPanel trong phiên (bị chặn) ⇒ bố cục máy chủ ghi theo khảo sát 12/10, chưa đo lại ·
+  chưa xem được kết quả chạy của job CI ⇒ chưa biết webhook có `-u` không.
+- Nợ: báo anh Thái khoá webhook nằm thẳng trong file workflow · `/wujia-start` còn câu "merge không tự deploy" (sửa khi
+  đã xác nhận job CI) · các nợ máy chủ của mục ADR-028 giữ nguyên.
+- Phiên kế: **K0** — #139 + #73 + #37. Sửa Enter ở khuôn FilterBar dùng chung, hỏi BA cách hiển thị khi ngày ngược.
