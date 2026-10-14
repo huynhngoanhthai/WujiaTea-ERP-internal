@@ -37,9 +37,9 @@ Issue List 179 dòng: 152 Done · 6 Ready for Retest · 4 Need Clarification · 
 | 183 | UI-LISTCARD-003 | Med | Component + nội dung ~9 màn | chưa |
 | 184 | UI-REPORT-DATE-001 | Med | Lỗi responsive | chưa |
 | 185 | WJ-ORD-033 | High | **Tính năng lớn** (tồn + đồng thời) | chưa |
-| 186 | WJ-SUPPORT-004 | Med | Lỗi lệch PC/mobile | chưa |
-| 187 | WJ-SUPPORT-005 | High | Lỗi lệch PC/mobile | chưa |
-| 188 | WJ-SUPPORT-006 | Med | Accessibility | chưa |
+| 186 | WJ-SUPPORT-004 | Med | Lỗi lệch PC/mobile | ✅ K1 `842b4ffc` |
+| 187 | WJ-SUPPORT-005 | High | Lỗi lệch PC/mobile | ✅ K1 `842b4ffc` |
+| 188 | WJ-SUPPORT-006 | Med | Accessibility | ✅ K1 `842b4ffc` |
 | 189 | UI-FILTERCHIP-001 | Low | Lỗi UI mobile (BA thêm 14/10): dải chip lọc cuộn ngang không có dấu hiệu | chưa — **chưa xếp phiên** |
 
 **Ba dòng mở lại — lý do BA ghi ở tab `7. ISSUE HISTORY`** (không phải "đã fix, chỉ cần sync"):
@@ -58,8 +58,8 @@ Issue List 179 dòng: 152 Done · 6 Ready for Retest · 4 Need Clarification · 
 | Phiên | Issue | Nội dung | Module chính | Trạng thái |
 |---|---|---|---|---|
 | K0 | #139 · #73 · #37 | Enter gửi tìm kiếm + ngày ngược · H1 `payment-history` một tên · bỏ mã nội bộ khỏi tên sản phẩm | portal_layout (FilterBar), portal_debt, portal_report |✅ 14/10 · `319a16fb` · sheet `Ready for Retest` |
-| K1 | #187 · #188 · #186 | Form Hỗ trợ một cấu hình PC/mobile (phân loại rỗng bắt buộc, 2 mức ưu tiên) · nhãn gắn control · metadata chi tiết ticket | wujia_support, portal_support | ☐ |
-| K2 | #182 | Shared Form Validation: Error Summary + lỗi tại field + `aria-*` + giữ dữ liệu khi server trả lỗi; áp `support/new`, `return/new`. Gộp H9 FormField của cụm H | portal_layout, portal_support, portal_return | ☐ |
+| K1 | #187 · #188 · #186 | Form Hỗ trợ một cấu hình PC/mobile (phân loại rỗng bắt buộc, 2 mức ưu tiên) · nhãn gắn control + lỗi có `aria-*` · metadata chi tiết ticket | portal_layout (hạt giống `wj_form_validate.js` + `wj_field_error`), portal_support | ✅ 14/10 · `00e9443f` · sheet chờ `--apply` |
+| K2 | #182 | Shared Form Validation — **K1 đã có** lỗi tại field + `aria-invalid`/`aria-describedby` + focus ô đầu (`data-wj-validate`, chỉ `support/new`). Còn: Error Summary đầu form, giữ dữ liệu khi server trả lỗi, áp `return/new`, kiểm số tệp trước POST. Gộp H9 FormField của cụm H | portal_layout, portal_support, portal_return | ☐ |
 | K3 | #175 | Đổi trả: Home + danh sách + chi tiết theo cửa hàng đang chọn, bỏ Tổng tiền, thêm Sản phẩm · SL ĐVT | wujia_return, portal_return, portal_base | ☐ |
 | K4 | #178 | Giao hàng: một bộ nhãn trạng thái Home/danh sách/chi tiết, "Chưa có lịch", thứ tự, bỏ Tổng tiền | portal_delivery, portal_base | ☐ |
 | K5 | #177 · #176 | Thông báo nổi bật (ghim → mức độ → ngày, badge Mức độ) · khối Hỗ trợ nhanh (thêm Theo dõi yêu cầu, ẩn hotline/chat chưa cấu hình) | wujia_notification, portal_base | ☐ |
