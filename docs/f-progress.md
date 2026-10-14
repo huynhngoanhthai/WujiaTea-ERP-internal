@@ -3547,3 +3547,49 @@ rồi đánh ✅ ở bảng Trạng thái §2 `docs/next-session-clusters-F.md`.
   `create_date` 12 giờ (dữ liệu seed) · #189 chưa xếp phiên.
 - Việc dở: merge nhánh `feature/k1-ledger` (chỉ tài liệu). DB `wujia_k1` + filestore đã xoá.
 - Phiên kế: **K2** — #182 Shared Form Validation (mở rộng `wj_form_validate.js`: Error Summary, giữ dữ liệu, `return/new`).
+
+## K2a — #182 Shared Form Validation: khung + Hỗ trợ + Đổi trả + Khắc phục · 14/10/2026 · Mac
+
+- Kết quả: ✅ code + test + đo trên DB copy. PR #14 (`feature/k2-form-validation` @ `4ac86ac3`) **chưa merge — chủ dự án
+  chốt để K2b**: K2b làm xong thì merge một lượt, đo UAT một lần, rồi mới ghi ledger. #182 trên sheet giữ `Ready for Dev`
+  / `Dev In Progress`, chưa `qa_sync`.
+- Chủ dự án chốt 14/10: phạm vi K2a = khung + `support/new` + `return/new` + Khắc phục; K2b = `info-request`,
+  `change-password`, `exam/register` · Error Summary = hộp đỏ nhạt + danh sách link · Khắc phục (module anh Thái, được
+  phép sửa) **luôn bắt buộc ảnh**, bỏ qua cờ `require_evidence_if_fail`.
+- Đã làm:
+  - **Khung** (`wujia_portal_layout` 19.0.60.15.0, `?v=1342`): partial `wj_error_summary` (`role=alert`, tiêu đề dịch có
+    `{n}` qua `data-wj-msg-title`). `wj_form_validate.js` dựng danh sách "Nhãn: câu lỗi" + link focus ô; luật tệp
+    `data-wj-min-files` / `-max-files` / `-max-mb` / `-total-mb` + `data-wj-total-group` + `accept` qua `setCustomValidity`;
+    `data-wj-focus` cho input file ẩn sau vùng kéo thả; lỗi server render sẵn ⇒ tự nối aria + dựng hộp + focus.
+    CSS `.wj-error-summary` dùng token `--wujia-danger-*`.
+  - **Hỗ trợ** (19.0.5.5.0): POST lỗi ⇒ `_render_form(error, post)` tại chỗ (bỏ redirect `?error=`; GET `?error=` giữ cho
+    link cũ). Bind lại mọi ô; `missing_fields` chỉ đánh dấu ô thật sự trống. Ô tệp mang `MAX_FILES=6`, `MAX_FILE_MB=5`.
+  - **Đổi trả**: `wujia_return` (19.0.2.1.1) thêm `ReturnPortalError(ValidationError)` có `field`; mọi luật portal ném kèm
+    tên ô. `portal_return` (19.0.5.5.0) bắt lỗi ⇒ đánh dấu đúng ô (cửa hàng ⇒ banner vì mobile 1 cửa hàng là input ẩn), bind
+    lại mọi giá trị, select dòng sản phẩm chọn lại qua `data-selected`; ô ảnh/video mang hằng của model.
+  - **Khắc phục** (`portal_inspection` 19.0.1.8.1): server trả JSON lỗi khi không có ảnh mới lẫn ảnh cũ; form có `*`,
+    `required`, lỗi inline dưới vùng tải ảnh (Enter/Space mở được); bỏ popup "ghi chú hoặc ảnh".
+  - i18n `vi_VN.po` + `.pot` (layout, portal_return) merge theo khối, `msgfmt -c` sạch.
+- Số đo (DB copy `wujia_k2`, Chromium, 992/1024/1440/360/390/430, vi_VN + en_US):
+
+  | Hạng mục | Kết quả |
+  |---|---|
+  | Gửi trống: hộp tổng hiện + link nhảy đúng ô + focus ô đầu + aria (Hỗ trợ 2 ô, Đổi trả 5 ô) | 12/12 lượt |
+  | Sửa một ô ⇒ hộp tự đếm lại | đạt |
+  | Lẫn ngôn ngữ en/vi | 0 |
+  | Đổi trả chọn 2 ảnh ⇒ chặn trước POST, giữ SL + ghi chú; đủ 3 ảnh ⇒ ô ảnh hết lỗi | 6/6 khổ |
+  | POST bỏ qua client (Hỗ trợ thiếu tiêu đề, Đổi trả thiếu đơn) ⇒ 200, giữ giá trị, đánh dấu ô | đạt |
+  | Khắc phục không ảnh: chặn client (1440/390) + server JSON lỗi; có ảnh ⇒ `remediated` | đạt |
+  | Hồi quy 6 màn × 2 khổ: 200 · tràn ngang · lỗi JS | 12/12 · 0 · 0 |
+
+- Test: `-u` 6 module + full test ⇒ 832 test, 1 fail có sẵn từ K1 (`test_split_ownership` thiếu view
+  `portal_support_form_alert`) — sửa, chạy lại 0 fail. Mới: `test_k2_form_validation.py` (support 3, return 4, tag
+  `wujia_support_k2` / `wujia_return_k2`) + `test_portal_error_names_the_field`. Test K1 sửa theo render tại chỗ.
+  `check_layers` không thêm vi phạm (R7 2 dòng có sẵn ở `wujia_franchise`).
+- Bẫy gặp: `<textarea t-out="x"/>` với `x` None ⇒ QWeb **bỏ hẳn thẻ** (ô Mô tả/Ghi chú biến mất) — dùng `x or ''`.
+  `values.setdefault(...)` làm dict luôn truthy ⇒ phải lấy cờ `posted` trước. Câu có `t-out` lồng trong `t-set` bị export
+  thành mảnh ⇒ dựng câu có tham số ở controller (`request.env._`).
+- LIMIT (K2b xử lý cái nào cần): không điền lại được `input[type=file]` sau lỗi server · câu tiếng Việt cứng sẵn có trong
+  module Khắc phục · th/zh chưa dịch · webkit/firefox chưa đo · nhãn mobile Đổi trả cho ô ảnh/video vẫn là `aria-label`.
+- DB `wujia_k2` (đã `-u` K2a, có 1 phiếu kiểm tra mẫu HCM-01) **giữ lại cho K2b**; xoá khi K2b xong.
+- Phiên kế: **K2b** — `info-request`, `change-password`, `exam/register` trên cùng nhánh/PR #14 → merge → đo UAT → ledger.
