@@ -3455,8 +3455,9 @@ rồi đánh ✅ ở bảng Trạng thái §2 `docs/next-session-clusters-F.md`.
 
 ## K0 — #139 Enter + ngày ngược · #73 H1 Lịch sử thanh toán · #37 bỏ mã nội bộ · 14/10/2026 · Mac
 
-- Kết quả: 🟡 code xong + đo đạt trên DB copy, **chưa push / chưa lên UAT / chưa ghi sheet**. Nhánh
-  `feature/k0-filter-header-sku` (trên `feature/cluster-k-plan`), commit `8c01ba9f`.
+- Kết quả: ✅ xong. PR #10 merge vào `deploy/staging` @ `319a16fb` (code `8c01ba9f`) · **đã lên UAT 14/10**, 9/9 module đúng
+  version · đo lại trên UAT đạt · sheet: #139, #73, #37 → `Ready for Retest` (18 ô + 3 dòng History, kiểm `export?format=csv` theo ID).
+  Bảng đo: `docs/k0-uat-measure.md`. Ledger + bảng đo ở nhánh `feature/k0-ledger`.
 - Nguồn: ba dòng BA mở lại 11–12/10 (tab `7. ISSUE HISTORY`). Chủ dự án chốt: Enter = thử kỹ + thêm phòng thủ ·
   ngày ngược = một khối nhắc trung tính, Dev tự dịch · H1 = "Lịch sử thanh toán" ở cả hai khổ.
 - Đã làm:
@@ -3469,15 +3470,17 @@ rồi đánh ✅ ở bảng Trạng thái §2 `docs/next-session-clusters-F.md`.
   - **#37**: `portal_product_name()` ở `portal_base/controllers/utils.py` (công tắc core `display_default_code=False`), thay 8 chỗ
     `display_name` ở Báo cáo, chi tiết đơn, chi tiết giao hàng, Bù hàng (template nhận qua `wj_pname`).
   - Bump patch 9 module · `?v=1339` → `1340` · 2 câu mới vào `.po` + `.pot` của layout.
-- Số đo (script `k0_measure.py`, chromium, khổ 1440 + 390; "trước" = UAT bản `f878ed65`, "sau" = DB copy `wujia_k0`):
+- Số đo (script `k0_measure.py`, chromium, khổ 1440 + 390; "trước" = UAT bản `f878ed65`, "sau" = UAT bản `319a16fb`,
+  DB copy `wujia_k0` cho cùng kết quả):
 
   | Hạng mục | Trước | Sau |
   |---|---|---|
   | Enter phím thật, 15 ô / 11 màn | 15/15 | 15/15 |
   | Enter ca đặc biệt (phím không kèm ký tự ×4, hai Enter liền, Enter khi lượt trước còn treo, ô ngày, NumpadEnter, IME) | 3/9 | 9/9 |
-  | Ngày ngược 6 màn × 2 khổ × (URL, AJAX, sửa lại) | 11/35 | 33/35 (2 ô còn lại: Thông báo mobile không có ô ngày) |
-  | H1 `payment-history` PC / mobile | "Công nợ" / "Lịch sử thanh toán" | "Lịch sử thanh toán" cả hai |
-  | Lượt xem còn mã sản phẩm `[TS-…]` | 8/32 | 0/34 |
+  | Ngày ngược 6 màn × 2 khổ × (URL, AJAX, sửa lại) | 11/34 | 34/34 (Thông báo mobile không có ô ngày ⇒ chỉ đo bước URL) |
+  | Bấm nút Tìm kiếm ra cùng đường dẫn với Enter | chưa đo | 15/15 |
+  | H1 `payment-history` PC / mobile | "Công nợ" / "Lịch sử thanh toán" | "Lịch sử thanh toán" cả hai · quét 23 route: 22 giống nhau |
+  | Lượt xem còn mã sản phẩm `[TS-…]` | 8/32 | 0/32 |
   | Hồi quy 13 màn × 2 khổ (200, 0 lỗi JS, 0 tràn) | 26/26 | 26/26, cao thanh lọc 26/26 không đổi |
 
 - Test: `-u` 20 module lệch version trên `wujia_k0` RC=0, 0 ERROR · 9 module đụng tới **1017 test 0 fail** (24 test mới) ·
@@ -3489,10 +3492,16 @@ rồi đánh ✅ ở bảng Trạng thái §2 `docs/next-session-clusters-F.md`.
     Lệch PC/mobile này có từ trước, chạm FB-10.
   - UAT: URL lạ dưới `/portal/…` trả **500** (local trả 404); `/khong-co-…` ngoài `/portal` vẫn 404. Chưa rõ nguyên nhân.
   - `wujia_vr` (DB mẫu duy nhất trên Mac) đứng ở layout `60.4.0` ⇒ DB copy phải `-u` 20 module trước khi đo.
+  - **Merge vào `deploy/staging` CÓ tự deploy và CÓ `-u`**: job "Triển khai Staging" của run `38509363758` chạy đạt ngay sau
+    merge, ~1 phút sau XML-RPC đọc 9/9 module đã ở version mới mà không ai bấm *Deploy latest*. Câu "merge không tự deploy" đã cũ.
+  - `/portal/info-request`: H1 PC "Yêu cầu cập nhật thông tin" ≠ mobile "Cập nhật thông tin" — cùng họ lỗi #73, route ngoài
+    bảng đặt tên, đã ghi vào LIMIT của #73 chờ BA cho tên.
+  - BA thêm **#189 `UI-FILTERCHIP-001`** (Low, `Ready for Dev`) trong lúc phiên chạy: dải chip lọc mobile cuộn ngang không có
+    dấu hiệu. Chưa xếp vào phiên nào của cụm K.
 - LIMIT: webkit/firefox chưa đo (máy chỉ có chromium) · câu chữ khối nhắc do Dev đặt, chờ BA duyệt · H1 PC lệch Figma v1.1
-  ở dòng tiêu đề theo chốt chủ dự án · số "sau" đo trên DB copy, chưa phải UAT.
-- Việc dở: hỏi push → PR về `deploy/staging` → kiểm version 9 module trên UAT (XML-RPC) → đo lại trên UAT →
-  ledger (`UI-FILTER-001`, `UI-PAGEHEADER-001`, thêm `WJ-ORD-008`) → `qa_sync --dry-run` → chờ duyệt → `--apply`.
-- Nợ: báo anh Thái khoá webhook nằm trong file workflow · `/wujia-start` còn câu "merge không tự deploy" ·
-  lỗi 500 của URL lạ dưới `/portal` · ô ngày cho Thông báo mobile (hỏi BA).
-- Phiên kế: khép K0 (deploy + sheet), rồi **K1** — #187 · #188 · #186 form Hỗ trợ.
+  ở dòng tiêu đề theo chốt chủ dự án · chip / select / phân trang không đo lại riêng (không sửa, dựa vào test tự động).
+- Việc dở: merge nhánh `feature/k0-ledger` (chỉ tài liệu: ledger, bảng đo, nhật ký).
+- Nợ: báo anh Thái khoá webhook nằm trong file workflow · sửa câu "merge không tự deploy" trong `/wujia-start` ·
+  lỗi 500 của URL lạ dưới `/portal` trên UAT · ô ngày cho Thông báo mobile + tên trang `/portal/info-request` (chờ BA) ·
+  xếp #189 vào cụm K.
+- Phiên kế: **K1** — #187 · #188 · #186 form Hỗ trợ.
