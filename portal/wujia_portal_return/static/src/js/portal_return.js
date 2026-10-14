@@ -56,16 +56,22 @@
                     ? msg("select-product", "— Select a product —")
                     : msg("no-products", "— Order has no products —");
                 lineSel.appendChild(ph);
+                // Máy chủ trả lỗi ⇒ giữ dòng đã chọn nếu còn thuộc đơn (data-selected).
+                const keep = lineSel.dataset.selected || "";
                 lines.forEach(function (l) {
                     const opt = document.createElement("option");
                     opt.value = l.id;
                     opt.textContent = l.label;
                     opt.dataset.full = l.label;
+                    opt.selected = String(l.id) === keep;
                     lineSel.appendChild(opt);
                 });
                 showFull();
             }
-            orderSel.addEventListener("change", refill);
+            orderSel.addEventListener("change", function () {
+                delete lineSel.dataset.selected;
+                refill();
+            });
             lineSel.addEventListener("change", showFull);
             if (orderSel.value) refill();
         });

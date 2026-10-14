@@ -6,6 +6,7 @@
     <template id="portal_inspection_remediation_form" name="Wujia Portal — Phản hồi khắc phục">
         <t t-call="wujia_portal_layout.app_layout">
             <t t-set="pc_width" t-value="'standard'"/>
+            <t t-set="_e_image">Vui lòng tải lên ảnh khắc phục trước khi gửi.</t>
 
             <!-- Sử dụng component chuẩn wj_page_header từ wujia_portal_layout cho phần Header -->
             <t t-set="ph_platform" t-value="'pc'" />
@@ -50,9 +51,10 @@
                         </t>
 
                         <form action="/portal/inspection/remediation/submit" method="POST"
-                            enctype="multipart/form-data">
+                            enctype="multipart/form-data" data-wj-validate="1">
                             <input type="hidden" name="csrf_token"
                                 t-att-value="request.csrf_token()" />
+                            <t t-call="wujia_portal_layout.wj_error_summary"/>
                             <input type="hidden" name="line_id" t-att-value="line.id" />
 
                             <div class="row g-3">
@@ -109,12 +111,14 @@
                                         <div
                                             class="d-flex justify-content-between align-items-center mb-2">
                                             <span class="font-weight-bold text-primary small">Sau
-                                                (Khắc phục)</span>
+                                                (Khắc phục) <span class="text-danger" aria-hidden="true">*</span></span>
                                             <i class="feather icon-camera text-primary" />
                                         </div>
                                         <input type="file" name="remediation_image" accept="image/*"
-                                            class="d-none image-upload-input" />
-                                        <div class="upload-dropzone p-4 text-center border rounded"
+                                            class="d-none image-upload-input" id="wj-rem-pc-image"
+                                            aria-label="Ảnh khắc phục" data-wj-focus="wj-rem-pc-drop" t-att-required="None if line.remediation_image else 'required'"/>
+                                        <div class="upload-dropzone p-4 text-center border rounded" id="wj-rem-pc-drop"
+                                            role="button" tabindex="0" aria-label="Ảnh khắc phục (bắt buộc)"
                                             style="border: 2px dashed #cbd5e1 !important; background: #f8fafc; cursor: pointer;">
                                             <div class="upload-placeholder">
                                                 <div class="mb-2 text-primary">
@@ -130,6 +134,7 @@
                                                 class="upload-preview-img w-100 rounded d-none wj-img-zoom"
                                                 style="max-height: 200px; object-fit: cover;" />
                                         </div>
+                                        <t t-call="wujia_portal_layout.wj_field_error"><t t-set="fe_for" t-value="'wj-rem-pc-image'"/><t t-set="fe_msg" t-value="_e_image"/><t t-set="fe_show" t-value="False"/></t>
                                     </div>
                                 </div>
 
@@ -185,8 +190,9 @@
             <!-- ================= Mobile <992px ================= -->
             <div class="wj-inspection-container d-lg-none">
                 <form id="remediation_form_submit" action="/portal/inspection/remediation/submit"
-                    method="POST" enctype="multipart/form-data" class="py-3 d-flex flex-column gap-3">
+                    method="POST" enctype="multipart/form-data" class="py-3 d-flex flex-column gap-3" data-wj-validate="1">
                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                    <t t-call="wujia_portal_layout.wj_error_summary"/>
                     <input type="hidden" name="line_id" t-att-value="line.id" />
 
                     <!-- Thẻ 1: Thông tin Tiêu chí bị trừ điểm -->
@@ -239,13 +245,15 @@
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span class="font-weight-bold text-primary small"
                                 style="font-size: 0.9rem; color: #0284c7 !important;">Sau (Khắc
-                                phục)</span>
+                                phục) <span class="text-danger" aria-hidden="true">*</span></span>
                             <i class="feather icon-camera text-primary"
                                 style="font-size: 1.1rem; color: #0284c7 !important;" />
                         </div>
-                        <input type="file" class="d-none image-upload-input"
-                            name="remediation_image" accept="image/*" />
-                        <div class="upload-dropzone p-4 text-center border rounded-3"
+                        <input type="file" class="d-none image-upload-input" id="wj-rem-m-image"
+                            name="remediation_image" accept="image/*"
+                            aria-label="Ảnh khắc phục" data-wj-focus="wj-rem-m-drop" t-att-required="None if line.remediation_image else 'required'"/>
+                        <div class="upload-dropzone p-4 text-center border rounded-3" id="wj-rem-m-drop"
+                            role="button" tabindex="0" aria-label="Ảnh khắc phục (bắt buộc)"
                             style="border: 2px dashed #cbd5e1 !important; background: #f8fafc; cursor: pointer;">
                             <div class="upload-placeholder">
                                 <div
@@ -261,6 +269,7 @@
                             <img class="upload-preview-img w-100 rounded-3 d-none wj-img-zoom"
                                 style="max-height: 200px; object-fit: cover;" />
                         </div>
+                        <t t-call="wujia_portal_layout.wj_field_error"><t t-set="fe_for" t-value="'wj-rem-m-image'"/><t t-set="fe_msg" t-value="_e_image"/><t t-set="fe_show" t-value="False"/></t>
                     </div>
 
                     <!-- Thẻ 4: Form Mô tả hành động khắc phục -->

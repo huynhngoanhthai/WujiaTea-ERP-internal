@@ -81,7 +81,7 @@
             <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/css/member_dashboard_style.css?v=1060"/>
             <!-- Wujia overrides load last so they win over Vuexy + legacy style.css. -->
             <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/css/_wujia_theme.css?v=1340"/>
-            <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/css/_components.css?v=1341"/>
+            <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/css/_components.css?v=1342"/>
             <!-- Sprint PC-1: desktop component layer (BA pc_source_ui_v1_4). -->
             <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/css/_pc_components.css?v=1340"/>
             <!-- PC "Tài khoản" section (Figma wujia_pc_01..09_v3). -->
@@ -113,7 +113,7 @@
                   G5 (WJ-ORD-027): thêm sự kiện wj:form:release cho form ở lại trang. -->
              <script src="/wujia_portal_layout/static/assets/js/wujia_button_loading.js?v=1340"/>
              <!-- K1: kiểm form trước khi gửi (aria-invalid + ô lỗi wj_field_error). -->
-             <script src="/wujia_portal_layout/static/assets/js/wj_form_validate.js?v=1341"/>
+             <script src="/wujia_portal_layout/static/assets/js/wj_form_validate.js?v=1342"/>
 
 
              <script src="/wujia_portal_layout/static/assets/js/scripts/sweetalert2@11.js"/>

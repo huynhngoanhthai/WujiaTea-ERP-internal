@@ -37,6 +37,14 @@ MAX_TOTAL_MB = 30
 OPEN_STATES = ('submitted', 'processing', 'approved')
 
 
+class ReturnPortalError(ValidationError):
+    """Đầu vào portal bị từ chối; ``field`` = tên ô form để kênh đánh dấu đúng chỗ (rỗng = lỗi chung)."""
+
+    def __init__(self, message, field=''):
+        super().__init__(message)
+        self.field = field
+
+
 class WujiaReturnRequest(models.Model):
     """Yêu cầu đổi trả / bù hàng — 1 sản phẩm/phiếu (BA spec K, model/field tab).
 
@@ -398,12 +406,12 @@ class WujiaReturnRequest(models.Model):
     def _portal_check_order_window(self, order):
         done_date = order.wj_delivery_done_date
         if not done_date:
-            raise ValidationError(_("This order has not been fully delivered yet, so a request cannot be created."))
+            raise ReturnPortalError(_("This order has not been fully delivered yet, so a request cannot be created."), 'sale_order_id')
         if done_date < fields.Datetime.now() - timedelta(days=ORDER_WINDOW_DAYS):
             local = fields.Datetime.context_timestamp(self, done_date)
-            raise ValidationError(_(
+            raise ReturnPortalError(_(
                 "More than %(days)s days have passed since the order was fully delivered (%(date)s).",
-                days=ORDER_WINDOW_DAYS, date=local.strftime('%d/%m/%Y')))
+                days=ORDER_WINDOW_DAYS, date=local.strftime('%d/%m/%Y')), 'sale_order_id')
 
     @api.model
     def _portal_check_product_config(self, product):
@@ -427,18 +435,18 @@ class WujiaReturnRequest(models.Model):
     def _portal_check_evidence(self, images, videos):
         """``images``/``videos``: list ``(size_bytes, mime_thật)``; kênh tự đọc MIME từ nội dung."""
         if not MIN_IMAGES_BEFORE_SEND <= len(images) <= MAX_IMAGES:
-            raise ValidationError(_("Please upload %(min)s to %(max)s evidence photos.",
-                                    min=MIN_IMAGES_BEFORE_SEND, max=MAX_IMAGES))
+            raise ReturnPortalError(_("Please upload %(min)s to %(max)s evidence photos.",
+                                      min=MIN_IMAGES_BEFORE_SEND, max=MAX_IMAGES), 'images')
         if len(videos) > MAX_VIDEOS:
-            raise ValidationError(_("You can upload at most %s evidence video(s).", MAX_VIDEOS))
+            raise ReturnPortalError(_("You can upload at most %s evidence video(s).", MAX_VIDEOS), 'video')
         bad = _("The file has an invalid format or exceeds the allowed size.")
-        for files, allowed, max_mb in ((images, IMAGE_MIME, MAX_IMAGE_MB),
-                                       (videos, VIDEO_MIME, MAX_VIDEO_MB)):
+        for files, allowed, max_mb, field in ((images, IMAGE_MIME, MAX_IMAGE_MB, 'images'),
+                                              (videos, VIDEO_MIME, MAX_VIDEO_MB, 'video')):
             for size, mime in files:
                 if size > max_mb * 1024 * 1024 or mime not in allowed:
-                    raise ValidationError(bad)
+                    raise ReturnPortalError(bad, field)
         if sum(size for size, _mime in images + videos) > MAX_TOTAL_MB * 1024 * 1024:
-            raise ValidationError(_("Total evidence size cannot exceed %s MB.", MAX_TOTAL_MB))
+            raise ReturnPortalError(_("Total evidence size cannot exceed %s MB.", MAX_TOTAL_MB), 'images')
 
     @api.model
     def _portal_prepare_vals(self, post, franchise_ids):
@@ -446,27 +454,28 @@ class WujiaReturnRequest(models.Model):
         try:
             franchise_id = int(post.get('franchise_id') or 0)
         except (TypeError, ValueError):
-            raise ValidationError(_("Invalid store."))
+            raise ReturnPortalError(_("Invalid store."), 'franchise_id')
         if franchise_id not in set(franchise_ids):
-            raise ValidationError(_("You cannot access this store."))
+            raise ReturnPortalError(_("You cannot access this store."), 'franchise_id')
         try:
             order_id = int(post.get('sale_order_id') or 0)
             line_id = int(post.get('sale_order_line_id') or 0)
         except (TypeError, ValueError):
-            raise ValidationError(_("Invalid order / product."))
+            raise ReturnPortalError(_("Invalid order / product."), 'sale_order_id')
         if not order_id or not line_id:
-            raise ValidationError(_("Please select the original order and product."))
+            raise ReturnPortalError(_("Please select the original order and product."),
+                                    'sale_order_line_id' if order_id else 'sale_order_id')
         order = self.env['sale.order'].sudo().search(
             self._portal_scope_order_domain([franchise_id]) + [('id', '=', order_id)], limit=1)
         if not order:
-            raise ValidationError(_("The original order is invalid."))
+            raise ReturnPortalError(_("The original order is invalid."), 'sale_order_id')
         self._portal_check_order_window(order)
         line = order.order_line.filtered(lambda l: l.id == line_id)
         if not line or not line.product_id:
-            raise ValidationError(_("The product must belong to the store's original order."))
+            raise ReturnPortalError(_("The product must belong to the store's original order."), 'sale_order_line_id')
         config_error = self._portal_check_product_config(line.product_id)
         if config_error:
-            raise ValidationError(config_error)
+            raise ReturnPortalError(config_error, 'sale_order_line_id')
         try:
             issue_type_id = int(post.get('issue_type_id'))
         except (TypeError, ValueError):
@@ -474,13 +483,13 @@ class WujiaReturnRequest(models.Model):
         issue_type = self.env['wujia.return.issue.type'].sudo().search(
             [('id', '=', issue_type_id), ('active', '=', True)], limit=1)
         if not issue_type:
-            raise ValidationError(_("Please select an issue type."))
+            raise ReturnPortalError(_("Please select an issue type."), 'issue_type_id')
         try:
             request_qty = float(post.get('request_qty') or 0)
         except (TypeError, ValueError):
             request_qty = 0.0
         if request_qty <= 0:
-            raise ValidationError(_("The requested quantity must be greater than 0."))
+            raise ReturnPortalError(_("The requested quantity must be greater than 0."), 'request_qty')
         opening, opening_dt = post.get('opening_datetime') or '', False
         for fmt in ('%Y-%m-%dT%H:%M', '%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M'):
             try:
@@ -489,7 +498,7 @@ class WujiaReturnRequest(models.Model):
             except ValueError:
                 continue
         if not opening_dt:
-            raise ValidationError(_("Please enter a valid unboxing time."))
+            raise ReturnPortalError(_("Please enter a valid unboxing time."), 'opening_datetime')
         return {
             'franchise_id': franchise_id,
             'sale_order_id': order_id,

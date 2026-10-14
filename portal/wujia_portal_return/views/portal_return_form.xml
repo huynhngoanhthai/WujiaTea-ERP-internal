@@ -9,6 +9,15 @@
             <t t-set="_ret_msg_select_product">— Select a product —</t>
             <t t-set="_ret_msg_no_products">— Order has no products —</t>
             <t t-set="_ret_line_msgs" t-value="{'data-wj-msg-select-product': _ret_msg_select_product, 'data-wj-msg-no-products': _ret_msg_no_products}"/>
+            <!-- Câu lỗi tại ô (client); lỗi máy chủ của đúng ô đó thay bằng câu của máy chủ. -->
+            <t t-set="_e_franchise_id">Please select a store.</t>
+            <t t-set="_e_issue_type_id">Please select an issue type.</t>
+            <t t-set="_e_sale_order_id">Please select the original order.</t>
+            <t t-set="_e_sale_order_line_id">Please select a product from the order.</t>
+            <t t-set="_e_request_qty">The requested quantity must be greater than 0.</t>
+            <t t-set="_e_opening_datetime">Please enter the unboxing time.</t>
+            <t t-set="_e_images" t-value="msg_images"/>
+            <t t-set="_e_video" t-value="msg_video"/>
 
             <!-- Desktop ≥992px -->
             <div class="content-wrapper d-none d-lg-block">
@@ -21,8 +30,8 @@
                 </t>
 
                 <div class="content-body">
-                    <p t-if="error" class="alert alert-danger" t-out="error"/>
-                    <form method="post" action="/portal/return/new" data-wj-dirty-guard="1"
+                    <p t-if="error and not error_field" class="alert alert-danger" role="alert" t-out="error"/>
+                    <form method="post" action="/portal/return/new" data-wj-dirty-guard="1" data-wj-validate="1"
                           enctype="multipart/form-data" class="wj-surface-card wj-surface-card--section wj-surface-card--compact wj-surface-card--flush wujia-return-form">
                         <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                         <div class="alert alert-info mb-0 rounded-0">
@@ -30,23 +39,28 @@
                             Each request covers only <b>1 product</b> from the order.
                         </div>
                         <div class="wj-surface-card__body">
+                            <t t-call="wujia_portal_layout.wj_error_summary"/>
                             <div class="row g-2">
                                 <div class="col-md-6 col-12">
                                     <label class="form-label" for="wj-ret-pc-franchise">Store</label>
                                     <select id="wj-ret-pc-franchise" name="franchise_id" class="form-select" required="required">
                                         <t t-foreach="franchises" t-as="f">
-                                            <option t-att-value="f.id" t-out="f.name"/>
+                                            <option t-att-value="f.id" t-out="f.name"
+                                                    t-att-selected="'selected' if str(f.id) == str(values.get('franchise_id')) else None"/>
                                         </t>
                                     </select>
+                                    <t t-call="wujia_portal_layout.wj_field_error"><t t-set="fe_for" t-value="'wj-ret-pc-franchise'"/><t t-set="fe_msg" t-value="error if error_field == 'franchise_id' else _e_franchise_id"/><t t-set="fe_show" t-value="error_field == 'franchise_id'"/></t>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <label class="form-label" for="wj-ret-pc-issue">Issue type</label>
                                     <select id="wj-ret-pc-issue" name="issue_type_id" class="form-select" required="required">
                                         <option value="">— Select an issue type —</option>
                                         <t t-foreach="issue_types" t-as="it">
-                                            <option t-att-value="it.id" t-out="it.name"/>
+                                            <option t-att-value="it.id" t-out="it.name"
+                                                    t-att-selected="'selected' if str(it.id) == str(values.get('issue_type_id')) else None"/>
                                         </t>
                                     </select>
+                                    <t t-call="wujia_portal_layout.wj_field_error"><t t-set="fe_for" t-value="'wj-ret-pc-issue'"/><t t-set="fe_msg" t-value="error if error_field == 'issue_type_id' else _e_issue_type_id"/><t t-set="fe_show" t-value="error_field == 'issue_type_id'"/></t>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <label class="form-label" for="wj-ret-pc-order">Original sales order</label>
@@ -54,11 +68,13 @@
                                             t-att-data-lines="order_lines_json" required="required">
                                         <option value="">— Select an order —</option>
                                         <t t-foreach="orders" t-as="o">
-                                            <option t-att-value="o.id">
+                                            <option t-att-value="o.id"
+                                                    t-att-selected="'selected' if str(o.id) == str(values.get('sale_order_id')) else None">
                                                 <t t-out="o.name"/> — delivered <t t-out="wj_dt(o.wj_delivery_done_date, '%d/%m/%Y')"/>
                                             </option>
                                         </t>
                                     </select>
+                                    <t t-call="wujia_portal_layout.wj_field_error"><t t-set="fe_for" t-value="'wj-ret-pc-order'"/><t t-set="fe_msg" t-value="error if error_field == 'sale_order_id' else _e_sale_order_id"/><t t-set="fe_show" t-value="error_field == 'sale_order_id'"/></t>
                                     <small t-if="not orders" class="text-danger">
                                         No orders fully delivered in the last
                                         <t t-out="window_days"/> days.
@@ -67,36 +83,44 @@
                                 <div class="col-md-6 col-12">
                                     <label class="form-label" for="wj-ret-pc-line">Product (in the order)</label>
                                     <select id="wj-ret-pc-line" name="sale_order_line_id" class="form-select wj-return-line"
-                                            aria-describedby="wj-ret-pc-line-full" required="required">
+                                            aria-describedby="wj-ret-pc-line-full" required="required"
+                                            t-att-data-selected="values.get('sale_order_line_id')">
                                         <option value="">— Select an order first —</option>
                                     </select>
                                     <p class="wj-return-line-full" id="wj-ret-pc-line-full" hidden="hidden"/>
+                                    <t t-call="wujia_portal_layout.wj_field_error"><t t-set="fe_for" t-value="'wj-ret-pc-line'"/><t t-set="fe_msg" t-value="error if error_field == 'sale_order_line_id' else _e_sale_order_line_id"/><t t-set="fe_show" t-value="error_field == 'sale_order_line_id'"/></t>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <label class="form-label" for="wj-ret-pc-qty">Requested quantity</label>
                                     <input type="number" id="wj-ret-pc-qty" name="request_qty" class="form-control"
-                                           min="0.01" step="0.01" value="1" required="required"/>
+                                           min="0.01" step="0.01" t-att-value="values.get('request_qty', '1')" required="required"/>
+                                    <t t-call="wujia_portal_layout.wj_field_error"><t t-set="fe_for" t-value="'wj-ret-pc-qty'"/><t t-set="fe_msg" t-value="error if error_field == 'request_qty' else _e_request_qty"/><t t-set="fe_show" t-value="error_field == 'request_qty'"/></t>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <label class="form-label" for="wj-ret-pc-opening">Unboxing time</label>
                                     <input type="datetime-local" id="wj-ret-pc-opening" name="opening_datetime"
-                                           class="form-control" required="required"/>
+                                           class="form-control" required="required" t-att-value="values.get('opening_datetime')"/>
+                                    <t t-call="wujia_portal_layout.wj_field_error"><t t-set="fe_for" t-value="'wj-ret-pc-opening'"/><t t-set="fe_msg" t-value="error if error_field == 'opening_datetime' else _e_opening_datetime"/><t t-set="fe_show" t-value="error_field == 'opening_datetime'"/></t>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <label class="form-label" for="wj-ret-pc-proddate">Production date</label>
-                                    <input type="date" id="wj-ret-pc-proddate" name="production_date" class="form-control"/>
+                                    <input type="date" id="wj-ret-pc-proddate" name="production_date" class="form-control"
+                                           t-att-value="values.get('production_date')"/>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label" for="wj-ret-pc-note">Note</label>
                                     <textarea id="wj-ret-pc-note" name="note" rows="3" class="form-control"
-                                              placeholder="Describe the condition of the goods to compensate/exchange..."/>
+                                              placeholder="Describe the condition of the goods to compensate/exchange..." t-out="values.get('note') or ''"/>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label" for="wj-ret-pc-images">
                                         Evidence photos (<t t-out="min_images"/>–<t t-out="max_images"/> photos)
                                     </label>
                                     <input type="file" id="wj-ret-pc-images" name="images" class="form-control"
-                                           accept="image/jpeg,image/png" multiple="multiple"/>
+                                           accept="image/jpeg,image/png" multiple="multiple"
+                                           t-att-data-wj-min-files="min_images" t-att-data-wj-max-files="max_images" t-att-data-wj-max-mb="max_image_mb"
+                                           t-att-data-wj-total-mb="max_total_mb" data-wj-total-group="evidence"/>
+                                    <t t-call="wujia_portal_layout.wj_field_error"><t t-set="fe_for" t-value="'wj-ret-pc-images'"/><t t-set="fe_msg" t-value="error if error_field == 'images' else _e_images"/><t t-set="fe_show" t-value="error_field == 'images'"/></t>
                                     <small class="text-muted">
                                         JPG/PNG, up to 5MB per photo · total evidence ≤ <t t-out="max_total_mb"/>MB.
                                     </small>
@@ -105,7 +129,10 @@
                                 <div class="col-12">
                                     <label class="form-label" for="wj-ret-pc-video">Evidence video (optional)</label>
                                     <input type="file" id="wj-ret-pc-video" name="video" class="form-control"
-                                           accept="video/mp4,video/quicktime"/>
+                                           accept="video/mp4,video/quicktime"
+                                           t-att-data-wj-max-files="max_videos" t-att-data-wj-max-mb="max_video_mb"
+                                           t-att-data-wj-total-mb="max_total_mb" data-wj-total-group="evidence"/>
+                                    <t t-call="wujia_portal_layout.wj_field_error"><t t-set="fe_for" t-value="'wj-ret-pc-video'"/><t t-set="fe_msg" t-value="error if error_field == 'video' else _e_video"/><t t-set="fe_show" t-value="error_field == 'video'"/></t>
                                     <small class="text-muted">
                                         Up to 1 MP4/MOV video, ≤ <t t-out="max_video_mb"/>MB.
                                     </small>
@@ -136,11 +163,12 @@
                     <span>Each request covers only 1 product from the order.</span>
                 </div>
 
-                <p t-if="error" class="text-danger small mb-2" t-out="error"/>
+                <p t-if="error and not error_field" class="text-danger small mb-2" role="alert" t-out="error"/>
 
                 <form method="post" action="/portal/return/new" enctype="multipart/form-data"
-                      class="wj-mform" data-wj-dirty-guard="1">
+                      class="wj-mform" data-wj-dirty-guard="1" data-wj-validate="1">
                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <t t-call="wujia_portal_layout.wj_error_summary"/>
                     <t t-if="franchises and len(franchises) == 1">
                         <input type="hidden" name="franchise_id" t-att-value="franchises[0].id"/>
                     </t>
@@ -157,29 +185,35 @@
                         <t t-if="franchises and len(franchises) &gt; 1">
                             <label class="wujia-mticket-label" for="wj-ret-m-franchise">Store</label>
                             <select id="wj-ret-m-franchise" name="franchise_id" class="form-select mb-3" required="required">
-                                <t t-foreach="franchises" t-as="f"><option t-att-value="f.id" t-out="f.name"/></t>
+                                <t t-foreach="franchises" t-as="f"><option t-att-value="f.id" t-out="f.name"
+                                    t-att-selected="'selected' if str(f.id) == str(values.get('franchise_id')) else None"/></t>
                             </select>
+                            <t t-call="wujia_portal_layout.wj_field_error"><t t-set="fe_for" t-value="'wj-ret-m-franchise'"/><t t-set="fe_msg" t-value="error if error_field == 'franchise_id' else _e_franchise_id"/><t t-set="fe_show" t-value="error_field == 'franchise_id'"/></t>
                         </t>
                         <label class="wujia-mticket-label" for="wj-ret-m-order">Original sales order</label>
                         <select id="wj-ret-m-order" name="sale_order_id" t-att="_ret_line_msgs" class="form-select mb-3 wj-return-order"
                                 t-att-data-lines="order_lines_json" required="required">
                             <option value="">— Select an order —</option>
                             <t t-foreach="orders" t-as="o">
-                                <option t-att-value="o.id">
+                                <option t-att-value="o.id"
+                                        t-att-selected="'selected' if str(o.id) == str(values.get('sale_order_id')) else None">
                                     <t t-out="o.name"/> — delivered <t t-out="wj_dt(o.wj_delivery_done_date, '%d/%m/%Y')"/>
                                 </option>
                             </t>
                         </select>
+                        <t t-call="wujia_portal_layout.wj_field_error"><t t-set="fe_for" t-value="'wj-ret-m-order'"/><t t-set="fe_msg" t-value="error if error_field == 'sale_order_id' else _e_sale_order_id"/><t t-set="fe_show" t-value="error_field == 'sale_order_id'"/></t>
                         <p t-if="not orders" class="wujia-mticket-hint text-danger">
                             No orders fully delivered in the last
                             <t t-out="window_days"/> days.
                         </p>
                         <label class="wujia-mticket-label" for="wj-ret-m-line">Product (in the order)</label>
                         <select id="wj-ret-m-line" name="sale_order_line_id" class="form-select wj-return-line"
-                                aria-describedby="wj-ret-m-line-full" required="required">
+                                aria-describedby="wj-ret-m-line-full" required="required"
+                                t-att-data-selected="values.get('sale_order_line_id')">
                             <option value="">— Select an order first —</option>
                         </select>
                         <p class="wj-return-line-full" id="wj-ret-m-line-full" hidden="hidden"/>
+                        <t t-call="wujia_portal_layout.wj_field_error"><t t-set="fe_for" t-value="'wj-ret-m-line'"/><t t-set="fe_msg" t-value="error if error_field == 'sale_order_line_id' else _e_sale_order_line_id"/><t t-set="fe_show" t-value="error_field == 'sale_order_line_id'"/></t>
                     </t>
 
                     <t t-call="wujia_portal_layout.wj_surface_card">
@@ -193,15 +227,19 @@
                             <div>
                                 <label class="wujia-mticket-label" for="wj-ret-m-qty">Requested qty</label>
                                 <input type="number" id="wj-ret-m-qty" name="request_qty" class="form-control"
-                                       min="0.01" step="0.01" value="1" required="required"/>
+                                       min="0.01" step="0.01" t-att-value="values.get('request_qty', '1')" required="required"/>
+                                <t t-call="wujia_portal_layout.wj_field_error"><t t-set="fe_for" t-value="'wj-ret-m-qty'"/><t t-set="fe_msg" t-value="error if error_field == 'request_qty' else _e_request_qty"/><t t-set="fe_show" t-value="error_field == 'request_qty'"/></t>
                             </div>
                             <div>
                                 <label class="wujia-mticket-label" for="wj-ret-m-proddate">Production date</label>
-                                <input type="date" id="wj-ret-m-proddate" name="production_date" class="form-control"/>
+                                <input type="date" id="wj-ret-m-proddate" name="production_date" class="form-control"
+                                       t-att-value="values.get('production_date')"/>
                             </div>
                         </div>
                         <label class="wujia-mticket-label" for="wj-ret-m-opening">Unboxing time</label>
-                        <input type="datetime-local" id="wj-ret-m-opening" name="opening_datetime" class="form-control" required="required"/>
+                        <input type="datetime-local" id="wj-ret-m-opening" name="opening_datetime" class="form-control" required="required"
+                               t-att-value="values.get('opening_datetime')"/>
+                        <t t-call="wujia_portal_layout.wj_field_error"><t t-set="fe_for" t-value="'wj-ret-m-opening'"/><t t-set="fe_msg" t-value="error if error_field == 'opening_datetime' else _e_opening_datetime"/><t t-set="fe_show" t-value="error_field == 'opening_datetime'"/></t>
                     </t>
 
                     <t t-call="wujia_portal_layout.wj_surface_card">
@@ -214,11 +252,13 @@
                         <label class="wujia-mticket-label" for="wj-ret-m-issue">Issue type</label>
                         <select id="wj-ret-m-issue" name="issue_type_id" class="form-select mb-3" required="required">
                             <option value="">— Select an issue type —</option>
-                            <t t-foreach="issue_types" t-as="it"><option t-att-value="it.id" t-out="it.name"/></t>
+                            <t t-foreach="issue_types" t-as="it"><option t-att-value="it.id" t-out="it.name"
+                                t-att-selected="'selected' if str(it.id) == str(values.get('issue_type_id')) else None"/></t>
                         </select>
+                        <t t-call="wujia_portal_layout.wj_field_error"><t t-set="fe_for" t-value="'wj-ret-m-issue'"/><t t-set="fe_msg" t-value="error if error_field == 'issue_type_id' else _e_issue_type_id"/><t t-set="fe_show" t-value="error_field == 'issue_type_id'"/></t>
                         <label class="wujia-mticket-label" for="wj-ret-m-note">Note</label>
                         <textarea id="wj-ret-m-note" name="note" rows="3" class="form-control"
-                                  placeholder="Describe the condition of the goods…"/>
+                                  placeholder="Describe the condition of the goods…" t-out="values.get('note') or ''"/>
                     </t>
 
                     <t t-call="wujia_portal_layout.wj_surface_card">
@@ -235,12 +275,18 @@
                             <t t-out="min_images"/>–<t t-out="max_images"/> JPG/PNG photos (≤5MB each), clearly showing the packaging &amp; product defect.
                         </p>
                         <input type="file" id="wj-ret-m-images" name="images" aria-label="Evidence photos" class="form-control"
-                               accept="image/jpeg,image/png" multiple="multiple"/>
+                               accept="image/jpeg,image/png" multiple="multiple"
+                               t-att-data-wj-min-files="min_images" t-att-data-wj-max-files="max_images" t-att-data-wj-max-mb="max_image_mb"
+                                           t-att-data-wj-total-mb="max_total_mb" data-wj-total-group="evidence"/>
+                        <t t-call="wujia_portal_layout.wj_field_error"><t t-set="fe_for" t-value="'wj-ret-m-images'"/><t t-set="fe_msg" t-value="error if error_field == 'images' else _e_images"/><t t-set="fe_show" t-value="error_field == 'images'"/></t>
                         <p class="wujia-mticket-hint mt-3 mb-1">
                             Evidence video (optional) — up to 1 MP4/MOV file ≤ <t t-out="max_video_mb"/>MB, total evidence ≤ <t t-out="max_total_mb"/>MB.
                         </p>
                         <input type="file" id="wj-ret-m-video" name="video" aria-label="Evidence video" class="form-control"
-                               accept="video/mp4,video/quicktime"/>
+                               accept="video/mp4,video/quicktime"
+                               t-att-data-wj-max-files="max_videos" t-att-data-wj-max-mb="max_video_mb"
+                                           t-att-data-wj-total-mb="max_total_mb" data-wj-total-group="evidence"/>
+                        <t t-call="wujia_portal_layout.wj_field_error"><t t-set="fe_for" t-value="'wj-ret-m-video'"/><t t-set="fe_msg" t-value="error if error_field == 'video' else _e_video"/><t t-set="fe_show" t-value="error_field == 'video'"/></t>
                     </t>
 
                     <div class="wujia-mreturn-cta">

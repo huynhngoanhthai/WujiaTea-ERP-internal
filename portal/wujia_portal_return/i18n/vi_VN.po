@@ -54,37 +54,6 @@ msgid "<option value=\"\">— Select an order —</option>"
 msgstr "<option value=\"\">— Chọn đơn —</option>"
 
 #. module: wujia_portal_return
-msgid ""
-"<select id=\"wj-ret-m-line\" name=\"sale_order_line_id\" class=\"form-select"
-" wj-return-line\" aria-describedby=\"wj-ret-m-line-full\" "
-"required=\"required\">\n"
-"                            <option value=\"\">— Select an order first "
-"—</option>\n"
-"                        </select>"
-msgstr ""
-"<select id=\"wj-ret-m-line\" name=\"sale_order_line_id\" class=\"form-select"
-" wj-return-line\" aria-describedby=\"wj-ret-m-line-full\" "
-"required=\"required\">\n"
-"                            <option value=\"\">— Chọn đơn trước —</option>\n"
-"                        </select>"
-
-#. module: wujia_portal_return
-msgid ""
-"<select id=\"wj-ret-pc-line\" name=\"sale_order_line_id\" class=\"form-"
-"select wj-return-line\" aria-describedby=\"wj-ret-pc-line-full\" "
-"required=\"required\">\n"
-"                                        <option value=\"\">— Select an order"
-" first —</option>\n"
-"                                    </select>"
-msgstr ""
-"<select id=\"wj-ret-pc-line\" name=\"sale_order_line_id\" class=\"form-"
-"select wj-return-line\" aria-describedby=\"wj-ret-pc-line-full\" "
-"required=\"required\">\n"
-"                                        <option value=\"\">— Chọn đơn trước "
-"—</option>\n"
-"                                    </select>"
-
-#. module: wujia_portal_return
 msgid "<span class=\"wujia-mhist-kv-label\">Added to compensation orders</span>"
 msgstr "<span class=\"wujia-mhist-kv-label\">Đã đưa vào đơn bù</span>"
 
@@ -588,3 +557,39 @@ msgstr "— Chọn sản phẩm —"
 #. module: wujia_portal_return
 msgid "— delivered"
 msgstr "— giao xong"
+
+#. module: wujia_portal_return
+msgid "<option value=\"\">— Select an order first —</option>"
+msgstr "<option value=\"\">— Chọn đơn hàng trước —</option>"
+
+#. module: wujia_portal_return
+msgid "Please attach %(min)s–%(max)s JPG/PNG photos, each ≤ %(mb)sMB, total evidence ≤ %(total)sMB."
+msgstr "Vui lòng đính kèm %(min)s–%(max)s ảnh JPG/PNG, mỗi ảnh ≤ %(mb)sMB, tổng minh chứng ≤ %(total)sMB."
+
+#. module: wujia_portal_return
+msgid "Please enter the unboxing time."
+msgstr "Vui lòng nhập thời gian mở hàng."
+
+#. module: wujia_portal_return
+msgid "Please select a product from the order."
+msgstr "Vui lòng chọn sản phẩm trong đơn hàng."
+
+#. module: wujia_portal_return
+msgid "Please select a store."
+msgstr "Vui lòng chọn cửa hàng."
+
+#. module: wujia_portal_return
+msgid "Please select an issue type."
+msgstr "Vui lòng chọn loại lỗi."
+
+#. module: wujia_portal_return
+msgid "Please select the original order."
+msgstr "Vui lòng chọn đơn hàng gốc."
+
+#. module: wujia_portal_return
+msgid "The requested quantity must be greater than 0."
+msgstr "Số lượng yêu cầu phải lớn hơn 0."
+
+#. module: wujia_portal_return
+msgid "Up to %(count)s MP4/MOV video ≤ %(mb)sMB, total evidence ≤ %(total)sMB."
+msgstr "Tối đa %(count)s video MP4/MOV ≤ %(mb)sMB, tổng minh chứng ≤ %(total)sMB."

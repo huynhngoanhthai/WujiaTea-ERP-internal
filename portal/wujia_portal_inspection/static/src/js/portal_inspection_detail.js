@@ -191,6 +191,12 @@
                 dropzone.addEventListener('click', function () {
                     imageInput.click();
                 });
+                dropzone.addEventListener('keydown', function (ev) {
+                    if (ev.key === 'Enter' || ev.key === ' ') {
+                        ev.preventDefault();
+                        imageInput.click();
+                    }
+                });
             }
 
             var noteInput = form.querySelector('.remediation-note-input');
@@ -206,16 +212,7 @@
             form.addEventListener('submit', function (e) {
                 e.preventDefault();
 
-                var imageInput = form.querySelector('.image-upload-input');
-                var noteInput = form.querySelector('.remediation-note-input');
-                var hasImage = imageInput && imageInput.files && imageInput.files.length > 0;
-                var hasNote = noteInput && noteInput.value.trim().length > 0;
-
-                if (!hasImage && !hasNote) {
-                    showWarningPopup('Vui lòng nhập ghi chú hoặc tải lên ảnh minh chứng trước khi gửi phản hồi!', 5);
-                    return false;
-                }
-
+                // Thiếu ảnh đã bị wj_form_validate.js chặn (input `required`) trước khi tới đây.
                 var submitBtn = form.querySelector('button[type="submit"]');
                 var originalHtml = '';
                 if (submitBtn) {

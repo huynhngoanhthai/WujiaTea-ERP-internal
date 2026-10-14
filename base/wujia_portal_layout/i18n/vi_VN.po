@@ -1138,3 +1138,7 @@ msgstr "bản ghi"
 #. module: wujia_portal_layout
 msgid "← Back to sign in"
 msgstr "← Quay lại đăng nhập"
+
+#. module: wujia_portal_layout
+msgid "Please fix {n} field(s) below."
+msgstr "Vui lòng sửa {n} trường bên dưới."

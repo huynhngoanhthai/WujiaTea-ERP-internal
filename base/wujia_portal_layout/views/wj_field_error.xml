@@ -9,4 +9,17 @@
         </p>
     </template>
 
+    <!-- Hộp tổng lỗi đầu form: danh sách + link do wj_form_validate.js dựng; `{n}` = số ô lỗi. -->
+    <template id="wj_error_summary" name="Wujia — Form error summary">
+        <t t-set="_es_title">Please fix {n} field(s) below.</t>
+        <div class="wj-error-summary" role="alert" tabindex="-1" hidden="hidden"
+             data-wj-error-summary="1" t-att-data-wj-msg-title="_es_title">
+            <i class="feather icon-alert-circle wj-error-summary__icon" aria-hidden="true"/>
+            <div class="wj-error-summary__body">
+                <p class="wj-error-summary__title"/>
+                <ul class="wj-error-summary__list"/>
+            </div>
+        </div>
+    </template>
+
 </odoo>

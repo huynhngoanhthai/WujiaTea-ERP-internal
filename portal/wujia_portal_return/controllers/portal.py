@@ -19,7 +19,7 @@ from odoo.tools.mimetypes import guess_mimetype
 
 from odoo.addons.wujia_return.models.wujia_return_request import (
     IMAGE_MIME, MAX_IMAGE_MB, MAX_IMAGES, MAX_TOTAL_MB, MAX_VIDEO_MB, MAX_VIDEOS,
-    MIN_IMAGES_BEFORE_SEND as MIN_IMAGES, ORDER_WINDOW_DAYS, VIDEO_MIME,
+    MIN_IMAGES_BEFORE_SEND as MIN_IMAGES, ORDER_WINDOW_DAYS, VIDEO_MIME, ReturnPortalError,
 )
 from odoo.addons.wujia_portal_base.controllers.portal import (
     get_current_store_ids, get_store_scope_state,
@@ -146,6 +146,10 @@ class WujiaPortalReturn(http.Controller):
                 post, franchise_ids,
                 images=[self._sniff(f) for f in images], videos=[self._sniff(f) for f in video],
                 attach=lambda rr: self._attach_evidence(rr, images, video))
+        except ReturnPortalError as e:
+            # Cửa hàng có thể là input ẩn (mobile 1 cửa hàng) ⇒ báo ở banner chung.
+            field = '' if e.field == 'franchise_id' else e.field
+            return self._render_form(error=str(e), prefill=post, error_field=field)
         except ValidationError as e:
             return self._render_form(error=str(e), prefill=post)
         except Exception:                          # noqa: BLE001 — không lộ traceback ra portal
@@ -332,7 +336,7 @@ class WujiaPortalReturn(http.Controller):
             return request.env._('Fully delivered')
         return request.env._('Delivered %d/%d slips') % (done, total)
 
-    def _render_form(self, error=None, prefill=None):
+    def _render_form(self, error=None, prefill=None, error_field=''):
         franchise_ids = get_current_store_ids()
         franchises = request.env['wujia.franchise.management'].sudo().browse(
             franchise_ids)
@@ -356,10 +360,16 @@ class WujiaPortalReturn(http.Controller):
             'franchises': franchises, 'orders': orders,
             'order_lines_json': json.dumps(order_lines),
             'issue_types': issue_types,
-            'error': error, 'values': prefill or {},
+            'error': error, 'error_field': error_field, 'values': prefill or {},
             'window_days': ORDER_WINDOW_DAYS,
-            'min_images': MIN_IMAGES, 'max_images': MAX_IMAGES,
-            'max_total_mb': MAX_TOTAL_MB, 'max_video_mb': MAX_VIDEO_MB,
+            'min_images': MIN_IMAGES, 'max_images': MAX_IMAGES, 'max_image_mb': MAX_IMAGE_MB,
+            'max_total_mb': MAX_TOTAL_MB, 'max_video_mb': MAX_VIDEO_MB, 'max_videos': MAX_VIDEOS,
+            'msg_images': request.env._(
+                "Please attach %(min)s–%(max)s JPG/PNG photos, each ≤ %(mb)sMB, total evidence ≤ %(total)sMB.",
+                min=MIN_IMAGES, max=MAX_IMAGES, mb=MAX_IMAGE_MB, total=MAX_TOTAL_MB),
+            'msg_video': request.env._(
+                "Up to %(count)s MP4/MOV video ≤ %(mb)sMB, total evidence ≤ %(total)sMB.",
+                count=MAX_VIDEOS, mb=MAX_VIDEO_MB, total=MAX_TOTAL_MB),
             'wj_dt': fmt_local_dt,
             'today': datetime.now(),
         })

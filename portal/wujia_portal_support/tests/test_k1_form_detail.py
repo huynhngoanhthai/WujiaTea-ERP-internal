@@ -118,7 +118,7 @@ class TestK1SupportForm(SupportCommon, HttpCase):
                     self.assertIsNotNone(err[0].get('hidden'))
                     self.assertTrue(_clean(err[0]))
                     self.assertIsNone(el.get('aria-invalid'))
-            self.assertFalse(form.xpath('.//*[@role="alert"]'))
+            self.assertFalse(form.xpath('.//*[@role="alert"][not(@data-wj-error-summary)]'))
 
     def test_server_error_marks_fields_on_both(self):
         cases = {
@@ -130,7 +130,7 @@ class TestK1SupportForm(SupportCommon, HttpCase):
             doc, pc, m = self._forms('/portal/support/new?error=%s' % code)
             for form in (pc, m):
                 with self.subTest(code=code, form=form.get('class')):
-                    box = form.xpath('.//*[@role="alert"]')
+                    box = form.xpath('.//*[@role="alert"][not(@data-wj-error-summary)]')
                     self.assertEqual(len(box), 1)
                     if alert:
                         self.assertEqual(_clean(box[0]), alert)
@@ -145,7 +145,7 @@ class TestK1SupportForm(SupportCommon, HttpCase):
     def test_unknown_error_code_ignored(self):
         _doc, pc, m = self._forms('/portal/support/new?error=<b>x</b>')
         for form in (pc, m):
-            self.assertFalse(form.xpath('.//*[@role="alert"] | .//*[@aria-invalid]'))
+            self.assertFalse(form.xpath('.//*[@role="alert"][not(@data-wj-error-summary)] | .//*[@aria-invalid]'))
 
     def _post(self, **data):
         self.authenticate('f10.owner', 'f10.owner')
@@ -158,7 +158,7 @@ class TestK1SupportForm(SupportCommon, HttpCase):
     def test_post_without_category_rejected(self):
         before = self.Ticket.search_count([('created_by_id', '=', self.owner.id)])
         res = self._post(category_id='')
-        self.assertIn('error=missing_fields', res.headers['Location'])
+        self.assertIn('data-wj-error="missing_fields"', res.text)
         self.assertEqual(self.Ticket.search_count([('created_by_id', '=', self.owner.id)]), before)
 
     def test_post_priority_values_kept(self):

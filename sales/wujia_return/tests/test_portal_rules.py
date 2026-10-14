@@ -6,6 +6,8 @@ from odoo.exceptions import ValidationError
 from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
 
+from odoo.addons.wujia_return.models.wujia_return_request import ReturnPortalError
+
 from .common import ReturnFixture, load_vi
 
 MB = 1024 * 1024
@@ -134,6 +136,28 @@ class TestPortalRules(TransactionCase, ReturnFixture):
             with self.assertRaises(ValidationError) as err:
                 self.Req.create_from_portal(post, self.franchise.ids)
             self.assertEqual(str(err.exception), msg)
+
+    def test_portal_error_names_the_field(self):
+        cases = {
+            'franchise_id': self._post(franchise_id=str(self.other.id)),
+            'sale_order_id': self._post(sale_order_id=str(self.order_other.id)),
+            'sale_order_line_id': self._post(sale_order_line_id=''),
+            'issue_type_id': self._post(issue_type_id=''),
+            'request_qty': self._post(request_qty='0'),
+            'opening_datetime': self._post(opening_datetime=''),
+        }
+        for field, post in cases.items():
+            with self.assertRaises(ReturnPortalError) as err:
+                self.Req.create_from_portal(post, self.franchise.ids)
+            self.assertEqual(err.exception.field, field)
+        evidence = {
+            'images': ([(10, 'image/jpeg')] * 2, []),
+            'video': ([(10, 'image/jpeg')] * 3, [(10, 'video/mp4')] * 9),
+        }
+        for field, (images, videos) in evidence.items():
+            with self.assertRaises(ReturnPortalError) as err:
+                self.Req._portal_check_evidence(images, videos)
+            self.assertEqual(err.exception.field, field)
 
     def test_failed_submit_rolls_back_whole_request(self):
         # try/except thường: assertRaises tự bọc savepoint, sẽ che mất lỗi quên savepoint (bài học F8)
