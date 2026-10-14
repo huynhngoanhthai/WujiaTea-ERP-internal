@@ -38,42 +38,6 @@ msgid "<i class=\"feather icon-send\"/>Send"
 msgstr "<i class=\"feather icon-send\"/>Gửi"
 
 #. module: wujia_portal_support
-msgid "<option value=\"\">Select a request type</option>"
-msgstr "<option value=\"\">Chọn loại yêu cầu</option>"
-
-#. module: wujia_portal_support
-msgid ""
-"<select name=\"priority\" class=\"wj-pc-control\">\n"
-"                                        <option value=\"normal\" "
-"selected=\"selected\">Normal</option>\n"
-"                                        <option "
-"value=\"urgent\">Urgent</option>\n"
-"                                    </select>"
-msgstr ""
-"<select name=\"priority\" class=\"wj-pc-control\">\n"
-"                                        <option value=\"normal\" "
-"selected=\"selected\">Bình thường</option>\n"
-"                                        <option "
-"value=\"urgent\">Khẩn</option>\n"
-"                                    </select>"
-
-#. module: wujia_portal_support
-msgid "<span class=\"wujia-mdash-row-sub\">Created on</span>"
-msgstr "<span class=\"wujia-mdash-row-sub\">Ngày tạo</span>"
-
-#. module: wujia_portal_support
-msgid "<span class=\"wujia-mdash-row-sub\">Group</span>"
-msgstr "<span class=\"wujia-mdash-row-sub\">Nhóm</span>"
-
-#. module: wujia_portal_support
-msgid "<span class=\"wujia-mdash-row-sub\">Priority</span>"
-msgstr "<span class=\"wujia-mdash-row-sub\">Ưu tiên</span>"
-
-#. module: wujia_portal_support
-msgid "<span class=\"wujia-mdash-row-sub\">Sender</span>"
-msgstr "<span class=\"wujia-mdash-row-sub\">Người gửi</span>"
-
-#. module: wujia_portal_support
 msgid "Add a reply..."
 msgstr "Nhập phản hồi thêm..."
 
@@ -90,6 +54,8 @@ msgid "All statuses"
 msgstr "Tất cả trạng thái"
 
 #. module: wujia_portal_support
+#. odoo-python
+#: code:addons/wujia_portal_support/controllers/portal.py
 msgid "Assignee"
 msgstr "Người xử lý"
 
@@ -100,10 +66,6 @@ msgstr "File đính kèm"
 #. module: wujia_portal_support
 msgid "Attached files (optional)"
 msgstr "File đính kèm (tùy chọn)"
-
-#. module: wujia_portal_support
-msgid "Attachments"
-msgstr "Tệp đính kèm"
 
 #. module: wujia_portal_support
 msgid "Attachments must be images or PDF files, up to 6 files, each ≤ 5MB."
@@ -126,6 +88,8 @@ msgid "Canceled"
 msgstr "Đã huỷ"
 
 #. module: wujia_portal_support
+#. odoo-python
+#: code:addons/wujia_portal_support/controllers/portal.py
 msgid "Classification"
 msgstr "Phân loại"
 
@@ -160,20 +124,14 @@ msgid "Created on"
 msgstr "Ngày tạo"
 
 #. module: wujia_portal_support
-msgid "Critical"
-msgstr "Khẩn cấp"
-
-#. module: wujia_portal_support
 msgid "Describe the issue, when it happened and any related document numbers."
-msgstr "Mô tả vấn đề cần hỗ trợ, thời điểm phát sinh và mã chứng từ liên quan nếu có."
+msgstr ""
+"Mô tả vấn đề cần hỗ trợ, thời điểm phát sinh và mã chứng từ liên quan nếu"
+" có."
 
 #. module: wujia_portal_support
 msgid "Describe the situation, the steps you tried, screenshots..."
 msgstr "Mô tả chi tiết tình huống, các bước đã thử, screenshot..."
-
-#. module: wujia_portal_support
-msgid "Detailed content"
-msgstr "Nội dung chi tiết"
 
 #. module: wujia_portal_support
 msgid "Detailed description"
@@ -228,20 +186,40 @@ msgid "Normal"
 msgstr "Bình thường"
 
 #. module: wujia_portal_support
+#. odoo-python
+#: code:addons/wujia_portal_support/controllers/portal.py
+msgid "Not assigned yet"
+msgstr "Chưa phân công"
+
+#. module: wujia_portal_support
+#. odoo-python
+#: code:addons/wujia_portal_support/controllers/portal.py
+msgid "Not resolved yet"
+msgstr "Chưa giải quyết"
+
+#. module: wujia_portal_support
 msgid "Open support requests"
 msgstr "Yêu cầu hỗ trợ đang mở"
+
+#. module: wujia_portal_support
+msgid "Please enter a title."
+msgstr "Vui lòng nhập tiêu đề."
 
 #. module: wujia_portal_support
 msgid "Please fill in all required fields."
 msgstr "Vui lòng điền đầy đủ thông tin bắt buộc."
 
 #. module: wujia_portal_support
-msgid "Priority"
-msgstr "Ưu tiên"
+msgid "Please select a classification."
+msgstr "Vui lòng chọn phân loại."
 
 #. module: wujia_portal_support
-msgid "Priority level"
-msgstr "Mức độ ưu tiên"
+msgid "Please select a store."
+msgstr "Vui lòng chọn cửa hàng."
+
+#. module: wujia_portal_support
+msgid "Priority"
+msgstr "Ưu tiên"
 
 #. module: wujia_portal_support
 #. odoo-python
@@ -268,36 +246,44 @@ msgid "Request content"
 msgstr "Nội dung yêu cầu"
 
 #. module: wujia_portal_support
-msgid "Request type"
-msgstr "Loại yêu cầu"
-
-#. module: wujia_portal_support
 #. odoo-python
 #: code:addons/wujia_portal_support/controllers/portal.py
 msgid "Resolved"
 msgstr "Đã giải quyết"
 
 #. module: wujia_portal_support
+#. odoo-python
+#: code:addons/wujia_portal_support/controllers/portal.py
 msgid "Resolved on"
 msgstr "Ngày giải quyết"
-
-#. module: wujia_portal_support
-msgid "Rush"
-msgstr "Gấp"
 
 #. module: wujia_portal_support
 msgid "Search ticket code / title"
 msgstr "Tìm mã / tiêu đề ticket"
 
 #. module: wujia_portal_support
+msgid "Select a request type"
+msgstr "Chọn loại yêu cầu"
+
+#. module: wujia_portal_support
 msgid "Send tickets and see replies from {brand}"
 msgstr "Gửi ticket và xem phản hồi từ {brand}"
 
 #. module: wujia_portal_support
+#. odoo-python
+#: code:addons/wujia_portal_support/controllers/portal.py
+msgid "Sender"
+msgstr "Người gửi"
+
+#. module: wujia_portal_support
+#. odoo-python
+#: code:addons/wujia_portal_support/controllers/portal.py
 msgid "Sent on"
 msgstr "Ngày gửi"
 
 #. module: wujia_portal_support
+#. odoo-python
+#: code:addons/wujia_portal_support/controllers/portal.py
 msgid "Severity"
 msgstr "Mức độ"
 
@@ -378,6 +364,7 @@ msgstr "phản hồi"
 #. module: wujia_portal_support
 #. odoo-python
 #: code:addons/wujia_portal_support/controllers/portal.py
+#: code:addons/wujia_portal_support/tests/test_jv7_i18n.py
 msgid "requests"
 msgstr "yêu cầu"
 

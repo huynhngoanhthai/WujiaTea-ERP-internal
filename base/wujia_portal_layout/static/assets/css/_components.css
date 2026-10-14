@@ -2727,3 +2727,20 @@ label.wj-filter-search-field input { height: 38px; }
 @media (max-width: 991.98px) {
     .wj-toast-host { left: var(--wujia-toast-edge); right: var(--wujia-toast-edge); width: auto; }
 }
+
+/* Ô lỗi của field (wj_field_error) — chữ + icon, không chỉ dựa vào màu. */
+.wj-field-error {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    margin: 6px 0 0;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 18px;
+    color: var(--wujia-danger-text);
+}
+.wj-field-error[hidden] { display: none; }
+.wj-field-error__icon { flex: 0 0 14px; font-size: 14px; line-height: 18px; }
+.wj-pc-control[aria-invalid="true"],
+.form-control[aria-invalid="true"],
+.form-select[aria-invalid="true"] { border-color: var(--wujia-danger-text); }

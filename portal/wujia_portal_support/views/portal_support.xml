@@ -81,7 +81,7 @@
                                 <td t-out="t.title"/>
                                 <td t-out="t.category_id.name or '—'"/>
                                 <td t-out="t.franchise_id.name or '—'"/>
-                                <td t-out="t.create_date and t.create_date.strftime('%d/%m/%Y') or ''"/>
+                                <td t-out="wj_dt(t.create_date, '%d/%m/%Y')"/>
                                 <td class="text-center">
                                     <t t-set="prio" t-value="priority_labels.get(t.priority, (t.priority, 'wujia-badge-muted'))"/>
                                     <span t-attf-class="wujia-badge #{prio[1]}" t-out="prio[0]"/>
@@ -191,7 +191,7 @@
                                         <t t-call="wujia_portal_layout.wj_list_card_row">
                                             <t t-set="lcr_value">
                                                 <span t-if="tk.category_id" class="wujia-badge wujia-badge-muted" t-out="tk.category_id.name"/>
-                                                <span t-out="tk.create_date and tk.create_date.strftime('%d/%m') or ''"/>
+                                                <span t-out="wj_dt(tk.create_date, '%d/%m')"/>
                                             </t>
                                         </t>
                                     </t>
@@ -209,11 +209,35 @@
     </template>
 
     <!-- ============== Form ============== -->
+    <!-- Câu lỗi server — PC + mobile cùng gọi. -->
+    <template id="portal_support_form_alert" name="Wujia Portal — Support Form Alert">
+        <div t-if="error" class="wj-sup-form-alert" role="alert">
+            <p t-if="error == 'missing_fields'" class="text-danger small mb-0">Please fill in all required fields.</p>
+            <p t-if="error == 'invalid_franchise'" class="text-danger small mb-0">Invalid store.</p>
+            <p t-if="error == 'invalid_input'" class="text-danger small mb-0">The submitted data is invalid.</p>
+            <p t-if="error == 'invalid_attachment'" class="text-danger small mb-0">
+                Attachments must be images or PDF files, up to 6 files, each ≤ 5MB.
+            </p>
+        </div>
+    </template>
+
     <template id="portal_support_form" name="Wujia Portal — Support Form">
         <t t-call="wujia_portal_layout.app_layout">
             <t t-set="pc_width" t-value="'narrow'"/>
             <t t-set="title">Create a support request</t>
-            <!-- ===== Desktop (>=992px) — GIỮ NGUYÊN, bọc d-none d-lg-block (Sprint 17) ===== -->
+            <!-- Một bộ nhãn + option + câu lỗi cho cả hai khổ (WJ-SUPPORT-005/006). -->
+            <t t-set="_l_store">Store</t>
+            <t t-set="_l_category">Classification</t>
+            <t t-set="_l_category_ph">Select a request type</t>
+            <t t-set="_l_priority">Severity</t>
+            <t t-set="_l_title">Title</t>
+            <t t-set="_l_description">Detailed description</t>
+            <t t-set="_l_files">Attached files (optional)</t>
+            <t t-set="_e_store">Please select a store.</t>
+            <t t-set="_e_category">Please select a classification.</t>
+            <t t-set="_e_title">Please enter a title.</t>
+            <t t-set="_e_files">Attachments must be images or PDF files, up to 6 files, each ≤ 5MB.</t>
+            <!-- ===== Desktop (>=992px) ===== -->
             <div class="content-wrapper d-none d-lg-block">
                 <t t-call="wujia_portal_layout.wj_page_header">
                     <t t-set="ph_platform" t-value="'pc'"/>
@@ -223,59 +247,88 @@
                     <t t-set="ph_back_url" t-value="'/portal/support'"/>
                 </t>
                 <div class="content-body">
-                    <!-- Component PC v1.5: card + field h42 + action bar có separator
-                         (UI-PC-BASE-008/009). Route POST, name field, required GIỮ NGUYÊN. -->
                     <form method="post" action="/portal/support/new" enctype="multipart/form-data"
-                          data-wj-dirty-guard="1" class="wj-surface-card wj-pc-card">
+                          data-wj-dirty-guard="1" data-wj-validate="1" class="wj-surface-card wj-pc-card">
                         <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <t t-call="wujia_portal_support.portal_support_form_alert"/>
                         <div class="row g-3">
                             <div class="col-md-6 col-12">
                                 <div class="wj-pc-field">
-                                    <label class="wj-pc-field__label">Store</label>
-                                    <select name="franchise_id" class="wj-pc-control" required="required">
+                                    <label class="wj-pc-field__label" for="wj-sup-pc-franchise" t-out="_l_store"/>
+                                    <select id="wj-sup-pc-franchise" name="franchise_id" class="wj-pc-control" required="required"
+                                            t-att-aria-invalid="'true' if 'franchise_id' in error_fields else None"
+                                            t-att-aria-describedby="'wj-sup-pc-franchise-err' if 'franchise_id' in error_fields else None">
                                         <t t-foreach="franchises" t-as="f">
                                             <option t-att-value="f.id" t-out="f.name"/>
                                         </t>
                                     </select>
+                                    <t t-call="wujia_portal_layout.wj_field_error">
+                                        <t t-set="fe_for" t-value="'wj-sup-pc-franchise'"/>
+                                        <t t-set="fe_msg" t-value="_e_store"/>
+                                        <t t-set="fe_show" t-value="'franchise_id' in error_fields"/>
+                                    </t>
                                 </div>
                             </div>
                             <div class="col-md-3 col-12">
                                 <div class="wj-pc-field">
-                                    <label class="wj-pc-field__label">Classification</label>
-                                    <select name="category_id" class="wj-pc-control" required="required">
+                                    <label class="wj-pc-field__label" for="wj-sup-pc-category" t-out="_l_category"/>
+                                    <select id="wj-sup-pc-category" name="category_id" class="wj-pc-control" required="required"
+                                            t-att-aria-invalid="'true' if 'category_id' in error_fields else None"
+                                            t-att-aria-describedby="'wj-sup-pc-category-err' if 'category_id' in error_fields else None">
+                                        <option value="" selected="selected" t-out="_l_category_ph"/>
                                         <t t-foreach="categories" t-as="c">
                                             <option t-att-value="c.id" t-out="c.name"/>
                                         </t>
                                     </select>
+                                    <t t-call="wujia_portal_layout.wj_field_error">
+                                        <t t-set="fe_for" t-value="'wj-sup-pc-category'"/>
+                                        <t t-set="fe_msg" t-value="_e_category"/>
+                                        <t t-set="fe_show" t-value="'category_id' in error_fields"/>
+                                    </t>
                                 </div>
                             </div>
                             <div class="col-md-3 col-12">
                                 <div class="wj-pc-field">
-                                    <label class="wj-pc-field__label">Severity</label>
-                                    <select name="priority" class="wj-pc-control">
-                                        <option value="normal" selected="selected">Normal</option>
-                                        <option value="urgent">Urgent</option>
+                                    <label class="wj-pc-field__label" for="wj-sup-pc-priority" t-out="_l_priority"/>
+                                    <select id="wj-sup-pc-priority" name="priority" class="wj-pc-control">
+                                        <option t-foreach="priority_options" t-as="po" t-att-value="po[0]"
+                                                t-att-selected="'selected' if po[0] == 'normal' else None" t-out="po[1]"/>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="wj-pc-field">
-                                    <label class="wj-pc-field__label">Title</label>
-                                    <input type="text" name="title" class="wj-pc-control" required="required"
-                                           placeholder="E.g. Cannot place order no. ..."/>
+                                    <label class="wj-pc-field__label" for="wj-sup-pc-title" t-out="_l_title"/>
+                                    <input type="text" id="wj-sup-pc-title" name="title" class="wj-pc-control" required="required"
+                                           placeholder="E.g. Cannot place order no. ..."
+                                           t-att-aria-invalid="'true' if 'title' in error_fields else None"
+                                           t-att-aria-describedby="'wj-sup-pc-title-err' if 'title' in error_fields else None"/>
+                                    <t t-call="wujia_portal_layout.wj_field_error">
+                                        <t t-set="fe_for" t-value="'wj-sup-pc-title'"/>
+                                        <t t-set="fe_msg" t-value="_e_title"/>
+                                        <t t-set="fe_show" t-value="'title' in error_fields"/>
+                                    </t>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="wj-pc-field">
-                                    <label class="wj-pc-field__label">Detailed description</label>
-                                    <textarea name="description" rows="6" class="wj-pc-control"
+                                    <label class="wj-pc-field__label" for="wj-sup-pc-description" t-out="_l_description"/>
+                                    <textarea id="wj-sup-pc-description" name="description" rows="6" class="wj-pc-control"
                                               placeholder="Describe the situation, the steps you tried, screenshots..."/>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="wj-pc-field">
-                                    <label class="wj-pc-field__label">Attached files (optional)</label>
-                                    <input type="file" name="attachments" class="wj-pc-control" multiple="multiple"/>
+                                    <label class="wj-pc-field__label" for="wj-sup-pc-attachments" t-out="_l_files"/>
+                                    <input type="file" id="wj-sup-pc-attachments" name="attachments" class="wj-pc-control"
+                                           multiple="multiple"
+                                           t-att-aria-invalid="'true' if 'attachments' in error_fields else None"
+                                           t-att-aria-describedby="'wj-sup-pc-attachments-err' if 'attachments' in error_fields else None"/>
+                                    <t t-call="wujia_portal_layout.wj_field_error">
+                                        <t t-set="fe_for" t-value="'wj-sup-pc-attachments'"/>
+                                        <t t-set="fe_msg" t-value="_e_files"/>
+                                        <t t-set="fe_show" t-value="'attachments' in error_fields"/>
+                                    </t>
                                 </div>
                             </div>
                         </div>
@@ -290,8 +343,7 @@
             </div>
             <!-- /desktop -->
 
-            <!-- ===== Mobile (<992px) — Sprint 17, Figma Mobile_Ticket màn "Tạo yêu cầu hỗ trợ".
-                 BlankShell .wujia-mpage, route POST /portal/support/new GIỮ NGUYÊN. -->
+            <!-- ===== Mobile (<992px) — Figma Mobile_Ticket màn "Tạo yêu cầu hỗ trợ". ===== -->
             <div class="d-lg-none wujia-mpage wujia-mticket">
                 <t t-call="wujia_portal_layout.wj_page_header">
                     <t t-set="ph_platform" t-value="'m'"/>
@@ -301,7 +353,7 @@
                 </t>
 
                 <form method="post" action="/portal/support/new" enctype="multipart/form-data"
-                      class="wj-mform" data-wj-dirty-guard="1">
+                      class="wj-mform" data-wj-dirty-guard="1" data-wj-validate="1">
                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                     <t t-call="wujia_portal_layout.wj_surface_card">
                         <t t-set="sc_variant" t-value="'section'"/>
@@ -312,49 +364,66 @@
                             <t t-set="ch_platform" t-value="'m'"/>
                         </t>
 
-                        <label class="wujia-mticket-label" for="wj-sup-m-category">Request type</label>
-                        <select id="wj-sup-m-category" name="category_id" class="form-select mb-3" required="required">
-                            <option value="">Select a request type</option>
-                            <t t-foreach="categories" t-as="c">
-                                <option t-att-value="c.id" t-out="c.name"/>
+                        <div class="mb-3">
+                            <label class="wujia-mticket-label" for="wj-sup-m-category" t-out="_l_category"/>
+                            <select id="wj-sup-m-category" name="category_id" class="form-select" required="required"
+                                    t-att-aria-invalid="'true' if 'category_id' in error_fields else None"
+                                    t-att-aria-describedby="'wj-sup-m-category-err' if 'category_id' in error_fields else None">
+                                <option value="" selected="selected" t-out="_l_category_ph"/>
+                                <t t-foreach="categories" t-as="c">
+                                    <option t-att-value="c.id" t-out="c.name"/>
+                                </t>
+                            </select>
+                            <t t-call="wujia_portal_layout.wj_field_error">
+                                <t t-set="fe_for" t-value="'wj-sup-m-category'"/>
+                                <t t-set="fe_msg" t-value="_e_category"/>
+                                <t t-set="fe_show" t-value="'category_id' in error_fields"/>
                             </t>
-                        </select>
+                        </div>
 
-                        <label class="wujia-mticket-label" for="wj-sup-m-title">Title</label>
-                        <input type="text" id="wj-sup-m-title" name="title" class="form-control mb-3" required="required"
-                               placeholder="Enter a short title"/>
+                        <div class="mb-3">
+                            <label class="wujia-mticket-label" for="wj-sup-m-title" t-out="_l_title"/>
+                            <input type="text" id="wj-sup-m-title" name="title" class="form-control" required="required"
+                                   placeholder="Enter a short title"
+                                   t-att-aria-invalid="'true' if 'title' in error_fields else None"
+                                   t-att-aria-describedby="'wj-sup-m-title-err' if 'title' in error_fields else None"/>
+                            <t t-call="wujia_portal_layout.wj_field_error">
+                                <t t-set="fe_for" t-value="'wj-sup-m-title'"/>
+                                <t t-set="fe_msg" t-value="_e_title"/>
+                                <t t-set="fe_show" t-value="'title' in error_fields"/>
+                            </t>
+                        </div>
 
-                        <label class="wujia-mticket-label" for="wj-sup-m-description">Detailed content</label>
+                        <label class="wujia-mticket-label" for="wj-sup-m-description" t-out="_l_description"/>
                         <textarea id="wj-sup-m-description" name="description" rows="4" class="form-control mb-3"
                                   placeholder="Describe the issue, when it happened and any related document numbers."/>
 
-                        <label class="wujia-mticket-label">Priority level</label>
-                        <!-- BA: 'Gấp' và 'Khẩn cấp' đều map 'urgent' — model chưa có giá trị riêng cho 'Gấp' -->
-                        <div class="wj-filter-chips mb-3">
-                            <label class="wj-filter-chip">
-                                <input type="radio" name="priority" value="normal" checked="checked"
-                                       class="d-none"/> Normal
-                            </label>
-                            <label class="wj-filter-chip">
-                                <input type="radio" name="priority" value="urgent" class="d-none"/> Rush
-                            </label>
-                            <label class="wj-filter-chip">
-                                <input type="radio" name="priority" value="urgent" class="d-none"/> Critical
+                        <p class="wujia-mticket-label" id="wj-sup-m-priority-label" t-out="_l_priority"/>
+                        <div class="wj-filter-chips mb-3" role="radiogroup" aria-labelledby="wj-sup-m-priority-label">
+                            <label t-foreach="priority_options" t-as="po" class="wj-filter-chip">
+                                <input type="radio" name="priority" t-att-value="po[0]" class="d-none"
+                                       t-att-checked="'checked' if po[0] == 'normal' else None"/> <t t-out="po[1]"/>
                             </label>
                         </div>
 
-                        <label class="wujia-mticket-label">Attachments</label>
+                        <label class="wujia-mticket-label" for="wj-sup-m-attachments" t-out="_l_files"/>
                         <p class="wujia-mticket-hint">Add screenshots / error files — PNG, JPG, PDF — up to 5 files</p>
                         <input type="file" id="wj-sup-m-attachments" name="attachments" class="form-control mb-1"
-                               aria-label="Attachments"
-                               multiple="multiple" accept=".png,.jpg,.jpeg,.pdf"/>
+                               multiple="multiple" accept=".png,.jpg,.jpeg,.pdf"
+                               t-att-aria-invalid="'true' if 'attachments' in error_fields else None"
+                               t-att-aria-describedby="'wj-sup-m-attachments-err' if 'attachments' in error_fields else None"/>
+                        <t t-call="wujia_portal_layout.wj_field_error">
+                            <t t-set="fe_for" t-value="'wj-sup-m-attachments'"/>
+                            <t t-set="fe_msg" t-value="_e_files"/>
+                            <t t-set="fe_show" t-value="'attachments' in error_fields"/>
+                        </t>
 
                         <!-- Cửa hàng: 1 franchise → hidden; nhiều → select -->
                         <t t-if="franchises and len(franchises) == 1">
                             <input type="hidden" name="franchise_id" t-att-value="franchises[0].id"/>
                         </t>
                         <t t-elif="franchises">
-                            <label class="wujia-mticket-label mt-3" for="wj-sup-m-franchise">Store</label>
+                            <label class="wujia-mticket-label mt-3" for="wj-sup-m-franchise" t-out="_l_store"/>
                             <select id="wj-sup-m-franchise" name="franchise_id" class="form-select" required="required">
                                 <t t-foreach="franchises" t-as="f">
                                     <option t-att-value="f.id" t-out="f.name"/>
@@ -363,18 +432,9 @@
                         </t>
                     </t>
 
-                    <p t-if="error == 'missing_fields'" class="text-danger small mt-2 mb-0">
-                        Please fill in all required fields.
-                    </p>
-                    <p t-if="error == 'invalid_franchise'" class="text-danger small mt-2 mb-0">
-                        Invalid store.
-                    </p>
-                    <p t-if="error == 'invalid_input'" class="text-danger small mt-2 mb-0">
-                        The submitted data is invalid.
-                    </p>
-                    <p t-if="error == 'invalid_attachment'" class="text-danger small mt-2 mb-0">
-                        Attachments must be images or PDF files, up to 6 files, each ≤ 5MB.
-                    </p>
+                    <div t-if="error" class="mt-2">
+                        <t t-call="wujia_portal_support.portal_support_form_alert"/>
+                    </div>
 
                     <button type="submit" class="wj-btn wj-btn--primary wj-btn--block mt-3">Submit a support request</button>
                 </form>
@@ -446,7 +506,7 @@
                                         <div t-foreach="comments" t-as="msg" class="mb-2 pb-2 border-bottom">
                                             <div class="d-flex justify-content-between">
                                                 <strong t-out="msg.author_id.name or 'System'"/>
-                                                <small class="text-muted" t-out="msg.date and msg.date.strftime('%d/%m/%Y %H:%M') or ''"/>
+                                                <small class="text-muted" t-out="wj_dt(msg.date, '%d/%m/%Y %H:%M')"/>
                                             </div>
                                             <div t-out="msg.body"/>
                                         </div>
@@ -480,19 +540,10 @@
                                         <dd class="col-7" t-out="ticket.name"/>
                                         <dt class="col-5">Title</dt>
                                         <dd class="col-7" t-out="ticket.title or '—'"/>
-                                        <dt class="col-5">Store</dt>
-                                        <dd class="col-7" t-out="ticket.franchise_id.name or '—'"/>
-                                        <dt class="col-5">Classification</dt>
-                                        <dd class="col-7" t-out="ticket.category_id.name or '—'"/>
-                                        <dt class="col-5">Severity</dt>
-                                        <!-- WJ-SUPPORT-003: cùng nguồn nhãn đã dịch với mobile (priority_labels). -->
-                                        <dd class="col-7" t-out="priority_labels.get(ticket.priority, (ticket.priority, ''))[0]"/>
-                                        <dt class="col-5">Sent on</dt>
-                                        <dd class="col-7" t-out="ticket.create_date and ticket.create_date.strftime('%d/%m/%Y %H:%M') or ''"/>
-                                        <dt class="col-5">Assignee</dt>
-                                        <dd class="col-7" t-out="ticket.assigned_user_id.name or '—'"/>
-                                        <dt class="col-5">Resolved on</dt>
-                                        <dd class="col-7" t-out="ticket.resolved_date and ticket.resolved_date.strftime('%d/%m/%Y') or '—'"/>
+                                        <t t-foreach="meta" t-as="row">
+                                            <dt class="col-5" t-out="row['label']"/>
+                                            <dd class="col-7" t-out="row['value']"/>
+                                        </t>
                                     </dl>
                                 </div>
                             </div>
@@ -527,39 +578,16 @@
                     <p class="wujia-mdash-row-title mb-0" style="white-space:normal;" t-out="ticket.title"/>
                 </t>
 
-                <!-- Meta grid -->
+                <!-- Thẻ thông tin: cùng danh sách `meta` với PC (WJ-SUPPORT-004). -->
                 <t t-call="wujia_portal_layout.wj_surface_card">
                     <t t-set="sc_variant" t-value="'section'"/>
                     <t t-set="sc_body" t-value="'flush'"/>
                     <t t-set="sc_class" t-value="'wujia-mdash-card wujia-mdash-list'"/>
-                    <div class="wujia-mdash-row">
-                        <span class="wujia-mdash-ico"><i class="feather icon-tag"/></span>
+                    <div t-foreach="meta" t-as="row" class="wujia-mdash-row">
+                        <span class="wujia-mdash-ico"><i t-attf-class="feather icon-#{row['icon']}"/></span>
                         <span class="wujia-mdash-row-main">
-                            <span class="wujia-mdash-row-sub">Group</span>
-                            <span class="wujia-mdash-row-sub is-strong" t-out="ticket.category_id.name or '—'"/>
-                        </span>
-                    </div>
-                    <div class="wujia-mdash-row">
-                        <span class="wujia-mdash-ico"><i class="feather icon-flag"/></span>
-                        <span class="wujia-mdash-row-main">
-                            <span class="wujia-mdash-row-sub">Priority</span>
-                            <t t-set="prio" t-value="priority_labels.get(ticket.priority, (ticket.priority, ''))"/>
-                            <span class="wujia-mdash-row-sub is-strong" t-out="prio[0]"/>
-                        </span>
-                    </div>
-                    <div class="wujia-mdash-row">
-                        <span class="wujia-mdash-ico"><i class="feather icon-user"/></span>
-                        <span class="wujia-mdash-row-main">
-                            <span class="wujia-mdash-row-sub">Sender</span>
-                            <span class="wujia-mdash-row-sub is-strong" t-out="ticket.created_by_id.name or '—'"/>
-                        </span>
-                    </div>
-                    <div class="wujia-mdash-row">
-                        <span class="wujia-mdash-ico"><i class="feather icon-calendar"/></span>
-                        <span class="wujia-mdash-row-main">
-                            <span class="wujia-mdash-row-sub">Created on</span>
-                            <span class="wujia-mdash-row-sub is-strong"
-                                  t-out="ticket.create_date and ticket.create_date.strftime('%d/%m/%Y') or '—'"/>
+                            <span class="wujia-mdash-row-sub" t-out="row['label']"/>
+                            <span class="wujia-mdash-row-sub is-strong" t-out="row['value']"/>
                         </span>
                     </div>
                 </t>
@@ -633,7 +661,7 @@
                                  t-out="msg.body"/>
                             <div t-attf-class="wujia-mticket-bubble-meta #{'is-customer' if is_customer else 'is-hq'}">
                                 <t t-out="msg.author_id.name or 'Wujia Support'"/> ·
-                                <t t-out="msg.date and msg.date.strftime('%d/%m %H:%M') or ''"/>
+                                <t t-out="wj_dt(msg.date, '%d/%m %H:%M')"/>
                             </div>
                         </t>
                     </div>
