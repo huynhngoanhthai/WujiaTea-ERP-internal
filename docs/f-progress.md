@@ -3593,3 +3593,27 @@ rồi đánh ✅ ở bảng Trạng thái §2 `docs/next-session-clusters-F.md`.
   module Khắc phục · th/zh chưa dịch · webkit/firefox chưa đo · nhãn mobile Đổi trả cho ô ảnh/video vẫn là `aria-label`.
 - DB `wujia_k2` (đã `-u` K2a, có 1 phiếu kiểm tra mẫu HCM-01) **giữ lại cho K2b**; xoá khi K2b xong.
 - Phiên kế: **K2b** — `info-request`, `change-password`, `exam/register` trên cùng nhánh/PR #14 → merge → đo UAT → ledger.
+
+## K2b — #182 Shared Form Validation: Cập nhật thông tin + Đổi mật khẩu + Đăng ký thi · merge + UAT · 14/10/2026 · Mac
+
+- Chủ dự án chốt 14/10: **không điền lại ô mật khẩu** sau lỗi máy chủ (ghi LIMIT cho BA).
+- Đã làm (commit `054abfea`, merge PR #14 `e61baf83` cùng K2a):
+  - **Khung** (`wujia_portal_layout` 19.0.60.16.0, `?v=1343`): luật `data-wj-match="<id>"`; phạm vi kiểm là form
+    `data-wj-validate` hoặc khối `data-wj-validate-scope`; API `window.wjFormValidate.check(root)` (đánh dấu + hộp tổng +
+    focus, trả số ô sai) / `reset(root)` cho wizard gửi JSON không có `<form>`.
+  - **Cập nhật thông tin** (19.0.3.4.0): `InfoRequestFormError(ValidationError)` mang `errors` {ô: câu}, `_parse_payload` gom
+    mọi lỗi một lượt; `field_target` chỉ `required` khi chọn Khác; ô tệp `accept` + 6 tệp × 5 MB.
+  - **Đổi mật khẩu** (layout): controller trả `field_errors` {old, new, confirm} (trống / < 8 / trùng cũ / lệch / sai cũ);
+    PC + mobile `data-wj-validate`, ô nhập lại `data-wj-match`; không render lại mật khẩu.
+  - **Đăng ký thi** (19.0.7.5.0): modal PC + bước 3 mobile gọi `wjFormValidate.check`; phone `pattern`
+    `(0|\+84)[0-9]{8,10}`; mobile gán id/nhãn theo người ("Nhân sự n — …"). Nhãn "Họ và tên" thống nhất PC/mobile.
+- Test: 534 test (7 module) + 508 test (portal phụ thuộc) 0 fail; mới `test_k2_*` (info_request 4, layout 3, exam 2).
+- UAT (sau deploy, 7/7 version khớp; chỉ gửi form thiếu, không tạo bản ghi, không đổi mật khẩu, thi không bấm gửi):
+  5 form × 6 khổ × vi_VN/en_US đạt hộp tổng + link + focus + aria; bypass máy chủ 4/4 giữ giá trị; hồi quy 16/16 · 0 tràn ·
+  0 lỗi JS. Đối chiếu *Kết quả mong muốn* ≈ 94 % (loading khi gửi hợp lệ chưa đo trên UAT). Bảng: `docs/k2-uat-measure.md`.
+- Bẫy gặp: `-u` không ghi đè bản dịch đã nạp ⇒ sửa `.po` của msgid đã có trên DB copy phải `--i18n-overwrite` (UAT nạp mới
+  nên không cần). Harness đổi ngôn ngữ ngay sau login (webclient `/odoo` còn bắn RPC nền) có lúc mất — rời `/odoo`
+  (`about:blank`) rồi mới gọi `/portal/set-lang`, kiểm `<html lang>`.
+- LIMIT: ô tệp không điền lại · mật khẩu không điền lại (chốt) · th/zh chưa dịch · câu Việt cứng ở Khắc phục · Khắc phục chưa
+  đo trên UAT · chỉ Chromium · ảnh/video Bù hàng mobile dùng `aria-label`.
+- Phiên kế: **S0** — #185 WJ-ORD-033 thiết kế bán theo tồn (theo thứ tự `next-session-clusters-K.md`).

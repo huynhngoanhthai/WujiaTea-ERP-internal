@@ -15,6 +15,7 @@
             }.get(notice)"/>
             <!-- Nhãn bộ lọc (dịch được, J-V6) — dùng chung PC + mobile. -->
             <t t-set="_ret_t_search_ph">Request no. / order no. / product</t>
+            <t t-set="no_order_label">No original order</t>
             <t t-set="_ret_t_keyword">Keyword</t>
             <t t-set="_ret_t_status">Status</t>
             <t t-set="_ret_t_filter_status">Filter by status</t>
@@ -95,22 +96,18 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Code</th>
+                                    <th scope="col">Status</th>
                                     <th scope="col">Request date</th>
-                                    <th scope="col">Store</th>
+                                    <th scope="col">Product</th>
                                     <th scope="col">Issue type</th>
                                     <th scope="col">Original order</th>
-                                    <th scope="col" class="text-center">Status</th>
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr t-foreach="returns" t-as="rr">
                                     <td><a t-attf-href="/portal/return/#{rr.id}" t-out="rr.name"/></td>
-                                    <td t-out="wj_dt(rr.request_date, '%d/%m/%Y %H:%M')"/>
-                                    <td t-out="rr.franchise_id.name or '—'"/>
-                                    <td t-out="rr.issue_type_id.name or '—'"/>
-                                    <td t-out="rr.sale_order_id.name or '—'"/>
-                                    <td class="text-center">
+                                    <td>
                                         <t t-set="lbl" t-value="wj_state_label(rr)"/>
                                         <span t-attf-class="wj-status-badge #{lbl[1]}" t-out="lbl[0]"/>
                                         <t t-if="rr.resolution_type == 'compensation'">
@@ -118,6 +115,13 @@
                                             <span t-if="clbl[0]" t-attf-class="wj-status-badge #{clbl[1]} d-block mt-1" t-out="clbl[0]"/>
                                         </t>
                                     </td>
+                                    <td t-out="wj_dt(rr.request_date, '%d/%m/%Y %H:%M')"/>
+                                    <td>
+                                        <div t-out="wj_pname(rr.product_id) or '—'"/>
+                                        <div class="text-muted" t-out="rr._portal_qty_label()"/>
+                                    </td>
+                                    <td t-out="rr.issue_type_id.name or '—'"/>
+                                    <td t-out="rr.sale_order_id.name or no_order_label"/>
                                     <td class="text-end">
                                         <a t-attf-href="/portal/return/#{rr.id}" class="wj-iconbtn wj-iconbtn--sm wj-iconbtn--secondary"
                                            aria-label="View request" title="View request">
@@ -222,6 +226,27 @@
                                         <span t-attf-class="wj-status-badge wj-status-badge--compact #{lbl[1]}" t-out="lbl[0]"/>
                                     </t>
                                     <t t-set="lc_rows">
+                                        <t t-call="wujia_portal_layout.wj_list_card_row">
+                                            <t t-set="lcr_label">Request date</t>
+                                            <t t-set="lcr_value"
+                                               t-value="wj_dt(rr.request_date, '%d/%m/%Y') or '—'"/>
+                                        </t>
+                                        <t t-call="wujia_portal_layout.wj_list_card_row">
+                                            <t t-set="lcr_full" t-value="True"/>
+                                            <t t-set="lcr_class" t-value="'wj-lc__row--clamp2'"/>
+                                            <t t-set="lcr_value"
+                                               t-value="'%s · %s' % (wj_pname(rr.product_id) or '—', rr._portal_qty_label())"/>
+                                        </t>
+                                        <t t-call="wujia_portal_layout.wj_list_card_row">
+                                            <t t-set="lcr_class" t-value="'wj-lc__row--inline'"/>
+                                            <t t-set="lcr_label">Issue type</t>
+                                            <t t-set="lcr_value" t-value="rr.issue_type_id.name or '—'"/>
+                                        </t>
+                                        <t t-call="wujia_portal_layout.wj_list_card_row">
+                                            <t t-set="lcr_class" t-value="'wj-lc__row--inline'"/>
+                                            <t t-set="lcr_label">Original order</t>
+                                            <t t-set="lcr_value" t-value="rr.sale_order_id.name or no_order_label"/>
+                                        </t>
                                         <t t-if="rr.resolution_type == 'compensation'">
                                             <t t-set="clbl" t-value="comp_status_labels.get(rr.compensation_status, ('', 'wj-status-badge--neutral'))"/>
                                             <t t-if="clbl[0]" t-call="wujia_portal_layout.wj_list_card_row">
@@ -230,23 +255,6 @@
                                                     <span t-attf-class="wj-status-badge wj-status-badge--compact #{clbl[1]}" t-out="clbl[0]"/>
                                                 </t>
                                             </t>
-                                        </t>
-                                        <t t-call="wujia_portal_layout.wj_list_card_row">
-                                            <t t-set="lcr_full" t-value="True"/>
-                                            <t t-set="lcr_class" t-value="'wj-lc__row--clamp2'"/>
-                                            <t t-set="lcr_value"
-                                               t-value="wj_pname(rr.product_id) or rr.issue_type_id.name or '—'"/>
-                                        </t>
-                                        <t t-call="wujia_portal_layout.wj_list_card_row">
-                                            <t t-set="lcr_class" t-value="'wj-lc__row--inline'"/>
-                                            <t t-set="lcr_label">Original order</t>
-                                            <t t-set="lcr_value" t-value="rr.sale_order_id.name or '—'"/>
-                                        </t>
-                                        <t t-call="wujia_portal_layout.wj_list_card_row">
-                                            <t t-set="lcr_class" t-value="'wj-lc__row--inline'"/>
-                                            <t t-set="lcr_label">Request date</t>
-                                            <t t-set="lcr_value"
-                                               t-value="wj_dt(rr.request_date, '%d/%m/%Y') or '—'"/>
                                         </t>
                                     </t>
                                 </t>

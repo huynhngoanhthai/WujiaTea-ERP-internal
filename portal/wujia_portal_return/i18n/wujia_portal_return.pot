@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-14 07:09+0000\n"
-"PO-Revision-Date: 2026-10-14 07:09+0000\n"
+"POT-Creation-Date: 2026-10-14 09:54+0000\n"
+"PO-Revision-Date: 2026-10-14 09:54+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -76,6 +76,16 @@ msgstr ""
 
 #. module: wujia_portal_return
 #: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_detail
+msgid "<span class=\"wujia-mhist-kv-label\">Created by</span>"
+msgstr ""
+
+#. module: wujia_portal_return
+#: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_detail
+msgid "<span class=\"wujia-mhist-kv-label\">Evidence photos</span>"
+msgstr ""
+
+#. module: wujia_portal_return
+#: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_detail
 msgid "<span class=\"wujia-mhist-kv-label\">Issue type</span>"
 msgstr ""
 
@@ -92,6 +102,11 @@ msgstr ""
 #. module: wujia_portal_return
 #: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_detail
 msgid "<span class=\"wujia-mhist-kv-label\">Product</span>"
+msgstr ""
+
+#. module: wujia_portal_return
+#: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_detail
+msgid "<span class=\"wujia-mhist-kv-label\">Production date</span>"
 msgstr ""
 
 #. module: wujia_portal_return
@@ -265,11 +280,6 @@ msgid "Exchange"
 msgstr ""
 
 #. module: wujia_portal_return
-#: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_detail
-msgid "Feedback from {brand}"
-msgstr ""
-
-#. module: wujia_portal_return
 #: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_list
 msgid "Filter by status"
 msgstr ""
@@ -348,13 +358,14 @@ msgid "No feedback from {brand} yet."
 msgstr ""
 
 #. module: wujia_portal_return
-#: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_detail
-msgid "No notes."
+#: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_form
+msgid "No orders fully delivered in the last"
 msgstr ""
 
 #. module: wujia_portal_return
-#: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_form
-msgid "No orders fully delivered in the last"
+#: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_detail
+#: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_list
+msgid "No original order"
 msgstr ""
 
 #. module: wujia_portal_return
@@ -390,6 +401,11 @@ msgid "Not processed"
 msgstr ""
 
 #. module: wujia_portal_return
+#: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_detail
+msgid "Not recorded"
+msgstr ""
+
+#. module: wujia_portal_return
 #: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_form
 msgid "Note"
 msgstr ""
@@ -400,12 +416,6 @@ msgid "Note from the store"
 msgstr ""
 
 #. module: wujia_portal_return
-#: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_detail
-msgid "Notes &amp; feedback"
-msgstr ""
-
-#. module: wujia_portal_return
-#: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_detail
 #: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_form
 msgid "Order information"
 msgstr ""
@@ -462,6 +472,7 @@ msgstr ""
 
 #. module: wujia_portal_return
 #: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_detail
+#: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_list
 msgid "Product"
 msgstr ""
 
@@ -488,7 +499,7 @@ msgid "Rejected"
 msgstr ""
 
 #. module: wujia_portal_return
-#: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_detail
+#: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_feedback_body
 msgid "Rejection reason"
 msgstr ""
 
@@ -496,11 +507,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/wujia_portal_return/controllers/portal.py:0
 msgid "Replacement ordered"
-msgstr ""
-
-#. module: wujia_portal_return
-#: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_detail
-msgid "Request code"
 msgstr ""
 
 #. module: wujia_portal_return
@@ -588,9 +594,7 @@ msgid "Still short"
 msgstr ""
 
 #. module: wujia_portal_return
-#: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_detail
 #: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_form
-#: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_list
 msgid "Store"
 msgstr ""
 
@@ -617,6 +621,11 @@ msgid "The requested quantity must be greater than 0."
 msgstr ""
 
 #. module: wujia_portal_return
+#: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_detail
+msgid "The store left no note"
+msgstr ""
+
+#. module: wujia_portal_return
 #: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_list
 msgid "This store has not submitted any return requests."
 msgstr ""
@@ -630,11 +639,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_detail
 #: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_form
 msgid "Unboxing time"
-msgstr ""
-
-#. module: wujia_portal_return
-#: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_detail
-msgid "UoM"
 msgstr ""
 
 #. module: wujia_portal_return
@@ -655,12 +659,12 @@ msgid "View request"
 msgstr ""
 
 #. module: wujia_portal_return
-#: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_detail
+#: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_photo_count
 msgid "attached photo"
 msgstr ""
 
 #. module: wujia_portal_return
-#: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_detail
+#: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_photo_count
 msgid "attached photos"
 msgstr ""
 

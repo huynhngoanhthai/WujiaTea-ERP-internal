@@ -114,7 +114,7 @@ class TestJv6Labels(TransactionCase):
             'wujia_portal_return.portal_return_form': (
                 'Tạo yêu cầu bù hàng', '— Chọn loại lỗi —', 'Sản phẩm (trong đơn)', *JS_VI.values()),
             'wujia_portal_return.portal_return_detail': (
-                'Phương án xử lý', 'Tình trạng bù', 'Không có ghi chú.', 'ảnh đính kèm'),
+                'Phương án xử lý', 'Tình trạng bù', 'Cửa hàng không ghi chú', 'Không ghi nhận'),
         }
         for xmlid, words in cases.items():
             view = self.env.ref(xmlid)
@@ -216,11 +216,11 @@ class TestJv6PortalByLang(HttpCase, ReturnFixture):
         url = '/portal/return/%s' % self.rr.id
         vi = self._get('jv6_vi', url)
         en = self._get('jv6_en', url)
-        for word in ('Phương án xử lý', 'Bù hàng', 'Tình trạng bù', 'Chưa xử lý', 'Không có ghi chú.'):
+        for word in ('Phương án xử lý', 'Bù hàng', 'Tình trạng bù', 'Chưa xử lý', 'Cửa hàng không ghi chú'):
             self.assertIn(word, vi)
-        for word in ('Resolution', 'Compensation', 'Compensation status', 'Not processed', 'No notes.'):
+        for word in ('Resolution', 'Compensation', 'Compensation status', 'Not processed', 'The store left no note'):
             self.assertIn(word, en)
-        for word in ('Phương án xử lý', 'Tình trạng bù', 'Chưa xử lý', 'Không có ghi chú.'):
+        for word in ('Phương án xử lý', 'Tình trạng bù', 'Chưa xử lý', 'Cửa hàng không ghi chú'):
             self.assertNotIn(word, en)
         # Badge giữ màu cũ ở cả hai ngôn ngữ.
         css = legacy_vn_badge(COMP_STATUS_VI['none'])

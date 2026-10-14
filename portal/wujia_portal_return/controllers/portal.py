@@ -123,7 +123,7 @@ class WujiaPortalReturn(http.Controller):
                           page_size_options=PAGE_SIZE_OPTIONS)
         page = pgn['page']
         returns = Model.search(domain, limit=size, offset=(page - 1) * size,
-                               order='request_date desc')
+                               order='request_date desc, id desc')
         return request.render('wujia_portal_return.portal_return_list', self._list_ctx(
             returns=returns, pgn=pgn, state=state, date_from=date_from,
             date_to=date_to, q=q, notice=notice, total=total,

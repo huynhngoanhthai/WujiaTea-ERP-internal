@@ -6,7 +6,7 @@ from odoo.addons.wujia_core.tools.module_split import imd_names
 from odoo.addons.wujia_return.hooks import EXTRA, MODELS, NEW_MODULE, OLD_MODULE
 
 PORTAL_VIEWS = {
-    'portal_return_list', 'portal_return_form', 'portal_return_detail',
+    'portal_return_list', 'portal_return_form', 'portal_return_detail', 'portal_return_feedback_body', 'portal_return_photo_count',
     'layout_sidenav_return', 'mobile_bottomnav_return',
 }
 

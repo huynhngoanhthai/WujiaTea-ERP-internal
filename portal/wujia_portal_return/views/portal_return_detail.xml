@@ -6,7 +6,17 @@
             <t t-set="pc_width" t-value="'standard'"/>
             <t t-set="title" t-value="rr.name"/>
 
-            <!-- Desktop ≥992px -->
+            <t t-set="no_order_label">No original order</t>
+            <t t-set="_ret_t_not_recorded">Not recorded</t>
+            <t t-set="_ret_t_no_note">The store left no note</t>
+            <t t-set="wj_txt">No feedback from {brand} yet.</t>
+            <t t-set="_ret_t_no_feedback" t-value="wj_txt.replace('{brand}', wj_brand['name'])"/>
+            <t t-set="wj_txt">{brand} feedback</t>
+            <t t-set="_ret_t_feedback" t-value="wj_txt.replace('{brand}', wj_brand['name'])"/>
+            <t t-set="lbl" t-value="wj_state_label(rr)"/>
+            <t t-set="_ret_pc_card" t-value="'wj-surface-card wj-surface-card--section wj-surface-card--compact wj-surface-card--flush mb-2'"/>
+
+            <!-- Desktop ≥992px — một cột, cùng thứ tự nhóm với mobile -->
             <div class="content-wrapper d-none d-lg-block">
                 <t t-call="wujia_portal_layout.wj_page_header">
                     <t t-set="ph_platform" t-value="'pc'"/>
@@ -15,97 +25,50 @@
                     <t t-set="ph_title">Compensation request detail</t>
                     <t t-set="ph_back_url" t-value="'/portal/return'"/>
                 </t>
-                <t t-set="lbl" t-value="wj_state_label(rr)"/>
-                <div class="mb-2"><span t-attf-class="wj-status-badge #{lbl[1]}" t-out="lbl[0]"/></div>
 
-                <div class="content-body">
-                    <div class="row">
-                        <div class="col-md-6 col-12 mb-2">
-                            <div class="wj-surface-card wj-surface-card--section wj-surface-card--compact wj-surface-card--flush h-100">
-                                <div class="wj-surface-card__head">
-                                    <t t-call="wujia_portal_layout.wj_card_header">
-                                        <t t-set="ch_title">Request information</t>
-                                        <t t-set="ch_level" t-value="3"/>
-                                        <t t-set="ch_platform" t-value="'pc'"/>
-                                        <t t-set="ch_class" t-value="'wj-card-header--flush'"/>
-                                    </t>
-                                </div>
-                                <div class="wj-surface-card__body">
-                                    <dl class="row mb-0 profile-dl">
-                                        <!-- S53-B3b: mã yêu cầu gỡ khỏi PageHeader (CMP-PG-001
-                                             CONTENT RULES) → hiển thị tại card thông tin. -->
-                                        <dt class="col-sm-5">Request code</dt>
-                                        <dd class="col-sm-7" t-out="rr.name"/>
-                                        <dt class="col-sm-5">Store</dt>
-                                        <dd class="col-sm-7" t-out="rr.franchise_id.name or '—'"/>
-                                        <dt class="col-sm-5">Request date</dt>
-                                        <dd class="col-sm-7" t-out="wj_dt(rr.request_date, '%d/%m/%Y %H:%M')"/>
-                                        <dt class="col-sm-5">Original order</dt>
-                                        <dd class="col-sm-7">
-                                            <t t-if="rr.sale_order_id">
-                                                <a t-attf-href="/portal/purchase-history/#{rr.sale_order_id.id}" t-out="rr.sale_order_id.name"/>
-                                            </t>
-                                            <t t-else="">—</t>
-                                        </dd>
-                                        <dt class="col-sm-5">Issue type</dt>
-                                        <dd class="col-sm-7" t-out="rr.issue_type_id.name or '—'"/>
-                                        <dt class="col-sm-5">Unboxing time</dt>
-                                        <dd class="col-sm-7" t-out="wj_dt(rr.opening_datetime, '%d/%m/%Y %H:%M') or '—'"/>
-                                        <dt class="col-sm-5">Production date</dt>
-                                        <dd class="col-sm-7" t-out="wj_dt(rr.production_date, '%d/%m/%Y') or '—'"/>
-                                        <dt class="col-sm-5">Created by</dt>
-                                        <dd class="col-sm-7" t-out="rr.requester_user_id.name or '—'"/>
-                                    </dl>
-                                </div>
+                <div class="content-body wj-return-detail">
+                    <div t-attf-class="#{_ret_pc_card} wj-ret-g wj-ret-g--summary">
+                        <div class="wj-surface-card__body">
+                            <div class="wujia-mreturn-row-head">
+                                <span class="wujia-mreturn-row-code" t-out="rr.name"/>
+                                <span t-attf-class="wj-status-badge #{lbl[1]}" t-out="lbl[0]"/>
                             </div>
-                        </div>
-
-                        <div class="col-md-6 col-12 mb-2">
-                            <div class="wj-surface-card wj-surface-card--section wj-surface-card--compact wj-surface-card--flush h-100">
-                                <div class="wj-surface-card__head">
-                                    <t t-call="wujia_portal_layout.wj_card_header">
-                                        <t t-set="ch_title">Notes &amp; feedback</t>
-                                        <t t-set="ch_level" t-value="3"/>
-                                        <t t-set="ch_platform" t-value="'pc'"/>
-                                        <t t-set="ch_class" t-value="'wj-card-header--flush'"/>
-                                    </t>
-                                </div>
-                                <div class="wj-surface-card__body">
-                                    <t t-call="wujia_portal_layout.wj_card_header">
-                                        <t t-set="ch_title">Note from the store</t>
-                                        <t t-set="ch_level" t-value="4"/>
-                                        <t t-set="ch_platform" t-value="'pc'"/>
-                                        <t t-set="ch_class" t-value="'wj-card-header--sublabel wj-return-sublabel'"/>
-                                    </t>
-                                    <p t-if="rr.note" t-out="rr.note"/>
-                                    <p t-else="" class="text-muted fst-italic">No notes.</p>
-                                    <t t-if="rr.reject_reason">
-                                        <hr/>
-                                        <t t-call="wujia_portal_layout.wj_card_header">
-                                            <t t-set="ch_title">Rejection reason</t>
-                                            <t t-set="ch_level" t-value="4"/>
-                                            <t t-set="ch_platform" t-value="'pc'"/>
-                                            <t t-set="ch_class" t-value="'wj-card-header--sublabel wj-return-sublabel wj-return-sublabel--danger'"/>
-                                        </t>
-                                        <p t-out="rr.reject_reason"/>
-                                    </t>
-                                    <t t-if="comp and comp.get('approval_note')">
-                                        <hr/>
-                                        <t t-call="wujia_portal_layout.wj_card_header">
-                                            <t t-set="wj_txt">Feedback from {brand}</t>
-                                            <t t-set="ch_title" t-value="wj_txt.replace('{brand}', wj_brand['name'])"/>
-                                            <t t-set="ch_level" t-value="4"/>
-                                            <t t-set="ch_platform" t-value="'pc'"/>
-                                            <t t-set="ch_class" t-value="'wj-card-header--sublabel wj-return-sublabel'"/>
-                                        </t>
-                                        <p t-out="comp['approval_note']"/>
-                                    </t>
-                                </div>
+                            <div class="wujia-mreturn-summary-meta">
+                                <span t-out="rr.sale_order_id.name or no_order_label"/>
+                                <span t-out="wj_dt(rr.request_date, '%d/%m/%Y') or '—'"/>
                             </div>
                         </div>
                     </div>
 
-                    <div class="wj-surface-card wj-surface-card--section wj-surface-card--compact wj-surface-card--flush mb-2">
+                    <div t-attf-class="#{_ret_pc_card} wj-ret-g wj-ret-g--request">
+                        <div class="wj-surface-card__head">
+                            <t t-call="wujia_portal_layout.wj_card_header">
+                                <t t-set="ch_title">Request information</t>
+                                <t t-set="ch_level" t-value="3"/>
+                                <t t-set="ch_platform" t-value="'pc'"/>
+                                <t t-set="ch_class" t-value="'wj-card-header--flush'"/>
+                            </t>
+                        </div>
+                        <div class="wj-surface-card__body">
+                            <dl class="row mb-0 profile-dl">
+                                <dt class="col-sm-4">Request date</dt>
+                                <dd class="col-sm-8" t-out="wj_dt(rr.request_date, '%d/%m/%Y %H:%M') or '—'"/>
+                                <dt class="col-sm-4">Original order</dt>
+                                <dd class="col-sm-8">
+                                    <a t-if="rr.sale_order_id" t-attf-href="/portal/purchase-history/#{rr.sale_order_id.id}" t-out="rr.sale_order_id.name"/>
+                                    <t t-else="" t-out="no_order_label"/>
+                                </dd>
+                                <dt class="col-sm-4">Unboxing time</dt>
+                                <dd class="col-sm-8" t-out="wj_dt(rr.opening_datetime, '%d/%m/%Y %H:%M') or '—'"/>
+                                <dt class="col-sm-4">Production date</dt>
+                                <dd class="col-sm-8" t-out="wj_dt(rr.production_date, '%d/%m/%Y') or _ret_t_not_recorded"/>
+                                <dt class="col-sm-4">Created by</dt>
+                                <dd class="col-sm-8" t-out="rr.requester_user_id.name or '—'"/>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <div t-attf-class="#{_ret_pc_card} wj-ret-g wj-ret-g--product">
                         <div class="wj-surface-card__head">
                             <t t-call="wujia_portal_layout.wj_card_header">
                                 <t t-set="ch_title">Requested product</t>
@@ -114,21 +77,69 @@
                                 <t t-set="ch_class" t-value="'wj-card-header--flush'"/>
                             </t>
                         </div>
-                        <div class="wj-surface-card__body wj-surface-card__body--flush">
-                            <table class="table mb-0 wj-return-ptable">
-                                <thead><tr><th>Product</th><th class="text-end">Requested qty</th><th>UoM</th></tr></thead>
-                                <tbody>
-                                    <tr>
-                                        <td t-out="wj_pname(rr.product_id) or '—'"/>
-                                        <td class="text-end" t-out="'{:,.2f}'.format(rr.request_qty or 0)"/>
-                                        <td t-out="rr.request_uom_id.name or ''"/>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="wj-surface-card__body">
+                            <dl class="row mb-0 profile-dl">
+                                <dt class="col-sm-4">Product</dt>
+                                <dd class="col-sm-8" t-out="wj_pname(rr.product_id) or '—'"/>
+                                <dt class="col-sm-4">Requested qty</dt>
+                                <dd class="col-sm-8" t-out="rr._portal_qty_label()"/>
+                            </dl>
                         </div>
                     </div>
 
-                    <div class="wj-surface-card wj-surface-card--section wj-surface-card--compact wj-surface-card--flush mb-2" t-if="comp">
+                    <div t-attf-class="#{_ret_pc_card} wj-ret-g wj-ret-g--issue">
+                        <div class="wj-surface-card__head">
+                            <t t-call="wujia_portal_layout.wj_card_header">
+                                <t t-set="ch_title">Issue details</t>
+                                <t t-set="ch_level" t-value="3"/>
+                                <t t-set="ch_platform" t-value="'pc'"/>
+                                <t t-set="ch_class" t-value="'wj-card-header--flush'"/>
+                            </t>
+                        </div>
+                        <div class="wj-surface-card__body">
+                            <dl class="row mb-0 profile-dl">
+                                <dt class="col-sm-4">Issue type</dt>
+                                <dd class="col-sm-8" t-out="rr.issue_type_id.name or '—'"/>
+                                <dt class="col-sm-4">Note from the store</dt>
+                                <dd class="col-sm-8" t-out="rr.note or _ret_t_no_note"/>
+                                <t t-if="rr.image_attachment_ids">
+                                    <dt class="col-sm-4">Evidence photos</dt>
+                                    <dd class="col-sm-8"><t t-call="wujia_portal_return.portal_return_photo_count"/></dd>
+                                </t>
+                            </dl>
+                            <div t-if="rr.image_attachment_ids" class="row g-2 mt-1">
+                                <div t-foreach="rr.image_attachment_ids" t-as="img" class="col-6 col-sm-4 col-md-3">
+                                    <a t-attf-href="/portal/return/#{rr.id}/attachment/#{img.id}" target="_blank">
+                                        <img loading="lazy" t-attf-src="/portal/return/#{rr.id}/attachment/#{img.id}"
+                                             class="img-fluid rounded return-image-thumb" t-att-alt="img.name"/>
+                                    </a>
+                                </div>
+                            </div>
+                            <ul t-if="rr.video_attachment_ids" class="list-unstyled mb-0 mt-2">
+                                <li t-foreach="rr.video_attachment_ids" t-as="vid">
+                                    <a t-attf-href="/portal/return/#{rr.id}/attachment/#{vid.id}" target="_blank">
+                                        <i class="feather icon-video"/> <t t-out="vid.name"/>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div t-attf-class="#{_ret_pc_card} wujia-mreturn-response wj-ret-g wj-ret-g--feedback">
+                        <div class="wj-surface-card__head">
+                            <t t-call="wujia_portal_layout.wj_card_header">
+                                <t t-set="ch_title" t-value="_ret_t_feedback"/>
+                                <t t-set="ch_level" t-value="3"/>
+                                <t t-set="ch_platform" t-value="'pc'"/>
+                                <t t-set="ch_class" t-value="'wj-card-header--flush'"/>
+                            </t>
+                        </div>
+                        <div class="wj-surface-card__body">
+                            <t t-call="wujia_portal_return.portal_return_feedback_body"/>
+                        </div>
+                    </div>
+
+                    <div t-if="comp" t-attf-class="#{_ret_pc_card} wj-ret-g wj-ret-g--resolution">
                         <div class="wj-surface-card__head">
                             <t t-call="wujia_portal_layout.wj_card_header">
                                 <t t-set="ch_title">Resolution &amp; compensation progress</t>
@@ -198,34 +209,6 @@
                             </t>
                         </div>
                     </div>
-
-                    <div class="wj-surface-card wj-surface-card--section wj-surface-card--compact wj-surface-card--flush" t-if="rr.image_attachment_ids">
-                        <div class="wj-surface-card__head">
-                            <t t-call="wujia_portal_layout.wj_card_header">
-                                <t t-set="ch_title">Evidence photos</t>
-                                <t t-set="ch_level" t-value="3"/>
-                                <t t-set="ch_platform" t-value="'pc'"/>
-                                <t t-set="ch_class" t-value="'wj-card-header--flush'"/>
-                            </t>
-                        </div>
-                        <div class="wj-surface-card__body">
-                            <div class="row g-2">
-                                <t t-foreach="rr.image_attachment_ids" t-as="img">
-                                    <div class="col-6 col-sm-4 col-md-3">
-                                        <a t-attf-href="/portal/return/#{rr.id}/attachment/#{img.id}" target="_blank">
-                                            <img loading="lazy"
-                                                 t-attf-src="/portal/return/#{rr.id}/attachment/#{img.id}"
-                                                 class="img-fluid rounded return-image-thumb"
-                                                 t-att-alt="img.name"/>
-                                        </a>
-                                    </div>
-                                </t>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Nút "Quay lại" cuối trang đã gỡ: chỉ MỘT nút back / màn, nằm ở
-                         page header (UI-PC-BASE-006). -->
                 </div>
             </div>
 
@@ -240,44 +223,49 @@
 
                 <t t-call="wujia_portal_layout.wj_surface_card">
                     <t t-set="sc_variant" t-value="'section'"/>
-                    <t t-set="sc_class" t-value="'wujia-mdash-card'"/>
+                    <t t-set="sc_class" t-value="'wujia-mdash-card wj-ret-g wj-ret-g--summary'"/>
                     <div class="wujia-mreturn-row-head">
                         <span class="wujia-mreturn-row-code" t-out="rr.name"/>
-                        <t t-set="lbl" t-value="wj_state_label(rr)"/>
                         <span t-attf-class="wj-status-badge #{lbl[1]}" t-out="lbl[0]"/>
                     </div>
                     <div class="wujia-mreturn-summary-meta">
-                        <span t-out="rr.sale_order_id.name or '—'"/>
+                        <span t-out="rr.sale_order_id.name or no_order_label"/>
                         <span t-out="wj_dt(rr.request_date, '%d/%m/%Y') or '—'"/>
                     </div>
                 </t>
 
                 <t t-call="wujia_portal_layout.wj_surface_card">
                     <t t-set="sc_variant" t-value="'section'"/>
-                    <t t-set="sc_class" t-value="'wujia-mdash-card'"/>
+                    <t t-set="sc_class" t-value="'wujia-mdash-card wj-ret-g wj-ret-g--request'"/>
                     <t t-call="wujia_portal_layout.wj_card_header">
-                        <t t-set="ch_title">Order information</t>
+                        <t t-set="ch_title">Request information</t>
                         <t t-set="ch_platform" t-value="'m'"/>
                     </t>
                     <div class="wujia-mhist-kv">
                         <span class="wujia-mhist-kv-label">Request date</span>
-                        <span class="wujia-mhist-kv-value"
-                              t-out="wj_dt(rr.request_date, '%d/%m/%Y') or '—'"/>
-                    </div>
-                    <div class="wujia-mhist-kv">
-                        <span class="wujia-mhist-kv-label">Unboxing time</span>
-                        <span class="wujia-mhist-kv-value"
-                              t-out="wj_dt(rr.opening_datetime, '%d/%m/%Y %H:%M') or '—'"/>
+                        <span class="wujia-mhist-kv-value" t-out="wj_dt(rr.request_date, '%d/%m/%Y %H:%M') or '—'"/>
                     </div>
                     <div class="wujia-mhist-kv">
                         <span class="wujia-mhist-kv-label">Original order</span>
-                        <span class="wujia-mhist-kv-value" t-out="rr.sale_order_id.name or '—'"/>
+                        <span class="wujia-mhist-kv-value" t-out="rr.sale_order_id.name or no_order_label"/>
+                    </div>
+                    <div class="wujia-mhist-kv">
+                        <span class="wujia-mhist-kv-label">Unboxing time</span>
+                        <span class="wujia-mhist-kv-value" t-out="wj_dt(rr.opening_datetime, '%d/%m/%Y %H:%M') or '—'"/>
+                    </div>
+                    <div class="wujia-mhist-kv">
+                        <span class="wujia-mhist-kv-label">Production date</span>
+                        <span class="wujia-mhist-kv-value" t-out="wj_dt(rr.production_date, '%d/%m/%Y') or _ret_t_not_recorded"/>
+                    </div>
+                    <div class="wujia-mhist-kv">
+                        <span class="wujia-mhist-kv-label">Created by</span>
+                        <span class="wujia-mhist-kv-value" t-out="rr.requester_user_id.name or '—'"/>
                     </div>
                 </t>
 
                 <t t-call="wujia_portal_layout.wj_surface_card">
                     <t t-set="sc_variant" t-value="'section'"/>
-                    <t t-set="sc_class" t-value="'wujia-mdash-card'"/>
+                    <t t-set="sc_class" t-value="'wujia-mdash-card wj-ret-g wj-ret-g--product'"/>
                     <t t-call="wujia_portal_layout.wj_card_header">
                         <t t-set="ch_title">Requested product</t>
                         <t t-set="ch_platform" t-value="'m'"/>
@@ -288,15 +276,55 @@
                     </div>
                     <div class="wujia-mhist-kv">
                         <span class="wujia-mhist-kv-label">Requested qty</span>
-                        <span class="wujia-mhist-kv-value">
-                            <t t-out="'{:,.2f}'.format(rr.request_qty or 0)"/> <t t-out="rr.request_uom_id.name or ''"/>
-                        </span>
+                        <span class="wujia-mhist-kv-value" t-out="rr._portal_qty_label()"/>
                     </div>
+                </t>
+
+                <t t-call="wujia_portal_layout.wj_surface_card">
+                    <t t-set="sc_variant" t-value="'section'"/>
+                    <t t-set="sc_class" t-value="'wujia-mdash-card wj-ret-g wj-ret-g--issue'"/>
+                    <t t-call="wujia_portal_layout.wj_card_header">
+                        <t t-set="ch_title">Issue details</t>
+                        <t t-set="ch_platform" t-value="'m'"/>
+                    </t>
+                    <div class="wujia-mhist-kv">
+                        <span class="wujia-mhist-kv-label">Issue type</span>
+                        <span class="wujia-mhist-kv-value" t-out="rr.issue_type_id.name or '—'"/>
+                    </div>
+                    <p class="wujia-mhist-note" t-out="rr.note or _ret_t_no_note"/>
+                    <div t-if="rr.image_attachment_ids" class="wujia-mhist-kv">
+                        <span class="wujia-mhist-kv-label">Evidence photos</span>
+                        <span class="wujia-mhist-kv-value"><t t-call="wujia_portal_return.portal_return_photo_count"/></span>
+                    </div>
+                    <div t-if="rr.image_attachment_ids" class="wujia-mreturn-thumbs">
+                        <a t-foreach="rr.image_attachment_ids" t-as="img" target="_blank"
+                           t-attf-href="/portal/return/#{rr.id}/attachment/#{img.id}">
+                            <img loading="lazy" t-att-alt="img.name"
+                                 t-attf-src="/portal/return/#{rr.id}/attachment/#{img.id}"/>
+                        </a>
+                    </div>
+                    <ul t-if="rr.video_attachment_ids" class="list-unstyled mb-0 mt-2">
+                        <li t-foreach="rr.video_attachment_ids" t-as="vid">
+                            <a t-attf-href="/portal/return/#{rr.id}/attachment/#{vid.id}" target="_blank">
+                                <i class="feather icon-video"/> <t t-out="vid.name"/>
+                            </a>
+                        </li>
+                    </ul>
+                </t>
+
+                <t t-call="wujia_portal_layout.wj_surface_card">
+                    <t t-set="sc_variant" t-value="'section'"/>
+                    <t t-set="sc_class" t-value="'wujia-mdash-card wujia-mreturn-response wj-ret-g wj-ret-g--feedback'"/>
+                    <t t-call="wujia_portal_layout.wj_card_header">
+                        <t t-set="ch_title" t-value="_ret_t_feedback"/>
+                        <t t-set="ch_platform" t-value="'m'"/>
+                    </t>
+                    <t t-call="wujia_portal_return.portal_return_feedback_body"/>
                 </t>
 
                 <t t-call="wujia_portal_layout.wj_surface_card" t-if="comp">
                     <t t-set="sc_variant" t-value="'section'"/>
-                    <t t-set="sc_class" t-value="'wujia-mdash-card'"/>
+                    <t t-set="sc_class" t-value="'wujia-mdash-card wj-ret-g wj-ret-g--resolution'"/>
                     <t t-call="wujia_portal_layout.wj_card_header">
                         <t t-set="ch_title">Resolution &amp; compensation progress</t>
                         <t t-set="ch_platform" t-value="'m'"/>
@@ -350,52 +378,26 @@
                         </div>
                     </t>
                 </t>
-
-                <t t-call="wujia_portal_layout.wj_surface_card">
-                    <t t-set="sc_variant" t-value="'section'"/>
-                    <t t-set="sc_class" t-value="'wujia-mdash-card'"/>
-                    <t t-call="wujia_portal_layout.wj_card_header">
-                        <t t-set="ch_title">Issue details</t>
-                        <t t-set="ch_platform" t-value="'m'"/>
-                    </t>
-                    <div class="wujia-mhist-kv">
-                        <span class="wujia-mhist-kv-label">Issue type</span>
-                        <span class="wujia-mhist-kv-value" t-out="rr.issue_type_id.name or '—'"/>
-                    </div>
-                    <t t-set="_ret_t_no_note">No notes.</t>
-                    <p class="wujia-mhist-note" t-out="rr.note or _ret_t_no_note"/>
-                </t>
-
-                <t t-call="wujia_portal_layout.wj_surface_card" t-if="rr.image_attachment_ids">
-                    <t t-set="sc_variant" t-value="'section'"/>
-                    <t t-set="sc_class" t-value="'wujia-mdash-card'"/>
-                    <t t-call="wujia_portal_layout.wj_card_header">
-                        <t t-set="ch_title"><t t-out="len(rr.image_attachment_ids)"/> <t t-if="len(rr.image_attachment_ids) == 1">attached photo</t><t t-else="">attached photos</t></t>
-                        <t t-set="ch_platform" t-value="'m'"/>
-                    </t>
-                    <div class="wujia-mreturn-thumbs">
-                        <a t-foreach="rr.image_attachment_ids" t-as="img" target="_blank"
-                           t-attf-href="/portal/return/#{rr.id}/attachment/#{img.id}">
-                            <img loading="lazy" t-att-alt="img.name"
-                                 t-attf-src="/portal/return/#{rr.id}/attachment/#{img.id}"/>
-                        </a>
-                    </div>
-                </t>
-
-                <t t-call="wujia_portal_layout.wj_surface_card">
-                    <t t-set="sc_variant" t-value="'section'"/>
-                    <t t-set="sc_class" t-value="'wujia-mdash-card wujia-mreturn-response'"/>
-                    <t t-call="wujia_portal_layout.wj_card_header">
-                        <t t-set="wj_txt">{brand} feedback</t>
-                        <t t-set="ch_title" t-value="wj_txt.replace('{brand}', wj_brand['name'])"/>
-                        <t t-set="ch_platform" t-value="'m'"/>
-                    </t>
-                    <p t-if="rr.reject_reason" class="wujia-mreturn-resp-body" t-out="rr.reject_reason"/>
-                    <p t-elif="comp and comp.get('approval_note')" class="wujia-mreturn-resp-body" t-out="comp['approval_note']"/>
-                    <p t-else="" class="wujia-mhist-note"><t t-set="wj_txt">No feedback from {brand} yet.</t><t t-out="wj_txt.replace('{brand}', wj_brand['name'])"/></p>
-                </t>
             </div>
         </t>
+    </template>
+
+    <template id="portal_return_photo_count" name="Wujia Portal — Return photo count">
+        <t t-set="_n" t-value="len(rr.image_attachment_ids)"/>
+        <t t-out="_n"/> <t t-if="_n == 1">attached photo</t><t t-else="">attached photos</t>
+    </template>
+
+    <template id="portal_return_feedback_body" name="Wujia Portal — Return feedback body">
+        <t t-if="rr.reject_reason">
+            <t t-call="wujia_portal_layout.wj_card_header">
+                <t t-set="ch_title">Rejection reason</t>
+                <t t-set="ch_level" t-value="4"/>
+                <t t-set="ch_class" t-value="'wj-card-header--sublabel wj-return-sublabel wj-return-sublabel--danger'"/>
+            </t>
+            <p class="wujia-mreturn-resp-body" t-out="rr.reject_reason"/>
+        </t>
+        <p t-if="comp and comp.get('approval_note')" class="wujia-mreturn-resp-body" t-out="comp['approval_note']"/>
+        <p t-if="not rr.reject_reason and not (comp and comp.get('approval_note'))" class="wujia-mhist-note" t-out="_ret_t_no_feedback"/>
     </template>
 
 </odoo>

@@ -24,12 +24,12 @@ msgstr "<i class=\"fa fa-paper-plane\"/>Gửi yêu cầu"
 #. module: wujia_portal_return
 msgid ""
 "<i class=\"feather icon-info me-1\"/>\n"
-"                            Each request covers only <b>1 product</b> from "
-"the order."
+"                            Each request covers only <b>1 product</b> "
+"from the order."
 msgstr ""
 "<i class=\"feather icon-info me-1\"/>\n"
-"                            Mỗi yêu cầu chỉ áp dụng cho <b>1 sản phẩm</b> "
-"trong đơn đặt."
+"                            Mỗi yêu cầu chỉ áp dụng cho <b>1 sản phẩm</b>"
+" trong đơn đặt."
 
 #. module: wujia_portal_return
 msgid ""
@@ -38,8 +38,8 @@ msgid ""
 "order.</span>"
 msgstr ""
 "<i class=\"feather icon-info\"/>\n"
-"                    <span>Mỗi yêu cầu chỉ áp dụng cho 1 sản phẩm trong đơn "
-"đặt.</span>"
+"                    <span>Mỗi yêu cầu chỉ áp dụng cho 1 sản phẩm trong "
+"đơn đặt.</span>"
 
 #. module: wujia_portal_return
 msgid "<i class=\"feather icon-plus\"/> Create new request"
@@ -48,6 +48,10 @@ msgstr "<i class=\"feather icon-plus\"/> Tạo yêu cầu mới"
 #. module: wujia_portal_return
 msgid "<option value=\"\">— Select an issue type —</option>"
 msgstr "<option value=\"\">— Chọn loại lỗi —</option>"
+
+#. module: wujia_portal_return
+msgid "<option value=\"\">— Select an order first —</option>"
+msgstr "<option value=\"\">— Chọn đơn hàng trước —</option>"
 
 #. module: wujia_portal_return
 msgid "<option value=\"\">— Select an order —</option>"
@@ -70,6 +74,14 @@ msgid "<span class=\"wujia-mhist-kv-label\">Compensation status</span>"
 msgstr "<span class=\"wujia-mhist-kv-label\">Tình trạng bù</span>"
 
 #. module: wujia_portal_return
+msgid "<span class=\"wujia-mhist-kv-label\">Created by</span>"
+msgstr "<span class=\"wujia-mhist-kv-label\">Người tạo</span>"
+
+#. module: wujia_portal_return
+msgid "<span class=\"wujia-mhist-kv-label\">Evidence photos</span>"
+msgstr "<span class=\"wujia-mhist-kv-label\">Ảnh minh chứng</span>"
+
+#. module: wujia_portal_return
 msgid "<span class=\"wujia-mhist-kv-label\">Issue type</span>"
 msgstr "<span class=\"wujia-mhist-kv-label\">Loại lỗi</span>"
 
@@ -84,6 +96,10 @@ msgstr "<span class=\"wujia-mhist-kv-label\">Phương án</span>"
 #. module: wujia_portal_return
 msgid "<span class=\"wujia-mhist-kv-label\">Product</span>"
 msgstr "<span class=\"wujia-mhist-kv-label\">Sản phẩm</span>"
+
+#. module: wujia_portal_return
+msgid "<span class=\"wujia-mhist-kv-label\">Production date</span>"
+msgstr "<span class=\"wujia-mhist-kv-label\">Ngày sản xuất</span>"
 
 #. module: wujia_portal_return
 msgid "<span class=\"wujia-mhist-kv-label\">Request date</span>"
@@ -225,10 +241,6 @@ msgid "Exchange"
 msgstr "Đổi hàng"
 
 #. module: wujia_portal_return
-msgid "Feedback from {brand}"
-msgstr "Phản hồi từ {brand}"
-
-#. module: wujia_portal_return
 msgid "Filter by status"
 msgstr "Lọc theo trạng thái"
 
@@ -289,16 +301,16 @@ msgid "No delivery slip yet"
 msgstr "Chưa tạo phiếu giao"
 
 #. module: wujia_portal_return
-msgid "No orders fully delivered in the last"
-msgstr "Không có đơn hàng giao hoàn tất trong"
-
-#. module: wujia_portal_return
 msgid "No feedback from {brand} yet."
 msgstr "Chưa có phản hồi từ {brand}."
 
 #. module: wujia_portal_return
-msgid "No notes."
-msgstr "Không có ghi chú."
+msgid "No orders fully delivered in the last"
+msgstr "Không có đơn hàng giao hoàn tất trong"
+
+#. module: wujia_portal_return
+msgid "No original order"
+msgstr "Không có đơn gốc"
 
 #. module: wujia_portal_return
 msgid "No requests match the current filters."
@@ -329,16 +341,16 @@ msgid "Not processed"
 msgstr "Chưa xử lý"
 
 #. module: wujia_portal_return
+msgid "Not recorded"
+msgstr "Không ghi nhận"
+
+#. module: wujia_portal_return
 msgid "Note"
 msgstr "Ghi chú"
 
 #. module: wujia_portal_return
 msgid "Note from the store"
 msgstr "Ghi chú từ cửa hàng"
-
-#. module: wujia_portal_return
-msgid "Notes &amp; feedback"
-msgstr "Ghi chú &amp; Phản hồi"
 
 #. module: wujia_portal_return
 msgid "Order information"
@@ -357,6 +369,37 @@ msgstr "Đơn hàng gốc"
 #: code:addons/wujia_portal_return/controllers/portal.py
 msgid "Partially compensated"
 msgstr "Đang bù một phần"
+
+#. module: wujia_portal_return
+#. odoo-python
+#: code:addons/wujia_portal_return/controllers/portal.py
+#, python-format
+msgid ""
+"Please attach %(min)s–%(max)s JPG/PNG photos, each ≤ %(mb)sMB, total "
+"evidence ≤ %(total)sMB."
+msgstr ""
+"Vui lòng đính kèm %(min)s–%(max)s ảnh JPG/PNG, mỗi ảnh ≤ %(mb)sMB, tổng "
+"minh chứng ≤ %(total)sMB."
+
+#. module: wujia_portal_return
+msgid "Please enter the unboxing time."
+msgstr "Vui lòng nhập thời gian mở hàng."
+
+#. module: wujia_portal_return
+msgid "Please select a product from the order."
+msgstr "Vui lòng chọn sản phẩm trong đơn hàng."
+
+#. module: wujia_portal_return
+msgid "Please select a store."
+msgstr "Vui lòng chọn cửa hàng."
+
+#. module: wujia_portal_return
+msgid "Please select an issue type."
+msgstr "Vui lòng chọn loại lỗi."
+
+#. module: wujia_portal_return
+msgid "Please select the original order."
+msgstr "Vui lòng chọn đơn hàng gốc."
 
 #. module: wujia_portal_return
 msgid "Product"
@@ -389,10 +432,6 @@ msgstr "Lý do từ chối"
 #: code:addons/wujia_portal_return/controllers/portal.py
 msgid "Replacement ordered"
 msgstr "Đã lên đơn bù"
-
-#. module: wujia_portal_return
-msgid "Request code"
-msgstr "Mã yêu cầu"
 
 #. module: wujia_portal_return
 msgid "Request date"
@@ -474,9 +513,17 @@ msgstr "Gửi yêu cầu"
 
 #. module: wujia_portal_return
 msgid ""
-"The compensation order was cancelled. If you still need compensation, please"
-" create a new request."
+"The compensation order was cancelled. If you still need compensation, "
+"please create a new request."
 msgstr "Đơn bù đã bị hủy. Nếu vẫn cần bù hàng, vui lòng tạo yêu cầu mới."
+
+#. module: wujia_portal_return
+msgid "The requested quantity must be greater than 0."
+msgstr "Số lượng yêu cầu phải lớn hơn 0."
+
+#. module: wujia_portal_return
+msgid "The store left no note"
+msgstr "Cửa hàng không ghi chú"
 
 #. module: wujia_portal_return
 msgid "This store has not submitted any return requests."
@@ -491,8 +538,11 @@ msgid "Unboxing time"
 msgstr "Thời gian mở hàng"
 
 #. module: wujia_portal_return
-msgid "UoM"
-msgstr "ĐVT"
+#. odoo-python
+#: code:addons/wujia_portal_return/controllers/portal.py
+#, python-format
+msgid "Up to %(count)s MP4/MOV video ≤ %(mb)sMB, total evidence ≤ %(total)sMB."
+msgstr "Tối đa %(count)s video MP4/MOV ≤ %(mb)sMB, tổng minh chứng ≤ %(total)sMB."
 
 #. module: wujia_portal_return
 msgid "Up to 1 MP4/MOV video, ≤"
@@ -558,38 +608,3 @@ msgstr "— Chọn sản phẩm —"
 msgid "— delivered"
 msgstr "— giao xong"
 
-#. module: wujia_portal_return
-msgid "<option value=\"\">— Select an order first —</option>"
-msgstr "<option value=\"\">— Chọn đơn hàng trước —</option>"
-
-#. module: wujia_portal_return
-msgid "Please attach %(min)s–%(max)s JPG/PNG photos, each ≤ %(mb)sMB, total evidence ≤ %(total)sMB."
-msgstr "Vui lòng đính kèm %(min)s–%(max)s ảnh JPG/PNG, mỗi ảnh ≤ %(mb)sMB, tổng minh chứng ≤ %(total)sMB."
-
-#. module: wujia_portal_return
-msgid "Please enter the unboxing time."
-msgstr "Vui lòng nhập thời gian mở hàng."
-
-#. module: wujia_portal_return
-msgid "Please select a product from the order."
-msgstr "Vui lòng chọn sản phẩm trong đơn hàng."
-
-#. module: wujia_portal_return
-msgid "Please select a store."
-msgstr "Vui lòng chọn cửa hàng."
-
-#. module: wujia_portal_return
-msgid "Please select an issue type."
-msgstr "Vui lòng chọn loại lỗi."
-
-#. module: wujia_portal_return
-msgid "Please select the original order."
-msgstr "Vui lòng chọn đơn hàng gốc."
-
-#. module: wujia_portal_return
-msgid "The requested quantity must be greater than 0."
-msgstr "Số lượng yêu cầu phải lớn hơn 0."
-
-#. module: wujia_portal_return
-msgid "Up to %(count)s MP4/MOV video ≤ %(mb)sMB, total evidence ≤ %(total)sMB."
-msgstr "Tối đa %(count)s video MP4/MOV ≤ %(mb)sMB, tổng minh chứng ≤ %(total)sMB."

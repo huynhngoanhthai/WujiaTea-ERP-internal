@@ -373,7 +373,12 @@ class WujiaReturnRequest(models.Model):
 
     @api.model
     def _portal_recent_domain(self, franchise_ids):
-        return self._portal_scope_domain(franchise_ids) + [('state', 'not in', ['rejected', 'cancelled'])]
+        return self._portal_scope_domain(franchise_ids) + [('state', 'not in', ['draft', 'rejected', 'cancelled'])]
+
+    def _portal_qty_label(self):
+        self.ensure_one()
+        qty = '{:,.2f}'.format(self.request_qty or 0).rstrip('0').rstrip('.')
+        return ' '.join(filter(None, [qty, self.request_uom_id.name]))
 
     def _portal_status_key(self):
         """Trạng thái portal: 'Đang xét' gộp 'Đang xử lý'; 'partial' = đang bù dở (không có trong schema)."""

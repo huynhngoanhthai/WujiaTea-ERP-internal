@@ -75,8 +75,15 @@ class TestPortalRules(TransactionCase, ReturnFixture):
         open_ = self.Req.search(self.Req._portal_open_domain(self.franchise.ids))
         self.assertEqual(open_, reqs['submitted'] | reqs['approved'])
         recent = self.Req.search(self.Req._portal_recent_domain(self.franchise.ids))
-        self.assertEqual(recent, reqs['draft'] | reqs['submitted'] | reqs['reviewing'] | reqs['approved'])
+        self.assertEqual(recent, reqs['submitted'] | reqs['reviewing'] | reqs['approved'])
         self.assertNotIn(other, recent)
+
+    def test_qty_label_drops_trailing_zeros(self):
+        rr = self._request()
+        uom = rr.request_uom_id.name
+        for qty, text in ((2.0, '2'), (10.0, '10'), (1.5, '1.5'), (1234.25, '1,234.25'), (0, '0')):
+            rr.request_qty = qty
+            self.assertEqual(rr._portal_qty_label(), f'{text} {uom}')
 
     def test_evidence_rules(self):
         check = self.Req._portal_check_evidence

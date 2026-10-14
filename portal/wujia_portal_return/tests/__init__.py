@@ -8,3 +8,4 @@ from . import test_portal_return_f13
 from . import test_jv6_i18n
 from . import test_i4b_return_scope
 from . import test_k2_form_validation
+from . import test_k3_return_content

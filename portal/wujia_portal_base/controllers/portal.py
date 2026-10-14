@@ -13,6 +13,7 @@ from odoo.addons.wujia_portal_base.controllers.utils import (
     parse_page_size,
     portal_money,
     portal_order_badge,
+    portal_product_name,
     return_status_label,
 )
 from odoo.addons.wujia_portal_base.models.wujia_franchise_member import ROLE_LABELS
@@ -299,6 +300,7 @@ class WujiaPortal(CustomerPortal):
             'latest_returns': latest_returns,
             'franchise_ids': franchise_ids,
             'wj_dt': fmt_local_dt,
+            'wj_pname': portal_product_name,
         }
 
     def _safe_count(self, model_name, kind, franchise_ids):
@@ -329,9 +331,8 @@ class WujiaPortal(CustomerPortal):
             return Model.search(Model._portal_effective_domain(franchise_ids),
                                 order='is_pinned desc, published_date desc', limit=limit)
         if model_name == 'wujia.return.request' and hasattr(Model, '_portal_recent_domain'):
-            # BA: danh sách gần đây bỏ phiếu đã huỷ / từ chối.
             return Model.search(Model._portal_recent_domain(franchise_ids),
-                                order='request_date desc', limit=limit)
+                                order='request_date desc, id desc', limit=limit)
         return []
 
     # ==================================================================

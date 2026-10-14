@@ -185,11 +185,6 @@ msgstr ""
 
 #. module: wujia_portal_base
 #: model_terms:ir.ui.view,arch_db:wujia_portal_base.portal_home_page
-msgid "<span class=\"wujia-mdash-row-sub is-strong is-xs\">Total: —</span>"
-msgstr ""
-
-#. module: wujia_portal_base
-#: model_terms:ir.ui.view,arch_db:wujia_portal_base.portal_home_page
 msgid "<span class=\"wujia-mdash-row-sub\">Address</span>"
 msgstr ""
 
