@@ -107,6 +107,8 @@
                 </t>
             </div>
 
+            <t t-if="view_state == 'invalid'" t-call="wujia_portal_layout.wj_filter_invalid"/>
+
             <!-- STATE: empty -->
             <div t-if="view_state == 'empty'" class="wj-pc-dlv-inner">
                 <span class="wj-pc-dlv-inner__icon"><i class="feather icon-truck"/></span>
@@ -179,6 +181,8 @@
                 </t>
                 <t t-call="wujia_portal_layout.wj_pagination"/>
             </t>
+
+            <t t-if="view_state == 'invalid'" t-call="wujia_portal_layout.wj_filter_invalid"/>
 
             <!-- STATE: empty (no-data chung Figma 4788:974 — lọc rỗng → Xóa lọc) -->
             <div t-if="view_state == 'empty'" class="wj-empty-state wj-empty-state--rich">

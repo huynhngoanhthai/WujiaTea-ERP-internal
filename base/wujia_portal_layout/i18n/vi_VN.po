@@ -434,6 +434,10 @@ msgid "Cancel"
 msgstr "Hủy"
 
 #. module: wujia_portal_layout
+msgid "Change From date or To date to see the list."
+msgstr "Sửa Từ ngày hoặc Đến ngày để xem danh sách."
+
+#. module: wujia_portal_layout
 #. odoo-python
 #: code:addons/wujia_portal_layout/controllers/portal.py
 msgid "Change password"
@@ -658,6 +662,10 @@ msgstr ""
 #. module: wujia_portal_layout
 msgid "Ingredient purchase order"
 msgstr "Đơn đặt hàng nguyên liệu"
+
+#. module: wujia_portal_layout
+msgid "Invalid date range"
+msgstr "Khoảng ngày chưa hợp lệ"
 
 #. module: wujia_portal_layout
 #. odoo-python
@@ -1130,4 +1138,3 @@ msgstr "bản ghi"
 #. module: wujia_portal_layout
 msgid "← Back to sign in"
 msgstr "← Quay lại đăng nhập"
-

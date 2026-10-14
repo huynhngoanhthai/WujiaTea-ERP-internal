@@ -66,8 +66,9 @@
 
                     <!-- Vùng swap AJAX: bảng + pager (bộ lọc ngoài, JS đồng bộ theo URL). -->
                     <div id="wj-ret-pc">
+                    <t t-if="filter_error" t-call="wujia_portal_layout.wj_filter_invalid"/>
                     <!-- Table (Sprint 9.13b 2026-05-27: MẪU 02 — wujia-content-card-table) -->
-                    <t t-call="wujia_portal_layout.wj_surface_card">
+                    <t t-call="wujia_portal_layout.wj_surface_card" t-if="not filter_error">
                         <t t-set="sc_density" t-value="'regular'"/>
                         <t t-set="sc_class" t-value="'wujia-content-card'"/>
                     <!-- CMP-CH-001: count cố ý BỎ `t-if` — spec ghi rõ "Count 0 vẫn hiển thị". -->
@@ -128,7 +129,7 @@
                     </t>
                     </t>
 
-                    <t t-call="wujia_portal_layout.wj_pagination"/>
+                    <t t-call="wujia_portal_layout.wj_pagination" t-if="not filter_error"/>
                     </div>
                 </div>
             </div>
@@ -175,7 +176,8 @@
 
                     <div id="wj-ret-mbody" class="wj-ajax-slot">
                     <!-- Empty: chưa có YC nào (no-data thật) -->
-                    <t t-if="not returns and not q and not state and not date_from and not date_to">
+                    <t t-if="filter_error" t-call="wujia_portal_layout.wj_filter_invalid"/>
+                    <t t-elif="not returns and not q and not state and not date_from and not date_to">
                         <div class="wj-empty-state wj-empty-state--rich">
                             <span class="wj-empty-state-icon"/>
                             <p class="wj-empty-state-title">No return requests</p>
@@ -233,7 +235,7 @@
                                             <t t-set="lcr_full" t-value="True"/>
                                             <t t-set="lcr_class" t-value="'wj-lc__row--clamp2'"/>
                                             <t t-set="lcr_value"
-                                               t-value="rr.product_id.display_name or rr.issue_type_id.name or '—'"/>
+                                               t-value="wj_pname(rr.product_id) or rr.issue_type_id.name or '—'"/>
                                         </t>
                                         <t t-call="wujia_portal_layout.wj_list_card_row">
                                             <t t-set="lcr_class" t-value="'wj-lc__row--inline'"/>

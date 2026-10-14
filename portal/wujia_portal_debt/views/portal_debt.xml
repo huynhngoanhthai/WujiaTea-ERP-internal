@@ -608,7 +608,7 @@
                     <t t-set="ph_platform" t-value="'pc'"/>
                     <t t-set="ph_variant" t-value="'title'"/>
                     <t t-set="ph_crumb">Portal / Debts</t>
-                    <t t-set="ph_title">Debts</t>
+                    <t t-set="ph_title">Payment history</t>
                 </t>
 
                 <t t-call="wujia_portal_debt.wj_debt_pc_tabs"/>

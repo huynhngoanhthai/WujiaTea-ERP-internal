@@ -312,6 +312,20 @@ body .form-control::placeholder { color: var(--wujia-text-muted); opacity: 1; }
     font-size: 13px;
     font-weight: 500;
 }
+/* Thân danh sách khi khoảng ngày ngược — không phải EmptyState */
+.wj-filter-invalid {
+    padding: 32px 16px;
+    text-align: center;
+    color: var(--wujia-text-secondary);
+}
+.wj-filter-invalid__icon { display: block; margin-bottom: 8px; font-size: 24px; }
+.wj-filter-invalid__title {
+    margin: 0 0 4px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--wujia-text-primary);
+}
+.wj-filter-invalid__sub { margin: 0; font-size: 13px; }
 /* Date range: two pills + dash (145×38 mỗi pill ở 02/03; 132 + btn ở 04) */
 .wj-filter-dates { display: flex; align-items: center; gap: 8px; }
 .wj-filter-date {

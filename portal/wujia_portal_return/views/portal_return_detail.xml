@@ -119,7 +119,7 @@
                                 <thead><tr><th>Product</th><th class="text-end">Requested qty</th><th>UoM</th></tr></thead>
                                 <tbody>
                                     <tr>
-                                        <td t-out="rr.product_id.display_name or '—'"/>
+                                        <td t-out="wj_pname(rr.product_id) or '—'"/>
                                         <td class="text-end" t-out="'{:,.2f}'.format(rr.request_qty or 0)"/>
                                         <td t-out="rr.request_uom_id.name or ''"/>
                                     </tr>
@@ -284,7 +284,7 @@
                     </t>
                     <div class="wujia-mhist-kv">
                         <span class="wujia-mhist-kv-label">Product</span>
-                        <span class="wujia-mhist-kv-value" t-out="rr.product_id.display_name or '—'"/>
+                        <span class="wujia-mhist-kv-value" t-out="wj_pname(rr.product_id) or '—'"/>
                     </div>
                     <div class="wujia-mhist-kv">
                         <span class="wujia-mhist-kv-label">Requested qty</span>

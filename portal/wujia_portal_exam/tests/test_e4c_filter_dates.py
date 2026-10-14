@@ -111,3 +111,14 @@ class TestExamFilterDatesE4c(HttpCase):
         self.assertIn('name="date_from"', forms[0])
         self.assertIn('name="date_to"', forms[0])
         self.assertIn('action="/portal/exam"', forms[0])
+
+    def test_ngay_nguoc_chi_con_khoi_nhac(self):
+        """Số đếm 0 hay EmptyState cạnh dòng báo lỗi đọc thành "không có dữ liệu"."""
+        html = self._get('/portal/exam?date_from=2026-09-30&date_to=2026-09-01')
+        self.assertEqual(html.count('class="wj-filter-invalid"'), 2, 'mỗi khổ đúng một khối nhắc')
+        for gone in ['wj-empty-state--rich', 'wj-pc-empty']:
+            self.assertNotIn(gone, html)
+
+    def test_ngay_hop_le_khong_co_khoi_nhac(self):
+        html = self._get('/portal/exam?date_from=2026-09-01&date_to=2026-09-30')
+        self.assertNotIn('wj-filter-invalid', html)

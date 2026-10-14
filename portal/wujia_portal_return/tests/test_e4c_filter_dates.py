@@ -78,3 +78,14 @@ class TestReturnFilterDatesE4c(HttpCase):
         tag = self._tag(html, 'wj-ret-pcerr')
         self.assertTrue(tag)
         self.assertIn('hidden', tag.group(0))
+
+    def test_ngay_nguoc_chi_con_khoi_nhac(self):
+        """Số đếm 0 hay EmptyState cạnh dòng báo lỗi đọc thành "không có dữ liệu"."""
+        html = self._get('/portal/return?date_from=2026-09-30&date_to=2026-09-01')
+        self.assertEqual(html.count('class="wj-filter-invalid"'), 2, 'mỗi khổ đúng một khối nhắc')
+        for gone in ['wj-empty-state--rich', 'wujia-empty-state', 'wj-card-header__meta', 'wj-section-header__meta']:
+            self.assertNotIn(gone, html)
+
+    def test_ngay_hop_le_khong_co_khoi_nhac(self):
+        html = self._get('/portal/return?date_from=2026-09-01&date_to=2026-09-30')
+        self.assertNotIn('wj-filter-invalid', html)

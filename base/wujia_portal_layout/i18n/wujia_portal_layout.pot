@@ -408,6 +408,11 @@ msgid "Cancel"
 msgstr ""
 
 #. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_filter_invalid
+msgid "Change From date or To date to see the list."
+msgstr ""
+
+#. module: wujia_portal_layout
 #. odoo-python
 #: code:addons/wujia_portal_layout/controllers/portal.py:0
 #: model_terms:ir.ui.view,arch_db:wujia_portal_layout.change_password_page
@@ -679,6 +684,11 @@ msgstr ""
 #. module: wujia_portal_layout
 #: model_terms:ir.ui.view,arch_db:wujia_portal_layout.pc_preview_page
 msgid "Ingredient purchase order"
+msgstr ""
+
+#. module: wujia_portal_layout
+#: model_terms:ir.ui.view,arch_db:wujia_portal_layout.wj_filter_invalid
+msgid "Invalid date range"
 msgstr ""
 
 #. module: wujia_portal_layout

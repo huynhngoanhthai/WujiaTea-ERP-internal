@@ -33,6 +33,7 @@ from odoo.addons.wujia_portal_base.controllers.utils import (
     fmt_local_dt,
     local_day_range_utc,
     parse_page_size,
+    portal_product_name,
     portal_tz,
     return_status_label as state_label,
     status_badge,
@@ -169,6 +170,7 @@ class WujiaPortalReturn(http.Controller):
             'wj_state_label': state_label,
             'comp': self._build_compensation_ctx(rr),
             'wj_dt': fmt_local_dt,
+            'wj_pname': portal_product_name,
             'message': kw.get('message'),
         })
 
@@ -222,6 +224,7 @@ class WujiaPortalReturn(http.Controller):
             'state': '', 'date_from': '', 'date_to': '', 'q': '', 'notice': '',
             'filter_error': '',
             'wj_dt': fmt_local_dt,
+            'wj_pname': portal_product_name,
         }
         ctx.update(kw)
         return ctx
@@ -295,7 +298,7 @@ class WujiaPortalReturn(http.Controller):
             return ctx
         ctx.update({
             'approved_uom': rr.approved_uom_id.name or '',
-            'product_label': rr.compensation_product_id.display_name or '—',
+            'product_label': portal_product_name(rr.compensation_product_id) or '—',
             'status': _translated(COMPENSATION_STATUS_LABELS).get(
                 rr.compensation_status,
                 (rr.compensation_status or '—', status_badge('neutral'))),
@@ -343,7 +346,7 @@ class WujiaPortalReturn(http.Controller):
             o.id: [{
                 'id': line.id,
                 'label': '%s (%s %s)' % (
-                    line.product_id.display_name,
+                    portal_product_name(line.product_id),
                     ('{:,.0f}'.format(line.product_uom_qty or 0)),
                     line.product_uom_id.name or ''),
             } for line in o.order_line if line.product_id]

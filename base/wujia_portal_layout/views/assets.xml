@@ -9,7 +9,7 @@
         <template id="asset_theme">
             <!-- Design tokens + Inter font load BEFORE Vuexy vendor so our :root
                  vars win. ?v= busts browser cache — bump on every CSS change. -->
-            <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/css/_variables.css?v=1339"/>
+            <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/css/_variables.css?v=1340"/>
             <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/fonts/inter/inter.css"/>
             <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/fonts/feather/iconfont.css?v=1010"/>
             <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/css/bootstrap.css"/>
@@ -76,20 +76,20 @@
         <template id="asset_style_css">
             <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/css/orgchart/jquery.orgchart.css"/>
             <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/css/orgchart/org_chart_customize.css"/>
-            <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/css/style.css?v=1339"/>
+            <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/css/style.css?v=1340"/>
             <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/css/dashboard.css?v=1010"/>
             <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/css/member_dashboard_style.css?v=1060"/>
             <!-- Wujia overrides load last so they win over Vuexy + legacy style.css. -->
-            <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/css/_wujia_theme.css?v=1339"/>
-            <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/css/_components.css?v=1339"/>
+            <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/css/_wujia_theme.css?v=1340"/>
+            <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/css/_components.css?v=1340"/>
             <!-- Sprint PC-1: desktop component layer (BA pc_source_ui_v1_4). -->
-            <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/css/_pc_components.css?v=1339"/>
+            <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/css/_pc_components.css?v=1340"/>
             <!-- PC "Tài khoản" section (Figma wujia_pc_01..09_v3). -->
-            <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/css/_pc_account.css?v=1339"/>
+            <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/css/_pc_account.css?v=1340"/>
             <!-- C6: trạng thái tương tác dùng chung — phải nạp SAU cùng. -->
-            <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/css/_interaction.css?v=1339"/>
+            <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/css/_interaction.css?v=1340"/>
             <!-- E8b: SidebarNavigation CMP-SN-001 — sau _interaction để thắng rule Vuexy/legacy. -->
-            <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/css/_sidebar.css?v=1339"/>
+            <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/css/_sidebar.css?v=1340"/>
         </template>
 
 
@@ -111,7 +111,7 @@
              <script src="/wujia_portal_layout/static/assets/js/wujia_password_toggle.js?v=1161"/>
              <!-- E6a (2026-09-20): loading + chặn submit lặp cho Button CMP-BTN-001.
                   G5 (WJ-ORD-027): thêm sự kiện wj:form:release cho form ở lại trang. -->
-             <script src="/wujia_portal_layout/static/assets/js/wujia_button_loading.js?v=1322"/>
+             <script src="/wujia_portal_layout/static/assets/js/wujia_button_loading.js?v=1340"/>
 
 
              <script src="/wujia_portal_layout/static/assets/js/scripts/sweetalert2@11.js"/>
@@ -126,7 +126,7 @@
             <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/css/pages/authentication.css"/>
             <!-- Sprint 39: Figma WJ_Auth_*_v3. Template này CHỈ được gọi trong login_layout
                  → blast radius = riêng màn đăng nhập/quên mật khẩu. Nạp sau cùng để thắng Vuexy. -->
-            <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/css/_auth.css?v=1339"/>
+            <link rel="stylesheet" type="text/css" href="/wujia_portal_layout/static/assets/css/_auth.css?v=1340"/>
         </template>
        
     </data>

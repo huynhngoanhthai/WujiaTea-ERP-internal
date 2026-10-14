@@ -455,3 +455,30 @@ class TestKhoangNgayNguocE4c(TransactionCase):
         self.assertNotIn('.wj-filter-error {',
                          _css('wujia_portal_purchase_history',
                               'static/src/css/portal_history.css'))
+
+
+@tagged('post_install', '-at_install', 'wujia_filter_e4')
+class TestFilterEnterAndInvalidRange(TransactionCase):
+    """FB-04 Enter ≡ bấm Tìm kiếm ở mọi màn AJAX; FB-05 ngày ngược có trạng thái riêng."""
+
+    def test_enter_trong_o_loc_gui_form_o_khuon_chung(self):
+        js = _css('wujia_portal_base', 'static/src/js/wj_ajax_list.js')
+        self.assertIn('document.addEventListener("keydown", onKeydown)', js)
+        handler = js[js.index('function onKeydown'):js.index('function onPopState')]
+        self.assertIn('ev.key !== "Enter"', handler)
+        # Enter lúc đang gõ dấu là chốt chữ, không phải gửi form.
+        self.assertIn('ev.isComposing', handler)
+        self.assertIn('isFilterForm(el.form)', handler)
+        self.assertIn('el.form.requestSubmit()', handler)
+
+    def test_sau_man_co_ngay_goi_khoi_nhac_o_ca_hai_kho(self):
+        for module, filename in _DATE_VIEWS:
+            with self.subTest(view=filename):
+                self.assertEqual(
+                    _raw(module, filename).count('t-call="wujia_portal_layout.wj_filter_invalid"'), 2)
+
+    def test_giao_hang_co_trang_thai_rieng_cho_ngay_nguoc(self):
+        """`empty` là "không có chuyến"; ngày ngược chưa hề truy vấn nên không được mượn nó."""
+        ctrl = _ctrl('wujia_portal_delivery')
+        branch = ctrl[ctrl.index('filter_error = date_range_error'):]
+        self.assertIn("'view_state': 'invalid'", branch[:branch.index('batches, pgn, chip_counts')])

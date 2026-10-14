@@ -14,7 +14,7 @@ from odoo.addons.wujia_portal_base.controllers.utils import (
     PAGE_SIZE_OPTIONS,
     batch_franchise_domain, build_pager, date_range_error, departure_label,
     departure_value, format_order_names,
-    group_counts, local_day_range_utc, own_pickings, parse_page_size, portal_tz,
+    group_counts, local_day_range_utc, own_pickings, parse_page_size, portal_product_name, portal_tz,
     to_local_dt,
     status_badge,
 )
@@ -146,7 +146,7 @@ class WujiaPortalDelivery(http.Controller):
         filter_error = date_range_error(date_from, date_to)
         if filter_error:
             return {
-                'no_franchise': False, 'batches': [], 'view_state': 'empty',
+                'no_franchise': False, 'batches': [], 'view_state': 'invalid',
                 'pgn': None, 'chip_counts': {},
                 'date_from': date_from, 'date_to': date_to, 'bs': bs, 'q': q,
                 'chip_qs': '', 'filter_error': filter_error,
@@ -264,7 +264,7 @@ class WujiaPortalDelivery(http.Controller):
             row = seen.get(prod.id)
             if row is None:
                 row = {
-                    'name': prod.display_name or prod.name or '—',
+                    'name': portal_product_name(prod) or '—',
                     'qty': 0.0,
                     'uom': mv.product_uom.name if mv.product_uom else (prod.uom_id.name or ''),
                 }
