@@ -56,7 +56,7 @@ Issue List 179 dòng: 152 Done · 6 Ready for Retest · 4 Need Clarification · 
 
 | Phiên | Issue | Nội dung | Module chính | Trạng thái |
 |---|---|---|---|---|
-| K0 | #139 · #73 · #37 | Enter gửi tìm kiếm + ngày ngược · H1 `payment-history` một tên · bỏ mã nội bộ khỏi tên sản phẩm | portal_layout (FilterBar), portal_debt, portal_report | ☐ |
+| K0 | #139 · #73 · #37 | Enter gửi tìm kiếm + ngày ngược · H1 `payment-history` một tên · bỏ mã nội bộ khỏi tên sản phẩm | portal_layout (FilterBar), portal_debt, portal_report |🟡 code `8c01ba9f`, chờ UAT + sheet |
 | K1 | #187 · #188 · #186 | Form Hỗ trợ một cấu hình PC/mobile (phân loại rỗng bắt buộc, 2 mức ưu tiên) · nhãn gắn control · metadata chi tiết ticket | wujia_support, portal_support | ☐ |
 | K2 | #182 | Shared Form Validation: Error Summary + lỗi tại field + `aria-*` + giữ dữ liệu khi server trả lỗi; áp `support/new`, `return/new`. Gộp H9 FormField của cụm H | portal_layout, portal_support, portal_return | ☐ |
 | K3 | #175 | Đổi trả: Home + danh sách + chi tiết theo cửa hàng đang chọn, bỏ Tổng tiền, thêm Sản phẩm · SL ĐVT | wujia_return, portal_return, portal_base | ☐ |
