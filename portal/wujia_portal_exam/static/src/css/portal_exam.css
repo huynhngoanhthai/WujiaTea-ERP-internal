@@ -417,6 +417,8 @@
     }
     .wujia-mexam-field::placeholder { color: var(--wujia-mexam-cal-muted); }
     .wujia-mexam-field:focus { border-color: var(--wujia-primary); }
+    .wujia-mexam-field[aria-invalid="true"] { border-color: var(--wujia-danger-text); }
+    .wujia-mexam-person-body > .wj-field-error { margin-top: -4px; }
     .wujia-mexam-field-row { display: flex; gap: 10px; }
     .wujia-mexam-field-row .wujia-mexam-field { flex: 1 1 0; min-width: 0; }
     .wujia-mexam-person-hint {
@@ -1315,20 +1317,12 @@
         row-gap: 27px;
         margin-top: 43px;
     }
-    /* 07_UIStates · 5. Lỗi dữ liệu người thi */
-    .wj-exam-pc-fielderr {
-        margin: 6px 0 0;
-        font-size: 12px;
-        font-weight: 700;
-        color: var(--wujia-danger-text);
-    }
     .wj-exam-pc-fieldhelp {
         margin: 8px 0 0;
         font-size: 12px;
         font-weight: 400;
         color: var(--wj-pc-muted);
     }
-    .wj-pc-field.is-invalid .wj-exam-pc-control { border-color: var(--wj-pc-red); }
 
     .wj-exam-pc-photolabel { display: block; margin: 29px 0 0; }
     .wj-exam-pc-photobox {

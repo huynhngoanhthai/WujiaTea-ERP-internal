@@ -56,6 +56,7 @@
         var personList = wizard.querySelector('[data-exam-personlist]');
         var personTpl = personList
             ? personList.querySelector('[data-exam-person]').cloneNode(true) : null;
+        if (personList) { renumberPeople(); }
 
         var courseId = 0;
         var courseName = '';
@@ -197,11 +198,26 @@
         function personRows() {
             return wizard.querySelectorAll('[data-exam-personlist] [data-exam-person]');
         }
+        // id ô + ô lỗi theo thứ tự người (wj_form_validate tìm lỗi qua `#<id>-err`).
+        function linkPersonFields(p, n) {
+            var title = m('person-n', 'Participant %s', n);
+            p.querySelectorAll('[data-exam-pfield]').forEach(function (inp) {
+                var key = inp.getAttribute('data-exam-pfield');
+                var err = p.querySelector('[data-exam-perr="' + key + '"]');
+                inp.id = 'wj-exam-m-p' + n + '-' + key;
+                inp.setAttribute('aria-label', title + ' — ' + (key === 'phone' ? m('lbl-phone', 'Phone number') : m('lbl-name', 'Full name')));
+                if (err) { err.id = inp.id + '-err'; }
+                if (inp.getAttribute('aria-invalid') === 'true' && err) {
+                    inp.setAttribute('aria-describedby', err.id);
+                }
+            });
+        }
         function renumberPeople() {
             var rows = personRows();
             rows.forEach(function (p, i) {
                 var nameEl = p.querySelector('.wujia-mexam-person-name');
                 if (nameEl) { nameEl.textContent = m('person-n', 'Participant %s', i + 1); }
+                linkPersonFields(p, i + 1);
                 var del = p.querySelector('[data-exam-person-del]');
                 var req = p.querySelector('[data-exam-person-req]');
                 // Người 1 bắt buộc, không xóa; còn lại xóa được.
@@ -226,6 +242,11 @@
                 if (inp.type === 'file') { inp._photoData = ''; }
                 else { inp.value = ''; }
             });
+            node.querySelectorAll('[aria-invalid]').forEach(function (el) {
+                el.removeAttribute('aria-invalid');
+                el.removeAttribute('aria-describedby');
+            });
+            node.querySelectorAll('[data-exam-perr]').forEach(function (el) { el.hidden = true; });
             var pt = node.querySelector('.wujia-mexam-photo-text');
             if (pt) { pt.textContent = m('add-photo', 'Add photo (optional)'); }
             clearPersonErr(node);
@@ -252,19 +273,28 @@
         /* Trả về danh sách participant hợp lệ, hoặc null nếu có lỗi (đã hiện). */
         function collectParticipants() {
             var out = [];
-            var ok = true;
+            var step = wizard.querySelector('[data-exam-step="3"]');
             personRows().forEach(function (person) {
                 clearPersonErr(person);
+                person.querySelectorAll('[data-exam-pfield]').forEach(function (inp) { inp.value = inp.value.trim(); });
+            });
+            if (step && window.wjFormValidate && window.wjFormValidate.check(step)) {
+                var firstBad = null;
+                personRows().forEach(function (person) {
+                    var bad = person.querySelector('[aria-invalid="true"]');
+                    if (bad) {
+                        person.classList.add('is-open');
+                        firstBad = firstBad || bad;
+                    }
+                });
+                if (firstBad) { firstBad.focus(); }
+                return null;
+            }
+            var ok = true;
+            personRows().forEach(function (person) {
                 var name = readField(person, 'employee_name');
                 var phone = readField(person, 'phone');
-                if (!name || !phone) {
-                    showPersonErr(person, m('need-name-phone', 'Full name and phone number are required.'));
-                    ok = false;
-                    return;
-                }
-                if (!PHONE_RE.test(phone)) {
-                    showPersonErr(person,
-                        m('phone-invalid', 'Invalid phone number (e.g. 0901234567).'));
+                if (!name || !PHONE_RE.test(phone)) {
                     ok = false;
                     return;
                 }

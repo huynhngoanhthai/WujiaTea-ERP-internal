@@ -9,3 +9,4 @@ from . import test_portal_exam_f12
 from . import test_jv3_i18n
 from . import test_i4b_exam
 from . import test_i8_photo_state
+from . import test_k2_form_validation

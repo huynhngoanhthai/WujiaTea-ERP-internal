@@ -2743,7 +2743,8 @@ label.wj-filter-search-field input { height: 38px; }
 .wj-field-error__icon { flex: 0 0 14px; font-size: 14px; line-height: 18px; }
 .wj-pc-control[aria-invalid="true"],
 .form-control[aria-invalid="true"],
-.form-select[aria-invalid="true"] { border-color: var(--wujia-danger-text); }
+.form-select[aria-invalid="true"],
+.wujia-maccount-input[aria-invalid="true"] { border-color: var(--wujia-danger-text); }
 
 /* Hộp tổng lỗi đầu form (wj_error_summary) — link gạch chân nhảy tới ô lỗi. */
 .wj-error-summary {

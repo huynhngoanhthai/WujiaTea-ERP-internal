@@ -48,9 +48,15 @@
         }
     }
 
-    function controls(form) {
-        return Array.prototype.filter.call(form.elements, function (el) {
-            return el.willValidate && el.type !== "hidden";
+    // Phạm vi kiểm: form `data-wj-validate`, hoặc khối `data-wj-validate-scope` (wizard gửi JSON, không có <form>).
+    function scopeOf(el) {
+        return el.closest && el.closest("form[data-wj-validate], [data-wj-validate-scope]");
+    }
+
+    function controls(root) {
+        var els = root.tagName === "FORM" ? root.elements : root.querySelectorAll("input, select, textarea");
+        return Array.prototype.filter.call(els, function (el) {
+            return el.willValidate && el.type !== "hidden" && scopeOf(el) === root;
         });
     }
 
@@ -108,8 +114,20 @@
         input.setCustomValidity(bad ? "invalid" : "");
     }
 
+    function checkMatch(ctrl) {
+        var other = ctrl.hasAttribute("data-wj-match") && document.getElementById(ctrl.getAttribute("data-wj-match"));
+        if (other) {
+            ctrl.setCustomValidity(ctrl.value && ctrl.value !== other.value ? "invalid" : "");
+        }
+    }
+
+    function checkRules(ctrl) {
+        checkFiles(ctrl);
+        checkMatch(ctrl);
+    }
+
     function labelOf(ctrl) {
-        var lab = ctrl.id && ctrl.form && ctrl.form.querySelector('label[for="' + ctrl.id + '"]');
+        var lab = ctrl.id && document.querySelector('label[for="' + ctrl.id + '"]');
         var text = lab ? lab.textContent : (ctrl.getAttribute("aria-label") || ctrl.name || "");
         return text.replace(/\s+/g, " ").replace(/\s*\*\s*$/, "").trim();
     }
@@ -150,7 +168,7 @@
     function init() {
         document.querySelectorAll("form[data-wj-validate]").forEach(function (form) {
             form.noValidate = true;
-            controls(form).forEach(checkFiles);
+            controls(form).forEach(checkRules);
             // Lỗi do server render sẵn (fe_show): nối aria + dựng hộp tổng + focus ô đầu ở khổ đang hiện.
             var bad = controls(form).filter(function (el) {
                 var err = errorEl(el);
@@ -164,25 +182,45 @@
         });
     }
 
+    // Kiểm cả phạm vi: đánh dấu + hộp tổng + focus ô sai đầu; trả số ô sai.
+    function validate(root) {
+        var bad = controls(root).filter(function (el) {
+            checkRules(el);
+            var invalid = !el.checkValidity();
+            mark(el, invalid);
+            return invalid;
+        });
+        renderSummary(root, bad);
+        if (bad.length) {
+            focusEl(bad[0]).focus();
+        }
+        return bad.length;
+    }
+
+    function reset(root) {
+        controls(root).forEach(function (el) { mark(el, false); });
+        renderSummary(root, []);
+    }
+
+    window.wjFormValidate = {
+        check: function (root) {
+            root.setAttribute("data-wj-validate-scope", "1");
+            return validate(root);
+        },
+        reset: reset,
+    };
+
     document.addEventListener("submit", function (ev) {
         var form = ev.target;
         if (!form || form.tagName !== "FORM" || !form.hasAttribute("data-wj-validate")) {
             return;
         }
-        var bad = controls(form).filter(function (el) {
-            checkFiles(el);
-            var invalid = !el.checkValidity();
-            mark(el, invalid);
-            return invalid;
-        });
-        renderSummary(form, bad);
-        if (!bad.length) {
+        if (!validate(form)) {
             return;
         }
         ev.preventDefault();
         ev.stopImmediatePropagation();
         form.dispatchEvent(new CustomEvent("wj:form:release", { bubbles: true }));
-        focusEl(bad[0]).focus();
     }, true);
 
     document.addEventListener("click", function (ev) {
@@ -196,19 +234,21 @@
     });
 
     function recheck(ev) {
-        var el = ev.target;
-        if (!el || !el.form || !el.form.hasAttribute("data-wj-validate")) {
+        var root = ev.target && scopeOf(ev.target);
+        if (!root) {
             return;
         }
-        if (el.type === "file") {
-            controls(el.form).forEach(checkFiles);
-        }
-        if (el.getAttribute("aria-invalid") === "true" && el.checkValidity()) {
-            mark(el, false);
-            var box = el.form.querySelector("[data-wj-error-summary]");
-            if (box && !box.hidden) {
-                renderSummary(el.form, invalidControls(el.form));
+        var changed = false;
+        controls(root).forEach(function (el) {
+            checkRules(el);
+            if (el.getAttribute("aria-invalid") === "true" && el.checkValidity()) {
+                mark(el, false);
+                changed = true;
             }
+        });
+        var box = root.querySelector("[data-wj-error-summary]");
+        if (changed && box && !box.hidden) {
+            renderSummary(root, invalidControls(root));
         }
     }
     document.addEventListener("input", recheck);

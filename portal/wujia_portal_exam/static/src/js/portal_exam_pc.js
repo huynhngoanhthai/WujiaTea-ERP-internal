@@ -106,7 +106,6 @@
         var phoneInput   = qs(root, "#wj_exam_p_phone");
         var birthInput   = qs(root, "#wj_exam_p_birth");
         var jobInput     = qs(root, "#wj_exam_p_job");
-        var phoneErr     = qs(root, "[data-wj-exam-phone-err]");
         var fieldHelp    = qs(root, "[data-wj-exam-field-help]");
         var modalTitle   = qs(partModal, ".wj-exam-pc-modal__title");
         var saveBtn      = qs(root, "[data-wj-exam-part-save]");
@@ -389,10 +388,9 @@
                 }
             }
         }
+        var partPanel = partModal && qs(partModal, ".wj-pc-modal__panel");
         function clearFieldInvalid() {
-            qsa(root, ".wj-exam-pc-formgrid .wj-pc-field").forEach(function (f) {
-                f.classList.remove("is-invalid");
-            });
+            if (partPanel && window.wjFormValidate) { window.wjFormValidate.reset(partPanel); }
         }
         function openParticipantModal(row) {
             editingRow = row || null;
@@ -404,7 +402,7 @@
             modalPhoto = row ? (row._wjPhoto || "") : "";
             fileInput.value = "";
             resetPhotoPreview();
-            hide(phoneErr); hide(fieldHelp); clearFieldInvalid();
+            hide(fieldHelp); clearFieldInvalid();
             if (modalTitle) { modalTitle.textContent = row ? m("modal-edit", "Edit participant") : m("modal-add", "Add participant"); }
             if (saveBtn) { saveBtn.textContent = row ? m("save", "Save") : m("add-person", "Add person"); }
             openModal("participant");
@@ -412,13 +410,13 @@
         function saveParticipant() {
             var name = nameInput ? nameInput.value.trim() : "";
             var phone = phoneInput ? phoneInput.value.trim() : "";
-            var phoneOk = PHONE_RE.test(phone);
-            if (!name || !phoneOk) {
-                if (phoneInput) { phoneInput.closest(".wj-pc-field").classList.toggle("is-invalid", !phoneOk); }
-                if (nameInput) { nameInput.closest(".wj-pc-field").classList.toggle("is-invalid", !name); }
-                if (!phoneOk) { show(phoneErr); } else { hide(phoneErr); }
-                if (fieldHelp) { fieldHelp.textContent = m("name-phone-required", "Name and phone number are required."); }
-                show(fieldHelp);
+            if (nameInput) { nameInput.value = name; }
+            if (phoneInput) { phoneInput.value = phone; }
+            hide(fieldHelp);
+            if (partPanel && window.wjFormValidate && window.wjFormValidate.check(partPanel)) {
+                return;
+            }
+            if (!name || !PHONE_RE.test(phone)) {
                 return;
             }
             var part = {
@@ -438,7 +436,7 @@
                 }
                 partBody.appendChild(buildRow(part, modalPhoto));
             }
-            hide(fieldHelp); hide(phoneErr); clearFieldInvalid();
+            hide(fieldHelp); clearFieldInvalid();
             togglePlaceholder(); updateQuota(); closeModals();
         }
 

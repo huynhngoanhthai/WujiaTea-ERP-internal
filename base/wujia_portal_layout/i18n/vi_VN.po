@@ -1142,3 +1142,25 @@ msgstr "← Quay lại đăng nhập"
 #. module: wujia_portal_layout
 msgid "Please fix {n} field(s) below."
 msgstr "Vui lòng sửa {n} trường bên dưới."
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py
+msgid "Enter a new password of at least 8 characters."
+msgstr "Nhập mật khẩu mới có ít nhất 8 ký tự."
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py
+msgid "Enter your current password."
+msgstr "Nhập mật khẩu hiện tại."
+
+#. module: wujia_portal_layout
+msgid "Re-enter the new password exactly as above."
+msgstr "Nhập lại đúng mật khẩu mới ở trên."
+
+#. module: wujia_portal_layout
+#. odoo-python
+#: code:addons/wujia_portal_layout/controllers/portal.py
+msgid "Re-enter the new password."
+msgstr "Nhập lại mật khẩu mới."

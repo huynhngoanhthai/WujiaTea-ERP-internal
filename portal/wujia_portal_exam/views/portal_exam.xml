@@ -279,7 +279,11 @@
             <t t-set="_ex_m_choose_slot">Please choose an exam time slot.</t>
             <t t-set="_ex_m_check_people">Check the participant details again.</t>
             <t t-set="_ex_m_conn_retry">Connection error. Please try again.</t>
-            <t t-set="_ex_msgs" t-value="{'data-wj-msg-pick-day': _ex_m_pick_day, 'data-wj-msg-no-slots': _ex_m_no_slots, 'data-wj-msg-loading-slots': _ex_m_loading_slots, 'data-wj-msg-load-failed': _ex_m_load_failed, 'data-wj-msg-load-error': _ex_m_load_error, 'data-wj-msg-slot-title': _ex_m_slot_title, 'data-wj-msg-slot-title-empty': _ex_m_slot_title_empty, 'data-wj-msg-seats-left': _ex_m_seats_left, 'data-wj-msg-max-hint': _ex_m_max_hint, 'data-wj-msg-max-hint-none': _ex_m_max_hint_none, 'data-wj-msg-edit-row': _ex_m_edit_row, 'data-wj-msg-remove-row': _ex_m_remove_row, 'data-wj-msg-photo-uploaded': _ex_m_photo_uploaded, 'data-wj-msg-photo-missing': _ex_m_photo_missing, 'data-wj-msg-photo-chosen': _ex_m_photo_chosen, 'data-wj-msg-photo-none': _ex_m_photo_none, 'data-wj-msg-photo-selected': _ex_m_photo_selected, 'data-wj-msg-photo-choose': _ex_m_photo_choose, 'data-wj-msg-photo-change': _ex_m_photo_change, 'data-wj-msg-modal-edit': _ex_m_modal_edit, 'data-wj-msg-modal-add': _ex_m_modal_add, 'data-wj-msg-save': _ex_m_save, 'data-wj-msg-add-person': _ex_m_add_person, 'data-wj-msg-name-phone-required': _ex_m_name_phone_required, 'data-wj-msg-max-people': _ex_m_max_people, 'data-wj-msg-photo-invalid': _ex_m_photo_invalid, 'data-wj-msg-no-slot-title': _ex_m_no_slot_title, 'data-wj-msg-no-slot-text': _ex_m_no_slot_text, 'data-wj-msg-no-people-title': _ex_m_no_people_title, 'data-wj-msg-no-people-text': _ex_m_no_people_text, 'data-wj-msg-missing-title': _ex_m_missing_title, 'data-wj-msg-missing-text': _ex_m_missing_text, 'data-wj-msg-submit-failed': _ex_m_submit_failed, 'data-wj-msg-keep-data': _ex_m_keep_data, 'data-wj-msg-submit-failed-title': _ex_m_submit_failed_title, 'data-wj-msg-conn-error': _ex_m_conn_error, 'data-wj-msg-no-open-slots': _ex_m_no_open_slots, 'data-wj-msg-person-n': _ex_m_person_n, 'data-wj-msg-add-photo': _ex_m_add_photo, 'data-wj-msg-need-name-phone': _ex_m_need_name_phone, 'data-wj-msg-phone-invalid': _ex_m_phone_invalid, 'data-wj-msg-cf-phone': _ex_m_cf_phone, 'data-wj-msg-cf-birth': _ex_m_cf_birth, 'data-wj-msg-cf-job': _ex_m_cf_job, 'data-wj-msg-photo-too-big': _ex_m_photo_too_big, 'data-wj-msg-choose-slot': _ex_m_choose_slot, 'data-wj-msg-check-people': _ex_m_check_people, 'data-wj-msg-conn-retry': _ex_m_conn_retry}"/>
+            <t t-set="_ex_e_name">Enter the participant's full name.</t>
+            <t t-set="_ex_e_phone">Enter a valid phone number (e.g. 0901234567).</t>
+            <t t-set="_ex_l_name">Full name</t>
+            <t t-set="_ex_l_phone">Phone number</t>
+            <t t-set="_ex_msgs" t-value="{'data-wj-msg-pick-day': _ex_m_pick_day, 'data-wj-msg-no-slots': _ex_m_no_slots, 'data-wj-msg-loading-slots': _ex_m_loading_slots, 'data-wj-msg-load-failed': _ex_m_load_failed, 'data-wj-msg-load-error': _ex_m_load_error, 'data-wj-msg-slot-title': _ex_m_slot_title, 'data-wj-msg-slot-title-empty': _ex_m_slot_title_empty, 'data-wj-msg-seats-left': _ex_m_seats_left, 'data-wj-msg-max-hint': _ex_m_max_hint, 'data-wj-msg-max-hint-none': _ex_m_max_hint_none, 'data-wj-msg-edit-row': _ex_m_edit_row, 'data-wj-msg-remove-row': _ex_m_remove_row, 'data-wj-msg-photo-uploaded': _ex_m_photo_uploaded, 'data-wj-msg-photo-missing': _ex_m_photo_missing, 'data-wj-msg-photo-chosen': _ex_m_photo_chosen, 'data-wj-msg-photo-none': _ex_m_photo_none, 'data-wj-msg-photo-selected': _ex_m_photo_selected, 'data-wj-msg-photo-choose': _ex_m_photo_choose, 'data-wj-msg-photo-change': _ex_m_photo_change, 'data-wj-msg-modal-edit': _ex_m_modal_edit, 'data-wj-msg-modal-add': _ex_m_modal_add, 'data-wj-msg-save': _ex_m_save, 'data-wj-msg-add-person': _ex_m_add_person, 'data-wj-msg-name-phone-required': _ex_m_name_phone_required, 'data-wj-msg-max-people': _ex_m_max_people, 'data-wj-msg-photo-invalid': _ex_m_photo_invalid, 'data-wj-msg-no-slot-title': _ex_m_no_slot_title, 'data-wj-msg-no-slot-text': _ex_m_no_slot_text, 'data-wj-msg-no-people-title': _ex_m_no_people_title, 'data-wj-msg-no-people-text': _ex_m_no_people_text, 'data-wj-msg-missing-title': _ex_m_missing_title, 'data-wj-msg-missing-text': _ex_m_missing_text, 'data-wj-msg-submit-failed': _ex_m_submit_failed, 'data-wj-msg-keep-data': _ex_m_keep_data, 'data-wj-msg-submit-failed-title': _ex_m_submit_failed_title, 'data-wj-msg-conn-error': _ex_m_conn_error, 'data-wj-msg-no-open-slots': _ex_m_no_open_slots, 'data-wj-msg-person-n': _ex_m_person_n, 'data-wj-msg-add-photo': _ex_m_add_photo, 'data-wj-msg-need-name-phone': _ex_m_need_name_phone, 'data-wj-msg-phone-invalid': _ex_m_phone_invalid, 'data-wj-msg-cf-phone': _ex_m_cf_phone, 'data-wj-msg-cf-birth': _ex_m_cf_birth, 'data-wj-msg-cf-job': _ex_m_cf_job, 'data-wj-msg-photo-too-big': _ex_m_photo_too_big, 'data-wj-msg-choose-slot': _ex_m_choose_slot, 'data-wj-msg-check-people': _ex_m_check_people, 'data-wj-msg-conn-retry': _ex_m_conn_retry, 'data-wj-msg-lbl-name': _ex_l_name, 'data-wj-msg-lbl-phone': _ex_l_phone}"/>
 
             <!-- Desktop: tối ưu cho mobile -->
             <!-- ===== PC ≥992px — Figma WJ_Exam_PC v1.2 · 02_Create (4891:2042)
@@ -565,19 +569,27 @@
                         </button>
                         <h2 class="wj-pc-modal__title wj-exam-pc-modal__title">Add participant</h2>
                         <p class="wj-exam-pc-modal__sub">Enter the exact details of the person taking the exam.</p>
+                        <t t-call="wujia_portal_layout.wj_error_summary"/>
 
                         <div class="wj-exam-pc-formgrid">
                             <div class="wj-pc-field wj-exam-pc-field">
                                 <label class="wj-pc-field__label wj-exam-pc-flabel" for="wj_exam_p_name">Full name *</label>
                                 <input id="wj_exam_p_name" type="text" name="employee_name" required="required"
                                        class="wj-pc-control wj-exam-pc-control" placeholder="Nguyen Van An"/>
+                                <t t-call="wujia_portal_layout.wj_field_error">
+                                    <t t-set="fe_for" t-value="'wj_exam_p_name'"/>
+                                    <t t-set="fe_msg" t-value="_ex_e_name"/>
+                                </t>
                             </div>
                             <div class="wj-pc-field wj-exam-pc-field">
                                 <label class="wj-pc-field__label wj-exam-pc-flabel" for="wj_exam_p_phone">Phone number *</label>
-                                <input id="wj_exam_p_phone" type="text" name="phone" required="required"
+                                <input id="wj_exam_p_phone" type="tel" name="phone" required="required"
+                                       pattern="(0|\+84)[0-9]{8,10}" inputmode="tel"
                                        class="wj-pc-control wj-exam-pc-control" placeholder="0901234567"/>
-                                <!-- 07_UIStates · 5. Lỗi dữ liệu người thi -->
-                                <p class="wj-exam-pc-fielderr" data-wj-exam-phone-err="1" hidden="hidden">Invalid phone number (e.g. 0901234567).</p>
+                                <t t-call="wujia_portal_layout.wj_field_error">
+                                    <t t-set="fe_for" t-value="'wj_exam_p_phone'"/>
+                                    <t t-set="fe_msg" t-value="_ex_e_phone"/>
+                                </t>
                             </div>
                             <div class="wj-pc-field wj-exam-pc-field">
                                 <label class="wj-pc-field__label wj-exam-pc-flabel" for="wj_exam_p_birth">Year of birth</label>
@@ -849,6 +861,7 @@
                         </div>
                         <span class="wujia-mexam-stepbadge">Step 3/4</span>
                     </div>
+                    <t t-call="wujia_portal_layout.wj_error_summary"/>
 
                     <t t-call="wujia_portal_layout.wj_surface_card">
                         <t t-set="sc_variant" t-value="'summary'"/>
@@ -882,8 +895,18 @@
                                 </button>
                             </div>
                             <div class="wujia-mexam-person-body">
-                                <input class="wujia-mexam-field" name="employee_name" placeholder="Participant&#x27;s full name"/>
-                                <input class="wujia-mexam-field" name="phone" placeholder="Phone number (e.g. 0901234567)" inputmode="tel"/>
+                                <input class="wujia-mexam-field" name="employee_name" placeholder="Participant&#x27;s full name"
+                                       required="required" data-exam-pfield="name"/>
+                                <p class="wj-field-error" data-exam-perr="name" hidden="hidden">
+                                    <i class="feather icon-alert-circle wj-field-error__icon" aria-hidden="true"/>
+                                    <span t-out="_ex_e_name"/>
+                                </p>
+                                <input class="wujia-mexam-field" name="phone" placeholder="Phone number (e.g. 0901234567)" type="tel" inputmode="tel"
+                                       required="required" pattern="(0|\+84)[0-9]{8,10}" data-exam-pfield="phone"/>
+                                <p class="wj-field-error" data-exam-perr="phone" hidden="hidden">
+                                    <i class="feather icon-alert-circle wj-field-error__icon" aria-hidden="true"/>
+                                    <span t-out="_ex_e_phone"/>
+                                </p>
                                 <div class="wujia-mexam-field-row">
                                     <input class="wujia-mexam-field" name="birth_year" placeholder="Year of birth" inputmode="numeric"/>
                                     <input class="wujia-mexam-field" name="job_position" placeholder="Job title"/>
