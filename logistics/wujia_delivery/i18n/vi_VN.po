@@ -460,3 +460,95 @@ msgstr "Wujia Fleet Vehicle — Xe"
 msgid "Wujia dispatch"
 msgstr "Điều phối Wujia"
 
+#. module: wujia_delivery
+#: model:ir.ui.menu,name:wujia_delivery.menu_wujia_delivery_pending_dispatch
+#: model:ir.actions.act_window,name:wujia_delivery.action_stock_picking_pending_dispatch
+msgid "Pending Dispatch"
+msgstr "Chờ điều phối"
+
+#. module: wujia_delivery
+#: model:ir.ui.menu,name:wujia_delivery.menu_wujia_delivery_batch
+#: model:ir.actions.act_window,name:wujia_delivery.action_stock_picking_batch_wujia_delivery
+msgid "Batches"
+msgstr "Chuyến hàng / Batch"
+
+#. module: wujia_delivery
+#: model:ir.ui.menu,name:wujia_delivery.menu_wujia_delivery_tracking
+#: model:ir.actions.act_window,name:wujia_delivery.action_stock_picking_delivery_tracking
+msgid "Delivery Tracking"
+msgstr "Theo dõi giao hàng"
+
+#. module: wujia_delivery
+#: model:ir.ui.menu,name:wujia_delivery.menu_wujia_delivery_report_fleet
+#: model:ir.actions.act_window,name:wujia_delivery.action_wujia_fleet_shipping_report
+msgid "Carrier Expense Report"
+msgstr "Báo cáo chi phí nhà xe"
+
+#. module: wujia_delivery
+#: model:ir.ui.menu,name:wujia_delivery.menu_wujia_delivery_report_franchise
+#: model:ir.actions.act_window,name:wujia_delivery.action_wujia_franchise_shipping_report
+msgid "Franchise Shipping Cost Report"
+msgstr "Báo cáo cước vận chuyển nhượng quyền"
+
+#. module: wujia_delivery
+#: model_terms:ir.ui.view,arch_db:wujia_delivery.view_stock_picking_batch_search_wujia_delivery
+msgid "Unassigned"
+msgstr "Chưa gán xe"
+
+#. module: wujia_delivery
+#: model_terms:ir.ui.view,arch_db:wujia_delivery.view_stock_picking_batch_search_wujia_delivery
+msgid "In dispatch"
+msgstr "Đang điều phối"
+
+#. module: wujia_delivery
+#: model_terms:ir.ui.view,arch_db:wujia_delivery.view_stock_picking_batch_search_wujia_delivery
+msgid "Completed"
+msgstr "Hoàn thành"
+
+#. module: wujia_delivery
+#: model_terms:ir.ui.view,arch_db:wujia_delivery.view_stock_picking_batch_search_wujia_delivery
+msgid "Cancelled"
+msgstr "Đã hủy"
+
+#. module: wujia_delivery
+#: model_terms:ir.ui.view,arch_db:wujia_delivery.view_stock_picking_batch_search_wujia_delivery
+msgid "Has a vehicle"
+msgstr "Đã có xe"
+
+#. module: wujia_delivery
+#: model_terms:ir.ui.view,arch_db:wujia_delivery.view_stock_picking_batch_search_wujia_delivery
+msgid "Overloaded"
+msgstr "Quá tải"
+
+#. module: wujia_delivery
+#: model_terms:ir.ui.view,arch_db:wujia_delivery.view_stock_picking_batch_search_wujia_delivery
+#: model_terms:ir.ui.view,arch_db:wujia_delivery.view_stock_picking_search_wujia_delivery
+msgid "In transit"
+msgstr "Đang vận chuyển"
+
+#. module: wujia_delivery
+#: model_terms:ir.ui.view,arch_db:wujia_delivery.view_stock_picking_batch_search_wujia_delivery
+#: model_terms:ir.ui.view,arch_db:wujia_delivery.view_stock_picking_search_wujia_delivery
+msgid "Carrier"
+msgstr "Nhà xe"
+
+#. module: wujia_delivery
+#: model_terms:ir.ui.view,arch_db:wujia_delivery.view_stock_picking_batch_search_wujia_delivery
+msgid "Dispatch status"
+msgstr "Trạng thái điều phối"
+
+#. module: wujia_delivery
+#: model_terms:ir.ui.view,arch_db:wujia_delivery.view_stock_picking_search_wujia_delivery
+msgid "Has a franchise store"
+msgstr "Có cửa hàng nhượng quyền"
+
+#. module: wujia_delivery
+#: model_terms:ir.ui.view,arch_db:wujia_delivery.view_stock_picking_search_wujia_delivery
+msgid "Store"
+msgstr "Cửa hàng"
+
+#. module: wujia_delivery
+#: model_terms:ir.ui.view,arch_db:wujia_delivery.view_stock_picking_search_wujia_delivery
+msgid "Delivery status"
+msgstr "Trạng thái giao hàng"
+

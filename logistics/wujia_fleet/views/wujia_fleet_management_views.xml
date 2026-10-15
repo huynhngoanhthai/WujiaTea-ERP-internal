@@ -147,6 +147,30 @@
         </field>
     </record>
 
+    <!-- BE-002: Kanban-first action — Vehicle Status (Tình trạng xe) -->
+    <record id="action_wujia_fleet_management_kanban" model="ir.actions.act_window">
+        <field name="name">Vehicle Status</field>
+        <field name="res_model">wujia.fleet.management</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="context">{'search_default_group_status': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Register the first vehicle</p>
+            <p>Each vehicle belongs to one carrier and one vehicle type. Track status in Kanban view.</p>
+        </field>
+    </record>
+
+    <!-- BE-002: List-first action — Vehicle List (Danh sách xe) -->
+    <record id="action_wujia_fleet_management_list" model="ir.actions.act_window">
+        <field name="name">Vehicle List</field>
+        <field name="res_model">wujia.fleet.management</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Register the first vehicle</p>
+            <p>Each vehicle belongs to one carrier (provider) and one vehicle type (fleet_type) — the payload comes from the vehicle type.</p>
+        </field>
+    </record>
+
+    <!-- Kept for backward compatibility with existing references -->
     <record id="action_wujia_fleet_management" model="ir.actions.act_window">
         <field name="name">Vehicles</field>
         <field name="res_model">wujia.fleet.management</field>

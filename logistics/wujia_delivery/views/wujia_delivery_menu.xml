@@ -2,44 +2,45 @@
 <odoo>
 
     <!--
-        Bổ sung dưới gốc menu Fleet Management (từ wujia_fleet):
-          ├─ Operation
-          │   ├─ Vehicles            (wujia_fleet)
-          │   ├─ Pricelists          (wujia_fleet)
-          │   ├─ Delivery Orders     (NEW — stock.picking filtered)
-          │   └─ Batch Management    (NEW — stock.picking.batch filtered)
-          ├─ Report                  (NEW)
-          │   ├─ Fleet Expense Report
-          │   └─ Franchise Shipping Cost Report
-          └─ Configuration           (wujia_fleet)
+        BE-002: wujia_delivery menu items — mounted under wujia_fleet's 4-group structure.
+          Group 1: Dispatch
+            - Pending Dispatch Pickings  (NEW action)
+            - Batches
+            - Delivery Tracking          (NEW action)
+          Group 4: Reports
+            - Carrier Expense Report
+            - Franchise Shipping Cost Report
     -->
 
-    <menuitem id="menu_wujia_delivery_orders"
-              name="Delivery Orders"
-              parent="wujia_fleet.menu_wujia_fleet_operation_root"
-              action="action_stock_picking_wujia_delivery"
-              sequence="30"/>
+    <!-- ── Group 1: Dispatch ─────────────────────────────────── -->
+    <menuitem id="menu_wujia_delivery_pending_dispatch"
+              name="Pending Dispatch"
+              parent="wujia_fleet.menu_wujia_fleet_dispatch_root"
+              action="action_stock_picking_pending_dispatch"
+              sequence="10"/>
 
     <menuitem id="menu_wujia_delivery_batch"
-              name="Batch Management"
-              parent="wujia_fleet.menu_wujia_fleet_operation_root"
+              name="Batches"
+              parent="wujia_fleet.menu_wujia_fleet_dispatch_root"
               action="action_stock_picking_batch_wujia_delivery"
-              sequence="40"/>
+              sequence="20"/>
 
-    <menuitem id="menu_wujia_delivery_report_root"
-              name="Reports"
-              parent="wujia_fleet.menu_wujia_fleet_root"
-              sequence="50"/>
+    <menuitem id="menu_wujia_delivery_tracking"
+              name="Delivery Tracking"
+              parent="wujia_fleet.menu_wujia_fleet_dispatch_root"
+              action="action_stock_picking_delivery_tracking"
+              sequence="30"/>
 
+    <!-- ── Group 4: Reports ───────────────────────────────────── -->
     <menuitem id="menu_wujia_delivery_report_fleet"
-              name="Fleet Expense Report"
-              parent="menu_wujia_delivery_report_root"
+              name="Carrier Expense Report"
+              parent="wujia_fleet.menu_wujia_fleet_report_root"
               action="action_wujia_fleet_shipping_report"
               sequence="10"/>
 
     <menuitem id="menu_wujia_delivery_report_franchise"
               name="Franchise Shipping Cost Report"
-              parent="menu_wujia_delivery_report_root"
+              parent="wujia_fleet.menu_wujia_fleet_report_root"
               action="action_wujia_franchise_shipping_report"
               sequence="20"/>
 

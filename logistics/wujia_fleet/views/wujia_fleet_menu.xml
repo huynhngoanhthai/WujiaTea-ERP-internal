@@ -2,57 +2,79 @@
 <odoo>
 
     <!--
-        Menu Fleet Management:
-          ├─ Operation
-          │   ├─ Vehicles                (wujia.fleet.management)
-          │   └─ Pricelists              (wujia.fleet.pricelist)
-          └─ Configuration
-              ├─ Fleet Providers         (wujia.fleet.provider)
-              └─ Fleet Types             (wujia.fleet.type)
+        BE-002: Fleet & Delivery Menu — Restructured into 4 groups
+          1. Dispatch   (sequence=10)  — Pending Dispatch, Batches, Delivery Tracking
+          2. Fleet      (sequence=20)  — Vehicle Status (Kanban), Vehicle List, Provider, Type
+          3. Pricelist  (sequence=30)  — Carrier Pricelist
+          4. Reports    (sequence=40)  — Carrier Expense, Franchise Shipping Cost
 
-        Phần Delivery Orders / Batch / Reports do module wujia_delivery
-        thêm vào dưới gốc menu_wujia_fleet_root.
+        Delivery menus (Dispatch group + Reports) are added by wujia_delivery
+        via parent ref to ids declared here.
     -->
 
+    <!-- ── Root App ──────────────────────────────────────────── -->
     <menuitem id="menu_wujia_fleet_root"
-              name="Fleet Management"
+              name="Fleet &amp; Delivery"
               web_icon="wujia_fleet,static/description/icon.png"
               sequence="25"
               groups="group_fleet_user"/>
 
-    <menuitem id="menu_wujia_fleet_operation_root"
-              name="Operation"
+    <!-- ── Group 1: Dispatch (owned by wujia_delivery) ───────── -->
+    <menuitem id="menu_wujia_fleet_dispatch_root"
+              name="Dispatch"
               parent="menu_wujia_fleet_root"
+              sequence="10"
+              groups="group_fleet_user"/>
+
+    <!-- ── Group 2: Fleet ─────────────────────────────────────── -->
+    <menuitem id="menu_wujia_fleet_fleet_root"
+              name="Fleet"
+              parent="menu_wujia_fleet_root"
+              sequence="20"
+              groups="group_fleet_user"/>
+
+    <menuitem id="menu_wujia_fleet_status"
+              name="Vehicle Status"
+              parent="menu_wujia_fleet_fleet_root"
+              action="action_wujia_fleet_management_kanban"
               sequence="10"/>
 
     <menuitem id="menu_wujia_fleet_management"
-              name="Vehicles"
-              parent="menu_wujia_fleet_operation_root"
-              action="action_wujia_fleet_management"
-              sequence="10"/>
-
-    <menuitem id="menu_wujia_fleet_pricelist"
-              name="Pricelists"
-              parent="menu_wujia_fleet_operation_root"
-              action="action_wujia_fleet_pricelist"
+              name="Vehicle List"
+              parent="menu_wujia_fleet_fleet_root"
+              action="action_wujia_fleet_management_list"
               sequence="20"/>
-
-    <menuitem id="menu_wujia_fleet_config_root"
-              name="Configuration"
-              parent="menu_wujia_fleet_root"
-              sequence="90"
-              groups="group_fleet_manager"/>
 
     <menuitem id="menu_wujia_fleet_provider"
-              name="Fleet Providers"
-              parent="menu_wujia_fleet_config_root"
+              name="Carriers"
+              parent="menu_wujia_fleet_fleet_root"
               action="action_wujia_fleet_provider"
-              sequence="10"/>
+              sequence="30"/>
 
     <menuitem id="menu_wujia_fleet_type"
-              name="Fleet Types"
-              parent="menu_wujia_fleet_config_root"
+              name="Vehicle Types"
+              parent="menu_wujia_fleet_fleet_root"
               action="action_wujia_fleet_type"
-              sequence="20"/>
+              sequence="40"/>
+
+    <!-- ── Group 3: Pricelist ─────────────────────────────────── -->
+    <menuitem id="menu_wujia_fleet_pricelist_root"
+              name="Pricelist"
+              parent="menu_wujia_fleet_root"
+              sequence="30"
+              groups="group_fleet_user"/>
+
+    <menuitem id="menu_wujia_fleet_pricelist"
+              name="Carrier Pricelist"
+              parent="menu_wujia_fleet_pricelist_root"
+              action="action_wujia_fleet_pricelist"
+              sequence="10"/>
+
+    <!-- ── Group 4: Reports (items added by wujia_delivery) ───── -->
+    <menuitem id="menu_wujia_fleet_report_root"
+              name="Reports"
+              parent="menu_wujia_fleet_root"
+              sequence="40"
+              groups="group_fleet_user"/>
 
 </odoo>

@@ -709,3 +709,114 @@ msgstr "Cước phí xe tải đông lạnh 1T9 đi tỉnh"
 msgid "tons"
 msgstr "tấn"
 
+#. module: wujia_fleet
+#: model:ir.ui.menu,name:wujia_fleet.menu_wujia_fleet_root
+msgid "Fleet & Delivery"
+msgstr "Đội xe & Giao hàng"
+
+#. module: wujia_fleet
+#: model:ir.ui.menu,name:wujia_fleet.menu_wujia_fleet_dispatch_root
+msgid "Dispatch"
+msgstr "Điều phối"
+
+#. module: wujia_fleet
+#: model:ir.ui.menu,name:wujia_fleet.menu_wujia_fleet_fleet_root
+msgid "Fleet"
+msgstr "Đội xe"
+
+#. module: wujia_fleet
+#: model:ir.ui.menu,name:wujia_fleet.menu_wujia_fleet_status
+#: model:ir.actions.act_window,name:wujia_fleet.action_wujia_fleet_management_kanban
+msgid "Vehicle Status"
+msgstr "Tình trạng xe"
+
+#. module: wujia_fleet
+#: model:ir.ui.menu,name:wujia_fleet.menu_wujia_fleet_management
+#: model:ir.actions.act_window,name:wujia_fleet.action_wujia_fleet_management_list
+msgid "Vehicle List"
+msgstr "Danh sách xe"
+
+#. module: wujia_fleet
+#: model:ir.ui.menu,name:wujia_fleet.menu_wujia_fleet_provider
+#: model:ir.actions.act_window,name:wujia_fleet.action_wujia_fleet_provider
+msgid "Carriers"
+msgstr "Đơn vị vận tải"
+
+#. module: wujia_fleet
+#: model:ir.ui.menu,name:wujia_fleet.menu_wujia_fleet_type
+#: model:ir.actions.act_window,name:wujia_fleet.action_wujia_fleet_type
+msgid "Vehicle Types"
+msgstr "Loại xe"
+
+#. module: wujia_fleet
+#: model:ir.ui.menu,name:wujia_fleet.menu_wujia_fleet_pricelist_root
+msgid "Pricelist"
+msgstr "Bảng giá"
+
+#. module: wujia_fleet
+#: model:ir.ui.menu,name:wujia_fleet.menu_wujia_fleet_pricelist
+#: model:ir.actions.act_window,name:wujia_fleet.action_wujia_fleet_pricelist
+msgid "Carrier Pricelist"
+msgstr "Bảng giá cước vận tải"
+
+#. module: wujia_fleet
+#: model:ir.ui.menu,name:wujia_fleet.menu_wujia_fleet_report_root
+msgid "Reports"
+msgstr "Báo cáo"
+
+#. module: wujia_fleet
+#: model_terms:ir.ui.view,arch_db:wujia_fleet.view_wujia_fleet_management_list
+#: model_terms:ir.ui.view,arch_db:wujia_fleet.view_wujia_fleet_management_form
+msgid "Vehicle"
+msgstr "Xe"
+
+#. module: wujia_fleet
+#: model_terms:ir.ui.view,arch_db:wujia_fleet.view_wujia_fleet_management_form
+msgid "Identification"
+msgstr "Thông tin nhận diện"
+
+#. module: wujia_fleet
+#: model_terms:ir.ui.view,arch_db:wujia_fleet.view_wujia_fleet_management_form
+msgid "Specifications"
+msgstr "Thông số kỹ thuật"
+
+#. module: wujia_fleet
+#: model_terms:ir.ui.view,arch_db:wujia_fleet.view_wujia_fleet_management_form
+msgid "Driver"
+msgstr "Tài xế"
+
+#. module: wujia_fleet
+#: model_terms:ir.ui.view,arch_db:wujia_fleet.view_wujia_fleet_management_form
+msgid "Allocation"
+msgstr "Phân bổ"
+
+#. module: wujia_fleet
+#: model_terms:ir.ui.view,arch_db:wujia_fleet.view_wujia_fleet_management_search
+msgid "Available"
+msgstr "Sẵn sàng"
+
+#. module: wujia_fleet
+#: model_terms:ir.ui.view,arch_db:wujia_fleet.view_wujia_fleet_management_search
+msgid "In transit"
+msgstr "Đang vận chuyển"
+
+#. module: wujia_fleet
+#: model_terms:ir.ui.view,arch_db:wujia_fleet.view_wujia_fleet_management_search
+msgid "Under maintenance"
+msgstr "Đang bảo dưỡng"
+
+#. module: wujia_fleet
+#: model_terms:ir.ui.view,arch_db:wujia_fleet.view_wujia_fleet_management_search
+msgid "Carrier"
+msgstr "Đơn vị vận tải"
+
+#. module: wujia_fleet
+#: model_terms:ir.ui.view,arch_db:wujia_fleet.view_wujia_fleet_management_search
+msgid "Vehicle type"
+msgstr "Loại xe"
+
+#. module: wujia_fleet
+#: model_terms:ir.ui.view,arch_db:wujia_fleet.view_wujia_fleet_management_search
+msgid "Status"
+msgstr "Trạng thái"
+

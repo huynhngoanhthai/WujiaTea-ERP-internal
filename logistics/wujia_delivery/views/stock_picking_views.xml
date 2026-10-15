@@ -91,4 +91,35 @@
         <field name="context">{'search_default_filter_has_franchise': 1, 'contact_display': 'partner_address'}</field>
     </record>
 
+    <!-- BE-002: Phiếu chờ xếp chuyến — outgoing, not done/cancel, not in any batch -->
+    <record id="action_stock_picking_pending_dispatch" model="ir.actions.act_window">
+        <field name="name">Pending Dispatch</field>
+        <field name="res_model">stock.picking</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[
+            ('picking_type_id.code', '=', 'outgoing'),
+            ('state', 'not in', ('done', 'cancel')),
+            ('batch_id', '=', False)
+        ]</field>
+        <field name="context">{'contact_display': 'partner_address'}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No pickings waiting for dispatch</p>
+            <p>Outgoing pickings that are confirmed or ready but not yet assigned to a delivery batch.</p>
+        </field>
+    </record>
+
+    <!-- BE-002: Theo dõi giao hàng — all outgoing, group by store/vehicle/batch/date -->
+    <record id="action_stock_picking_delivery_tracking" model="ir.actions.act_window">
+        <field name="name">Delivery Tracking</field>
+        <field name="res_model">stock.picking</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('picking_type_id.code', '=', 'outgoing')]</field>
+        <field name="context">{'contact_display': 'partner_address'}</field>
+        <field name="search_view_id" ref="view_stock_picking_search_wujia_delivery"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No delivery orders found</p>
+            <p>Track all outgoing deliveries. Group by Store, Vehicle, Batch or Date.</p>
+        </field>
+    </record>
+
 </odoo>
