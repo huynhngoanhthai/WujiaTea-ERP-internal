@@ -266,7 +266,57 @@ msgstr "Phường/Xã thuộc %s"
 msgid "e.g. HCMC districts 1-3"
 msgstr "VD: TP HCM Quận 1-3"
 
+
 #. module: wujia_core
 msgid "e.g. KV-HCM-01."
 msgstr "Ví dụ KV-HCM-01."
 
+#. module: wujia_core
+#: model_terms:ir.ui.menu,name:wujia_core.menu_wujia_core_root
+msgid "Wujia Core"
+msgstr "Wujia Core"
+
+#. module: wujia_core
+#: model_terms:ir.ui.menu,name:wujia_core.menu_wujia_core_permissions
+msgid "Permissions"
+msgstr "Phân quyền & Bảo mật"
+
+#. module: wujia_core
+#: model_terms:ir.ui.menu,name:wujia_core.menu_wujia_core_configuration
+msgid "Configuration"
+msgstr "Cấu hình hệ thống"
+
+#. module: wujia_core
+#: model_terms:ir.ui.menu,name:wujia_core.menu_wujia_core_users
+msgid "Users"
+msgstr "Người dùng"
+
+#. module: wujia_core
+#: model_terms:ir.ui.menu,name:wujia_core.menu_wujia_core_groups
+msgid "Groups"
+msgstr "Nhóm quyền"
+
+#. module: wujia_core
+#: model_terms:ir.ui.menu,name:wujia_core.menu_wujia_core_access_rights
+msgid "Access Rights"
+msgstr "Quyền truy cập"
+
+#. module: wujia_core
+#: model_terms:ir.ui.menu,name:wujia_core.menu_wujia_core_record_rules
+msgid "Record Rules"
+msgstr "Quy tắc bản ghi"
+
+#. module: wujia_core
+#: model_terms:ir.ui.menu,name:wujia_core.menu_wujia_core_sequences
+msgid "Sequences"
+msgstr "Mã tự động (Sequences)"
+
+#. module: wujia_core
+#: model_terms:ir.ui.menu,name:wujia_core.menu_wujia_core_areas
+msgid "Areas"
+msgstr "Khu vực"
+
+#. module: wujia_core
+#: model_terms:ir.ui.menu,name:wujia_core.menu_wujia_core_wards
+msgid "Wards"
+msgstr "Phường/Xã"

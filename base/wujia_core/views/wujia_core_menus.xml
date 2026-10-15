@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- =========================================================
+         BE-001: Wujia Core — Admin Shared Menu
+         Root App + Permissions group + Configuration group
+         Visible only to base.group_system (Settings / IT Admin)
+    ========================================================= -->
+
+    <!-- Root application menu (App Switcher icon) -->
+    <menuitem
+        id="menu_wujia_core_root"
+        name="Wujia Core"
+        sequence="5"
+        groups="base.group_system"
+        web_icon="wujia_core,static/description/icon.png"
+    />
+
+    <!-- ── Group 1: Permissions ──────────────────────────────── -->
+    <menuitem
+        id="menu_wujia_core_permissions"
+        name="Permissions"
+        parent="menu_wujia_core_root"
+        sequence="10"
+        groups="base.group_system"
+    />
+
+    <menuitem
+        id="menu_wujia_core_users"
+        name="Users"
+        parent="menu_wujia_core_permissions"
+        action="base.action_res_users"
+        sequence="10"
+        groups="base.group_system"
+    />
+
+    <menuitem
+        id="menu_wujia_core_groups"
+        name="Groups"
+        parent="menu_wujia_core_permissions"
+        action="base.action_res_groups"
+        sequence="20"
+        groups="base.group_system"
+    />
+
+    <menuitem
+        id="menu_wujia_core_access_rights"
+        name="Access Rights"
+        parent="menu_wujia_core_permissions"
+        action="base.ir_access_act"
+        sequence="30"
+        groups="base.group_system"
+    />
+
+    <menuitem
+        id="menu_wujia_core_record_rules"
+        name="Record Rules"
+        parent="menu_wujia_core_permissions"
+        action="base.action_rule"
+        sequence="40"
+        groups="base.group_system"
+    />
+
+    <!-- ── Group 2: Configuration ────────────────────────────── -->
+    <menuitem
+        id="menu_wujia_core_configuration"
+        name="Configuration"
+        parent="menu_wujia_core_root"
+        sequence="20"
+        groups="base.group_system"
+    />
+
+    <menuitem
+        id="menu_wujia_core_sequences"
+        name="Sequences"
+        parent="menu_wujia_core_configuration"
+        action="base.ir_sequence_form"
+        sequence="10"
+        groups="base.group_system"
+    />
+
+    <menuitem
+        id="menu_wujia_core_areas"
+        name="Areas"
+        parent="menu_wujia_core_configuration"
+        action="wujia_core.action_res_area"
+        sequence="20"
+        groups="base.group_system"
+    />
+
+    <menuitem
+        id="menu_wujia_core_wards"
+        name="Wards"
+        parent="menu_wujia_core_configuration"
+        action="wujia_core.action_res_ward"
+        sequence="30"
+        groups="base.group_system"
+    />
+
+</odoo>

@@ -1,6 +1,6 @@
 {
     'name': 'Wujia Core',
-    'version': '19.0.2.1.1',
+    'version': '19.0.2.2.0',
     'category': 'Wujia',
     'summary': 'Shared core master data: areas, wards, mixins, helpers',
     'description': """
@@ -21,6 +21,7 @@ depend on wujia_core only for this master data, without knowing about franchises
         'views/res_area_views.xml',
         'views/res_config_settings_views.xml',
         'views/webclient_templates.xml',
+        'views/wujia_core_menus.xml',
         'data/brand_defaults.xml',
     ],
     'assets': {
@@ -29,6 +30,6 @@ depend on wujia_core only for this master data, without knowing about franchises
         ],
     },
     'installable': True,
-    'application': False,
+    'application': True,
     'auto_install': False,
 }
