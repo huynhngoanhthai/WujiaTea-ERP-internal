@@ -1,6 +1,6 @@
 {
     'name': 'Wujia Delivery',
-    'version': '19.0.1.2.0',
+    'version': '19.0.1.3.0',
     'category': 'Wujia',
     'summary': 'Delivery dispatch: assign vehicles to batches, compute costs, fleet / store reports',
     'author': 'WujiaTea',
@@ -26,9 +26,11 @@ Reports (SQL view):
     ],
     'data': [
         'security/ir.model.access.csv',
+        'views/stock_picking_type_views.xml',
         'views/stock_picking_views.xml',
         'views/stock_picking_batch_views.xml',
         'views/wujia_fleet_management_views.xml',
+        'wizard/stock_picking_to_batch_views.xml',
         'report/wujia_fleet_shipping_report_views.xml',
         'report/wujia_franchise_shipping_report_views.xml',
         'views/wujia_delivery_menu.xml',

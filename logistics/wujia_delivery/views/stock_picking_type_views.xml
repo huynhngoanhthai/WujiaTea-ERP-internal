@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_picking_type_form_inherit_wujia_delivery" model="ir.ui.view">
+        <field name="name">stock.picking.type.form.inherit.wujia.delivery</field>
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.view_picking_type_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='first']/group[last()]" position="inside">
+                <field name="requires_transport_planning"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

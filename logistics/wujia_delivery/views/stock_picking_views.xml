@@ -91,20 +91,95 @@
         <field name="context">{'search_default_filter_has_franchise': 1, 'contact_display': 'partner_address'}</field>
     </record>
 
-    <!-- BE-002: Phiếu chờ xếp chuyến — outgoing, not done/cancel, not in any batch -->
+    <!-- BE-003: Dedicated List View for Pending Dispatch (Phiếu chờ sắp xe) -->
+    <record id="view_stock_picking_tree_pending_dispatch" model="ir.ui.view">
+        <field name="name">stock.picking.tree.pending.dispatch</field>
+        <field name="model">stock.picking</field>
+        <field name="arch" type="xml">
+            <list string="Pending Dispatch" sample="1">
+                <field name="name" decoration-bf="1"/>
+                <field name="franchise_id" optional="show"/>
+                <field name="partner_state_id" optional="show"/>
+                <field name="area_id" optional="show"/>
+                <field name="location_id" optional="show"/>
+                <field name="location_dest_id" optional="show"/>
+                <field name="scheduled_date" optional="show"/>
+                <field name="planned_weight" optional="show" widget="float"/>
+                <field name="state" optional="show" widget="badge"
+                       decoration-info="state == 'assigned'"
+                       decoration-warning="state in ('confirmed', 'waiting')"/>
+                <field name="origin" optional="show"/>
+                <field name="batch_id" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- BE-003: Dedicated Search View for Pending Dispatch -->
+    <record id="view_stock_picking_search_pending_dispatch" model="ir.ui.view">
+        <field name="name">stock.picking.search.pending.dispatch</field>
+        <field name="model">stock.picking</field>
+        <field name="arch" type="xml">
+            <search string="Pending Dispatch">
+                <field name="name" string="Transfer" filter_domain="['|', ('name', 'ilike', self), ('origin', 'ilike', self)]"/>
+                <field name="franchise_id"/>
+                <field name="partner_id"/>
+                <field name="partner_state_id"/>
+                <field name="area_id"/>
+                <field name="location_id"/>
+                <field name="location_dest_id"/>
+                <field name="picking_type_id"/>
+                <field name="origin"/>
+                <separator/>
+                <filter string="Due Today / Overdue" name="filter_due_or_overdue"
+                        domain="['|', ('scheduled_date', '&lt;=', current_date), ('scheduled_date', '=', False)]"/>
+                <separator/>
+                <filter string="Waiting" name="filter_waiting"
+                        domain="[('state', 'in', ('waiting', 'confirmed'))]"/>
+                <filter string="Ready" name="filter_ready"
+                        domain="[('state', '=', 'assigned')]"/>
+                <separator/>
+                <group>
+                    <filter string="Scheduled Date" name="group_scheduled_date"
+                            context="{'group_by': 'scheduled_date:day'}"/>
+                    <filter string="Province/State" name="group_province"
+                            context="{'group_by': 'partner_state_id'}"/>
+                    <filter string="Area" name="group_area"
+                            context="{'group_by': 'area_id'}"/>
+                    <filter string="Franchise Store" name="group_franchise"
+                            context="{'group_by': 'franchise_id'}"/>
+                    <filter string="Source Location" name="group_location"
+                            context="{'group_by': 'location_id'}"/>
+                    <filter string="Operation Type" name="group_picking_type"
+                            context="{'group_by': 'picking_type_id'}"/>
+                    <filter string="Status" name="group_state"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- BE-003: Action Phiếu chờ sắp xe — requires_transport_planning=True, batch_id=False, state in ('waiting','confirmed','assigned') -->
     <record id="action_stock_picking_pending_dispatch" model="ir.actions.act_window">
         <field name="name">Pending Dispatch</field>
         <field name="res_model">stock.picking</field>
         <field name="view_mode">list,form</field>
         <field name="domain">[
-            ('picking_type_id.code', '=', 'outgoing'),
-            ('state', 'not in', ('done', 'cancel')),
-            ('batch_id', '=', False)
+            ('batch_id', '=', False),
+            ('state', 'in', ('waiting', 'confirmed', 'assigned')),
+            ('picking_type_id.requires_transport_planning', '=', True)
         ]</field>
-        <field name="context">{'contact_display': 'partner_address'}</field>
+        <field name="context">{
+            'search_default_filter_due_or_overdue': 1,
+            'contact_display': 'partner_address'
+        }</field>
+        <field name="search_view_id" ref="view_stock_picking_search_pending_dispatch"/>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('view_stock_picking_tree_pending_dispatch')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('stock.view_picking_form')}),
+        ]"/>
         <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">No pickings waiting for dispatch</p>
-            <p>Outgoing pickings that are confirmed or ready but not yet assigned to a delivery batch.</p>
+            <p class="o_view_nocontent_smiling_face">No pickings waiting for transport planning</p>
+            <p>Pickings requiring transport planning that are waiting, confirmed, or assigned, and not yet added to a batch.</p>
         </field>
     </record>
 

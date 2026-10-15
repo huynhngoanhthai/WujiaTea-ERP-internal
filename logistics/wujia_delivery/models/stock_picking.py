@@ -52,6 +52,14 @@ class StockPicking(models.Model):
         readonly=True,
         index=True,
     )
+    partner_state_id = fields.Many2one(
+        'res.country.state',
+        string='Province/State',
+        related='partner_id.state_id',
+        store=True,
+        readonly=True,
+        index=True,
+    )
     delivery_sequence = fields.Integer(
         string='Delivery sequence',
         default=10,

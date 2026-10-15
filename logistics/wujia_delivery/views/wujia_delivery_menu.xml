@@ -12,6 +12,10 @@
             - Franchise Shipping Cost Report
     -->
 
+    <!-- Set default action of Root App menu to Pending Dispatch -->
+    <menuitem id="wujia_fleet.menu_wujia_fleet_root"
+              action="action_stock_picking_pending_dispatch"/>
+
     <!-- ── Group 1: Dispatch ─────────────────────────────────── -->
     <menuitem id="menu_wujia_delivery_pending_dispatch"
               name="Pending Dispatch"

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_stock_picking_to_batch_form_inherit_wujia_delivery" model="ir.ui.view">
+        <field name="name">stock.picking.to.batch.form.inherit.wujia.delivery</field>
+        <field name="model">stock.picking.to.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch.stock_picking_to_batch_form"/>
+        <field name="arch" type="xml">
+            <!-- Dynamic Alert Banner at top of wizard -->
+            <xpath expr="//group" position="before">
+                <field name="alert_level" invisible="1"/>
+                <field name="picking_ids" invisible="1"/>
+                <field name="is_over_capacity" invisible="1"/>
+
+                <div class="alert alert-danger mb-3 py-2" role="alert" invisible="alert_level != 'danger'">
+                    <i class="fa fa-exclamation-triangle me-2 fa-lg" title="Overload Alert"/>
+                    <field name="alert_message" class="fw-bold" readonly="1" nolabel="1"/>
+                </div>
+                <div class="alert alert-warning mb-3 py-2" role="alert" invisible="alert_level != 'warning'">
+                    <i class="fa fa-warning me-2 fa-lg" title="Warning"/>
+                    <field name="alert_message" class="fw-bold" readonly="1" nolabel="1"/>
+                </div>
+                <div class="alert alert-success mb-3 py-2" role="alert" invisible="alert_level != 'success'">
+                    <i class="fa fa-check-circle me-2 fa-lg" title="Valid"/>
+                    <field name="alert_message" class="fw-bold" readonly="1" nolabel="1"/>
+                </div>
+                <div class="alert alert-info mb-3 py-2" role="alert" invisible="alert_level != 'info'">
+                    <i class="fa fa-info-circle me-2 fa-lg" title="Information"/>
+                    <field name="alert_message" readonly="1" nolabel="1"/>
+                </div>
+            </xpath>
+
+            <!-- Mode new: vehicle fields -->
+            <xpath expr="//field[@name='description']" position="after">
+                <field name="vehicle_id"
+                       invisible="mode == 'existing'"
+                       required="mode == 'new'"
+                       options="{'no_create': True, 'no_open': True}"/>
+                <field name="provider_id" invisible="mode == 'existing' or not vehicle_id"/>
+            </xpath>
+
+            <!-- Mode existing: show assigned vehicle of the batch -->
+            <xpath expr="//field[@name='batch_id']" position="after">
+                <field name="vehicle_id"
+                       string="Trip Vehicle"
+                       invisible="mode == 'new'"
+                       readonly="1"
+                       options="{'no_open': True}"/>
+                <field name="provider_id"
+                       invisible="mode == 'new' or not vehicle_id"/>
+            </xpath>
+
+            <!-- Second column: Payload & Metrics -->
+            <xpath expr="//group/group" position="after">
+                <group string="Payload &amp; Dispatch Metrics">
+                    <field name="picking_count"/>
+                    <field name="store_count"/>
+                    <field name="selected_weight" widget="float"/>
+                    <field name="current_batch_weight"
+                           invisible="mode == 'new'"
+                           widget="float"/>
+                    <field name="resulting_weight" widget="float" class="fw-bold"/>
+                    <field name="vehicle_capacity_kg" widget="float"/>
+                    <field name="capacity_utilization_ratio"
+                           widget="percentage"
+                           decoration-danger="capacity_utilization_ratio &gt; 1"
+                           decoration-success="capacity_utilization_ratio &lt;= 1 and capacity_utilization_ratio &gt; 0"
+                           class="fw-bold"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

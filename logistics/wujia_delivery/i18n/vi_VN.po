@@ -552,3 +552,197 @@ msgstr "Cửa hàng"
 msgid "Delivery status"
 msgstr "Trạng thái giao hàng"
 
+#. module: wujia_delivery
+#: model:ir.model.fields,field_description:wujia_delivery.field_stock_picking_type__requires_transport_planning
+msgid "Requires Transport Planning"
+msgstr "Cần sắp xe"
+
+#. module: wujia_delivery
+#: model:ir.model.fields,help:wujia_delivery.field_stock_picking_type__requires_transport_planning
+msgid "If checked, transfer orders of this operation type require vehicle and dispatch planning."
+msgstr "Nếu chọn, các phiếu chuyển kho thuộc kiểu hoạt động này sẽ cần được sắp xe và điều phối chuyến."
+
+#. module: wujia_delivery
+#: code:wujia_delivery/models/stock_picking_type.py:0
+msgid "Only Fleet Managers or Inventory Managers can modify the transport planning setting."
+msgstr "Chỉ Quản lý Vận tải hoặc Quản lý Kho mới có quyền thay đổi cấu hình sắp xe."
+
+#. module: wujia_delivery
+#: model:ir.actions.act_window,name:wujia_delivery.action_stock_picking_pending_dispatch
+#: model:ir.ui.menu,name:wujia_delivery.menu_wujia_delivery_pending_dispatch
+#: model_terms:ir.ui.view,arch_db:wujia_delivery.view_stock_picking_tree_pending_dispatch
+#: model_terms:ir.ui.view,arch_db:wujia_delivery.view_stock_picking_search_pending_dispatch
+msgid "Pending Dispatch"
+msgstr "Phiếu chờ sắp xe"
+
+#. module: wujia_delivery
+#: model_terms:ir.ui.view,arch_db:wujia_delivery.action_stock_picking_pending_dispatch
+msgid "No pickings waiting for transport planning"
+msgstr "Không có phiếu nào đang chờ sắp xe"
+
+#. module: wujia_delivery
+#: model_terms:ir.ui.view,arch_db:wujia_delivery.action_stock_picking_pending_dispatch
+msgid "Pickings requiring transport planning that are waiting, confirmed, or assigned, and not yet added to a batch."
+msgstr "Các phiếu chuyển kho cần sắp xe đang ở trạng thái chờ hoặc sẵn sàng và chưa được đưa vào chuyến xe."
+
+#. module: wujia_delivery
+#: model_terms:ir.ui.view,arch_db:wujia_delivery.view_stock_picking_search_pending_dispatch
+msgid "Due Today / Overdue"
+msgstr "Đến hạn hôm nay / Quá hạn"
+
+#. module: wujia_delivery
+#: model_terms:ir.ui.view,arch_db:wujia_delivery.view_stock_picking_search_pending_dispatch
+msgid "Source Location"
+msgstr "Điểm xuất hàng"
+
+#. module: wujia_delivery
+#: model_terms:ir.ui.view,arch_db:wujia_delivery.view_stock_picking_search_pending_dispatch
+msgid "Operation Type"
+msgstr "Kiểu hoạt động"
+
+#. module: wujia_delivery
+#: model_terms:ir.ui.view,arch_db:wujia_delivery.view_stock_picking_search_pending_dispatch
+#: model:ir.model.fields,field_description:wujia_delivery.field_stock_picking__partner_state_id
+msgid "Province/State"
+msgstr "Tỉnh/Thành phố"
+
+#. module: wujia_delivery
+#: model_terms:ir.ui.view,arch_db:wujia_delivery.view_stock_picking_search_pending_dispatch
+msgid "Franchise Store"
+msgstr "Cửa hàng nhượng quyền"
+
+#. module: wujia_delivery
+#: model:ir.model.fields,field_description:wujia_delivery.field_stock_picking_to_batch__picking_count
+msgid "Selected Pickings"
+msgstr "Số phiếu chọn"
+
+#. module: wujia_delivery
+#: model:ir.model.fields,field_description:wujia_delivery.field_stock_picking_to_batch__store_count
+msgid "Unique Stores"
+msgstr "Số cửa hàng duy nhất"
+
+#. module: wujia_delivery
+#: model:ir.model.fields,field_description:wujia_delivery.field_stock_picking_to_batch__selected_weight
+msgid "Selected Weight (kg)"
+msgstr "Tải trọng chọn (kg)"
+
+#. module: wujia_delivery
+#: model:ir.model.fields,field_description:wujia_delivery.field_stock_picking_to_batch__current_batch_weight
+msgid "Current Batch Weight (kg)"
+msgstr "Tải hiện có của chuyến (kg)"
+
+#. module: wujia_delivery
+#: model:ir.model.fields,field_description:wujia_delivery.field_stock_picking_to_batch__resulting_weight
+msgid "Resulting Weight (kg)"
+msgstr "Tải sau khi thêm (kg)"
+
+#. module: wujia_delivery
+#: model:ir.model.fields,field_description:wujia_delivery.field_stock_picking_to_batch__capacity_utilization_ratio
+msgid "Capacity Utilisation"
+msgstr "Tỷ lệ tải trọng"
+
+#. module: wujia_delivery
+#: model:ir.model.fields,field_description:wujia_delivery.field_stock_picking_to_batch__vehicle_capacity_kg
+msgid "Vehicle Capacity (kg)"
+msgstr "Tải trọng xe (kg)"
+
+#. module: wujia_delivery
+#: model:ir.model.fields,field_description:wujia_delivery.field_stock_picking_to_batch__vehicle_id
+msgid "Delivery Vehicle"
+msgstr "Xe giao hàng"
+
+#. module: wujia_delivery
+#: model_terms:ir.ui.view,arch_db:wujia_delivery.view_stock_picking_to_batch_form_inherit_wujia_delivery
+msgid "Payload & Dispatch Metrics"
+msgstr "Tải trọng & Chỉ số điều phối"
+
+#. module: wujia_delivery
+#: code:wujia_delivery/wizard/stock_picking_to_batch.py:0
+msgid "Please select a delivery vehicle to inspect load capacity."
+msgstr "Vui lòng chọn xe giao hàng để kiểm tra tải trọng."
+
+#. module: wujia_delivery
+#: code:wujia_delivery/wizard/stock_picking_to_batch.py:0
+msgid "WARNING: VEHICLE OVERLOAD! Exceeds capacity by %.1f kg (Total: %.1f kg / Max: %.1f kg)."
+msgstr "CẢNH BÁO: VƯỢT TẢI TRỌNG XE! Vượt quá %.1f kg (Tổng: %.1f kg / Tối đa: %.1f kg)."
+
+#. module: wujia_delivery
+#: code:wujia_delivery/wizard/stock_picking_to_batch.py:0
+msgid "WARNING: Some products have no weight specified; load capacity cannot be accurately verified (Recorded: %.1f kg / Max: %.1f kg)."
+msgstr "CẢNH BÁO: Có sản phẩm chưa khai báo trọng lượng; không thể xác định chính xác tải trọng xe (Đã ghi nhận: %.1f kg / Tối đa: %.1f kg)."
+
+#. module: wujia_delivery
+#: code:wujia_delivery/wizard/stock_picking_to_batch.py:0
+msgid "VALID: Reached %.1f%% of vehicle capacity (%.1f kg / %.1f kg)."
+msgstr "HỢP LỆ: Đạt %.1f%% tải trọng xe (%.1f kg / %.1f kg)."
+
+#. module: wujia_delivery
+#: code:wujia_delivery/wizard/stock_picking_to_batch.py:0
+msgid "All selected pickings must belong to the same company."
+msgstr "Tất cả các phiếu được chọn phải thuộc cùng một công ty."
+
+#. module: wujia_delivery
+#: code:wujia_delivery/wizard/stock_picking_to_batch.py:0
+msgid "All selected pickings must have the same operation type."
+msgstr "Tất cả các phiếu được chọn phải có cùng kiểu hoạt động."
+
+#. module: wujia_delivery
+#: code:wujia_delivery/wizard/stock_picking_to_batch.py:0
+msgid "All selected pickings must have the same source location."
+msgstr "Tất cả các phiếu được chọn phải có cùng điểm xuất hàng."
+
+#. module: wujia_delivery
+#: code:wujia_delivery/wizard/stock_picking_to_batch.py:0
+msgid "The following picking(s) are already assigned to another batch transfer: %s. Please refresh the list and try again."
+msgstr "Các phiếu sau đây đã được gán vào chuyến xe khác: %s. Vui lòng làm mới danh sách và thử lại."
+
+#. module: wujia_delivery
+#: code:wujia_delivery/wizard/stock_picking_to_batch.py:0
+msgid "The following picking(s) are already completed or cancelled: %s. Please refresh the list and try again."
+msgstr "Các phiếu sau đây đã hoàn thành hoặc bị hủy: %s. Vui lòng làm mới danh sách và thử lại."
+
+#. module: wujia_delivery
+#: code:wujia_delivery/wizard/stock_picking_to_batch.py:0
+msgid "Please select a delivery vehicle for the new batch transfer."
+msgstr "Vui lòng chọn xe giao hàng cho chuyến xe mới."
+
+#. module: wujia_delivery
+#: code:wujia_delivery/wizard/stock_picking_to_batch.py:0
+msgid "Cannot add pickings to a batch that has already departed, completed, or been cancelled."
+msgstr "Không thể thêm phiếu vào chuyến xe đã xuất phát, đã hoàn tất hoặc đã bị hủy."
+
+#. module: wujia_delivery
+#: code:wujia_delivery/wizard/stock_picking_to_batch.py:0
+msgid "The selected batch transfer must have an assigned vehicle."
+msgstr "Chuyến xe được chọn bắt buộc phải có xe giao hàng."
+
+#. module: wujia_delivery
+#: code:wujia_delivery/wizard/stock_picking_to_batch.py:0
+msgid "The selected batch belongs to a different company."
+msgstr "Chuyến xe được chọn thuộc công ty khác."
+
+#. module: wujia_delivery
+#: code:wujia_delivery/wizard/stock_picking_to_batch.py:0
+msgid "The selected batch has a different source location."
+msgstr "Chuyến xe được chọn có điểm xuất hàng khác."
+
+#. module: wujia_delivery
+#: code:wujia_delivery/wizard/stock_picking_to_batch.py:0
+msgid "Vehicle overload detected (%.1f kg over capacity). Only Fleet Managers or Inventory Managers can approve overloaded dispatch."
+msgstr "Phát hiện vượt tải trọng xe (vượt %.1f kg). Chỉ Quản lý Vận tải hoặc Quản lý Kho mới có quyền duyệt sắp chuyến vượt tải."
+
+#. module: wujia_delivery
+#: code:wujia_delivery/wizard/stock_picking_to_batch.py:0
+msgid "The following batch transfer has been created"
+msgstr "Chuyến xe sau đây đã được tạo"
+
+#. module: wujia_delivery
+#: code:wujia_delivery/wizard/stock_picking_to_batch.py:0
+msgid "The following batch transfer has been updated"
+msgstr "Chuyến xe sau đây đã được cập nhật"
+
+#. module: wujia_delivery
+#: model_terms:ir.ui.view,arch_db:wujia_delivery.view_stock_picking_to_batch_form_inherit_wujia_delivery
+msgid "Trip Vehicle"
+msgstr "Xe của chuyến"
+
