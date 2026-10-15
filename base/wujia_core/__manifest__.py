@@ -22,6 +22,8 @@ depend on wujia_core only for this master data, without knowing about franchises
         'views/res_config_settings_views.xml',
         'views/webclient_templates.xml',
         'views/wujia_core_menus.xml',
+        'views/res_users_views.xml',
+        'views/wujia_user_menu_tree_wizard_views.xml',
         'data/brand_defaults.xml',
     ],
     'assets': {

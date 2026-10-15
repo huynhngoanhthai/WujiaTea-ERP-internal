@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Form View for wujia.user.menu.tree.wizard -->
+    <record id="view_wujia_user_menu_tree_wizard_form" model="ir.ui.view">
+        <field name="name">wujia.user.menu.tree.wizard.form</field>
+        <field name="model">wujia.user.menu.tree.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Permission Tree" create="false" edit="false">
+                <sheet>
+                    <div class="oe_title mb-3">
+                        <h2 class="mb-1">
+                            <span class="text-muted">User: </span>
+                            <field name="user_name" class="oe_inline fw-bold"/>
+                            <span class="text-muted"> (</span>
+                            <field name="user_login" class="oe_inline text-primary"/>
+                            <span class="text-muted">)</span>
+                        </h2>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12 col-md-6">
+                            <div class="alert alert-info py-2 mb-0 d-flex justify-content-between align-items-center">
+                                <span>Accessible Menus:</span>
+                                <span class="badge text-bg-primary fs-6">
+                                    <field name="accessible_menu_count"/> / <field name="total_menu_count"/>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <notebook>
+                        <page string="Permission Tree" name="page_menu_tree">
+                            <field name="tree_html" widget="html" nolabel="1" readonly="1" options="{'cssReadonly': 'wj_tree_style'}"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <footer>
+                    <button string="Close" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

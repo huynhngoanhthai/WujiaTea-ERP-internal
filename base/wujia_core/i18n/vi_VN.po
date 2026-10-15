@@ -272,51 +272,98 @@ msgid "e.g. KV-HCM-01."
 msgstr "Ví dụ KV-HCM-01."
 
 #. module: wujia_core
-#: model_terms:ir.ui.menu,name:wujia_core.menu_wujia_core_root
+#: model:ir.ui.menu,name:wujia_core.menu_wujia_core_root
 msgid "Wujia Core"
 msgstr "Wujia Core"
 
 #. module: wujia_core
-#: model_terms:ir.ui.menu,name:wujia_core.menu_wujia_core_permissions
+#: model:ir.ui.menu,name:wujia_core.menu_wujia_core_permissions
 msgid "Permissions"
 msgstr "Phân quyền & Bảo mật"
 
 #. module: wujia_core
-#: model_terms:ir.ui.menu,name:wujia_core.menu_wujia_core_configuration
+#: model:ir.ui.menu,name:wujia_core.menu_wujia_core_configuration
 msgid "Configuration"
 msgstr "Cấu hình hệ thống"
 
 #. module: wujia_core
-#: model_terms:ir.ui.menu,name:wujia_core.menu_wujia_core_users
+#: model:ir.ui.menu,name:wujia_core.menu_wujia_core_users
 msgid "Users"
 msgstr "Người dùng"
 
 #. module: wujia_core
-#: model_terms:ir.ui.menu,name:wujia_core.menu_wujia_core_groups
+#: model:ir.ui.menu,name:wujia_core.menu_wujia_core_groups
 msgid "Groups"
 msgstr "Nhóm quyền"
 
 #. module: wujia_core
-#: model_terms:ir.ui.menu,name:wujia_core.menu_wujia_core_access_rights
+#: model:ir.ui.menu,name:wujia_core.menu_wujia_core_access_rights
 msgid "Access Rights"
 msgstr "Quyền truy cập"
 
 #. module: wujia_core
-#: model_terms:ir.ui.menu,name:wujia_core.menu_wujia_core_record_rules
+#: model:ir.ui.menu,name:wujia_core.menu_wujia_core_record_rules
 msgid "Record Rules"
 msgstr "Quy tắc bản ghi"
 
 #. module: wujia_core
-#: model_terms:ir.ui.menu,name:wujia_core.menu_wujia_core_sequences
+#: model:ir.ui.menu,name:wujia_core.menu_wujia_core_sequences
 msgid "Sequences"
 msgstr "Mã tự động (Sequences)"
 
 #. module: wujia_core
-#: model_terms:ir.ui.menu,name:wujia_core.menu_wujia_core_areas
+#: model:ir.ui.menu,name:wujia_core.menu_wujia_core_areas
 msgid "Areas"
 msgstr "Khu vực"
 
 #. module: wujia_core
-#: model_terms:ir.ui.menu,name:wujia_core.menu_wujia_core_wards
+#: model:ir.ui.menu,name:wujia_core.menu_wujia_core_wards
 msgid "Wards"
 msgstr "Phường/Xã"
+
+#. module: wujia_core
+#: code:wujia_core/models/res_users.py:0
+#: model_terms:ir.ui.view,arch_db:wujia_core.view_res_users_form_inherit_wujia_core
+#: model_terms:ir.ui.view,arch_db:wujia_core.view_wujia_user_menu_tree_wizard_form
+msgid "Permission Tree"
+msgstr "Cây quyền"
+
+#. module: wujia_core
+#: model_terms:ir.ui.view,arch_db:wujia_core.view_res_users_form_inherit_wujia_core
+msgid "<span class=\"o_stat_text\">Permission Tree</span>"
+msgstr "<span class=\"o_stat_text\">Cây quyền</span>"
+
+#. module: wujia_core
+#: model_terms:ir.ui.view,arch_db:wujia_core.view_res_users_form_inherit_wujia_core
+msgid "View accessible menu items in a permission tree"
+msgstr "Xem các menu được phép truy cập dưới dạng cây phân cấp quyền"
+
+#. module: wujia_core
+#: model:ir.model,name:wujia_core.model_wujia_user_menu_tree_wizard
+msgid "User Menu Permission Tree Wizard"
+msgstr "Cửa sổ cây phân quyền menu người dùng"
+
+#. module: wujia_core
+#: model:ir.model,name:wujia_core.model_wujia_user_menu_tree_line
+msgid "User Menu Permission Tree Line"
+msgstr "Dòng chi tiết phân quyền menu"
+
+#. module: wujia_core
+#: model_terms:ir.ui.view,arch_db:wujia_core.view_wujia_user_menu_tree_wizard_form
+msgid "Accessible Menus:"
+msgstr "Menu có quyền xem:"
+
+#. module: wujia_core
+#: model_terms:ir.ui.view,arch_db:wujia_core.view_wujia_user_menu_tree_wizard_form
+msgid "Menu Hierarchy"
+msgstr "Cây phân cấp menu"
+
+#. module: wujia_core
+#: model:ir.model.fields,field_description:wujia_core.field_wujia_user_menu_tree_line__is_accessible
+msgid "Has Access"
+msgstr "Có quyền truy cập"
+
+#. module: wujia_core
+#: code:wujia_core/wizard/wujia_user_menu_tree_wizard.py:0
+msgid "Click to view/edit ir.ui.menu (%s)"
+msgstr "Nhấn để xem/sửa cấu hình menu (%s)"

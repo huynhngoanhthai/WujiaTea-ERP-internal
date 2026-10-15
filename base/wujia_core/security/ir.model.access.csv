@@ -5,3 +5,4 @@ access_res_area_portal,res.area portal,model_res_area,base.group_portal,1,0,0,0
 access_res_ward_user,res.ward user,model_res_ward,base.group_user,1,0,0,0
 access_res_ward_admin,res.ward admin,model_res_ward,base.group_system,1,1,1,1
 access_res_ward_portal,res.ward portal,model_res_ward,base.group_portal,1,0,0,0
+access_wujia_user_menu_tree_wizard_user,wujia.user.menu.tree.wizard user,model_wujia_user_menu_tree_wizard,base.group_user,1,1,1,1
