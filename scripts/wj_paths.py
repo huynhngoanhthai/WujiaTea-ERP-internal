@@ -25,12 +25,17 @@ ADDON_DIRS = WUJIA_DIRS + VENDOR_DIRS + ('addons',)
 
 
 def odoo_dir():
-    """Odoo core: biến WUJIA_ODOO, không có thì ../Odoo19C, rồi ./odoo19."""
-    cands = [os.environ.get('WUJIA_ODOO'), ROOT.parent / 'Odoo19C', ROOT / 'odoo19']
+    """Odoo core: biến WUJIA_ODOO, không có thì ../Odoo19C, ../odoo19, rồi ./odoo19."""
+    cands = [
+        os.environ.get('WUJIA_ODOO'),
+        ROOT.parent / 'Odoo19C',
+        ROOT.parent / 'odoo19',
+        ROOT / 'odoo19',
+    ]
     for c in cands:
         if c and (pathlib.Path(c) / 'odoo-bin').is_file():
             return pathlib.Path(c).resolve()
-    return ROOT / 'odoo19'
+    return (ROOT.parent / 'odoo19').resolve() if (ROOT.parent / 'odoo19' / 'odoo-bin').is_file() else ROOT / 'odoo19'
 
 
 def iter_modules(pattern='*', dirs=ADDON_DIRS):
@@ -70,7 +75,7 @@ def folder_of(name):
 
 def addons_path(odoo=None):
     odoo = pathlib.Path(odoo) if odoo else odoo_dir()
-    return ','.join([str(odoo / 'addons')] + [str(ROOT / d) for d in ADDON_DIRS])
+    return ','.join([(odoo / 'addons').as_posix()] + [(ROOT / d).as_posix() for d in ADDON_DIRS])
 
 
 def changed_modules(old=None, new='HEAD'):
