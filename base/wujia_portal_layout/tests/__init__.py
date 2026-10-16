@@ -27,3 +27,4 @@ from . import test_i13_contrast
 from . import test_toast
 from . import test_k2_change_password
 from . import test_kt_typography
+from . import test_ts0_type_scale

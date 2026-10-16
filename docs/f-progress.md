@@ -3679,3 +3679,29 @@ rồi đánh ✅ ở bảng Trạng thái §2 `docs/next-session-clusters-F.md`.
 - BA gửi thang 16/10: bản 1 giữ nguyên đề xuất, rồi **bản 2 đổi 9/12 vai trò** (thay bản 1; nguyên văn §7 `next-session-typescale.md`).
   Chủ dự án chốt áp nguyên bản 2. Ghi chú ledger ở TS7: bản 2 khác số của #143 (tiêu đề nhóm mobile 18) và #183/KT (tên dòng 15).
 - Phiên kế: **TS0** theo `next-session-typescale.md` (PR #20, #21 đã merge).
+
+## TS0 — thang chữ bản 2 một nguồn ở base · 16/10/2026 · Mac
+
+- Kết quả: ✅ code + test + đo DB copy; PR chờ chủ dự án duyệt merge (chưa lên UAT).
+- Chủ dự án chốt 16/10: CardHeader hai bậc cùng vai trò `card`; **Q1 giữ `html` 14px mọi khổ** — đo thực tế Vuexy
+  `components.css` (nạp sau) đã ép 14 ở 390/800/1440, rule 14/15/16 của `_variables.css` chưa từng ăn.
+- Đã làm (`wujia_portal_layout` 19.0.60.19.0, `?v=1346` cho 3 file CSS):
+  - `_variables.css`: đủ 12 vai trò `--wj-t-*` theo bản 2 BA (PC ở `:root`, mobile ở khối <992); thêm `page/section/card/
+    kpi/button/chip` + `--wj-t-heading-fw`, `--wj-t-code-fw`; `--wujia-m-sechead-*` thành alias của `section`.
+  - PageHeader / SectionHeader / CardHeader (PC + mobile) đọc token, giữ selector + `!important`; thêm class `.wj-t-page/
+    -section/-card/-kpi/-button/-chip`; chip lọc mobile `label` → `chip`.
+  - `scripts/qa/wj_type_audit.py` tách `count_css()`; baseline `docs/typescale/css-baseline.json`; test
+    `test_ts0_type_scale` (số bản 2, header đọc vai trò, `html` 14, **chặn tăng** chữ/icon/chấm đếm gõ cứng theo file).
+  - Test cũ theo số mới: `test_g1_mobile_density` (sechead alias, `--any` đọc section), `test_i10`/`test_e5` (ListCard
+    mobile tên 13/18, nhãn 13).
+- Đổi nhìn thấy được (đo `wj_type_audit screens`, 30 màn × 8 khổ, `wujia_kt` trước ↔ `wujia_ts0` sau):
+  tiêu đề trang 26/22 → 24/20 · nhóm 22 PC/18 mobile → 18/16 · thẻ 18 PC/16 mobile → 17/15 · mã chứng từ 20/18 → 16/14 ·
+  đoạn văn 15/14 → 14/13 · tên dòng mobile 15 → 13 (ListCard, dòng Home, sản phẩm, Báo cáo) · nhãn mobile 12 → 13 (ListCard,
+  KPI, Tài khoản, Công nợ, chi tiết). Chip lọc mobile giữ 12.
+- Số đo: `wujia_portal_layout` 303/0/0 · cả portal 1210/0/0 (DB copy `wujia_ts0`) · mutation thêm 1 `font-size: 13px` ⇒ đỏ
+  đúng 1 subtest · gõ cứng chữ 426 → 418, token 126 → 137 · 240/240 ô: 0 chữ < 12px, tràn 0 → 0, lỗi JS 0 → 0, khung cắt
+  chữ 141 → 132 (giỏ mobile giảm, không ô nào tăng) · Khảo sát 390/768 chỉ đổi tiêu đề trang 22 → 20, không tràn, 0 lỗi JS.
+- Còn lệch, để phiên sau: CardHeader PC giữ số riêng ở màn (Thi 16 · Cập nhật thông tin/Kiến thức/Sản phẩm liên quan 18) →
+  TS3–TS5; chip PC 13 (base) → TS1; tiêu đề chi tiết Thông báo PC đọc `code` (20 → 16) — xem lại vai trò ở TS5.
+- Nợ: ledger/sheet gộp TS7 (Q7: #143 nhóm mobile 18, #183/#191 tên dòng 15 khác bản 2).
+- Phiên kế: merge PR TS0 → kiểm version UAT + `screens` 360/390/1440; rồi **TS1** (`_components.css` + `_pc_components.css`).

@@ -53,7 +53,7 @@ Ngoài CSS:
 - 4 `style="font-size:…"` trong `wujia_portal_base/views/store_picker_modal.xml` (TS2).
 - 36 chỗ class Bootstrap `small` / `fs-*` / `h1`–`h6` / `<small>` trong QWeb portal (TS5).
 - 6 `fontSize` trong `wujia_portal_report/static/src/js/portal_report_charts.js` (TS4).
-- `html { font-size }` đổi 14 → 15 → 16px theo khổ (`_variables.css` ~dòng 496) ⇒ mọi `rem` lệch theo khổ (câu hỏi Q1).
+- ~~`html { font-size }` đổi 14 → 15 → 16px theo khổ~~ — TS0 đo: rule đó chưa từng ăn, Vuexy `components.css` (nạp sau) ép 14px mọi khổ; TS0 ghi một dòng 14px (Q1).
 
 ## 2. Thang BA gửi (bản 2, 16/10) — chiều cao dòng và độ đậm do dev đặt
 
@@ -101,7 +101,7 @@ Icon và chấm đếm không nằm trong trang BA chốt: số ở bảng là �
 
 | Phiên | Việc | Phạm vi | Trạng thái |
 |---|---|---|---|
-| TS0 | (PR #20 đã merge) · thêm token mới (`page`, `section`, `card`, `kpi`, `button`, `chip`) **theo §2 (bản 2 BA)**, header cũ thành alias · class `.wj-t-*` cho vai trò mới · `wj_type_audit.py css --save docs/typescale/css-baseline.json` · test **chặn tăng**: mỗi file không được nhiều chỗ gõ cứng hơn baseline | `_variables.css`, `_components.css`, test layout | ☐ |
+| TS0 | (PR #20 đã merge) · thêm token mới (`page`, `section`, `card`, `kpi`, `button`, `chip`) **theo §2 (bản 2 BA)**, header cũ thành alias · class `.wj-t-*` cho vai trò mới · `wj_type_audit.py css --save docs/typescale/css-baseline.json` · test **chặn tăng**: mỗi file không được nhiều chỗ gõ cứng hơn baseline | `_variables.css`, `_components.css`, test layout | ✅ 16/10 nhánh `feature/ts0-type-tokens` (chữ gõ cứng 426 → 418) |
 | TS1 | Component dùng chung: `_components.css` + `_pc_components.css` (108 chữ) — ăn nhiều màn nhất | layout | ☐ |
 | TS2 | Khung + tài khoản + Home: `_auth`, `_pc_account`, `_sidebar`, `portal_dashboard`, `store_picker` + 4 `style=` inline (89 chữ) | layout, portal_base | ☐ |
 | TS3 | Thi: `portal_exam.css` (87 chữ) — màn PC đăng ký có lịch, chú ý ô lịch | portal_exam | ☐ |
@@ -132,7 +132,7 @@ Mốc 16/10 sau KT2:
 
 | # | Câu hỏi | Ảnh hưởng |
 |---|---|---|
-| Q1 | Ghim `html { font-size: 16px }` mọi khổ? Hiện 14/15/16 ⇒ chữ `rem` của Vuexy/Bootstrap đổi theo khổ | TS0; đụng mọi chỗ còn dùng `rem` |
+| ~~Q1~~ | ✅ Chủ dự án 16/10: giữ **14px mọi khổ** — đo thực tế Vuexy `components.css` đã ép 14 ở mọi khổ, rule 14/15/16 của mình chết từ trước; TS0 ghi một dòng 14px + test ghim | TS0 |
 | Q2 | Đậm theo vai trò (tên dòng 600 thay 700 ở nhiều màn) có cần BA duyệt riêng? | TS1–TS5 |
 | Q3 | Trang đăng nhập / quên mật khẩu (`_auth.css`) có theo thang portal không? | TS2 |
 | Q4 | BA mở một dòng Issue List (vd `UI-TYPESCALE-001`) để `qa_sync` ghi được không? Nếu không, chỉ ghi `f-progress.md` | TS7 |

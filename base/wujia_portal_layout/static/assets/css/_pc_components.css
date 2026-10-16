@@ -408,7 +408,7 @@ input[type="file"].wj-pc-control { height: auto; min-height: var(--wj-pc-input-h
 /* !important để thắng global `h1 { font-size: … !important }` (_components.css gotcha #13) */
 /* font-weight cũng cần !important: _wujia_theme.css có
    `.content-wrapper h1 { font-weight: 700 !important }` (tag-level, thắng class). */
-.wj-page-header--pc .wj-page-header__title { font-size: 26px !important; line-height: 32px; font-weight: 700 !important; }
+.wj-page-header--pc .wj-page-header__title { font-size: var(--wj-t-page-fs) !important; line-height: var(--wj-t-page-lh); font-weight: var(--wj-t-heading-fw) !important; }
 /* Meta nằm gần title, KHÔNG đẩy ra mép phải PageContainer (spec RESPONSIVE) */
 .wj-page-header--pc .wj-page-header__meta { font-size: 14px; line-height: 20px; margin-left: 16px; }
 /* Back 40 (CMP-BPH-001) và action 40 cao hơn dòng title 32 → pad 12 để hàng vẫn đúng 64 */
@@ -440,28 +440,25 @@ input[type="file"].wj-pc-control { height: auto; min-height: var(--wj-pc-input-h
 }
 .wj-page-header--pc .wj-page-header__create { width: 122px; height: 40px; }   /* CMP-PG-001: action PC cao 40 */
 
-/* WJ_SectionHeader PC (CMP-SH-001) — title 22/30/800, nhịp 20 trước / 12 sau, gap ≥16. */
+/* WJ_SectionHeader PC (CMP-SH-001) — title vai trò section, nhịp 20 trước / 12 sau, gap ≥16. */
 .wj-section-header--pc { margin: 20px 0 12px; column-gap: 16px; row-gap: 4px; }
 /* !important để thắng global `h2 { font-size: … !important }` (_components.css:6) */
 .wj-section-header--pc .wj-section-header__title {
-    font-size: 22px !important;
-    line-height: 30px;
+    font-size: var(--wj-t-section-fs) !important;
+    line-height: var(--wj-t-section-lh);
 }
 .wj-section-header--pc.wj-section-header--flush { margin: 0; }
 
-/* WJ_CardHeader PC (CMP-CH-001) — compact 18/24, regular 20/28; nhịp header→body
+/* WJ_CardHeader PC (CMP-CH-001) — title vai trò card ở cả hai bậc; nhịp header→body
    12 (compact) / 16 (regular); gap leading↔trailing 12 / 16. */
 .wj-card-header--pc { column-gap: 12px; row-gap: 4px; }
 .wj-card-header--pc.wj-card-header--regular { column-gap: 16px; }
 /* !important để thắng global `h2 { font-size: … !important }` (_components.css:6)
    và `.card .card-title, .card-header h4/h5 { … !important }` (:8) */
-.wj-card-header--pc.wj-card-header--compact .wj-card-header__title {
-    font-size: 18px !important;
-    line-height: 24px;
-}
+.wj-card-header--pc.wj-card-header--compact .wj-card-header__title,
 .wj-card-header--pc.wj-card-header--regular .wj-card-header__title {
-    font-size: 20px !important;
-    line-height: 28px;
+    font-size: var(--wj-t-card-fs) !important;
+    line-height: var(--wj-t-card-lh);
 }
 .wj-card-header--pc.wj-card-header--compact { margin: 0 0 12px; }
 .wj-card-header--pc.wj-card-header--regular { margin: 0 0 16px; }

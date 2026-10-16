@@ -369,9 +369,9 @@ body .form-control::placeholder { color: var(--wujia-text-muted); opacity: 1; }
     font-weight: 700;
     color: var(--wujia-morder-text);
 }
-/* Mobile chip reconcile về Figma (32h/11.3px/700). Desktop (≥992, PC noti) giữ base 13/600. */
+/* Mobile chip: vai trò chip (32h/700). Desktop (≥992, PC noti) giữ base 13/600. */
 @media (max-width: 991.98px) {
-    .wj-filter-chip { font-size: var(--wj-t-label-fs); font-weight: 700; color: var(--wujia-text-secondary); }
+    .wj-filter-chip { font-size: var(--wj-t-chip-fs); font-weight: 700; color: var(--wujia-text-secondary); }
 }
 
 /* EmptyState. Base = centered icon-glyph + text (mirrors .wujia-empty-state). */
@@ -976,14 +976,20 @@ body .form-control::placeholder { color: var(--wujia-text-muted); opacity: 1; }
     color: var(--wujia-text-primary);
 }
 
-/* Thang chữ thân theo vai trò (UI-DETAILTYPO-001) — cho phần tử chưa có class họ riêng */
+/* Thang chữ theo vai trò — cho phần tử chưa có class họ riêng (số ở _variables.css) */
+.wj-t-page { font-size: var(--wj-t-page-fs); font-weight: var(--wj-t-heading-fw); line-height: var(--wj-t-page-lh); }
+.wj-t-section { font-size: var(--wj-t-section-fs); font-weight: var(--wj-t-heading-fw); line-height: var(--wj-t-section-lh); }
+.wj-t-card { font-size: var(--wj-t-card-fs); font-weight: var(--wj-t-heading-fw); line-height: var(--wj-t-card-lh); }
+.wj-t-kpi { font-size: var(--wj-t-kpi-fs); font-weight: var(--wj-t-kpi-fw); line-height: var(--wj-t-kpi-lh); }
+.wj-t-button { font-size: var(--wj-t-button-fs); font-weight: var(--wj-t-button-fw); line-height: var(--wj-t-button-lh); }
+.wj-t-chip { font-size: var(--wj-t-chip-fs); font-weight: var(--wj-t-chip-fw); line-height: var(--wj-t-chip-lh); }
 .wj-t-label { font-size: var(--wj-t-label-fs); font-weight: var(--wj-t-label-fw); line-height: var(--wj-t-label-lh); color: var(--wujia-text-subtitle); }
 .wj-t-value { font-size: var(--wj-t-value-fs); font-weight: var(--wj-t-value-fw); line-height: var(--wj-t-value-lh); color: var(--wujia-text-primary); }
 .wj-t-strong { font-weight: var(--wj-t-strong-fw); }
 .wj-t-name { font-size: var(--wj-t-name-fs); font-weight: var(--wj-t-name-fw); line-height: var(--wj-t-name-lh); }
 .wj-t-body { font-size: var(--wj-t-body-fs); line-height: var(--wj-t-body-lh); }
 .wj-t-caption { font-size: var(--wj-t-caption-fs); line-height: var(--wj-t-caption-lh); color: var(--wujia-text-subtitle); }
-.wj-t-code { font-size: var(--wj-t-code-fs); font-weight: 700; line-height: var(--wj-t-code-lh); }
+.wj-t-code { font-size: var(--wj-t-code-fs); font-weight: var(--wj-t-code-fw); line-height: var(--wj-t-code-lh); }
 /* UI-LISTCARD-002: CategoryBadge (`.wujia-badge`) trong card dùng CÙNG line-height chữ với
    StatusBadge compact và căn giữa dọc như nó ⇒ hai họ đứng chung hàng thì chữ thẳng hàng.
    Giữ màu/cỡ chữ/bo của họ tag (semantic riêng); cao 26 (cũ 26,8), `--sm` 22 (cũ 23,4) —
@@ -1964,7 +1970,7 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
 .wujia-mreport > .wj-page-header--m,
 .wj-debt > .wj-page-header--m { margin-bottom: 0; }
 /* !important để thắng global `h1 { font-size: … !important }` (_components.css gotcha #13) */
-.wj-page-header--m .wj-page-header__title { font-size: 22px !important; line-height: 28px; }
+.wj-page-header--m .wj-page-header__title { font-size: var(--wj-t-page-fs) !important; line-height: var(--wj-t-page-lh); }
 /* Meta căn phải cùng hàng với title; hết chỗ thì flex-wrap đẩy xuống dưới (spec RESPONSIVE) */
 .wj-page-header--m .wj-page-header__meta {
     font-size: 13px; line-height: 18px; margin-left: auto; text-align: right;
@@ -2044,29 +2050,21 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
     color: var(--wujia-text-secondary);
 }
 
-/* Mobile (--m) + không khai nền tảng (--any): title 18/24 (mobile), nhịp theo token --wujia-m-sechead-mt/mb. */
+/* Mobile (--m) + không khai nền tảng (--any): title vai trò section, nhịp theo token --wujia-m-sechead-mt/mb. */
 .wj-section-header--m,
 .wj-section-header--any {
     margin: var(--wujia-m-sechead-mt) 0 var(--wujia-m-sechead-mb);
     column-gap: 12px;
     row-gap: 4px;
 }
-/* !important để thắng global `h2 { font-size: … !important }` (_components.css:6).
-   UI-MOB-HEADER-DENSITY-001: 18/24 (từ 20/28). --any hiện ở MỌI khổ nên chỉ nhận cỡ
-   mobile dưới 992; ≥992 giữ 20/28 như cũ (PC không đổi). */
+/* !important để thắng global `h2 { font-size: … !important }` (_components.css:6). */
 .wj-section-header--m .wj-section-header__title {
     font-size: var(--wujia-m-sechead-fs) !important;
     line-height: var(--wujia-m-sechead-lh);
 }
 .wj-section-header--any .wj-section-header__title {
-    font-size: 20px !important;
-    line-height: 28px;
-}
-@media (max-width: 991.98px) {
-    .wj-section-header--any .wj-section-header__title {
-        font-size: var(--wujia-m-sechead-fs) !important;
-        line-height: var(--wujia-m-sechead-lh);
-    }
+    font-size: var(--wj-t-section-fs) !important;
+    line-height: var(--wj-t-section-lh);
 }
 /* Spec: container đã tự lo nhịp (padding hoặc flex gap) thì KHÔNG cộng margin của header —
    caller opt-in bằng --flush. KHÔNG dùng :first-child: mỗi header là con đầu của <section>
@@ -2181,14 +2179,11 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
 /* !important để thắng global `h2 { font-size: … !important }` (_components.css:6)
    và `.card .card-title, .card-header h4/h5 { font-size: … !important }` (:8) */
 .wj-card-header--m.wj-card-header--compact .wj-card-header__title,
-.wj-card-header--any.wj-card-header--compact .wj-card-header__title {
-    font-size: 16px !important;
-    line-height: 22px;
-}
+.wj-card-header--any.wj-card-header--compact .wj-card-header__title,
 .wj-card-header--m.wj-card-header--regular .wj-card-header__title,
 .wj-card-header--any.wj-card-header--regular .wj-card-header__title {
-    font-size: 18px !important;
-    line-height: 24px;
+    font-size: var(--wj-t-card-fs) !important;
+    line-height: var(--wj-t-card-lh);
 }
 .wj-card-header--m.wj-card-header--compact,
 .wj-card-header--any.wj-card-header--compact { margin: 0 0 8px; }

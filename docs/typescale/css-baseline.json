@@ -1,0 +1,96 @@
+{
+ "base/wujia_portal_layout/static/assets/css/_auth.css": {
+  "icon": 6,
+  "text": 31,
+  "token": 1
+ },
+ "base/wujia_portal_layout/static/assets/css/_components.css": {
+  "count": 16,
+  "icon": 28,
+  "text": 68,
+  "token": 39
+ },
+ "base/wujia_portal_layout/static/assets/css/_interaction.css": {},
+ "base/wujia_portal_layout/static/assets/css/_pc_account.css": {
+  "count": 1,
+  "icon": 6,
+  "text": 31,
+  "token": 2
+ },
+ "base/wujia_portal_layout/static/assets/css/_pc_components.css": {
+  "count": 3,
+  "icon": 5,
+  "text": 32,
+  "token": 9
+ },
+ "base/wujia_portal_layout/static/assets/css/_sidebar.css": {
+  "text": 2,
+  "token": 3
+ },
+ "base/wujia_portal_layout/static/assets/css/_wujia_theme.css": {
+  "token": 2
+ },
+ "portal/wujia_portal_base/static/src/css/portal_dashboard.css": {
+  "count": 2,
+  "icon": 3,
+  "text": 17,
+  "token": 3
+ },
+ "portal/wujia_portal_base/static/src/css/store_picker.css": {
+  "count": 2,
+  "icon": 1,
+  "text": 8,
+  "token": 3
+ },
+ "portal/wujia_portal_base/static/src/css/wj_ajax_list.css": {},
+ "portal/wujia_portal_debt/static/src/css/portal_debt.css": {
+  "icon": 8,
+  "text": 24,
+  "token": 21
+ },
+ "portal/wujia_portal_delivery/static/src/css/portal_delivery.css": {
+  "count": 1,
+  "icon": 3,
+  "text": 10,
+  "token": 13
+ },
+ "portal/wujia_portal_exam/static/src/css/portal_exam.css": {
+  "count": 3,
+  "icon": 11,
+  "text": 87,
+  "token": 7
+ },
+ "portal/wujia_portal_knowledge/static/src/css/portal_knowledge.css": {
+  "text": 4,
+  "token": 10
+ },
+ "portal/wujia_portal_notification/static/src/css/portal_notification.css": {
+  "count": 1,
+  "icon": 7,
+  "text": 21,
+  "token": 9
+ },
+ "portal/wujia_portal_purchase_history/static/src/css/portal_history.css": {
+  "text": 5,
+  "token": 2
+ },
+ "portal/wujia_portal_report/static/src/css/portal_report.css": {
+  "icon": 1,
+  "text": 18,
+  "token": 3
+ },
+ "portal/wujia_portal_return/static/src/css/portal_return.css": {
+  "text": 6,
+  "token": 3
+ },
+ "portal/wujia_portal_sale/static/src/css/portal_order.css": {
+  "count": 9,
+  "icon": 9,
+  "text": 53,
+  "token": 4
+ },
+ "portal/wujia_portal_support/static/src/css/portal_support.css": {
+  "text": 1,
+  "token": 3
+ }
+}

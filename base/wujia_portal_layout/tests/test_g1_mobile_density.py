@@ -73,8 +73,8 @@ class TestMobileDensityTokens(TransactionCase):
     def test_token_gia_tri_ba(self):
         css = _css('_variables.css')
         self.assertRegex(css, r'--wujia-m-pagehead-py:\s*8px;')
-        self.assertRegex(css, r'--wujia-m-sechead-fs:\s*18px;')
-        self.assertRegex(css, r'--wujia-m-sechead-lh:\s*24px;')
+        self.assertRegex(css, r'--wujia-m-sechead-fs:\s*var\(--wj-t-section-fs\);')
+        self.assertRegex(css, r'--wujia-m-sechead-lh:\s*var\(--wj-t-section-lh\);')
         self.assertRegex(css, r'--wujia-mnav-height:\s*72px;')
 
     def test_mnav_total_bang_72_cong_safe_area(self):
@@ -119,16 +119,10 @@ class TestMobileSectionHeader(TransactionCase):
         self.assertIn('font-size: var(--wujia-m-sechead-fs) !important', body)
         self.assertIn('line-height: var(--wujia-m-sechead-lh)', body)
 
-    def test_any_chi_nhan_co_mobile_duoi_992(self):
-        """--any hiện ở MỌI khổ ⇒ cỡ 18/24 ra ngoài @media là đổi PC (BA cấm)."""
-        css = _css('_components.css')
-        outside = [b for s, b in _rules(_outside_media(css)) if self.TITLE_ANY in s]
-        self.assertTrue(outside)
-        for b in outside:
-            self.assertNotIn('--wujia-m-sechead-fs', b)
-            self.assertRegex(b, r'font-size:\s*20px !important')
-        inside = [b for blk in _media_blocks(css) for s, b in _rules(blk) if self.TITLE_ANY in s]
-        self.assertTrue(any('var(--wujia-m-sechead-fs)' in b for b in inside))
+    def test_any_doc_vai_tro_section(self):
+        """--any hiện ở mọi khổ: cỡ theo vai trò section (PC/mobile tách ở _variables.css)."""
+        body = _body(_css('_components.css'), self.TITLE_ANY)
+        self.assertIn('font-size: var(--wj-t-section-fs) !important', body)
 
 
 @tagged('post_install', '-at_install', 'wujia_mobile_density_g1')

@@ -118,13 +118,13 @@ class TestListCardTemplate(TransactionCase):
 
     # ------------------------------------------------------------------- CSS
     def test_token_khung_theo_ba(self):
-        """LC-07/LC-25: header–body 8 · gap hàng 6–8 · title 15–16/600 · meta 13–14."""
+        """LC-07/LC-25: header–body 8 · gap hàng 6–8 · title 13/600 (thang bản 2) · meta 13–14."""
         css = _css('_components.css')
         card = _block(css, '.wj-data-item.wj-lc')
         self.assertRegex(card, r'flex-direction:\s*column')
         self.assertRegex(card, r'gap:\s*8px', 'header–body phải là 8')
         name = _resolved(_block(css, '.wj-lc__name'))
-        self.assertRegex(name, r'font-size:\s*1[56]px')
+        self.assertRegex(name, r'font-size:\s*13px')
         self.assertRegex(name, r'font-weight:\s*600')
         row = _resolved(_block(css, '.wj-lc__row'))
         self.assertRegex(row, r'font-size:\s*1[34]px')

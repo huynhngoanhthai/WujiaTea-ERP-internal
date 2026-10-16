@@ -69,23 +69,29 @@ JS = r"""() => {
 }"""
 
 
-def css_files():
-    files = sorted(glob.glob(os.path.join(ROOT, 'base/wujia_portal_layout/static/assets/css/_*.css')))
-    files += sorted(f for f in glob.glob(os.path.join(ROOT, 'portal/wujia_portal_*/static/src/**/*.css'), recursive=True)
+def css_files(root=ROOT):
+    files = sorted(glob.glob(os.path.join(root, 'base/wujia_portal_layout/static/assets/css/_*.css')))
+    files += sorted(f for f in glob.glob(os.path.join(root, 'portal/wujia_portal_*/static/src/**/*.css'), recursive=True)
                     if 'inspection' not in f)
     return [f for f in files if not f.endswith('_variables.css')]
 
 
-def cmd_css(args):
+def count_css(root=ROOT):
+    """{file: {text, icon, count, token}} — dùng chung cho lệnh `css` và test chặn tăng của layout."""
     report = {}
-    for path in css_files():
+    for path in css_files(root):
         css = re.sub(r'/\*.*?\*/', '', open(path, encoding='utf-8').read(), flags=re.S)
         c = collections.Counter()
         for sel, body in re.findall(r'([^{}]+)\{([^{}]*)\}', css):
             sel = ' '.join(sel.split())
             for value in re.findall(r'font-size\s*:\s*([^;}]+)', body):
                 c['token' if 'var(' in value else 'icon' if ICON.search(sel) else 'count' if COUNT.search(sel) else 'text'] += 1
-        report[os.path.relpath(path, ROOT)] = dict(c)
+        report[os.path.relpath(path, root)] = dict(c)
+    return report
+
+
+def cmd_css(args):
+    report = count_css()
     total = collections.Counter()
     for rel, c in report.items():
         total.update(c)
