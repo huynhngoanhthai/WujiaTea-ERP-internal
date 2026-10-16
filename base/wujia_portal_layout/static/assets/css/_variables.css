@@ -138,8 +138,7 @@
     --wj-pc-gray-soft:        #F3F4F6;
 
     /* ---------- ListCard CMP-LC-001 — chữ (UI-LISTCARD-002, BA 05/10/2026) ----------
-       Một bộ token cho mọi ListCard: title 15/600/20 · label 12/500/18 · value 13/500/18 ·
-       strong 13/600/18. Hàng giữ line-height 18 ⇒ label nhỏ đi không đổi chiều cao card.
+       Một bộ token cho mọi ListCard, trỏ về thang vai trò --wj-t-*; value 13 và hàng 18 giữ cố định.
        --wj-badge-lh: line-height chung của chữ trong badge (StatusBadge compact +
        CategoryBadge) để hai họ cùng dòng chữ, căn giữa như nhau. */
     --wj-lc-title-fs:        var(--wj-t-name-fs);
@@ -152,8 +151,24 @@
     --wj-lc-strong-fw:       var(--wj-t-strong-fw);
     --wj-lc-lh:              18px;
 
-    /* ---------- Thang chữ thân theo vai trò (UI-DETAILTYPO-001) — số của ListCard; PC value/body
-       lớn hơn một bậc, mobile ở khối <992px. Không viết font-size cứng cho label/value/body/caption. */
+    /* ---------- Thang chữ theo vai trò — BA bản 2 (16/10/2026), số PC; mobile ở khối <992px.
+       Màn chỉ gọi vai trò (var(--wj-t-*) / .wj-t-*); đổi số thì chỉ sửa ở đây. */
+    --wj-t-page-fs:          24px;
+    --wj-t-page-lh:          32px;
+    --wj-t-section-fs:       18px;
+    --wj-t-section-lh:       24px;
+    --wj-t-card-fs:          17px;
+    --wj-t-card-lh:          24px;
+    --wj-t-heading-fw:       700;
+    --wj-t-kpi-fs:           22px;
+    --wj-t-kpi-fw:           700;
+    --wj-t-kpi-lh:           28px;
+    --wj-t-button-fs:        14px;
+    --wj-t-button-fw:        600;
+    --wj-t-button-lh:        20px;
+    --wj-t-chip-fs:          12px;
+    --wj-t-chip-fw:          600;
+    --wj-t-chip-lh:          16px;
     --wj-t-name-fs:          15px;
     --wj-t-name-fw:          600;
     --wj-t-name-lh:          20px;
@@ -164,12 +179,15 @@
     --wj-t-value-fw:         500;
     --wj-t-value-lh:         20px;
     --wj-t-strong-fw:        600;
-    --wj-t-body-fs:          15px;
-    --wj-t-body-lh:          22px;
+    --wj-t-body-fs:          14px;
+    --wj-t-body-lh:          21px;
+    --wj-t-body-fw:          400;
     --wj-t-caption-fs:       12px;
     --wj-t-caption-lh:       18px;
-    --wj-t-code-fs:          20px;
-    --wj-t-code-lh:          28px;
+    --wj-t-caption-fw:       400;
+    --wj-t-code-fs:          16px;
+    --wj-t-code-fw:          700;
+    --wj-t-code-lh:          22px;
     --wj-badge-lh:           16px;
 
     /* ---------- StatusBadge CMP-SB-001 (BA Confirmed 26/08/2026) ----------
@@ -231,8 +249,8 @@
     /* ---------- Sidebar items ---------- */
     --wujia-menu-item-height: 44px;
     --wujia-menu-icon-size:   20px;
-    --wujia-menu-text-size:   15px;
-    --wujia-menu-text-lh:     22px;
+    --wujia-menu-text-size:   var(--wj-t-value-fs);
+    --wujia-menu-text-lh:     var(--wj-t-value-lh);
 
     /* ---------- Buttons ---------- */
     --wujia-btn-height:           42px;
@@ -265,8 +283,8 @@
     --wujia-navbar-chip-bg:       rgb(255 255 255 / .26);
     --wujia-navbar-pill-padding:  6px 16px;
     --wujia-navbar-pill-gap:      10px;
-    --wujia-navbar-pill-font:     15px;
-    --wujia-navbar-pill-label-size: 11px;
+    --wujia-navbar-pill-font:     var(--wj-t-value-fs);
+    --wujia-navbar-pill-label-size: var(--wj-t-label-fs);
     --wujia-navbar-pill-label-color: rgb(255 255 255 / .82);
 
     /* ---------- Toast (wjToast): thẻ báo kết quả, nổi trên cả modal 1050 ---------- */
@@ -332,11 +350,9 @@
        PC cũng đọc token này — giữ đúng 16/8 cũ ở đây, mobile hạ xuống ở khối @media. */
     --wujia-m-sechead-mt:     16px;
     --wujia-m-sechead-mb:     8px;
-    /* UI-MOB-HEADER-DENSITY-001: cỡ title SectionHeader mobile 18/24 (từ 20/28) và pad dọc
-       PageHeader mobile 8 (từ 12). Người đọc chỉ là rule --m (d-lg-none) và --any bọc
-       @media mobile ⇒ khai ở :root không lọt sang PC. */
-    --wujia-m-sechead-fs:     18px;
-    --wujia-m-sechead-lh:     24px;
+    /* Title SectionHeader mobile = vai trò section; pad dọc PageHeader mobile 8. */
+    --wujia-m-sechead-fs:     var(--wj-t-section-fs);
+    --wujia-m-sechead-lh:     var(--wj-t-section-lh);
     --wujia-m-pagehead-py:    8px;
     --wujia-page-title-gap:   14px;
     --wujia-kpi-content-gap:  22px;
@@ -492,12 +508,8 @@
     --wujia-maccount-logout:        var(--wujia-danger);
 }
 
-/* Root font-size fluid scaling: rem-based values scale per viewport step. */
+/* 1rem = 14px ở mọi khổ — trùng giá trị Vuexy components.css (nạp sau, thắng rule này). */
 html { font-size: 14px; }
-@media (min-width: 576px)  { html { font-size: 14px; } }
-@media (min-width: 768px)  { html { font-size: 15px; } }
-@media (min-width: 992px)  { html { font-size: 16px; } }
-@media (min-width: 1200px) { html { font-size: 16px; } }
 
 /* SurfaceCard + KPI mobile/tablet override (<992px): 1 card / row, compact. */
 @media (max-width: 991.98px) {
@@ -507,12 +519,25 @@ html { font-size: 14px; }
         --wujia-surface-pad-regular: 14px;
         --wujia-surface-gap:         8px;
         --wujia-kpi-icon-size:       52px;
+        --wj-t-page-fs:              20px;
+        --wj-t-page-lh:              28px;
+        --wj-t-section-fs:           16px;
+        --wj-t-section-lh:           22px;
+        --wj-t-card-fs:              15px;
+        --wj-t-card-lh:              20px;
+        --wj-t-kpi-fs:               18px;
+        --wj-t-kpi-lh:               24px;
+        --wj-t-code-fs:              14px;
+        --wj-t-code-lh:              20px;
+        --wj-t-name-fs:              13px;
+        --wj-t-name-lh:              18px;
+        --wj-t-body-fs:              13px;
+        --wj-t-body-lh:              20px;
+        --wj-t-button-fs:            13px;
+        --wj-t-button-lh:            18px;
         --wj-t-value-fs:             13px;
         --wj-t-value-lh:             18px;
-        --wj-t-body-fs:              14px;
-        --wj-t-body-lh:              21px;
-        --wj-t-code-fs:              18px;
-        --wj-t-code-lh:              24px;
+        --wj-t-label-fs:             13px;
 
         /* ---------- Nhịp dọc mobile — MỘT nguồn cho MỌI trang ----------
            BA yêu cầu một màn hình điện thoại chứa được nhiều thông tin hơn.

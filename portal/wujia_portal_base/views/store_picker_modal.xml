@@ -94,7 +94,7 @@
             }
             .wujia-store-header {
                 background: var(--wujia-primary); color: #fff; padding: 14px 20px;
-                font-size: 1.05rem; font-weight: 600;
+                font-size: var(--wj-t-card-fs); font-weight: var(--wj-t-heading-fw); line-height: var(--wj-t-card-lh);
                 border-radius: 12px 12px 0 0;
                 display: flex; align-items: center; justify-content: space-between;
             }
@@ -118,12 +118,13 @@
             }
             .wujia-store-radio { margin: 0; cursor: pointer; }
             .wujia-store-info { flex: 1; display: flex; flex-direction: column; gap: 2px; }
-            .wujia-store-info strong { font-size: 1rem; color: var(--wujia-text-primary); }
+            .wujia-store-info strong { font-size: var(--wj-t-name-fs); font-weight: var(--wj-t-name-fw); line-height: var(--wj-t-name-lh); color: var(--wujia-text-primary); }
             .wujia-store-code { color: var(--wujia-text-secondary); }
-            .wujia-store-addr { color: var(--wujia-text-secondary); font-size: 0.85rem; }
+            .wujia-store-addr { color: var(--wujia-text-secondary); font-size: var(--wj-t-caption-fs); line-height: var(--wj-t-caption-lh); }
             .wujia-store-current-badge {
                 background: var(--wujia-success); color: #fff;
-                font-size: 0.75rem; padding: 3px 8px; border-radius: 12px;
+                font-size: var(--wj-t-chip-fs); font-weight: var(--wj-t-chip-fw); line-height: var(--wj-t-chip-lh);
+                padding: 3px 8px; border-radius: 12px;
             }
             .wujia-store-footer {
                 padding: 14px 20px; text-align: right;

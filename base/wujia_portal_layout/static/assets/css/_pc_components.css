@@ -13,9 +13,9 @@
     border-radius: var(--wj-pc-component-radius);
     border: 1px solid transparent;
     font-family: var(--wujia-font-family);
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 1;
+    font-size: var(--wj-t-button-fs);
+    font-weight: var(--wj-t-button-fw);
+    line-height: var(--wj-t-button-lh);
     cursor: pointer;
     text-decoration: none;
     transition: background-color .15s, border-color .15s, color .15s;
@@ -44,8 +44,8 @@
     min-width: 84px;
     padding: 0 14px;
     border-radius: 14px;
-    font-size: 13px;
-    font-weight: 600;
+    font-size: var(--wj-t-chip-fs);
+    font-weight: var(--wj-t-chip-fw);
     line-height: 1;
     white-space: nowrap;
 }
@@ -68,18 +68,19 @@
 .wj-pc-page-header__title {
     /* !important: shell có `h1 {font-size … !important}` + `.content-wrapper h1
        {font-weight:700 !important}` ở tag-level (L4) */
-    font-size: 30px !important;
-    font-weight: 800 !important;
+    font-size: var(--wj-t-page-fs) !important;
+    font-weight: var(--wj-t-heading-fw) !important;
     color: var(--wj-pc-text);
     margin: 0;
-    line-height: 1.2;
+    line-height: var(--wj-t-page-lh);
 }
 /* F4: `.content-wrapper h1{font-weight:700 !important}` là (0,1,1) — thắng rule trên (0,1,0)
    ⇒ bám thêm vỏ để số 800 đã khai thật sự áp. */
 .wj-pc-page-header .wj-pc-page-header__title { font-weight: 800 !important; }
 .wj-pc-page-header__crumb {
-    font-size: 14px;
-    font-weight: 500;
+    font-size: var(--wj-t-caption-fs);
+    line-height: var(--wj-t-caption-lh);
+    font-weight: var(--wj-t-caption-fw);
     color: var(--wj-pc-muted);
     margin: 8px 0 0;
 }
@@ -98,12 +99,6 @@
     /* border-box: 1 + 22 + control 42 + 22 + 1 = 88px đúng source v1.5 (UI-PC-BASE-003) */
     padding: 22px 20px;
     margin-bottom: var(--wj-pc-content-padding);
-}
-.wj-pc-filterbar__title {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--wj-pc-text);
-    margin: 0 0 12px;
 }
 .wj-pc-filterbar__row {
     display: flex;
@@ -162,7 +157,7 @@
 .wj-pc-metric-card__icon--red    { background: var(--wj-pc-red-soft);    color: var(--wujia-danger-text); }
 .wj-pc-metric-card__body { display: flex; flex-direction: column; gap: 2px; }
 .wj-pc-metric-card__label { font-size: var(--wj-t-label-fs); font-weight: var(--wj-t-label-fw); color: var(--wj-pc-muted); }
-.wj-pc-metric-card__value { font-size: 30px; font-weight: 700; color: var(--wj-pc-text); line-height: 1.1; }
+.wj-pc-metric-card__value { font-size: var(--wj-t-kpi-fs); font-weight: var(--wj-t-kpi-fw); color: var(--wj-pc-text); line-height: var(--wj-t-kpi-lh); }
 
 /* ---------- Card wrapper + data table (header 50 / row 58) — SVG DataTable ---------- */
 /* D5c: bảng đã migrate mang .wj-data-table (_components.css) làm chủ sở hữu DUY NHẤT hình học. */
@@ -174,15 +169,16 @@
     gap: 16px;
     margin-bottom: 12px;
 }
-.wj-pc-card__title { font-size: 22px; font-weight: 700; color: var(--wj-pc-text); margin: 0; }
-.wj-pc-card__subtitle { font-size: 14px; font-weight: 500; color: var(--wj-pc-muted); margin: 6px 0 0; }
+.wj-pc-card__title { font-size: var(--wj-t-card-fs); line-height: var(--wj-t-card-lh); font-weight: var(--wj-t-heading-fw); color: var(--wj-pc-text); margin: 0; }
+.wj-pc-card__subtitle { font-size: var(--wj-t-caption-fs); line-height: var(--wj-t-caption-lh); font-weight: var(--wj-t-caption-fw); color: var(--wj-pc-muted); margin: 6px 0 0; }
 .wj-pc-table:not(.wj-data-table) { width: 100%; border-collapse: collapse; }
 .wj-pc-table:not(.wj-data-table) thead th {
     height: var(--wj-pc-table-header-h);
     background: var(--wj-pc-table-header-bg);
     color: var(--wj-pc-muted);
-    font-size: 14px;
-    font-weight: 700;
+    font-size: var(--wj-t-label-fs);
+    line-height: var(--wj-t-label-lh);
+    font-weight: var(--wj-t-label-fw);
     text-align: left;
     padding: 0 22px;
     white-space: nowrap;
@@ -192,7 +188,9 @@
 .wj-pc-table:not(.wj-data-table) tbody td {
     height: var(--wj-pc-table-row-h);
     padding: 0 22px;
-    font-size: 14px;
+    font-size: var(--wj-t-value-fs);
+    font-weight: var(--wj-t-value-fw);
+    line-height: var(--wj-t-value-lh);
     color: var(--wj-pc-text);
     border-bottom: 1px solid var(--wj-pc-border-soft);
 }
@@ -260,7 +258,9 @@ select.wj-pc-filter-control { cursor: pointer; }
     border-radius: var(--wj-pc-input-radius);
     background: var(--wj-pc-card);
     padding: 0 16px;
-    font-size: 14px;
+    font-size: var(--wj-t-value-fs);
+    font-weight: var(--wj-t-value-fw);
+    line-height: var(--wj-t-value-lh);
     color: var(--wj-pc-text);
     width: 100%;
 }
@@ -301,8 +301,8 @@ input[type="file"].wj-pc-control { height: auto; min-height: var(--wj-pc-input-h
     font-size: 28px;
     margin-bottom: 16px;
 }
-.wj-pc-empty__title { font-size: 20px; font-weight: 700; color: var(--wj-pc-text); margin: 0 0 6px; }
-.wj-pc-empty__sub { font-size: 14px; font-weight: 500; color: var(--wj-pc-muted); margin: 0 0 18px; }
+.wj-pc-empty__title { font-size: var(--wj-t-card-fs); line-height: var(--wj-t-card-lh); font-weight: var(--wj-t-heading-fw); color: var(--wj-pc-text); margin: 0 0 6px; }
+.wj-pc-empty__sub { font-size: var(--wj-t-body-fs); line-height: var(--wj-t-body-lh); font-weight: var(--wj-t-body-fw); color: var(--wj-pc-muted); margin: 0 0 18px; }
 
 /* ---------- Modal (backdrop #111827/0.18 + panel 420) — SVG Modal ---------- */
 .wj-pc-modal__backdrop {
@@ -321,15 +321,17 @@ input[type="file"].wj-pc-control { height: auto; min-height: var(--wj-pc-input-h
     border-radius: 20px;
     padding: 26px 32px;
 }
-.wj-pc-modal__title { font-size: 22px; font-weight: 700; color: var(--wj-pc-text); margin: 0 0 8px; }
-.wj-pc-modal__body { font-size: 14px; font-weight: 500; color: var(--wj-pc-muted); margin: 0; }
+.wj-pc-modal__title { font-size: var(--wj-t-card-fs); line-height: var(--wj-t-card-lh); font-weight: var(--wj-t-heading-fw); color: var(--wj-pc-text); margin: 0 0 8px; }
+.wj-pc-modal__body { font-size: var(--wj-t-body-fs); line-height: var(--wj-t-body-lh); font-weight: var(--wj-t-body-fw); color: var(--wj-pc-muted); margin: 0; }
 .wj-pc-modal__divider { height: 1px; background: var(--wj-pc-border-soft); margin: 18px 0; border: 0; }
 .wj-pc-modal__note {
     background: var(--wj-pc-table-header-bg);
     border: 1px solid var(--wj-pc-border-soft);
     border-radius: 12px;
     padding: 14px 22px;
-    font-size: 14px;
+    font-size: var(--wj-t-body-fs);
+    font-weight: var(--wj-t-body-fw);
+    line-height: var(--wj-t-body-lh);
     color: var(--wj-pc-muted);
 }
 .wj-pc-modal__actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 22px; }
@@ -338,8 +340,7 @@ input[type="file"].wj-pc-control { height: auto; min-height: var(--wj-pc-input-h
 .wj-pc-badge--confirmed { background: var(--wj-pc-primary-soft); color: var(--wujia-brand-text); }
 
 /* ---------- Card sub-count (right of title) — "N sản phẩm" ---------- */
-.wj-pc-card__count { font-size: 14px; font-weight: 500; color: var(--wj-pc-muted); white-space: nowrap; }
-.wj-pc-card__title--sm { font-size: 18px; font-weight: 700; }
+.wj-pc-card__count { font-size: var(--wj-t-caption-fs); line-height: var(--wj-t-caption-lh); font-weight: var(--wj-t-caption-fw); color: var(--wj-pc-muted); white-space: nowrap; }
 
 /* ---------- Key-value info panel — thang chữ wj-t (label/value) ---------- */
 .wj-pc-kv-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px 24px; }
@@ -363,10 +364,10 @@ input[type="file"].wj-pc-control { height: auto; min-height: var(--wj-pc-input-h
     margin-bottom: var(--wj-pc-content-padding);
 }
 .wj-pc-order-head__label { font-size: var(--wj-t-label-fs); font-weight: var(--wj-t-label-fw); color: var(--wj-pc-muted); margin: 0 0 6px; }
-.wj-pc-order-head__meta { font-size: 14px; font-weight: 500; color: var(--wj-pc-muted); margin: 12px 0 0; }
+.wj-pc-order-head__meta { font-size: var(--wj-t-caption-fs); line-height: var(--wj-t-caption-lh); font-weight: var(--wj-t-caption-fw); color: var(--wj-pc-muted); margin: 12px 0 0; }
 .wj-pc-order-head__right { text-align: right; flex-shrink: 0; padding-right: 24px; }
-.wj-pc-order-head__amount { font-size: 28px; font-weight: 700; color: var(--wj-pc-text); margin: 4px 0 0; line-height: 1.1; }
-.wj-pc-order-head__note { font-size: 13px; font-weight: 400; color: var(--wj-pc-subtle); margin: 8px 0 0; }
+.wj-pc-order-head__amount { font-size: var(--wj-t-kpi-fs); font-weight: var(--wj-t-kpi-fw); color: var(--wj-pc-text); margin: 4px 0 0; line-height: var(--wj-t-kpi-lh); }
+.wj-pc-order-head__note { font-size: var(--wj-t-caption-fs); line-height: var(--wj-t-caption-lh); font-weight: var(--wj-t-caption-fw); color: var(--wj-pc-subtle); margin: 8px 0 0; }
 /* CardHeader trong summary head: lead mặc định `flex:1 1 auto` giãn hết bề rộng cột
    trái ⇒ trailing (badge) trôi ra mép, cách mã cả trăm px (D3c đo trên /portal/delivery,
    D3e trên /portal/purchase-history). Cột trái vốn co theo nội dung. */
@@ -377,8 +378,9 @@ input[type="file"].wj-pc-control { height: auto; min-height: var(--wj-pc-input-h
     height: 54px;
     padding: 0 22px;
     background: var(--wj-pc-table-header-bg);
-    font-size: 15px;
-    font-weight: 700;
+    font-size: var(--wj-t-value-fs);
+    line-height: var(--wj-t-value-lh);
+    font-weight: var(--wj-t-strong-fw);
     color: var(--wj-pc-text);
     border-top: 1px solid var(--wj-pc-border-soft);
 }
@@ -408,9 +410,9 @@ input[type="file"].wj-pc-control { height: auto; min-height: var(--wj-pc-input-h
 /* !important để thắng global `h1 { font-size: … !important }` (_components.css gotcha #13) */
 /* font-weight cũng cần !important: _wujia_theme.css có
    `.content-wrapper h1 { font-weight: 700 !important }` (tag-level, thắng class). */
-.wj-page-header--pc .wj-page-header__title { font-size: 26px !important; line-height: 32px; font-weight: 700 !important; }
+.wj-page-header--pc .wj-page-header__title { font-size: var(--wj-t-page-fs) !important; line-height: var(--wj-t-page-lh); font-weight: var(--wj-t-heading-fw) !important; }
 /* Meta nằm gần title, KHÔNG đẩy ra mép phải PageContainer (spec RESPONSIVE) */
-.wj-page-header--pc .wj-page-header__meta { font-size: 14px; line-height: 20px; margin-left: 16px; }
+.wj-page-header--pc .wj-page-header__meta { font-size: var(--wj-t-caption-fs); font-weight: var(--wj-t-caption-fw); line-height: var(--wj-t-caption-lh); margin-left: 16px; }
 /* Back 40 (CMP-BPH-001) và action 40 cao hơn dòng title 32 → pad 12 để hàng vẫn đúng 64 */
 .wj-page-header--pc.wj-page-header--back,
 .wj-page-header--pc.wj-page-header--create { padding: 12px 0; }
@@ -418,7 +420,7 @@ input[type="file"].wj-pc-control { height: auto; min-height: var(--wj-pc-input-h
    42×42 — nhãn ẩn ở nhánh --m trong _components.css. Nhãn #374151, icon #28A9DF. */
 .wj-page-header--pc .wj-page-header__back {
     width: 122px; height: 40px; margin-right: 18px;
-    gap: 4px; font-size: 14px; font-weight: 700; white-space: nowrap;
+    gap: 4px; font-size: var(--wj-t-button-fs); line-height: var(--wj-t-button-lh); font-weight: var(--wj-t-button-fw); white-space: nowrap;
     color: var(--wujia-text-secondary);
 }
 .wj-page-header--pc .wj-page-header__back > i { font-size: 20px; color: var(--wujia-brand-text); }
@@ -433,41 +435,39 @@ input[type="file"].wj-pc-control { height: auto; min-height: var(--wj-pc-input-h
 .wj-page-header--pc .wj-page-header__back:focus-visible > i { color: var(--wujia-brand-text); }
 /* Breadcrumb PC (UI-PC-BASE-007) — cùng token với .wj-pc-page-header__crumb */
 .wj-page-header__crumb {
-    font-size: 14px;
-    font-weight: 500;
+    font-size: var(--wj-t-caption-fs);
+    line-height: var(--wj-t-caption-lh);
+    font-weight: var(--wj-t-caption-fw);
     color: var(--wj-pc-muted);
     margin: 0 0 8px;
 }
 .wj-page-header--pc .wj-page-header__create { width: 122px; height: 40px; }   /* CMP-PG-001: action PC cao 40 */
 
-/* WJ_SectionHeader PC (CMP-SH-001) — title 22/30/800, nhịp 20 trước / 12 sau, gap ≥16. */
+/* WJ_SectionHeader PC (CMP-SH-001) — title vai trò section, nhịp 20 trước / 12 sau, gap ≥16. */
 .wj-section-header--pc { margin: 20px 0 12px; column-gap: 16px; row-gap: 4px; }
 /* !important để thắng global `h2 { font-size: … !important }` (_components.css:6) */
 .wj-section-header--pc .wj-section-header__title {
-    font-size: 22px !important;
-    line-height: 30px;
+    font-size: var(--wj-t-section-fs) !important;
+    line-height: var(--wj-t-section-lh);
 }
 .wj-section-header--pc.wj-section-header--flush { margin: 0; }
 
-/* WJ_CardHeader PC (CMP-CH-001) — compact 18/24, regular 20/28; nhịp header→body
+/* WJ_CardHeader PC (CMP-CH-001) — title vai trò card ở cả hai bậc; nhịp header→body
    12 (compact) / 16 (regular); gap leading↔trailing 12 / 16. */
 .wj-card-header--pc { column-gap: 12px; row-gap: 4px; }
 .wj-card-header--pc.wj-card-header--regular { column-gap: 16px; }
 /* !important để thắng global `h2 { font-size: … !important }` (_components.css:6)
    và `.card .card-title, .card-header h4/h5 { … !important }` (:8) */
-.wj-card-header--pc.wj-card-header--compact .wj-card-header__title {
-    font-size: 18px !important;
-    line-height: 24px;
-}
+.wj-card-header--pc.wj-card-header--compact .wj-card-header__title,
 .wj-card-header--pc.wj-card-header--regular .wj-card-header__title {
-    font-size: 20px !important;
-    line-height: 28px;
+    font-size: var(--wj-t-card-fs) !important;
+    line-height: var(--wj-t-card-lh);
 }
 .wj-card-header--pc.wj-card-header--compact { margin: 0 0 12px; }
 .wj-card-header--pc.wj-card-header--regular { margin: 0 0 16px; }
-.wj-card-header--pc .wj-card-header__subtitle { font-size: 14px; line-height: 20px; }
-.wj-card-header--pc .wj-card-header__action,
-.wj-card-header--pc .wj-card-header__meta { font-size: 14px; line-height: 20px; }
+.wj-card-header--pc .wj-card-header__subtitle,
+.wj-card-header--pc .wj-card-header__meta { font-size: var(--wj-t-caption-fs); font-weight: var(--wj-t-caption-fw); line-height: var(--wj-t-caption-lh); }
+.wj-card-header--pc .wj-card-header__action { font-size: var(--wj-t-button-fs); font-weight: var(--wj-t-button-fw); line-height: var(--wj-t-button-lh); }
 /* Spec PC ghi "action/control cao tối thiểu 40" NHƯNG cũng cấm làm giao diện thưa
    hơn. Với action chỉ-là-chữ, đặt min-height thẳng lên thẻ sẽ nống hàng header từ 24
    lên 40 ⇒ mỗi card cao thêm 16px. Áp đúng cách BA đã tự giải cho mobile ("touch
@@ -496,13 +496,14 @@ input[type="file"].wj-pc-control { height: auto; min-height: var(--wj-pc-input-h
     border-radius: var(--wj-pc-input-radius);
     background: var(--wj-pc-card);
     padding: 0 14px 0 34px;
-    font-size: 14px;
-    font-weight: 400;
+    font-size: var(--wj-t-value-fs);
+    line-height: var(--wj-t-value-lh);
+    font-weight: var(--wj-t-value-fw);
     color: var(--wj-pc-text);
 }
 .wj-pc-filterbar .wj-filter-search-field input::placeholder {
-    font-size: 14px;
-    font-weight: 400;
+    font-size: var(--wj-t-value-fs);
+    font-weight: var(--wj-t-body-fw);
     color: var(--wj-pc-subtle);
 }
 .wj-pc-filterbar .wj-filter-search-field > i { font-size: 14px; }
@@ -516,8 +517,9 @@ input[type="file"].wj-pc-control { height: auto; min-height: var(--wj-pc-input-h
     border-radius: var(--wj-pc-input-radius);
     background: var(--wj-pc-card);
     padding: 0 14px;
-    font-size: 14px;
-    font-weight: 400;
+    font-size: var(--wj-t-value-fs);
+    line-height: var(--wj-t-value-lh);
+    font-weight: var(--wj-t-value-fw);
     color: var(--wj-pc-text);
 }
 /* --dense: thanh 5 control (Thông báo, Thi) — bề rộng cơ sở hẹp hơn để vẫn 1 hàng
@@ -530,12 +532,14 @@ input[type="file"].wj-pc-control { height: auto; min-height: var(--wj-pc-input-h
    component không thắng; trung hoà trong phạm vi thanh lọc (L4). */
 .wj-pc-filterbar select.wj-filter-select { padding: 0 14px !important; cursor: pointer; }
 .wj-pc-filterbar .wj-filter-date__box input {
-    font-size: 14px;
-    font-weight: 400;
+    font-size: var(--wj-t-value-fs);
+    line-height: var(--wj-t-value-lh);
+    font-weight: var(--wj-t-value-fw);
     color: var(--wj-pc-text);
 }
 .wj-pc-filterbar .wj-filter-date__label {
-    font-size: 14px;
-    font-weight: 600;
+    font-size: var(--wj-t-value-fs);
+    line-height: var(--wj-t-value-lh);
+    font-weight: var(--wj-t-strong-fw);
     color: var(--wj-pc-subtle);
 }

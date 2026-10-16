@@ -31,9 +31,10 @@ class TestListCardTypographyI10(TransactionCase):
         return _resolved(_block(self.css, selector))
 
     def test_token_chu_dung_so_ba(self):
+        # ListCard chỉ hiện mobile ⇒ số mobile thang BA bản 2 (16/10): tên 13/18, nhãn 13.
         expect = {
-            '.wj-lc__name': {'font-size': '15px', 'font-weight': '600', 'line-height': '20px'},
-            '.wj-lc__label': {'font-size': '12px', 'font-weight': '500', 'line-height': '18px'},
+            '.wj-lc__name': {'font-size': '13px', 'font-weight': '600', 'line-height': '18px'},
+            '.wj-lc__label': {'font-size': '13px', 'font-weight': '500', 'line-height': '18px'},
             '.wj-lc__row': {'font-size': '13px', 'line-height': '18px'},
             '.wj-lc__value': {'font-weight': '500'},
             '.wj-lc__value--strong': {'font-weight': '600'},
@@ -85,7 +86,7 @@ class TestListCardTypographyI10(TransactionCase):
         self.assertEqual(_decl(base, 'line-height'), '1.4')
         self.assertEqual(_decl(base, 'padding'), '4px 10px')
         sb = _block(self.css, '.wj-status-badge')
-        self.assertEqual(_decl(sb, 'font-size'), '13px')
+        self.assertEqual(_decl(sb, 'font-size'), 'var(--wj-t-chip-fs)')
         self.assertEqual(_decl(sb, 'line-height'), '1')
 
     def test_khong_module_nao_de_chu_listcard_theo_route(self):

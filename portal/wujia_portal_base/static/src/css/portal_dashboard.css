@@ -48,23 +48,25 @@
     gap: 2px;
 }
 .wujia-kpi-label {
-    font-size: 14px;
+    font-size: var(--wj-t-label-fs);
+    font-weight: var(--wj-t-label-fw);
+    line-height: var(--wj-t-label-lh);
     color: var(--wujia-text-secondary);
     margin: 0;
-    line-height: 1.3;
 }
 .wujia-kpi-value {
-    font-size: 28px;
-    font-weight: 700;
+    font-size: var(--wj-t-kpi-fs);
+    font-weight: var(--wj-t-kpi-fw);
+    line-height: var(--wj-t-kpi-lh);
     color: var(--wujia-text-primary);
     margin: 0;
-    line-height: 1.2;
 }
 .wujia-kpi-desc {
-    font-size: 12px;
+    font-size: var(--wj-t-caption-fs);
+    font-weight: var(--wj-t-caption-fw);
+    line-height: var(--wj-t-caption-lh);
     color: var(--wujia-text-secondary);
     margin: 0;
-    line-height: 1.4;
 }
 /* ============================================================================
    G3a — Home PC theo mockup V4 (issue 142 UI-PC-HOME-REDESIGN-001).
@@ -110,9 +112,9 @@
     .wujia-home-pc .wujia-home-eyebrow,
     .wujia-home-pc .wujia-kpi-label {
         margin: 0;
-        font-size: 12px;
-        font-weight: 500;
-        line-height: 16px;
+        font-size: var(--wj-t-label-fs);
+        font-weight: var(--wj-t-label-fw);
+        line-height: var(--wj-t-label-lh);
         letter-spacing: 0.02em;
         text-transform: uppercase;
         color: var(--wujia-text-secondary);
@@ -120,16 +122,17 @@
     /* BA: không cắt chữ ⇒ tên dài xuống dòng, không ellipsis. */
     .wujia-home-pc .wujia-home-store-name {
         margin: 0;
-        font-size: 18px;
-        font-weight: 700;
-        line-height: 24px;
+        font-size: var(--wj-t-card-fs);
+        font-weight: var(--wj-t-heading-fw);
+        line-height: var(--wj-t-card-lh);
         color: var(--wujia-text-primary);
         overflow-wrap: anywhere;
     }
     .wujia-home-pc .wujia-home-store-sub {
         margin: 0;
-        font-size: 13px;
-        line-height: 18px;
+        font-size: var(--wj-t-caption-fs);
+        font-weight: var(--wj-t-caption-fw);
+        line-height: var(--wj-t-caption-lh);
         color: var(--wujia-text-primary);
         overflow-wrap: anywhere;
     }
@@ -140,9 +143,6 @@
     /* Thẻ Khung giờ: CardHeader lo tiêu đề; thanh tiến độ + caption dùng chung lớp mobile. */
     .wujia-home-pc .wujia-home-window .wujia-mhome-window-progress {
         margin: 4px 0 12px;
-    }
-    .wujia-home-pc .wujia-home-window .wujia-mhome-window-caption {
-        font-size: 13px;
     }
     /* 4 KPI: icon vuông đặc + nhãn in hoa + số, không vạch ngăn/mũi tên (V4). */
     .wujia-home-pc .wujia-kpi-card {
@@ -263,29 +263,32 @@
 }
 .wujia-mhome-hero-label {
     margin: 0 0 8px;
-    font-size: 12px;
-    font-weight: 700;
+    font-size: var(--wj-t-label-fs);
+    font-weight: var(--wj-t-label-fw);
+    line-height: var(--wj-t-label-lh);
     letter-spacing: 0.04em;
     color: var(--wujia-mhome-hero-label);
 }
 .wujia-mhome-hero-right .wujia-mhome-hero-label { margin: 0; }
 .wujia-mhome-hero-store {
     margin: 0;
-    font-size: 17px;
-    font-weight: 700;
-    line-height: 1.3;
+    font-size: var(--wj-t-card-fs);
+    font-weight: var(--wj-t-heading-fw);
+    line-height: var(--wj-t-card-lh);
     color: #FFFFFF;
 }
 .wujia-mhome-hero-addr {
     margin: 2px 0 0;
-    font-size: 14px;
-    font-weight: 400;
+    font-size: var(--wj-t-body-fs);
+    font-weight: var(--wj-t-body-fw);
+    line-height: var(--wj-t-body-lh);
     color: rgba(255, 255, 255, 0.9);
 }
 .wujia-mhome-hero-area {
     margin: 2px 0 0;
-    font-size: 13px;
-    font-weight: 700;
+    font-size: var(--wj-t-caption-fs);
+    font-weight: var(--wj-t-caption-fw);
+    line-height: var(--wj-t-caption-lh);
     color: var(--wujia-mhome-hero-area);
 }
 .wujia-mhome-role-badge {
@@ -295,9 +298,9 @@
     border-radius: 999px;
     background: var(--wujia-success-fill);
     color: #FFFFFF;
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 1;
+    font-size: var(--wj-t-chip-fs);
+    font-weight: var(--wj-t-chip-fw);
+    line-height: var(--wj-t-chip-lh);
 }
 .wujia-mhome-window {
     background: var(--wujia-bg-card);
@@ -306,8 +309,9 @@
     padding: 14px 16px;
 }
 .wujia-mhome-window-status {
-    font-size: 14px;
-    font-weight: 700;
+    font-size: var(--wj-t-value-fs);
+    font-weight: var(--wj-t-strong-fw);
+    line-height: var(--wj-t-value-lh);
     white-space: nowrap;
 }
 .wujia-mhome-window-status.is-open    { color: var(--wujia-success-text); }
@@ -315,7 +319,8 @@
 .wujia-mhome-window-status.is-always  { color: var(--wujia-success-text); }
 .wujia-mhome-window-status small {
     color: var(--wujia-text-subtitle);
-    font-weight: 400;
+    font-size: var(--wj-t-caption-fs);
+    font-weight: var(--wj-t-caption-fw);
 }
 .wujia-mhome-window-progress {
     height: 6px;
@@ -331,8 +336,9 @@
 }
 .wujia-mhome-window-caption {
     margin: 0;
-    font-size: 12px;
-    font-weight: 400;
+    font-size: var(--wj-t-caption-fs);
+    font-weight: var(--wj-t-caption-fw);
+    line-height: var(--wj-t-caption-lh);
     color: var(--wujia-text-subtitle);
 }
 .wujia-mhome-actions-grid {
@@ -371,9 +377,9 @@
     color: var(--wujia-brand-text);
 }
 .wujia-mhome-action-label {
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 1.3;
+    font-size: var(--wj-t-label-fs);
+    font-weight: var(--wj-t-label-fw);
+    line-height: var(--wj-t-label-lh);
     color: var(--wujia-text-primary);
 }
 .wujia-mdash-sec {
@@ -406,13 +412,8 @@
     }
 
 
-.dashboard-list .list-group-item { border-left: none; border-right: none; border-color: var(--wujia-border); }
-.dashboard-list-link { color: var(--wujia-text-primary); text-decoration: none; }
-.dashboard-list-link:hover { color: var(--wujia-brand-text); }
-.dashboard-list table th { font-weight: 600; font-size: 0.8rem; text-transform: uppercase; color: var(--wujia-text-secondary); border-bottom: 2px solid var(--wujia-table-header-line); }
-
 /* State badges — semantic mapping per BA palette. */
-.state-badge { padding: 0.35em 0.7em; font-size: 0.78rem; font-weight: 600; border-radius: 6px; text-transform: capitalize; }
+.state-badge { padding: 0.35em 0.7em; font-size: var(--wj-t-chip-fs); font-weight: var(--wj-t-chip-fw); border-radius: 6px; text-transform: capitalize; }
 .state-draft, .state-new          { background: var(--wujia-text-muted); color: #fff; }
 .state-sent                       { background: var(--wujia-primary-light); color: var(--wujia-brand-text-hover); }
 .state-sale                       { background: var(--wujia-success-fill); color: #fff; }
@@ -430,11 +431,3 @@
 /* Profile dl */
 .profile-dl dt { font-size: var(--wj-t-label-fs); font-weight: var(--wj-t-label-fw); line-height: var(--wj-t-value-lh); color: var(--wujia-text-secondary); }
 .profile-dl dd { font-size: var(--wj-t-value-fs); font-weight: var(--wj-t-value-fw); line-height: var(--wj-t-value-lh); color: var(--wujia-text-primary); margin-bottom: 0.5rem; }
-
-/* Sidenav dropdown indicator (Vuexy has-sub) */
-.main-menu .navigation .nav-item.has-sub > a::after { content: '\f078'; font-family: 'FontAwesome'; font-size: 0.7rem; float: right; margin-top: 4px; transition: transform 0.2s; }
-.main-menu .navigation .nav-item.has-sub.open > a::after { transform: rotate(180deg); }
-.main-menu .navigation .menu-content { display: none; padding-left: 1rem; list-style: none; }
-.main-menu .navigation .nav-item.has-sub.open > .menu-content { display: block; }
-.main-menu .navigation .menu-content li a { padding: 6px 12px; display: block; color: var(--wujia-text-secondary); text-decoration: none; font-size: 0.9rem; }
-.main-menu .navigation .menu-content li a:hover { color: var(--wujia-brand-text); background: var(--wujia-primary-light); border-radius: 4px; }

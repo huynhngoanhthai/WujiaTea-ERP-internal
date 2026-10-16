@@ -45,7 +45,7 @@
                         <h2 class="wj-pc-acct-headcard__title">
                             <t t-out="franchise.code or ''"/><t t-if="franchise.code and franchise.name"> · </t><t t-out="franchise.name or '—'"/>
                         </h2>
-                        <p class="wj-pc-acct-headcard__sub wj-pc-acct-headcard__sub--sm">Franchise store currently selected on the portal</p>
+                        <p class="wj-pc-acct-headcard__sub">Franchise store currently selected on the portal</p>
                         <div class="wj-pc-acct-headcard__chips">
                             <span t-attf-class="wj-status-badge #{franchise.status == 'active' and 'wj-status-badge--success' or 'wj-status-badge--pending'}" t-out="status_label"/>
                             <span t-if="franchise.area_id" class="wj-pc-badge wj-pc-badge--area">Area <t t-out="franchise.area_id.name"/></span>

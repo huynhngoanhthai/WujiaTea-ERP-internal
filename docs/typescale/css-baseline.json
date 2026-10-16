@@ -1,0 +1,87 @@
+{
+ "base/wujia_portal_layout/static/assets/css/_auth.css": {
+  "icon": 10,
+  "token": 15
+ },
+ "base/wujia_portal_layout/static/assets/css/_components.css": {
+  "count": 2,
+  "icon": 32,
+  "text": 1,
+  "token": 108
+ },
+ "base/wujia_portal_layout/static/assets/css/_interaction.css": {},
+ "base/wujia_portal_layout/static/assets/css/_pc_account.css": {
+  "icon": 7,
+  "token": 32
+ },
+ "base/wujia_portal_layout/static/assets/css/_pc_components.css": {
+  "icon": 5,
+  "text": 3,
+  "token": 39
+ },
+ "base/wujia_portal_layout/static/assets/css/_sidebar.css": {
+  "icon": 1,
+  "token": 4
+ },
+ "base/wujia_portal_layout/static/assets/css/_wujia_theme.css": {
+  "token": 2
+ },
+ "portal/wujia_portal_base/static/src/css/portal_dashboard.css": {
+  "icon": 3,
+  "token": 19
+ },
+ "portal/wujia_portal_base/static/src/css/store_picker.css": {
+  "icon": 1,
+  "token": 8
+ },
+ "portal/wujia_portal_base/static/src/css/wj_ajax_list.css": {},
+ "portal/wujia_portal_debt/static/src/css/portal_debt.css": {
+  "icon": 8,
+  "text": 24,
+  "token": 21
+ },
+ "portal/wujia_portal_delivery/static/src/css/portal_delivery.css": {
+  "count": 1,
+  "icon": 3,
+  "text": 10,
+  "token": 13
+ },
+ "portal/wujia_portal_exam/static/src/css/portal_exam.css": {
+  "count": 1,
+  "icon": 12,
+  "text": 88,
+  "token": 7
+ },
+ "portal/wujia_portal_knowledge/static/src/css/portal_knowledge.css": {
+  "text": 4,
+  "token": 10
+ },
+ "portal/wujia_portal_notification/static/src/css/portal_notification.css": {
+  "icon": 7,
+  "text": 22,
+  "token": 9
+ },
+ "portal/wujia_portal_purchase_history/static/src/css/portal_history.css": {
+  "text": 5,
+  "token": 2
+ },
+ "portal/wujia_portal_report/static/src/css/portal_report.css": {
+  "icon": 1,
+  "text": 18,
+  "token": 3
+ },
+ "portal/wujia_portal_return/static/src/css/portal_return.css": {
+  "text": 6,
+  "token": 3
+ },
+ "portal/wujia_portal_sale/static/src/css/portal_order.css": {
+  "count": 9,
+  "icon": 9,
+  "text": 53,
+  "token": 4
+ },
+ "portal/wujia_portal_support/static/src/css/portal_support.css": {
+  "text": 1,
+  "token": 3
+ }
+}

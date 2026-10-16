@@ -136,16 +136,13 @@ class TestButtonTemplate(TransactionCase):
             self.assertRegex(_block(css, sel), r'height:\s*var\(%s\)' % tok,
                              '%s phải lấy số từ token, không px cứng' % sel)
 
-    def test_typo_ba_bac(self):
-        """BT-2: 13/18/600 · 14/20/700 · 15/22/700."""
+    def test_typo_mot_vai_tro(self):
+        """TS1: mọi cỡ nút cùng vai trò chữ `button` (BA bản 2); sm/md/lg chỉ khác cao + padding."""
         css = _css('_components.css')
-        for sel, (fs, lh) in (('.wj-btn', (14, 20)), ('.wj-btn--sm', (13, 18)),
-                              ('.wj-btn--lg', (15, 22))):
+        for sel in ('.wj-btn', '.wj-btn--sm', '.wj-btn--lg'):
             blk = _block(css, sel)
-            self.assertRegex(blk, r'font-size:\s*%dpx' % fs)
-            self.assertRegex(blk, r'line-height:\s*%dpx' % lh)
-        self.assertRegex(_block(css, '.wj-btn'), r'font-weight:\s*700')
-        self.assertRegex(_block(css, '.wj-btn--sm'), r'font-weight:\s*600')
+            for key, tok in (('font-size', 'fs'), ('line-height', 'lh'), ('font-weight', 'fw')):
+                self.assertRegex(blk, r'%s:\s*var\(--wj-t-button-%s\)' % (key, tok))
 
     def test_radius_sm_8_md_lg_12(self):
         css = _css('_components.css')

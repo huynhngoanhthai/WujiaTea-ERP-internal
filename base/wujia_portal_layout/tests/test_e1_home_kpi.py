@@ -47,7 +47,8 @@ class TestHomeKpiValueStaysOnOneLine(TransactionCase):
         css = self._read(self.CSS)
         owners = [s for s in re.findall(r'([^{}]+)\{([^}]*)\}', css)
                   if 'wujia-mhome-kpi-value' in s[0] and re.search(r'font-size\s*:', s[1])]
-        self.assertEqual(len(owners), 2, 'chỉ được 1 khai báo gốc + 1 breakpoint ≤380px')
-        for selector, _body in owners:
-            self.assertEqual(selector.strip().rstrip(), '.wujia-mhome-kpi-value',
-                             'không được nhắm riêng ô nào (BA cấm giảm riêng Công nợ)')
+        self.assertEqual(len(owners), 1, 'chỉ một khai báo gốc; cỡ theo khổ do token --wj-t-kpi')
+        selector, body = owners[0]
+        self.assertEqual(selector.strip(), '.wujia-mhome-kpi-value',
+                         'không được nhắm riêng ô nào (BA cấm giảm riêng Công nợ)')
+        self.assertRegex(body, r'font-size:\s*var\(--wj-t-kpi-fs\)')
