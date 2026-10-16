@@ -31,3 +31,4 @@ from . import test_i12_dialog_home
 from . import test_scan_i13_contrast
 from . import test_scan_toast
 from . import test_k0_product_name
+from . import test_ts2_type_scale

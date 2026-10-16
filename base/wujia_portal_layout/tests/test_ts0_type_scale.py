@@ -119,6 +119,23 @@ class TestTs0TypeScale(TransactionCase):
                 rule = _block(_read('wujia_portal_layout', 'static/assets/css/' + path), selector)
                 self.assertRegex(rule, r'font-size:\s*var\(--wj-t-button-fs\)')
 
+    def test_ts2_khung_doc_vai_tro(self):
+        """TS2: đăng nhập + tài khoản PC + sidebar chỉ đọc vai trò; token header là alias của thang."""
+        audit = self._audit()
+        for name in ('_auth.css', '_pc_account.css', '_sidebar.css'):
+            for sel, body in re.findall(r'([^{}]+)\{([^{}]*)\}', _css(name)):
+                sel = ' '.join(sel.split())
+                if audit.ICON.search(sel) or audit.COUNT.search(sel):
+                    continue
+                for value in re.findall(r'font-(?:size|weight)\s*:\s*([^;}]+)', body):
+                    with self.subTest(file=name, selector=sel):
+                        self.assertIn('var(--', value)
+        root = _block(_css('_variables.css'), ':root')
+        for token, role in (('menu-text-size', 'value-fs'), ('menu-text-lh', 'value-lh'),
+                            ('navbar-pill-font', 'value-fs'), ('navbar-pill-label-size', 'label-fs')):
+            with self.subTest(token=token):
+                self.assertRegex(root, r'--wujia-%s:\s*var\(--wj-t-%s\)' % (token, role))
+
     def test_chan_tang_font_size_go_cung(self):
         """TS1–TS6 chỉ được giảm: mỗi file không nhiều chữ/icon/chấm đếm gõ cứng hơn baseline."""
         audit = self._audit()

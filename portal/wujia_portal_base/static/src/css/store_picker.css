@@ -11,8 +11,6 @@
 .store-picker-item.active { background-color: var(--wujia-brand-fill) !important; color: #fff !important; border-color: var(--wujia-primary) !important; }
 .store-picker-item.active .text-muted { color: #fff !important; }
 .store-picker-radio { margin-right: 10px; }
-.store-picker-name { font-size: 1rem; }
-.store-picker-addr { margin-top: 2px; font-size: 0.8rem; }
 
 /* Top navbar badge — currently-selected store (UI-03).
    Soft pill on dark navbar — mockup `xl/media/image28.png`. */
@@ -23,7 +21,7 @@
     padding: var(--wujia-navbar-pill-padding);
     margin-right: 12px;
     font-size: var(--wujia-navbar-pill-font);
-    font-weight: 500;
+    font-weight: var(--wj-t-value-fw);
     display: inline-flex;
     align-items: center;
     gap: var(--wujia-navbar-pill-gap);
@@ -45,13 +43,13 @@
 .wujia-active-store-badge .wujia-store-badge-label {
     font-size: var(--wujia-navbar-pill-label-size);
     color: var(--wujia-navbar-pill-label-color);
-    font-weight: 500;
+    font-weight: var(--wj-t-label-fw);
     text-transform: uppercase;
     letter-spacing: 0.6px;
 }
 .wujia-active-store-badge .wujia-store-badge-name {
     font-size: var(--wujia-navbar-pill-font);
-    font-weight: 700;
+    font-weight: var(--wj-t-strong-fw);
     color: var(--wujia-navbar-pill-text);
 }
 
@@ -62,9 +60,9 @@
     align-items: center;
     padding: 10px 20px;
     border-radius: var(--wujia-navbar-pill-radius);
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 1;
+    font-size: var(--wj-t-chip-fs);
+    font-weight: var(--wj-t-chip-fw);
+    line-height: var(--wj-t-chip-lh);
     margin-right: 12px;
     color: #fff;
     letter-spacing: 0.3px;
@@ -122,7 +120,6 @@
     justify-content: center;
     padding: 0 12px;
     border-radius: 999px;
-    font-size: 12px;
     box-sizing: border-box;
     background-color: var(--wujia-navbar-chip-bg);
     color: var(--wujia-navbar-pill-text);
@@ -182,16 +179,16 @@
     /* UI-MOB-SHELL-002: chip 24px cùng role chip (Blank Shell y=116-140 strip 48px). */
     min-height: 24px;
     padding: 0 10px;
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 1.2;
+    font-size: var(--wj-t-label-fs);
+    font-weight: var(--wj-t-label-fw);
+    line-height: var(--wj-t-label-lh);
 }
 .wujia-store-mobile-strip-name {
     flex: 1 1 auto;
     color: var(--wujia-text-primary);
-    font-size: 15px;
-    font-weight: 700;
-    line-height: 1.3;
+    font-size: var(--wj-t-name-fs);
+    font-weight: var(--wj-t-name-fw);
+    line-height: var(--wj-t-name-lh);
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -209,9 +206,9 @@
     box-sizing: border-box;
     height: 24px;
     padding: 0 14px;
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 1.2;
+    font-size: var(--wj-t-chip-fs);
+    font-weight: var(--wj-t-chip-fw);
+    line-height: var(--wj-t-chip-lh);
 }
 /* UI-MOB-STORE-SWITCHER-001: chevron chỉ có ở dải bấm được (>1 cửa hàng). */
 .wujia-store-strip-chevron {
@@ -220,10 +217,6 @@
     color: var(--wujia-brand-text);
     font-size: 20px;
     line-height: 1;
-}
-
-@media (max-width: 575.98px) {
-    .wujia-store-mobile-strip-name { font-size: 14px; }
 }
 
 /* CMP-SN-001 — khối "Cửa hàng hiện tại" trong menu avatar (PC + mobile, acct_menu_store).
@@ -235,11 +228,11 @@
 }
 .wj-acct-menu__store-name {
     flex: 1 1 auto; min-width: 0;
-    font-size: 14px; line-height: 20px; font-weight: 700; color: var(--wujia-text-primary);
+    font-size: var(--wj-t-name-fs); line-height: var(--wj-t-name-lh); font-weight: var(--wj-t-name-fw); color: var(--wujia-text-primary);
     display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
-.wj-acct-menu__store-code { color: var(--wujia-text-subtitle); font-weight: 600; margin-right: 4px; }
+.wj-acct-menu__store-code { color: var(--wujia-text-subtitle); font-weight: var(--wj-t-strong-fw); margin-right: 4px; }
 .wj-acct-menu__store .wj-acct-menu__role {
     flex: 0 0 auto; min-height: 22px; margin-right: 0;
-    padding: 3px 8px; border-radius: 999px; font-size: 12px; line-height: 16px;
+    padding: 3px 8px; border-radius: 999px;
 }

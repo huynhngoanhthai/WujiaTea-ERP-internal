@@ -95,27 +95,25 @@ html body.wj-auth-body {
 }
 .wj-auth__eyebrow {
     margin: 85px 0 0;               /* 329 − (84+160) */
-    font-size: 15px;
-    font-weight: 700;
-    line-height: 18px;
+    font-size: var(--wj-t-label-fs);
+    font-weight: var(--wj-t-label-fw);
+    line-height: var(--wj-t-label-lh);
     letter-spacing: 0.02em;
     color: var(--wujia-text-primary);
 }
 .wj-auth__headline {
     margin: 20px 0 0;               /* 367 − 347 */
-    /* !important: _components.css đặt `h1 { font-size: 32px !important }` cho
-       toàn site, thắng mọi class. Xem gotcha #13 trong wujia-compact-summary. */
-    font-size: 47px !important;
-    font-weight: 700;
-    line-height: 58px;              /* 425 − 367 */
+    font-size: var(--wj-t-page-fs) !important;   /* thắng `h1 { font-size: 32px !important }` của _components.css */
+    font-weight: var(--wj-t-heading-fw);
+    line-height: var(--wj-t-page-lh);
     color: #fff;
 }
 .wj-auth__lead {
     margin: 36px 0 0;               /* 518 − 482 */
     max-width: 470px;
-    font-size: 17px;
-    font-weight: 400;
-    line-height: 27px;              /* 545 − 518 */
+    font-size: var(--wj-t-body-fs);
+    font-weight: var(--wj-t-body-fw);
+    line-height: var(--wj-t-body-lh);
     color: var(--wujia-text-primary);
 }
 .wj-auth__rule {
@@ -131,9 +129,9 @@ html body.wj-auth-body {
     align-items: center;
     gap: 18px;
     margin: 30px 0 0;               /* 656 − 626 */
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 17px;
+    font-size: var(--wj-t-value-fs);
+    font-weight: var(--wj-t-strong-fw);
+    line-height: var(--wj-t-value-lh);
     color: var(--wujia-text-primary);
 }
 .wj-auth__features i {
@@ -170,8 +168,9 @@ html body.wj-auth-body {
     padding: 0 16px;
     border-radius: var(--wujia-btn-radius);
     background: var(--wujia-bg-card);
-    font-size: 13.5px;
-    font-weight: 700;
+    font-size: var(--wj-t-button-fs);
+    font-weight: var(--wj-t-button-fw);
+    line-height: var(--wj-t-button-lh);
     color: var(--wujia-text-secondary);
     user-select: none;
 }
@@ -202,21 +201,20 @@ html body.wj-auth-body {
 
 .wj-auth-card__title {
     margin: 0;
-    font-size: 30px !important;   /* thắng h1 !important của _components.css */
-    font-weight: 700;
-    line-height: 36px;
+    font-size: var(--wj-t-page-fs) !important;   /* thắng h1 !important của _components.css */
+    font-weight: var(--wj-t-heading-fw);
+    line-height: var(--wj-t-page-lh);
     color: var(--wujia-text-primary);
 }
 .wj-auth-card__sub {
     margin: 14.5px 0 0;             /* 302.5 − 288 */
-    font-size: 14.5px;
-    font-weight: 400;
-    line-height: 23px;
+    font-size: var(--wj-t-body-fs);
+    font-weight: var(--wj-t-body-fw);
+    line-height: var(--wj-t-body-lh);
     color: var(--wujia-text-subtitle);
 }
 .wj-auth-card--forgot .wj-auth-card__sub {
     margin-top: 17px;               /* 340 − 323 */
-    font-size: 14px;
 }
 
 /* ------------------------------------------------------------- form bits */
@@ -228,9 +226,9 @@ html body.wj-auth-body {
     display: block;
     padding-left: 0;                /* huỷ `label { padding-left: .2rem }` của bootstrap-extended */
     margin: 0 0 12px;               /* 392 − 380(=363+17) */
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 17px;
+    font-size: var(--wj-t-value-fs);
+    font-weight: var(--wj-t-strong-fw);
+    line-height: var(--wj-t-value-lh);
     color: var(--wujia-text-secondary);
 }
 
@@ -257,8 +255,8 @@ html body.wj-auth-body {
     border-radius: var(--wujia-auth-field-radius);
     background: var(--wujia-auth-field-bg);
     font-family: inherit;
-    font-size: 14px;
-    font-weight: 400;
+    font-size: var(--wj-t-value-fs);
+    font-weight: var(--wj-t-value-fw);
     line-height: 48px;
     color: var(--wujia-text-primary);
     outline: none;
@@ -295,9 +293,9 @@ html body.wj-auth-body {
     margin-top: 26px;               /* 576 − 550 */
 }
 .wj-auth-link {
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 17px;
+    font-size: var(--wj-t-button-fs);
+    font-weight: var(--wj-t-button-fw);
+    line-height: var(--wj-t-button-lh);
     color: var(--wujia-brand-text);
     text-decoration: none;
 }
@@ -312,9 +310,9 @@ html body.wj-auth-body {
 .wj-auth-back {
     display: block;
     margin-top: 27px;               /* 614 − 587 */
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 17px;
+    font-size: var(--wj-t-button-fs);
+    font-weight: var(--wj-t-button-fw);
+    line-height: var(--wj-t-button-lh);
     color: var(--wujia-brand-text);
     text-align: center;
     text-decoration: none;
@@ -355,16 +353,16 @@ html body.wj-auth-body {
 }
 .wj-auth-note__title {
     margin: 0;
-    font-size: 13px;
-    font-weight: 700;
-    line-height: 16px;
+    font-size: var(--wj-t-name-fs);
+    font-weight: var(--wj-t-name-fw);
+    line-height: var(--wj-t-name-lh);
     color: var(--wujia-text-secondary);
 }
 .wj-auth-note__text {
     margin: 5px 0 0;
-    font-size: 12.5px;
-    font-weight: 400;
-    line-height: 19px;
+    font-size: var(--wj-t-caption-fs);
+    font-weight: var(--wj-t-caption-fw);
+    line-height: var(--wj-t-caption-lh);
     color: var(--wujia-text-subtitle);
 }
 
@@ -373,9 +371,9 @@ html body.wj-auth-body {
     margin-top: 39px;               /* divider y811 − note bottom 772 */
     padding-top: 26px;
     border-top: 1px solid var(--wujia-border);
-    font-size: 13.5px;
-    font-weight: 400;
-    line-height: 16px;
+    font-size: var(--wj-t-caption-fs);
+    font-weight: var(--wj-t-caption-fw);
+    line-height: var(--wj-t-caption-lh);
     color: var(--wujia-text-subtitle);
     text-align: center;
 }
@@ -386,9 +384,9 @@ html body.wj-auth-body {
     margin: 20px 0 0;
     padding: 11px 14px;
     border-radius: var(--wujia-btn-radius);
-    font-size: 13px;
-    font-weight: 700;
-    line-height: 18px;
+    font-size: var(--wj-t-body-fs);
+    font-weight: var(--wj-t-body-fw);
+    line-height: var(--wj-t-body-lh);
 }
 .wj-auth-alert--error {
     background: var(--wujia-danger-bg);
@@ -440,7 +438,6 @@ html body.wj-auth-body {
         height: 44px;
         padding: 0 10px;
         background: var(--wujia-auth-pill-bg-m);
-        font-size: 13px;
         color: var(--wujia-text-primary);
     }
     .wj-auth__flag { flex: none; width: 20px; height: 14px; }
@@ -464,22 +461,18 @@ html body.wj-auth-body {
     }
     .wj-auth-card--forgot { padding-bottom: 24px; }
 
-    .wj-auth-card__title { font-size: 22px !important; line-height: 27px; }
     .wj-auth-card__sub {
         margin-top: 9px;            /* 241 − 232 */
-        font-size: 13px;
-        line-height: 20px;
     }
-    .wj-auth-card--forgot .wj-auth-card__sub { margin-top: 10px; font-size: 13px; }
+    .wj-auth-card--forgot .wj-auth-card__sub { margin-top: 10px; }
 
     .wj-auth-field { margin-top: 26.5px; }          /* label y303.5 − sub bottom 277 */
     .wj-auth-field + .wj-auth-field { margin-top: 23.5px; }
-    .wj-auth-field__label { margin-bottom: 9.5px; font-size: 13.5px; line-height: 16px; }
+    .wj-auth-field__label { margin-bottom: 9.5px; }
 
     .wj-auth-control {
         height: 48px;
         padding: 0 16px 0 46px;     /* text bắt đầu x82 = 36 + 46 */
-        font-size: 13.5px;
         line-height: 46px;
     }
     .wj-auth-input > .wj-auth-input__icon { left: 13px; font-size: 17px; }
@@ -487,19 +480,16 @@ html body.wj-auth-body {
     .wj-auth-pwd .wj-auth-control { padding-right: 46px; }
 
     .wj-auth-helper { margin-top: 18.5px; }
-    .wj-auth-link { font-size: 13.5px; line-height: 16px; }
 
     .wj-auth-submit { margin-top: 20.5px; }
     .wj-auth-field + .wj-auth-submit { margin-top: 30px; }
-    .wj-auth-back { margin-top: 26.5px; font-size: 13.5px; }
+    .wj-auth-back { margin-top: 26.5px; }
 
     .wj-auth-note { gap: 12px; margin-top: 24px; padding: 10.5px 14px 12px; }
     .wj-auth-back + .wj-auth-note { margin-top: 29.5px; padding: 7px 13px 9px; }
     .wj-auth-note__icon { width: 20px; height: 20px; font-size: 18px; }
     .wj-auth-note__icon--chip { font-size: 12px; }
-    .wj-auth-note__title { font-size: 12.5px; line-height: 15px; }
-    .wj-auth-note__text { margin-top: 4px; font-size: 12px; line-height: 17px; }
-    .wj-auth-card--forgot .wj-auth-note__text { font-size: var(--wj-t-caption-fs); line-height: 17px; }
+    .wj-auth-note__text { margin-top: 4px; }
 
-    .wj-auth-foot { margin-top: 24px; padding-top: 18px; font-size: 12.5px; }
+    .wj-auth-foot { margin-top: 24px; padding-top: 18px; }
 }

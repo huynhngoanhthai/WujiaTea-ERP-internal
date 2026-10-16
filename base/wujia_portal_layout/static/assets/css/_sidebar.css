@@ -60,8 +60,8 @@
 }
 #wj-main-menu .navigation > li.wujia-nav-header:first-child { padding-top: 4px !important; }
 #wj-main-menu .navigation > li.wujia-nav-header > span {
-    font-size: 12px;
-    font-weight: 700;
+    font-size: var(--wj-t-label-fs);
+    font-weight: var(--wj-t-label-fw);
     letter-spacing: .04em;
     text-transform: uppercase;
     color: var(--wj-pc-subtle);
@@ -93,7 +93,7 @@
     box-shadow: none !important;
     font-size: var(--wujia-menu-text-size) !important;
     line-height: var(--wujia-menu-text-lh) !important;
-    font-weight: 500 !important;
+    font-weight: var(--wj-t-value-fw) !important;
     color: var(--wujia-text-secondary) !important;
     white-space: nowrap;
     transition: background-color .15s, color .15s !important;
@@ -127,7 +127,7 @@
 #wj-main-menu .navigation > li.active > a {
     background: var(--wujia-primary-soft) !important;
     color: var(--wujia-brand-text-hover) !important;
-    font-weight: 700 !important;
+    font-weight: var(--wj-t-strong-fw) !important;
 }
 #wj-main-menu .navigation > li.active > a::before {
     content: "";

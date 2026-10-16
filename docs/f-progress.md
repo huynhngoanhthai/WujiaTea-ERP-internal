@@ -3738,3 +3738,35 @@ rồi đánh ✅ ở bảng Trạng thái §2 `docs/next-session-clusters-F.md`.
 - Còn lệch: số KPI Công nợ PC ~28 (nằm ở `portal_debt.css`, TS5) · ô Từ/Đến ngày PC cắt năm = #192 UI-FILTER-PC-001 có sẵn.
 - Phiên kế: **TS2** (`_auth`, `_pc_account`, `_sidebar`, `portal_dashboard`, `store_picker` + 4 `style=` inline), cùng nhánh, DB `wujia_ts0`;
   hỏi Q3 (trang đăng nhập có theo thang không) trước khi đụng `_auth.css`.
+
+## TS2 — khung + tài khoản + Home + đăng nhập theo thang chữ · 16/10/2026 · Mac
+
+- Kết quả: ✅ code + test + đo trên DB copy `wujia_ts0`; commit trên `feature/ts0-type-tokens` (PR #22, chưa merge, deploy gộp ở TS7).
+- Chủ dự án chốt 16/10: **Q3 trang đăng nhập/quên mật khẩu theo thang toàn bộ** (kể cả headline panel trái) · header PC + sidebar
+  **chuẩn hết**: `--wujia-menu-text-*` → `value`, `--wujia-navbar-pill-font` → `value`, `--wujia-navbar-pill-label-size` → `label`.
+- Đã làm (`wujia_portal_layout` 19.0.60.21.0, `?v=1348` cho `_variables`/`_auth`/`_pc_account`/`_sidebar`; `wujia_portal_base` 19.0.7.52.0):
+  - `_auth.css`, `_pc_account.css`, `_sidebar.css`, `portal_dashboard.css`, `store_picker.css` + khối `<style>` của
+    `store_picker_modal.xml`: mọi cỡ/đậm/dòng của chữ đọc `--wj-t-*`; gỡ các override cỡ chữ mobile trong `_auth.css`
+    và `store_picker.css` (token tự đổi ở <992, trùng breakpoint auth).
+  - Gỡ CSS chết: `.dashboard-list*`, `.main-menu … has-sub/menu-content`, `.store-picker-name/-addr`, `.wj-pc-acct-headcard__sub--sm`
+    (gỡ luôn class ở `portal_franchise_information.xml`).
+  - `.selected-language` (tên ngôn ngữ topbar PC): rule cũ 13px **chưa từng ăn** — Vuexy `0.97rem` đặc hiệu hơn (đo 13.58px);
+    nâng selector để token thắng.
+  - `wj_type_audit.py`: `ICON` thêm `-tile|-eye|__close` (nút mắt, nút đóng sidebar, ô icon Home); baseline lưu lại.
+  - Test: guard `test_ts2_khung_doc_vai_tro` (layout: 3 file + 4 alias header) + `portal_base/tests/test_ts2_type_scale.py`
+    (2 CSS + `<style>` modal + KPI Home đọc `kpi`); sửa `test_e8_sidebar` (token menu, đậm active), `test_i9_lang` (selector mới).
+- Đổi nhìn thấy được:
+  - Đăng nhập PC: headline 47/58 → 24/32 · tiêu đề thẻ 30 → 24 (mobile 22 → 20) · lead 17 → 14 · eyebrow 15/700 → 12/500 ·
+    nhãn ô/link/quay lại 14/700 → 14/600 (mobile 13.5 → 13) · tiêu đề ghi chú 13 → 15 PC / 12.5 → 13 mobile · chân thẻ 13.5 → 12.
+  - Topbar PC: tên cửa hàng 15/700 → 14/600 · nhãn "Cửa hàng hiện tại" 11 → 12 · chip vai trò 14/700 → 12/600 · tên user 13/700 → 14/600 ·
+    **vai trò user 10 → 12** · tên ngôn ngữ 13.58 → 14. Cao topbar 72, pill tài khoản 48 không đổi, không tràn ở 992/1024/1440.
+  - Sidebar: mục 15/22 → 14/20 (active 700 → 600) · nhóm 12/700 → 12/500.
+  - Tài khoản PC: tên đầu thẻ 28/25 → 24 · tiêu đề panel 20 → 18 · tên menu/nav 15–16 → 15/600 · phụ đề 13–15/700 → 12/400.
+  - Home: số KPI PC 28 → 22 · tên cửa hàng PC 18 → 17, hero mobile 17 → 15 · nhãn thao tác nhanh mobile 12/700 → 13/500 ·
+    dải cửa hàng mobile: tên 15/14 → 13/600, mã 12/700 → 13/500.
+- Số đo: cả portal **1215/0/0** · audit 5 file TS2 chữ gõ cứng 0 (toàn portal 326 → 235) · mutation `font-size: 13px` vào
+  `.wj-pc-acct-panel-sub` ⇒ đỏ đúng 2 subtest (baseline + guard TS2) · `screens` 30 màn × 8 khổ so mốc trước: 240/240 ô,
+  số cỡ khác nhau 1384 → 1344, chữ < 12px 0 → 0, tràn 0 → 0, lỗi JS 0 → 0, khung cắt chữ 132 → 132 (không ô nào tăng) ·
+  `/portal/login` + `/portal/forgot-pass` × 390/1440: 0 tràn, 0 lỗi JS.
+- Để TS6: chữ "i" trong chip ghi chú đăng nhập (`.wj-auth-note__icon--chip`) là glyph icon.
+- Phiên kế: **TS3** (`portal_exam.css`, 87 chữ), cùng nhánh, DB `wujia_ts0`.

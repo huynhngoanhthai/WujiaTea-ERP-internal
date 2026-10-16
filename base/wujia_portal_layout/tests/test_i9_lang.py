@@ -103,4 +103,4 @@ class TestPcLangFlagCss(HttpCase):
         self.assertIn('min-width: 118px', body)
         self.assertNotRegex(body, r'(^|[;{ ])width: 118px')
         self.assertIn('white-space: nowrap',
-                      self._rule('.wujia-navbar .dropdown-language > .nav-link .selected-language'))
+                      self._rule('.wujia-navbar .navbar-container ul.nav li.dropdown-language > a.nav-link .selected-language'))

@@ -249,8 +249,8 @@
     /* ---------- Sidebar items ---------- */
     --wujia-menu-item-height: 44px;
     --wujia-menu-icon-size:   20px;
-    --wujia-menu-text-size:   15px;
-    --wujia-menu-text-lh:     22px;
+    --wujia-menu-text-size:   var(--wj-t-value-fs);
+    --wujia-menu-text-lh:     var(--wj-t-value-lh);
 
     /* ---------- Buttons ---------- */
     --wujia-btn-height:           42px;
@@ -283,8 +283,8 @@
     --wujia-navbar-chip-bg:       rgb(255 255 255 / .26);
     --wujia-navbar-pill-padding:  6px 16px;
     --wujia-navbar-pill-gap:      10px;
-    --wujia-navbar-pill-font:     15px;
-    --wujia-navbar-pill-label-size: 11px;
+    --wujia-navbar-pill-font:     var(--wj-t-value-fs);
+    --wujia-navbar-pill-label-size: var(--wj-t-label-fs);
     --wujia-navbar-pill-label-color: rgb(255 255 255 / .82);
 
     /* ---------- Toast (wjToast): thẻ báo kết quả, nổi trên cả modal 1050 ---------- */

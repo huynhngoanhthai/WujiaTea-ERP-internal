@@ -46,8 +46,8 @@ class TestSidebarCss(TransactionCase):
         self.assertEqual(_token('wujia-sidebar-brand-h'), '88px')
         self.assertEqual(_token('wujia-menu-item-height'), '44px')
         self.assertEqual(_token('wujia-menu-icon-size'), '20px')
-        self.assertEqual(_token('wujia-menu-text-size'), '15px')
-        self.assertEqual(_token('wujia-menu-text-lh'), '22px')
+        self.assertEqual(_token('wujia-menu-text-size'), 'var(--wj-t-value-fs)')
+        self.assertEqual(_token('wujia-menu-text-lh'), 'var(--wj-t-value-lh)')
 
     def test_brand_88_logo_toi_da_160x64(self):
         css = _read('css', '_sidebar.css')
@@ -64,7 +64,7 @@ class TestSidebarCss(TransactionCase):
         for decl in ('height: var(--wujia-menu-item-height)', 'padding: 10px 12px',
                      'gap: 12px', 'border-radius: 10px !important',
                      'font-size: var(--wujia-menu-text-size)',
-                     'line-height: var(--wujia-menu-text-lh)', 'font-weight: 500'):
+                     'line-height: var(--wujia-menu-text-lh)', 'font-weight: var(--wj-t-value-fw)'):
             self.assertIn(decl, item)
         icon = _body(css, '#wj-main-menu .navigation > li > a > i')
         self.assertIn('font-size: var(--wujia-menu-icon-size)', icon)
@@ -80,7 +80,7 @@ class TestSidebarCss(TransactionCase):
         active = _body(css, '#wj-main-menu .navigation > li.active > a')
         self.assertIn('background: var(--wujia-primary-soft)', active)
         self.assertIn('color: var(--wujia-brand-text-hover)', active)   # WJ-PORTAL-UI-006: #168FC2 chỉ 3.66
-        self.assertIn('font-weight: 700', active)
+        self.assertIn('font-weight: var(--wj-t-strong-fw)', active)
         rail = _body(css, '#wj-main-menu .navigation > li.active > a::before')
         self.assertIn('width: 3px', rail)
         self.assertIn('position: absolute', rail)   # rail không đẩy layout

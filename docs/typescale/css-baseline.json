@@ -1,8 +1,7 @@
 {
  "base/wujia_portal_layout/static/assets/css/_auth.css": {
-  "icon": 8,
-  "text": 29,
-  "token": 1
+  "icon": 10,
+  "token": 15
  },
  "base/wujia_portal_layout/static/assets/css/_components.css": {
   "count": 2,
@@ -13,8 +12,7 @@
  "base/wujia_portal_layout/static/assets/css/_interaction.css": {},
  "base/wujia_portal_layout/static/assets/css/_pc_account.css": {
   "icon": 7,
-  "text": 31,
-  "token": 2
+  "token": 32
  },
  "base/wujia_portal_layout/static/assets/css/_pc_components.css": {
   "icon": 5,
@@ -22,21 +20,19 @@
   "token": 39
  },
  "base/wujia_portal_layout/static/assets/css/_sidebar.css": {
-  "text": 2,
-  "token": 3
+  "icon": 1,
+  "token": 4
  },
  "base/wujia_portal_layout/static/assets/css/_wujia_theme.css": {
   "token": 2
  },
  "portal/wujia_portal_base/static/src/css/portal_dashboard.css": {
   "icon": 3,
-  "text": 19,
-  "token": 3
+  "token": 19
  },
  "portal/wujia_portal_base/static/src/css/store_picker.css": {
   "icon": 1,
-  "text": 10,
-  "token": 3
+  "token": 8
  },
  "portal/wujia_portal_base/static/src/css/wj_ajax_list.css": {},
  "portal/wujia_portal_debt/static/src/css/portal_debt.css": {

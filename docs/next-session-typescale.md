@@ -105,7 +105,7 @@ Icon và chấm đếm không nằm trong trang BA chốt: số ở bảng là �
 |---|---|---|---|
 | TS0 | (PR #20 đã merge) · thêm token mới (`page`, `section`, `card`, `kpi`, `button`, `chip`) **theo §2 (bản 2 BA)**, header cũ thành alias · class `.wj-t-*` cho vai trò mới · `wj_type_audit.py css --save docs/typescale/css-baseline.json` · test **chặn tăng**: mỗi file không được nhiều chỗ gõ cứng hơn baseline | `_variables.css`, `_components.css`, test layout | ✅ 16/10 nhánh `feature/ts0-type-tokens` (chữ gõ cứng 426 → 418) |
 | TS1 | Component dùng chung: `_components.css` + `_pc_components.css` (108 chữ) — ăn nhiều màn nhất | layout | ✅ 16/10 cùng nhánh: hai file còn 4 ngoại lệ (3 Khảo sát + nút icon tìm), mọi cỡ nút một vai trò `button`, audit xếp badge/số đếm về chữ |
-| TS2 | Khung + tài khoản + Home: `_auth`, `_pc_account`, `_sidebar`, `portal_dashboard`, `store_picker` + 4 `style=` inline (89 chữ) | layout, portal_base | ☐ |
+| TS2 | Khung + tài khoản + Home: `_auth`, `_pc_account`, `_sidebar`, `portal_dashboard`, `store_picker` + 4 `style=` inline (89 chữ) | layout, portal_base | ✅ 16/10 cùng nhánh: 5 file + modal 0 chữ gõ cứng (toàn portal 326 → 235), token header/sidebar thành alias vai trò |
 | TS3 | Thi: `portal_exam.css` (87 chữ) — màn PC đăng ký có lịch, chú ý ô lịch | portal_exam | ☐ |
 | TS4 | Đặt hàng + Báo cáo: `portal_order.css`, `portal_report.css` + 6 `fontSize` chart JS (71 chữ) | portal_sale, portal_report | ☐ |
 | TS5 | Các module còn lại (71 chữ) + 36 class Bootstrap cỡ chữ trong QWeb | debt, notification, delivery, return, history, knowledge, support | ☐ |
@@ -136,7 +136,7 @@ Mốc 16/10 sau KT2:
 |---|---|---|
 | ~~Q1~~ | ✅ Chủ dự án 16/10: giữ **14px mọi khổ** — đo thực tế Vuexy `components.css` đã ép 14 ở mọi khổ, rule 14/15/16 của mình chết từ trước; TS0 ghi một dòng 14px + test ghim | TS0 |
 | ~~Q2~~ | ✅ Chủ dự án 16/10: cỡ **và** đậm đi theo vai trò, không chờ BA duyệt riêng; đổi đậm ghi f-progress để QA retest ở TS7 | TS1–TS5 |
-| Q3 | Trang đăng nhập / quên mật khẩu (`_auth.css`) có theo thang portal không? | TS2 |
+| ~~Q3~~ | ✅ Chủ dự án 16/10: **theo thang toàn bộ** (headline 47 → `page`); header PC + sidebar cũng về vai trò | TS2 |
 | Q4 | BA mở một dòng Issue List (vd `UI-TYPESCALE-001`) để `qa_sync` ghi được không? Nếu không, chỉ ghi `f-progress.md` | TS7 |
 | ~~Q5~~ | ✅ BA 16/10: số KPI một cỡ cho mọi màn — 22 PC / 18 mobile (Home 22→18, Công nợ mobile 25→18, PC 28/26/24→22) | TS2/TS4/TS5 |
 | ~~Q6~~ | ✅ Chủ dự án 16/10: theo BA — nhãn mobile 13 (lớn hơn PC 12, bằng giá trị) giữ nguyên | TS0 |
