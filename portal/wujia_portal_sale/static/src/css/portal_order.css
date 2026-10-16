@@ -138,8 +138,8 @@
 .wujia-morder-row-name {
     grid-area: name;
     align-self: end;
-    font-size: 14px;
-    font-weight: 700;
+    font-size: var(--wj-t-name-fs);
+    font-weight: var(--wj-t-name-fw);
     color: var(--wujia-morder-text);
     text-decoration: none;
     /* RESP-MOB-ORDER-001: tên SP tối đa 2 dòng thay vì cắt 1 dòng */
@@ -164,8 +164,8 @@
 }
 .wujia-morder-row-price {
     flex: 0 0 auto;
-    font-size: 14px;
-    font-weight: 700;
+    font-size: var(--wj-t-value-fs);
+    font-weight: var(--wj-t-strong-fw);
     color: var(--wujia-morder-text);
     white-space: nowrap;
 }
@@ -328,7 +328,7 @@
 }
 .wujia-mcart-row-meta {
     display: block;
-    font-size: 11.5px;
+    font-size: var(--wj-t-caption-fs);
     color: var(--wujia-morder-text-sub);
     margin: 2px 0 8px;
 }
@@ -371,7 +371,7 @@
 .wujia-mcart-row-amount { text-align: right; }
 .wujia-mcart-row-amount-label {
     display: block;
-    font-size: 10.5px;
+    font-size: var(--wj-t-label-fs);
     color: var(--wujia-morder-text-sub);
 }
 .wujia-mcart-row-amount-value {

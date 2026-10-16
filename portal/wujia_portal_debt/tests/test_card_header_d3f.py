@@ -68,4 +68,4 @@ class TestCardHeaderDebtD3f(TransactionCase):
         self.assertRegex(
             self._css('wujia_portal_debt', 'portal_debt.css'),
             r'\.wj-debt-hint \.wj-card-header\.wj-debt-hint-head'
-            r'\s+\.wj-card-header__title\s*\{[^}]*font-size:\s*11\.5px\s*!important')
+            r'\s+\.wj-card-header__title\s*\{[^}]*font-size:\s*var\(--wj-t-label-fs\)\s*!important')

@@ -186,7 +186,7 @@
                                     <a t-attf-href="/portal/purchase-history/#{o.id}" class="wujia-mdash-row is-stacked wj-data-item">
                                         <span class="wujia-mdash-tile"><i class="feather icon-file-text"/></span>
                                         <span class="wujia-mdash-row-main">
-                                            <span class="wujia-mdash-row-title is-lg is-code" t-out="o.name"/>
+                                            <span class="wujia-mdash-row-title is-code" t-out="o.name"/>
                                             <span class="wujia-mdash-row-sub"
                                                   t-out="o.date_order and wj_dt(o.date_order, '%H:%M %d/%m/%Y') or ''"/>
                                             <span class="wujia-mdash-row-sub is-strong"
@@ -662,7 +662,7 @@
                                         <a t-attf-href="/portal/purchase-history/#{o.id}" class="wujia-mdash-row is-stacked wj-data-item">
                                             <span class="wujia-mdash-tile"><i class="feather icon-file-text"/></span>
                                             <span class="wujia-mdash-row-main">
-                                                <span class="wujia-mdash-row-title is-lg is-code" t-out="o.name"/>
+                                                <span class="wujia-mdash-row-title is-code" t-out="o.name"/>
                                                 <span class="wujia-mdash-row-sub"
                                                       t-out="o.date_order and wj_dt(o.date_order, '%H:%M %d/%m/%Y') or ''"/>
                                                 <span class="wujia-mdash-row-sub is-strong"

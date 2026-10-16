@@ -10,12 +10,12 @@
         margin-bottom: -4px;   /* siết gap mpage 14 → ~10 giữa head và card */
     }
     .wujia-mknow-sechead-title {
-        font-size: 17px;
+        font-size: var(--wujia-m-sechead-fs); line-height: var(--wujia-m-sechead-lh);
         font-weight: 700;
         color: var(--wujia-morder-text);
     }
     .wujia-mknow-sechead-sub {
-        font-size: 12.5px;
+        font-size: var(--wj-t-caption-fs);
         color: var(--wujia-morder-text-muted);
     }
     .wujia-mknow-sechead-pill {
@@ -207,3 +207,5 @@
     color: var(--wujia-text-primary); font-size: 14px; line-height: 20px;
 }
 .wj-know-notice i { color: var(--wujia-brand-text); flex: 0 0 16px; }
+/* KT2: số bài trong nhóm (badge Vuexy 0.75em = 11.25px) lên sàn 12. */
+.knowledge-cat-list .badge { font-size: var(--wj-t-caption-fs); }

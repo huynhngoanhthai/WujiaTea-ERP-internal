@@ -333,6 +333,6 @@
     width: 8px; height: 8px; border-radius: 50%; background: var(--wj-pc-primary);
 }
 .wj-pc-noti-popup__item-date {
-    margin-top: auto; font-size: 11px; color: var(--wj-pc-subtle); white-space: nowrap;
+    margin-top: auto; font-size: var(--wj-t-caption-fs); color: var(--wj-pc-subtle); white-space: nowrap;
 }
 /* E6a: bề ngang trọn hàng nay là variant `--block` của atom. */

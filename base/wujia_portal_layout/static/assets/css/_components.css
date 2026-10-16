@@ -170,7 +170,7 @@ h2, .wujia-h2 { font-size: var(--wujia-font-size-h2) !important; font-weight: 60
 .wujia-badge-muted   { background-color: var(--wujia-muted-bg);   color: var(--wujia-text-muted); }
 /* F4 — icon trong badge nhỏ hơn chữ một bậc; `--sm` = badge nhãn phụ trong hàng (Figma 11px). */
 .wujia-badge i { font-size: 11px; }
-.wujia-badge--sm { font-size: 11px; padding: 3px 8px; }
+.wujia-badge--sm { font-size: var(--wj-t-caption-fs); padding: 3px 8px; }
 
 /* Auto-upgrade legacy state-* badges so old templates pick up the new look */
 .state-badge {
@@ -371,7 +371,7 @@ body .form-control::placeholder { color: var(--wujia-text-muted); opacity: 1; }
 }
 /* Mobile chip reconcile về Figma (32h/11.3px/700). Desktop (≥992, PC noti) giữ base 13/600. */
 @media (max-width: 991.98px) {
-    .wj-filter-chip { font-size: 11.3px; font-weight: 700; color: var(--wujia-text-secondary); }
+    .wj-filter-chip { font-size: var(--wj-t-label-fs); font-weight: 700; color: var(--wujia-text-secondary); }
 }
 
 /* EmptyState. Base = centered icon-glyph + text (mirrors .wujia-empty-state). */
@@ -1113,14 +1113,12 @@ body .form-control::placeholder { color: var(--wujia-text-muted); opacity: 1; }
     border-left: 1px solid var(--wujia-mhome-kpi-tile-border);
 }
 /* WJ-HOME-001: nhãn KPI KHÔNG được cắt bằng "…" (BA cấm). Nhãn dài bất thường thì
-   xuống dòng; min-height chừa sẵn 2 dòng để 4 con số vẫn thẳng hàng. */
+   xuống dòng; min-height chừa sẵn 2 dòng để 4 con số vẫn thẳng hàng. KT2: nhãn 12px. */
 .wujia-mhome-kpi-label {
-    font-size: 9px;
-    line-height: 12px;
-    min-height: 24px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
+    font-size: var(--wj-t-label-fs);
+    line-height: 16px;
+    min-height: 32px;
+    font-weight: 600;
     color: var(--wujia-mhome-kpi-label);
     overflow-wrap: anywhere;
 }
@@ -1138,7 +1136,6 @@ body .form-control::placeholder { color: var(--wujia-text-muted); opacity: 1; }
    "Thông báo" cần 59 trong 57). Giảm khoảng cách chữ + padding, không giảm cỡ chữ. */
 @media (max-width: 380px) {
     .wujia-mhome-kpi { padding: 0 5px; }
-    .wujia-mhome-kpi-label { letter-spacing: 0.01em; }
     .wujia-mhome-kpi-value { font-size: 20px; }
 }
 a.wujia-mhome-kpi:active { opacity: 0.85; }
@@ -1608,15 +1605,16 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
         gap: 3px;
     }
     .wujia-mdash-row-title {
-        font-size: 15px;
-        font-weight: 700;
+        font-size: var(--wj-t-name-fs);
+        font-weight: var(--wj-t-name-fw);
+        line-height: var(--wj-t-name-lh);
         color: var(--wujia-morder-text);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
-    .wujia-mdash-row-title.is-lg { font-size: 16px; }
-    .wujia-mdash-row-title.is-sm { font-size: 13px; white-space: normal; }
+    /* KT2: mọi dòng Home cùng một cỡ tên (15/600); is-sm chỉ còn cho xuống dòng. */
+    .wujia-mdash-row-title.is-sm { white-space: normal; }
     /* WJ-HOME-002: mã đơn phải hiện đủ — các đơn chỉ khác nhau ở 2 số cuối. */
     .wujia-mdash-row-title.is-code {
         white-space: normal;
@@ -1627,18 +1625,19 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
     /* Giữ RESP-MOB-HOME-003 (tiêu đề tối đa 2 dòng) sau khi block Thông báo về
        component chung — scope trong Home để không đụng Support/Franchise info. */
     .wujia-mdash-row-sub {
-        font-size: 12px;
+        font-size: var(--wj-t-caption-fs);
+        line-height: var(--wj-t-caption-lh);
         color: var(--wujia-morder-text-sub);
     }
     .wujia-mdash-row-sub.is-strong {
-        font-weight: 700;
+        font-weight: var(--wj-t-strong-fw);
         color: var(--wujia-morder-text);
     }
     .wujia-mdash-row-sub.is-primary {
-        font-weight: 700;
+        font-weight: var(--wj-t-strong-fw);
         color: var(--wujia-brand-text);
     }
-    .wujia-mdash-row-sub.is-xs { font-size: 11px; }
+    .wujia-mdash-row-sub.is-xs { font-size: var(--wj-t-caption-fs); }
 
         .wujia-mdash-row .wujia-badge,
         .wujia-mdash-row .wj-status-badge { flex: 0 0 auto; white-space: nowrap; }
@@ -1652,13 +1651,13 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
     /* ---------- Form tạo ticket (label + hint) ---------- */
     .wujia-mticket-label {
         display: block;
-        font-size: 13px;
-        font-weight: 600;
+        font-size: var(--wj-t-value-fs);
+        font-weight: var(--wj-t-strong-fw);
         color: var(--wujia-morder-text-sub);
         margin-bottom: 6px;
     }
     .wujia-mticket-hint {
-        font-size: 11px;
+        font-size: var(--wj-t-caption-fs);
         color: var(--wujia-morder-text-muted);
         margin: 0 0 6px;
     }
@@ -1726,14 +1725,14 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
     .wujia-maccount-kv + .wujia-maccount-kv { border-top: 1px solid var(--wujia-morder-divider); }
     .wujia-maccount-kv-key {
         flex: 0 0 auto;
-        font-size: 13px;
+        font-size: var(--wj-t-label-fs); font-weight: var(--wj-t-label-fw);
         color: var(--wujia-maccount-kv-key);
     }
     .wujia-maccount-kv-val {
         flex: 1 1 auto;
         min-width: 0;
-        font-size: 14px;
-        font-weight: 600;
+        font-size: var(--wj-t-value-fs);
+        font-weight: var(--wj-t-strong-fw);
         color: var(--wujia-maccount-kv-val);
         text-align: right;
         word-break: break-word;
@@ -2234,7 +2233,7 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
 .wj-card-header.wj-card-header--any.wj-card-header--eyebrow .wj-card-header__title,
 .wj-card-header.wj-card-header--m.wj-card-header--eyebrow .wj-card-header__title,
 .wj-card-header.wj-card-header--pc.wj-card-header--eyebrow .wj-card-header__title {
-    font-size: 11px !important;
+    font-size: var(--wj-t-label-fs) !important;
     font-weight: 700;
     line-height: 1.5;
     letter-spacing: .02em;
@@ -2277,6 +2276,12 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
    `.wujia-content-card-table` vẫn cần 16px ở ca không có header. Đính chính D4b: chỉ còn
    6 call site bảng, cả 6 nằm trong card của D4b — không phải 31 như ghi lúc D3. */
 .wj-card-header + .wujia-content-card-table:not(.wj-data-table) { margin-top: 0; }
+
+/* KT2: nhãn ô nhập mọi form = cỡ giá trị + đậm 600; chú thích dưới ô = caption. */
+.wj-mform .form-label,
+.wujia-return-form .form-label { font-size: var(--wj-t-value-fs); font-weight: var(--wj-t-strong-fw); }
+.wj-mform small.text-muted,
+.wujia-return-form small.text-muted { font-size: var(--wj-t-caption-fs); }
 
 /* UAT-BH-009 — form mobile: control chạm được + bo góc cùng token với card/nút.
    Khoá bằng lớp `wj-mform` trên thẻ <form> chứ không quét mọi `.form-control`:
