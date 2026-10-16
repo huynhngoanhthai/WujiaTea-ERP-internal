@@ -79,8 +79,8 @@
                         <t t-set="ch_platform" t-value="'pc'"/>
                         <t t-set="ch_icon" t-value="'refresh-cw'"/>
                         <t t-set="ch_meta">
-                            <t t-set="_ret_n" t-value="len(returns)"/>
-                            <span class="wj-card-header__meta"><t t-out="_ret_n"/> <t t-if="_ret_n == 1">result</t><t t-else="">results</t></span>
+                            <t t-set="_ret_n" t-value="(pgn or {}).get('total_items', len(returns))"/>
+                            <span class="wj-card-header__meta"><t t-out="_ret_n"/> <t t-if="_ret_n == 1">request</t><t t-else="">requests</t></span>
                         </t>
                     </t>
                     <t t-call="wujia_portal_layout.wj_data_list">
@@ -198,7 +198,7 @@
                             <t t-set="sh_level" t-value="3"/>
                             <t t-set="sh_platform" t-value="'m'"/>
                             <t t-set="sh_meta">
-                                <t t-set="_ret_n" t-value="len(returns)"/>
+                                <t t-set="_ret_n" t-value="(pgn or {}).get('total_items', len(returns))"/>
                                 <span class="wj-section-header__meta"><t t-out="_ret_n"/> <t t-if="_ret_n == 1">request</t><t t-else="">requests</t></span>
                             </t>
                         </t>

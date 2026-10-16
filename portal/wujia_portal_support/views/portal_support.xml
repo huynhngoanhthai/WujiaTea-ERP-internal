@@ -49,8 +49,8 @@
                         <t t-set="ch_platform" t-value="'pc'"/>
                         <t t-set="ch_icon" t-value="'life-buoy'"/>
                         <t t-set="ch_meta">
-                            <t t-set="_n" t-value="len(tickets)"/>
-                            <span class="wj-card-header__meta"><t t-out="_n"/> <t t-if="_n == 1">ticket</t><t t-else="">tickets</t></span>
+                            <t t-set="_n" t-value="(pgn or {}).get('total_items', len(tickets))"/>
+                            <span class="wj-card-header__meta"><t t-out="_n"/> <t t-if="_n == 1">request</t><t t-else="">requests</t></span>
                         </t>
                     </t>
                     <t t-call="wujia_portal_layout.wj_data_list">
@@ -586,11 +586,11 @@
                     <t t-set="sc_variant" t-value="'section'"/>
                     <t t-set="sc_class" t-value="'wujia-mdash-card'"/>
                     <div class="d-flex align-items-center justify-content-between mb-2">
-                        <span class="wujia-mdash-row-sub is-primary" t-out="ticket.name"/>
+                        <span class="wj-t-code" t-out="ticket.name"/>
                         <t t-set="lbl" t-value="m_ticket_badges.get(ticket.state, (ticket.state, 'wj-status-badge--neutral'))"/>
                         <span t-attf-class="wj-status-badge #{lbl[1]}" t-out="lbl[0]"/>
                     </div>
-                    <p class="wujia-mdash-row-title mb-0" style="white-space:normal;" t-out="ticket.title"/>
+                    <p class="wj-t-name mb-0" t-out="ticket.title"/>
                 </t>
 
                 <!-- Thẻ thông tin: cùng danh sách `meta` với PC (WJ-SUPPORT-004). -->
@@ -601,8 +601,8 @@
                     <div t-foreach="meta" t-as="row" class="wujia-mdash-row">
                         <span class="wujia-mdash-ico"><i t-attf-class="feather icon-#{row['icon']}"/></span>
                         <span class="wujia-mdash-row-main">
-                            <span class="wujia-mdash-row-sub" t-out="row['label']"/>
-                            <span class="wujia-mdash-row-sub is-strong" t-out="row['value']"/>
+                            <span class="wj-t-label" t-out="row['label']"/>
+                            <span class="wj-t-value" t-out="row['value']"/>
                         </span>
                     </div>
                 </t>

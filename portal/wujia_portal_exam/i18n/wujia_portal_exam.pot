@@ -158,6 +158,11 @@ msgstr ""
 
 #. module: wujia_portal_exam
 #: model_terms:ir.ui.view,arch_db:wujia_portal_exam.portal_exam_registration_detail
+msgid "<span class=\"wj-exam-pc-kv__label\">Status</span>"
+msgstr ""
+
+#. module: wujia_portal_exam
+#: model_terms:ir.ui.view,arch_db:wujia_portal_exam.portal_exam_registration_detail
 msgid "<span class=\"wj-exam-pc-kv__label\">Requested by</span>"
 msgstr ""
 
@@ -1321,4 +1326,9 @@ msgstr ""
 #. module: wujia_portal_exam
 #: model_terms:ir.ui.view,arch_db:wujia_portal_exam.portal_exam_register
 msgid "· local time"
+msgstr ""
+
+#. module: wujia_portal_exam
+#: model_terms:ir.ui.view,arch_db:wujia_portal_exam.portal_exam_registration_detail
+msgid "Exam registration / Registration details"
 msgstr ""

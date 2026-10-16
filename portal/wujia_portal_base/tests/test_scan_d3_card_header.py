@@ -22,7 +22,7 @@ class TestCardHeaderCallSites(TransactionCase):
         'wujia_portal_support.portal_support_list': 1,
         'wujia_portal_return.portal_return_form': 4,
         # D3c — nốt phần còn lại của chính 4 file D3a
-        'wujia_portal_delivery.portal_delivery_detail': 4,
+        'wujia_portal_delivery.portal_delivery_detail': 6,  # KT #191: +2 CardHeader mobile thay sectiontop
         'wujia_portal_base.portal_franchise_information': 8,
         'wujia_portal_support.portal_support_form': 1,
         'wujia_portal_support.portal_support_detail': 7,  # +1 thẻ "File đính kèm" mobile (26/09) · +1 "Nội dung yêu cầu" mobile (I8)

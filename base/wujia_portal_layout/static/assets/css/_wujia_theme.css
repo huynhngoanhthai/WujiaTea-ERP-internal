@@ -237,8 +237,7 @@ html body .alert.alert-info { color: var(--wujia-brand-text) !important; }
 
 /* ---------- UI-08 Page Title (Sprint 9.10, 2026-05-25) ---------- */
 .content-header-title,
-.wujia-page-title,
-h1.article-title {
+.wujia-page-title {
     color: var(--wujia-page-title-color) !important;
     font-size: var(--wujia-page-title-size) !important;
     font-weight: var(--wujia-page-title-weight) !important;

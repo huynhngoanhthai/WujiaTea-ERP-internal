@@ -1,6 +1,6 @@
 {
     'name': 'Wujia Portal — Sale (Catalog + Cart)',
-    'version': '19.0.5.5.0',
+    'version': '19.0.5.6.0',
     'category': 'Wujia',
     'summary': 'Portal ordering page — catalog + shared cart per store (BA controller mapping)',
     'author': 'WujiaTea',

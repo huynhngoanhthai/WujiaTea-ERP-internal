@@ -32,10 +32,9 @@
                                          t-att-alt="product.name"/>
                                 </div>
                                 <div class="col-md-7">
-                                    <h3 t-out="product.name"/>
-                                    <p t-if="product.name_chinese" class="text-muted mb-1"
+                                    <p t-if="product.name_chinese" class="wj-t-value text-muted mb-1"
                                        t-out="product.name_chinese"/>
-                                    <p class="text-muted">
+                                    <p class="wj-t-value text-muted">
                                         <span t-if="product.public_categ_id">
                                             Group: <t t-out="product.public_categ_id.name"/>
                                         </span>
@@ -43,19 +42,19 @@
                                             • Specification: <t t-out="product.wujia_packaging"/>
                                         </span>
                                     </p>
-                                    <p class="text-primary fs-4 fw-bold">
+                                    <p class="wj-t-code text-primary">
                                         <t t-out="money(price_map.get(product.id), currency_symbol, currency_decimals)"/>
-                                        <small class="text-muted fs-6"> / <t t-out="product.uom_id.name or '—'"/></small>
+                                        <span class="wj-t-value text-muted"> / <t t-out="product.uom_id.name or '—'"/></span>
                                     </p>
-                                    <p t-if="product.description_sale" t-out="product.description_sale"/>
-                                    <p class="text-muted small">
+                                    <p t-if="product.description_sale" class="wj-t-body" t-out="product.description_sale"/>
+                                    <p class="wj-t-caption">
                                         Minimum: <t t-out="product.min_qty or 1"/>
                                         <span t-if="product.max_qty"> • Maximum: <t t-out="product.max_qty"/></span>
                                         • Order step: <t t-out="product.min_qty or 1"/>
                                     </p>
 
                                     <div class="d-flex flex-wrap align-items-center gap-2 mt-3">
-                                        <label class="form-label mb-0 text-nowrap">Quantity</label>
+                                        <label for="product-detail-qty" class="wj-t-label mb-0 text-nowrap">Quantity</label>
                                         <input type="number" id="product-detail-qty"
                                                class="form-control"
                                                style="width: 100px;"
@@ -92,7 +91,7 @@
                                                     <img class="wj-surface-card__media"
                                                          t-attf-src="/web/image/product.product/#{rel.id}/image_256"/>
                                                     <div class="wj-surface-card__body p-2">
-                                                        <small t-out="rel.name"/>
+                                                        <span class="wj-t-value" t-out="rel.name"/>
                                                     </div>
                                                 </div>
                                             </a>

@@ -428,8 +428,8 @@
 .state-closed                     { background: var(--wujia-text-secondary); color: #fff; }
 
 /* Profile dl */
-.profile-dl dt { font-weight: 500; color: var(--wujia-text-secondary); }
-.profile-dl dd { color: var(--wujia-text-primary); margin-bottom: 0.5rem; }
+.profile-dl dt { font-size: var(--wj-t-label-fs); font-weight: var(--wj-t-label-fw); line-height: var(--wj-t-value-lh); color: var(--wujia-text-secondary); }
+.profile-dl dd { font-size: var(--wj-t-value-fs); font-weight: var(--wj-t-value-fw); line-height: var(--wj-t-value-lh); color: var(--wujia-text-primary); margin-bottom: 0.5rem; }
 
 /* Sidenav dropdown indicator (Vuexy has-sub) */
 .main-menu .navigation .nav-item.has-sub > a::after { content: '\f078'; font-family: 'FontAwesome'; font-size: 0.7rem; float: right; margin-top: 4px; transition: transform 0.2s; }

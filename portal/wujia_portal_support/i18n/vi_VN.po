@@ -365,14 +365,11 @@ msgstr "phản hồi"
 #. odoo-python
 #: code:addons/wujia_portal_support/controllers/portal.py
 #: code:addons/wujia_portal_support/tests/test_jv7_i18n.py
+#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_list
 msgid "requests"
 msgstr "yêu cầu"
 
 #. module: wujia_portal_support
-msgid "ticket"
-msgstr ""
-
-#. module: wujia_portal_support
-msgid "tickets"
-msgstr "ticket"
-
+#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_list
+msgid "request"
+msgstr "yêu cầu"

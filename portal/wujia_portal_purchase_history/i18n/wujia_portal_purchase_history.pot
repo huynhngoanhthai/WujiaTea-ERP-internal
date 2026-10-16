@@ -410,11 +410,6 @@ msgid "products"
 msgstr ""
 
 #. module: wujia_portal_purchase_history
-#: model_terms:ir.ui.view,arch_db:wujia_portal_purchase_history.portal_history_results_part
-msgid "records"
-msgstr ""
-
-#. module: wujia_portal_purchase_history
 #: model_terms:ir.ui.view,arch_db:wujia_portal_purchase_history.portal_history_detail
 msgid "· Ordered by"
 msgstr ""

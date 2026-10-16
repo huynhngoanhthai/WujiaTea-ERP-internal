@@ -12,8 +12,8 @@
         max-width: 82%;
         padding: 10px 14px;
         border-radius: var(--wujia-mticket-bubble-radius);
-        font-size: 14px;
-        line-height: 1.5;
+        font-size: var(--wj-t-body-fs);
+        line-height: var(--wj-t-body-lh);
         word-wrap: break-word;
     }
     .wujia-mticket-bubble p:last-child { margin-bottom: 0; }
@@ -31,7 +31,8 @@
     }
     .wujia-mticket-bubble.is-hq a { color: #FFFFFF; text-decoration: underline; }
     .wujia-mticket-bubble-meta {
-        font-size: 11px;
+        font-size: var(--wj-t-caption-fs);
+        line-height: var(--wj-t-caption-lh);
         color: var(--wujia-morder-text-muted);
         margin: 0 2px 6px;
     }
@@ -61,8 +62,8 @@
     /* WJ-SUPPORT-002: thẻ Nội dung yêu cầu mobile (body flush ⇒ tự đệm như thread). */
     .wujia-mticket-content {
         padding: 6px 14px 14px;
-        font-size: 14px;
-        line-height: 1.5;
+        font-size: var(--wj-t-body-fs);
+        line-height: var(--wj-t-body-lh);
         color: var(--wujia-morder-text);
     }
 }

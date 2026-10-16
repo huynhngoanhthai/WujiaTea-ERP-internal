@@ -42,7 +42,8 @@ MIGRATED = [
     ('wujia_portal_delivery', 'portal_delivery.xml', 6, 0,
      ('wj-pc-btn', 'wj-pc-btn--primary', 'wj-pc-btn--secondary',
       'wj-pc-dlv-btn-xem', 'wj-empty-state-btn'), 'portal_delivery.css'),
-    ('wujia_portal_knowledge', 'portal_knowledge.xml', 3, 0,
+    # KT #193: bỏ nút "Back to library" cuối bài — back nằm trong PageHeader.
+    ('wujia_portal_knowledge', 'portal_knowledge.xml', 2, 0,
      ('btn-secondary', 'wj-empty-state-btn'), 'portal_knowledge.css'),
     ('wujia_portal_info_request', 'portal_info_request_form.xml', 3, 0,
      ('btn-primary', 'btn-secondary', 'btn-outline-primary'), None),
@@ -83,7 +84,8 @@ MIGRATED = [
       'wj-pc-btn--disabled', 'btn-primary'), None),
     # --- E6c: màn Thi. Ô ngày/khung giờ/FAB/nút lùi wizard là boundary đọc token
     # (test riêng ở wujia_portal_exam/tests/test_button_e6c.py).
-    ('wujia_portal_exam', 'portal_exam.xml', 21, 7,
+    # KT #193: bỏ link Back riêng ở chi tiết đăng ký PC — back nằm trong PageHeader.
+    ('wujia_portal_exam', 'portal_exam.xml', 20, 7,
      ('wj-pc-btn', 'wj-pc-btn--primary', 'wj-pc-btn--secondary', 'wujia-mexam-btn',
       'wujia-mexam-btn-primary', 'wujia-mexam-btn-outline', 'wj-empty-state-btn',
       'wj-exam-pc-navbtn', 'wujia-mexam-cal-navbtn', 'wujia-mexam-person-del'),

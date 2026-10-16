@@ -195,9 +195,10 @@ class TestJv6PortalByLang(HttpCase, ReturnFixture):
         for word in ('Return request list', 'Request no. / order no. / product', '— All statuses —'):
             self.assertIn(word, en)
         text_vi, text_en = _text(vi), _text(en)
-        self.assertIn('1 kết quả', text_vi)
+        # #83: card PC đếm "yêu cầu" như mobile, không còn "kết quả".
+        self.assertNotIn('1 kết quả', text_vi)
         self.assertIn('1 yêu cầu', text_vi)
-        self.assertRegex(text_en, r'\b1 result\b')
+        self.assertNotRegex(text_en, r'\b1 result\b')
         self.assertRegex(text_en, r'\b1 request\b')
         self.assertNotRegex(text_en, r'\b1 (results|requests)\b')
 

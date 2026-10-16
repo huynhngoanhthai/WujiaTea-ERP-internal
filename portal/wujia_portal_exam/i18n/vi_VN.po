@@ -164,6 +164,10 @@ msgid "<span class=\"wj-exam-pc-kv__label\">Registration no.</span>"
 msgstr "<span class=\"wj-exam-pc-kv__label\">Mã phiếu</span>"
 
 #. module: wujia_portal_exam
+msgid "<span class=\"wj-exam-pc-kv__label\">Status</span>"
+msgstr "<span class=\"wj-exam-pc-kv__label\">Trạng thái</span>"
+
+#. module: wujia_portal_exam
 msgid "<span class=\"wj-exam-pc-kv__label\">Requested by</span>"
 msgstr "<span class=\"wj-exam-pc-kv__label\">Người đăng ký</span>"
 
@@ -1201,7 +1205,6 @@ msgstr "Trung tâm đào tạo {brand}"
 msgid "· local time"
 msgstr "· giờ địa phương"
 
-
 #. module: wujia_portal_exam
 msgid "Enter a valid phone number (e.g. 0901234567)."
 msgstr "Nhập số điện thoại hợp lệ (vd: 0901234567)."
@@ -1213,3 +1216,8 @@ msgstr "Nhập họ tên người thi."
 #. module: wujia_portal_exam
 msgid "Full name"
 msgstr "Họ và tên"
+
+#. module: wujia_portal_exam
+#: model_terms:ir.ui.view,arch_db:wujia_portal_exam.portal_exam_registration_detail
+msgid "Exam registration / Registration details"
+msgstr "Đăng ký thi / Chi tiết đăng ký"

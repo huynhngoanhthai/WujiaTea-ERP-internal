@@ -10,13 +10,13 @@
 
 /* Chi tiết: thẻ tóm tắt + khối phản hồi dùng chung PC/mobile (#175). */
 .wujia-mreturn-row-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
-.wujia-mreturn-row-code { font-size: 15px; font-weight: 700; color: var(--wujia-morder-text); overflow-wrap: anywhere; }
+.wujia-mreturn-row-code { font-size: var(--wj-t-code-fs); font-weight: 700; line-height: var(--wj-t-code-lh); color: var(--wujia-morder-text); overflow-wrap: anywhere; }
 .wujia-mreturn-summary-meta {
     display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px;
-    margin-top: 8px; font-size: 13px; color: var(--wujia-morder-text-sub);
+    margin-top: 8px; font-size: var(--wj-t-caption-fs); line-height: var(--wj-t-caption-lh); color: var(--wujia-morder-text-sub);
 }
 .wujia-mreturn-response { border-left: 3px solid var(--wujia-morder-primary); }
-.wujia-mreturn-resp-body { margin: 0; font-size: 14px; color: var(--wujia-morder-text); white-space: pre-line; overflow-wrap: anywhere; }
+.wujia-mreturn-resp-body { margin: 0; font-size: var(--wj-t-body-fs); line-height: var(--wj-t-body-lh); color: var(--wujia-morder-text); white-space: pre-line; overflow-wrap: anywhere; }
 
 /* ===== Mobile Đổi trả/Bù hàng — Figma 4449:81 (S20). Token --wujia-morder-* ===== */
 @media (max-width: 991.98px) {

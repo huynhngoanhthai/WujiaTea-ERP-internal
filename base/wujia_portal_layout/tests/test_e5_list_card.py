@@ -28,7 +28,10 @@ def _css(name):
 def _resolved(block):
     """Thay `var(--x)` bằng giá trị trong `_variables.css` (UI-LISTCARD-002 đưa số vào token)."""
     tokens = dict(re.findall(r'(--[\w-]+)\s*:\s*([^;]+);', _css('_variables.css')))
-    return re.sub(r'var\((--[\w-]+)\)', lambda m: tokens.get(m.group(1), m.group(0)).strip(), block)
+    # Giải nhiều cấp: --wj-lc-* trỏ tiếp sang thang chữ --wj-t-* (UI-DETAILTYPO-001).
+    for _ in range(5):
+        block = re.sub(r'var\((--[\w-]+)\)', lambda m: tokens.get(m.group(1), m.group(0)).strip(), block)
+    return block
 
 
 def _block(css, selector):

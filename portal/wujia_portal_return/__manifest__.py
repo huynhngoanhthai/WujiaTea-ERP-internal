@@ -1,6 +1,6 @@
 {
     'name': 'Wujia Portal — Return Request',
-    'version': '19.0.5.6.0',
+    'version': '19.0.5.7.0',
     'category': 'Wujia',
     'summary': 'Return / compensation portal — list, create request, detail (business logic in wujia_return).',
     'author': 'WujiaTea',

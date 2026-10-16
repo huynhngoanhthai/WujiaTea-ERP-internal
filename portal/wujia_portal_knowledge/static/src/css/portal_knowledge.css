@@ -98,27 +98,21 @@
         gap: 6px;
         min-width: 0;
     }
-    .wujia-mknow-article-title {
-        font-size: 19px;
-        font-weight: 700;
-        line-height: 1.35;
-        color: var(--wujia-morder-text);
-        margin: 0 0 10px;
-    }
     .wujia-mknow-meta {
-        font-size: 13px;
+        font-size: var(--wj-t-caption-fs);
+        line-height: var(--wj-t-caption-lh);
         color: var(--wujia-morder-text-sub);
         margin-top: 8px;
     }
     .wujia-mknow-lead {
-        font-size: 14px;
-        line-height: 1.6;
+        font-size: var(--wj-t-body-fs);
+        line-height: var(--wj-t-body-lh);
         color: var(--wujia-morder-text-sub);
         margin: 0 0 8px;
     }
     .wujia-mknow-body {
-        font-size: 14px;
-        line-height: 1.6;
+        font-size: var(--wj-t-body-fs);
+        line-height: var(--wj-t-body-lh);
         color: var(--wujia-morder-text-sub);
     }
     .wujia-mknow-body p { margin: 0 0 10px; }
@@ -131,8 +125,6 @@
     .wujia-mknow-body li::marker { color: var(--wujia-brand-text); }
     .wujia-mknow-body h1, .wujia-mknow-body h2, .wujia-mknow-body h3,
     .wujia-mknow-body h4, .wujia-mknow-body h5 {
-        font-size: 15px;
-        font-weight: 700;
         color: var(--wujia-morder-text);
         margin: 14px 0 6px;
     }
@@ -173,15 +165,17 @@
         min-width: 0;
     }
     .wujia-mknow-att-name {
-        font-size: 14px;
-        font-weight: 700;
+        font-size: var(--wj-t-value-fs);
+        font-weight: var(--wj-t-strong-fw);
+        line-height: var(--wj-t-value-lh);
         color: var(--wujia-morder-text);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
     .wujia-mknow-att-sub {
-        font-size: 12px;
+        font-size: var(--wj-t-caption-fs);
+        line-height: var(--wj-t-caption-lh);
         color: var(--wujia-morder-text-muted);
     }
 }
@@ -194,10 +188,12 @@
 .knowledge-cat-list .list-group-item.active .badge { background: rgba(255,255,255,0.3) !important; color: #fff !important; }
 
 .knowledge-detail-cover { height: 320px; object-fit: cover; }
-/* UI-08 (Sprint 9.10, 2026-05-25): font-size + weight + color governed by
-   _wujia_theme.css UI-08 rule (24px / 700 / #111827). Keep margin-bottom only. */
-.article-title { margin-bottom: 0.5rem; }
-.article-content { font-size: 1rem; line-height: 1.7; color: var(--wujia-text-primary); }
+.article-content { font-size: var(--wj-t-body-fs); line-height: var(--wj-t-body-lh); color: var(--wujia-text-primary); }
+/* Heading do HQ soạn trong nội dung: một bậc dưới CardHeader; !important thắng `h1, h2` toàn cục */
+.article-content :is(h1, h2, h3, h4, h5),
+.wujia-mknow-body :is(h1, h2, h3, h4, h5) {
+    font-size: var(--wj-t-name-fs) !important; font-weight: 700; line-height: var(--wj-t-name-lh);
+}
 .article-content img { max-width: 100%; height: auto; border-radius: 6px; margin: 1rem 0; }
 .article-content h2, .article-content h3 { color: var(--wujia-brand-text); margin-top: 1.5rem; }
 

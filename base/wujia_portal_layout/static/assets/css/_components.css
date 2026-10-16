@@ -975,6 +975,15 @@ body .form-control::placeholder { color: var(--wujia-text-muted); opacity: 1; }
     font-weight: var(--wj-lc-strong-fw);
     color: var(--wujia-text-primary);
 }
+
+/* Thang chữ thân theo vai trò (UI-DETAILTYPO-001) — cho phần tử chưa có class họ riêng */
+.wj-t-label { font-size: var(--wj-t-label-fs); font-weight: var(--wj-t-label-fw); line-height: var(--wj-t-label-lh); color: var(--wujia-text-subtitle); }
+.wj-t-value { font-size: var(--wj-t-value-fs); font-weight: var(--wj-t-value-fw); line-height: var(--wj-t-value-lh); color: var(--wujia-text-primary); }
+.wj-t-strong { font-weight: var(--wj-t-strong-fw); }
+.wj-t-name { font-size: var(--wj-t-name-fs); font-weight: var(--wj-t-name-fw); line-height: var(--wj-t-name-lh); }
+.wj-t-body { font-size: var(--wj-t-body-fs); line-height: var(--wj-t-body-lh); }
+.wj-t-caption { font-size: var(--wj-t-caption-fs); line-height: var(--wj-t-caption-lh); color: var(--wujia-text-subtitle); }
+.wj-t-code { font-size: var(--wj-t-code-fs); font-weight: 700; line-height: var(--wj-t-code-lh); }
 /* UI-LISTCARD-002: CategoryBadge (`.wujia-badge`) trong card dùng CÙNG line-height chữ với
    StatusBadge compact và căn giữa dọc như nó ⇒ hai họ đứng chung hàng thì chữ thẳng hàng.
    Giữ màu/cỡ chữ/bo của họ tag (semantic riêng); cao 26 (cũ 26,8), `--sm` 22 (cũ 23,4) —
@@ -1363,14 +1372,17 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
 }
 .wujia-mhist-kv-label {
     flex: 0 0 110px;
-    font-size: 12.5px;
+    font-size: var(--wj-t-label-fs);
+    font-weight: var(--wj-t-label-fw);
+    line-height: var(--wj-t-label-lh);
     color: var(--wujia-morder-text-sub);
 }
 .wujia-mhist-kv-value {
     flex: 1 1 auto;
     text-align: left;
-    font-size: 12.5px;
-    font-weight: 700;
+    font-size: var(--wj-t-value-fs);
+    font-weight: var(--wj-t-value-fw);
+    line-height: var(--wj-t-value-lh);
     color: var(--wujia-morder-text);
 }
 .wujia-mhist-note {
