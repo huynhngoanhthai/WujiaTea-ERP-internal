@@ -21,6 +21,9 @@ import pathlib
 import re
 import sys
 
+# Add odoo/odoo and odoo/addons to sys.path to allow importing Odoo modules
+
+
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 import wj_paths  # noqa: E402
