@@ -8,13 +8,15 @@
 
 ## 0. Luật áp suốt cụm
 
-- Tách `feature/ts<N>-…` từ `origin/deploy/staging` (PR #20 đã merge 16/10); PR về `deploy/staging`.
+- **Chủ dự án chốt 16/10: deploy MỘT lần khi xong cả cụm.** Mọi phiên làm tiếp trên nhánh `feature/ts0-type-tokens`
+  (PR #22 mở, **không merge** giữa chừng — merge `deploy/staging` = CI tự deploy). Mỗi phiên: commit + push nhánh
+  (chủ dự án duyệt push), cập nhật mô tả PR #22. Trước phiên mới: `git merge origin/deploy/staging` để nhận commit mới của Thái.
 - Không sửa code anh Thái: `wujia_franchise*`, `wujia_portal_inspection`, `wujia_mobile_*`. Khảo sát ngoài phạm vi.
 - Không `-u wujia_core --test-enable`; không chạy hai `-u` cùng lúc. Test trên DB copy (`wujia_kt` còn dùng được).
 - Đổi CSS thì bump `?v=` ở `wujia_portal_layout/views/assets.xml` + version mọi module có file đổi.
 - Mỗi phiên chuyển **theo vai trò của phần tử, không theo con số đang có** (bảng §3). Giá trị lẻ (12.5, 13.5, 17, 19…) về vai trò gần nhất.
 - Đo trước/sau bằng `scripts/qa/wj_type_audit.py` (§5). Đổi nhìn thấy được phải ghi vào mục phiên ở `f-progress.md`.
-- UAT chỉ đọc. Merge và deploy chỉ khi chủ dự án duyệt từng PR.
+- UAT chỉ đọc. Merge PR #22 (= deploy) chỉ ở TS7, khi chủ dự án duyệt.
 
 ## 1. Hiện trạng (đo 16/10 trên nhánh PR #20)
 
@@ -111,7 +113,7 @@ Icon và chấm đếm không nằm trong trang BA chốt: số ở bảng là �
 | TS7 | Đo UAT đủ 31 màn × 8 khổ đối chiếu §2 · ledger + sheet · bàn giao (số đã áp từ TS0) | — | ☐ |
 
 Mỗi phiên TS1–TS6: chạy `css --baseline` cho thấy số giảm, `screens` trước/sau trên DB copy, 0 chữ < 12px (ngoài chấm đếm), 0 tràn, 0 lỗi JS, 0 khung cắt chữ.
-Một phiên một PR, một lần deploy.
+Một PR (#22) cho cả cụm, deploy một lần ở TS7; mỗi lần bump version/`?v=` cộng dồn trên cùng nhánh.
 
 ## 5. Bộ đo
 

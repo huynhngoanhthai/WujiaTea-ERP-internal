@@ -3704,4 +3704,6 @@ rồi đánh ✅ ở bảng Trạng thái §2 `docs/next-session-clusters-F.md`.
 - Còn lệch, để phiên sau: CardHeader PC giữ số riêng ở màn (Thi 16 · Cập nhật thông tin/Kiến thức/Sản phẩm liên quan 18) →
   TS3–TS5; chip PC 13 (base) → TS1; tiêu đề chi tiết Thông báo PC đọc `code` (20 → 16) — xem lại vai trò ở TS5.
 - Nợ: ledger/sheet gộp TS7 (Q7: #143 nhóm mobile 18, #183/#191 tên dòng 15 khác bản 2).
-- Phiên kế: merge PR TS0 → kiểm version UAT + `screens` 360/390/1440; rồi **TS1** (`_components.css` + `_pc_components.css`).
+- Chủ dự án chốt cuối phiên: **chỉ push, không merge** — PR #22 mở suốt cụm, deploy một lần ở TS7.
+- Phiên kế: **TS1** (`_components.css` + `_pc_components.css`) làm tiếp trên `feature/ts0-type-tokens` (merge
+  `origin/deploy/staging` trước), DB copy `wujia_ts0`.
