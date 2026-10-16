@@ -499,7 +499,7 @@ html body.wj-auth-body {
     .wj-auth-note__icon--chip { font-size: 12px; }
     .wj-auth-note__title { font-size: 12.5px; line-height: 15px; }
     .wj-auth-note__text { margin-top: 4px; font-size: 12px; line-height: 17px; }
-    .wj-auth-card--forgot .wj-auth-note__text { font-size: 11.5px; line-height: 17px; }
+    .wj-auth-card--forgot .wj-auth-note__text { font-size: var(--wj-t-caption-fs); line-height: 17px; }
 
     .wj-auth-foot { margin-top: 24px; padding-top: 18px; font-size: 12.5px; }
 }

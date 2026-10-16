@@ -197,9 +197,9 @@
     .wj-rep-mkpi--done    .wj-rep-mkpi__bar { background: var(--wj-rep-done); }
     .wj-rep-mkpi--danger  .wj-rep-mkpi__bar { background: var(--wujia-danger); }
     .wj-rep-mkpi__label {
-        font-size: 13px;
+        font-size: var(--wj-t-label-fs);
         line-height: 17px;
-        font-weight: 600;
+        font-weight: var(--wj-t-label-fw);
         color: var(--wujia-text-subtitle);
     }
     .wj-rep-mkpi__value {
@@ -333,9 +333,9 @@
         gap: 4px;
     }
     .wj-rep-mtop__name {
-        font-size: 14px;
-        font-weight: 700;
-        line-height: 19px;
+        font-size: var(--wj-t-name-fs);
+        font-weight: var(--wj-t-name-fw);
+        line-height: var(--wj-t-name-lh);
         color: var(--wujia-text-primary);
         overflow-wrap: anywhere;
     }
@@ -345,8 +345,8 @@
     }
     .wj-rep-mtop__amount {
         flex: 0 0 auto;
-        font-size: 14px;
-        font-weight: 700;
+        font-size: var(--wj-t-value-fs);
+        font-weight: var(--wj-t-strong-fw);
         color: var(--wujia-text-primary);
         white-space: nowrap;
     }

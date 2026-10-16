@@ -864,7 +864,7 @@
         align-items: center;
         gap: 33px;
         margin-top: 18px;
-        font-size: 11px;
+        font-size: var(--wj-t-caption-fs);
         font-weight: 400;
         color: var(--wj-pc-muted);
     }
@@ -891,7 +891,7 @@
     .wj-exam-pc-cal__grid--wd { margin: 18px 0 6px; }
     .wj-exam-pc-wd {
         text-align: center;
-        font-size: 11px;
+        font-size: var(--wj-t-label-fs);
         font-weight: 700;
         color: var(--wj-pc-subtle);
     }
@@ -1211,8 +1211,8 @@
     }
     .wj-exam-pc-sumkv { display: flex; flex-direction: column; gap: 5px; }
     .wj-exam-pc-sumkv__label {
-        font-size: 12px;
-        font-weight: 700;
+        font-size: var(--wj-t-label-fs);
+        font-weight: var(--wj-t-label-fw);
         line-height: 16px;
         color: var(--wj-pc-subtle);
     }
@@ -1232,8 +1232,8 @@
         gap: 10px;
     }
     .wj-exam-pc-quota__label {
-        font-size: 12px;
-        font-weight: 700;
+        font-size: var(--wj-t-label-fs);
+        font-weight: var(--wj-t-label-fw);
         color: var(--wj-pc-subtle);
     }
     .wj-exam-pc-chip {
@@ -1391,7 +1391,7 @@
         color: var(--wujia-brand-text);
     }
     .wj-exam-pc-photobox__hint {
-        font-size: 11px;
+        font-size: var(--wj-t-caption-fs);
         font-weight: 400;
         color: var(--wj-pc-muted);
     }

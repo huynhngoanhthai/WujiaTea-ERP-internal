@@ -31,7 +31,7 @@ class TestF4Variants(TransactionCase):
             with self.subTest(plat=plat):
                 self.assertIn('.wj-card-header.wj-card-header--%s.wj-card-header--eyebrow '
                               '.wj-card-header__title' % plat, comp)
-        self.assertRegex(comp, r'--eyebrow \.wj-card-header__title\s*\{[^}]*font-size:\s*11px\s*!important')
+        self.assertRegex(comp, r'--eyebrow \.wj-card-header__title\s*\{[^}]*font-size:\s*var\(--wj-t-label-fs\)\s*!important')
 
 
 @tagged('post_install', '-at_install', 'wujia_f4')

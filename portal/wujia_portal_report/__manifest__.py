@@ -1,6 +1,6 @@
 {
     'name': 'Wujia Portal — Reports',
-    'version': '19.0.3.3.1',
+    'version': '19.0.3.4.0',
     'category': 'Wujia',
     'summary': 'Order report for owners and managers (BA Phase 1)',
     'description': 'Page /portal/reports/orders with KPI cards, a 12-month bar chart, top products and status distribution. Staff are redirected away.',

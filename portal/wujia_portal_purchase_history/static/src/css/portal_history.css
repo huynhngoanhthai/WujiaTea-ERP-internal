@@ -53,8 +53,8 @@
     min-width: 0;
 }
 .wujia-mhist-prod-name {
-    font-size: 14px;
-    font-weight: 700;
+    font-size: var(--wj-t-value-fs);
+    font-weight: var(--wj-t-strong-fw);
     color: var(--wujia-morder-text);
 }
 .wujia-mhist-prod-spec {
@@ -63,8 +63,8 @@
 }
 .wujia-mhist-prod-amount {
     flex: 0 0 auto;
-    font-size: 14px;
-    font-weight: 700;
+    font-size: var(--wj-t-value-fs);
+    font-weight: var(--wj-t-strong-fw);
     color: var(--wujia-morder-text);
     white-space: nowrap;
 }

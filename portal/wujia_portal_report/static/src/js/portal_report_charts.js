@@ -60,14 +60,14 @@
         var yaxis = {
             labels: {
                 formatter: function (v) { return shortMoney(node, payload, v); },
-                style: { fontSize: mobile ? "11px" : "12px" },
+                style: { fontSize: "12px" },
             },
         };
         if (!mobile) {
             /* Ký hiệu tiền lấy từ payload (currency công ty), không gõ 'đ' cứng. */
             yaxis.title = {
                 text: msg(node, "revenue", "Revenue") + (payload.currency ? " (" + payload.currency + ")" : ""),
-                style: { fontWeight: 500 },
+                style: { fontSize: "12px", fontWeight: 500 },
             };
         }
         return {
@@ -116,7 +116,7 @@
                     rotate: 0,
                     hideOverlappingLabels: true,
                     trim: false,
-                    style: { fontSize: mobile ? "9px" : "12px" },
+                    style: { fontSize: "12px" },
                 },
             },
             yaxis: yaxis,

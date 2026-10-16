@@ -86,8 +86,8 @@
     background: #F8FAFC; border: 1px solid var(--wj-pc-border-soft); border-radius: 12px;
     padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; min-width: 0;
 }
-.wj-pc-acct-field__label { font-size: 12px; font-weight: 700; color: var(--wujia-text-muted); }
-.wj-pc-acct-field__value { font-size: 16px; font-weight: 700; color: #111827; word-break: break-word; }
+.wj-pc-acct-field__label { font-size: var(--wj-t-label-fs); font-weight: var(--wj-t-label-fw); color: var(--wujia-text-muted); }
+.wj-pc-acct-field__value { font-size: var(--wj-t-value-fs); font-weight: var(--wj-t-strong-fw); color: #111827; word-break: break-word; }
 .wj-pc-acct-field__value--chip { display: flex; }
 
 /* ---------- Note bar (#F8FAFC, 13/700 muted) ---------- */

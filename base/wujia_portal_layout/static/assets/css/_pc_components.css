@@ -55,7 +55,7 @@
 .wj-pc-badge--pending { background: var(--wj-pc-gray-soft);   color: var(--wj-pc-muted); }
 .wj-pc-badge--cancel  { background: var(--wj-pc-red-soft);    color: var(--wujia-danger-text); }
 /* F4 — chip gọn (~20px) cho danh sách dày, vd popup chuông thông báo. */
-.wj-pc-badge--sm { height: auto; padding: 3px 8px; font-size: 11px; line-height: 1.35; }
+.wj-pc-badge--sm { height: auto; padding: 3px 8px; font-size: var(--wj-t-caption-fs); line-height: 1.35; }
 
 /* ---------- Page header (title 30/800 + breadcrumb + actions) — SVG PageHeader ---------- */
 .wj-pc-page-header {
@@ -161,7 +161,7 @@
 .wj-pc-metric-card__icon--green  { background: var(--wj-pc-green-soft);  color: var(--wujia-success-text); }
 .wj-pc-metric-card__icon--red    { background: var(--wj-pc-red-soft);    color: var(--wujia-danger-text); }
 .wj-pc-metric-card__body { display: flex; flex-direction: column; gap: 2px; }
-.wj-pc-metric-card__label { font-size: 14px; font-weight: 600; color: var(--wj-pc-muted); }
+.wj-pc-metric-card__label { font-size: var(--wj-t-label-fs); font-weight: var(--wj-t-label-fw); color: var(--wj-pc-muted); }
 .wj-pc-metric-card__value { font-size: 30px; font-weight: 700; color: var(--wj-pc-text); line-height: 1.1; }
 
 /* ---------- Card wrapper + data table (header 50 / row 58) — SVG DataTable ---------- */
@@ -248,7 +248,7 @@
 /* ---------- Form field (label + input/select/textarea h42) — SVG FormField_Set ---------- */
 .wj-pc-field { display: flex; flex-direction: column; gap: 8px; }
 /* padding-left:0 để thắng bootstrap-extended `label { padding-left: .2rem }` (L4) */
-.wj-pc-field__label { font-size: 14px; font-weight: 600; color: var(--wj-pc-text); padding-left: 0; }
+.wj-pc-field__label { font-size: var(--wj-t-value-fs); font-weight: var(--wj-t-strong-fw); color: var(--wj-pc-text); padding-left: 0; }
 /* dashboard.css có `select { width:100%; padding:5px !important }` tag-level → trung hoà
    trong phạm vi component, không sửa file shell (L4). */
 select.wj-pc-control,
@@ -362,7 +362,7 @@ input[type="file"].wj-pc-control { height: auto; min-height: var(--wj-pc-input-h
     padding: 22px 24px;
     margin-bottom: var(--wj-pc-content-padding);
 }
-.wj-pc-order-head__label { font-size: 13px; font-weight: 700; color: var(--wj-pc-muted); margin: 0 0 6px; }
+.wj-pc-order-head__label { font-size: var(--wj-t-label-fs); font-weight: var(--wj-t-label-fw); color: var(--wj-pc-muted); margin: 0 0 6px; }
 .wj-pc-order-head__meta { font-size: 14px; font-weight: 500; color: var(--wj-pc-muted); margin: 12px 0 0; }
 .wj-pc-order-head__right { text-align: right; flex-shrink: 0; padding-right: 24px; }
 .wj-pc-order-head__amount { font-size: 28px; font-weight: 700; color: var(--wj-pc-text); margin: 4px 0 0; line-height: 1.1; }

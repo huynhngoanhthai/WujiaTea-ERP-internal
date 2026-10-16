@@ -1,10 +1,11 @@
 """KT #191/#193/#73/#83: thang chữ theo vai trò (số #183), một H1 mỗi màn chi tiết, chữ đếm nghiệp vụ."""
+import os
 import re
 
 from odoo.tests import TransactionCase, tagged
 
 from .test_e5_list_card import _block, _css
-from odoo.addons.wujia_portal_layout.tests.src_paths import src
+from odoo.addons.wujia_portal_layout.tests.src_paths import src, src_modules
 
 MOBILE_QUERY = '@media (max-width: 991.98px)'
 
@@ -124,3 +125,32 @@ class TestKtTypography(TransactionCase):
         vi = self.env.ref('wujia_portal_purchase_history.portal_history_results_part').with_context(lang='vi_VN').arch_db
         self.assertIn('đơn hàng</t>', vi)
         self.assertNotIn('pccount', self._arch('wujia_portal_purchase_history.portal_history_list'))
+
+    def test_toan_portal_khong_chu_duoi_12px(self):
+        """KT2: sàn chữ 12px cho mọi CSS portal của team; chỉ miễn chấm đếm số, icon, chrome header."""
+        exempt = re.compile(r'(header-badge|nav-badge|add-badge|row-qty|row-thumb|nav__role|tabs \.nav-link \.badge'
+                            r'|badge i$|::after$)')
+        files = [os.path.join(dp, f) for dp, _, fs in os.walk(src('wujia_portal_layout', 'static/assets/css'))
+                 for f in fs if f.startswith('_') and f.endswith('.css')]
+        for mod in src_modules():
+            if mod.startswith('wujia_portal_') and mod not in ('wujia_portal_layout', 'wujia_portal_inspection'):
+                files += [os.path.join(dp, f) for dp, _, fs in os.walk(src(mod, 'static'))
+                          for f in fs if f.endswith('.css')]
+        for path in files:
+            with open(path, encoding='utf-8') as fh:
+                css = re.sub(r'/\*.*?\*/', '', fh.read(), flags=re.S)
+            for sel, body in re.findall(r'([^{}]+)\{([^{}]*)\}', css):
+                sel = ' '.join(sel.split())
+                if exempt.search(sel):
+                    continue
+                for value in re.findall(r'font-size\s*:\s*([^;]+);', body):
+                    size = _px(value)
+                    with self.subTest(file=os.path.basename(path), selector=sel):
+                        self.assertTrue(size is None or size >= 12, '%s = %s' % (sel, value))
+
+    def test_home_dong_cung_co_ten(self):
+        """KT2: mọi dòng Home (mã đơn, giao, đổi trả, thông báo, kiến thức) cùng cỡ tên 15/600."""
+        css = _css('_components.css')
+        self.assertRegex(_block(css, '.wujia-mdash-row-title'), r'font-size\s*:\s*var\(--wj-t-name-fs\)')
+        self.assertNotRegex(css, r'\.wujia-mdash-row-title\.is-(sm|lg)\s*\{[^}]*font-size')
+        self.assertRegex(_block(css, '.wujia-mdash-row-sub'), r'font-size\s*:\s*var\(--wj-t-caption-fs\)')

@@ -26,9 +26,9 @@ class TestF4VariantsCallSites(TransactionCase):
 
     def test_badge_sm_variants_live_in_layout(self):
         comp = _nocomment(_read('wujia_portal_layout', 'static', 'assets', 'css', '_components.css'))
-        self.assertRegex(comp, r'\.wujia-badge--sm\s*\{[^}]*font-size:\s*11px[^}]*padding:\s*3px 8px')
+        self.assertRegex(comp, r'\.wujia-badge--sm\s*\{[^}]*font-size:\s*var\(--wj-t-caption-fs\)[^}]*padding:\s*3px 8px')
         pc = _nocomment(_read('wujia_portal_layout', 'static', 'assets', 'css', '_pc_components.css'))
-        self.assertRegex(pc, r'\.wj-pc-badge--sm\s*\{[^}]*height:\s*auto[^}]*font-size:\s*11px')
+        self.assertRegex(pc, r'\.wj-pc-badge--sm\s*\{[^}]*height:\s*auto[^}]*font-size:\s*var\(--wj-t-caption-fs\)')
         noti = _nocomment(_read('wujia_portal_notification', 'static', 'src', 'css', 'portal_notification.css'))
         self.assertNotRegex(noti, r'\.wujia-mnoti-row-tags \.wujia-badge\s*\{')
         self.assertNotRegex(noti, r'popup__item-tags \.wj-pc-badge\s*\{')
