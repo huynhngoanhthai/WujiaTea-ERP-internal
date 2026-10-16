@@ -67,6 +67,7 @@ Issue List 179 dòng: 152 Done · 6 Ready for Retest · 4 Need Clarification · 
 | K6 | #179 · #180 | Kiến thức: tên khối "Danh sách bài viết" + số tổng sau lọc · field `wujia_show_on_home` + lọc backend + nguồn Home | wujia_knowledge, portal_knowledge, portal_base | ☐ |
 | K7a | #183 (phần 1) · #184 | ListCard mobile: khung chung + nửa số màn · ô Từ/Đến ngày Báo cáo mobile | portal_layout + module màn, portal_report | ☐ |
 | K7b | #183 (phần 2) | ListCard mobile: các màn còn lại, đóng issue | module màn | ☐ |
+| KT | #191 · #193 · #73 · #83 | Thang chữ thân `--wj-t-*` (số #183) cho 8 màn chi tiết, 0 chữ < 12px, một H1/màn · Back trong PageHeader (Thi, Kiến thức) · số đếm "đơn hàng"/"yêu cầu" sau lọc | portal_layout + 9 module màn | ✅ 16/10 PR #17 `72c47095` · sheet `Ready for Retest` (`docs/kt-uat-measure.md`) |
 | ★KR | — | Review cả cụm trên UAT: ma trận route × khổ, đối chiếu từng issue, 0 lỗi JS, 0 tràn | — | ☐ |
 
 **Nhóm tính năng** — phiên đầu là thiết kế, 0 code, ra danh sách fork gửi BA.
