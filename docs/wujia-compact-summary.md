@@ -102,6 +102,8 @@ ADR-001 odoo19 source độc lập / 002 venv conda `odoo` py3.10 / 003 PG role 
 
 ## §5 wujia-current-status
 
+**State (2026-10-16) — CỤM K đang chạy: K0 · K1 · K2a/b · K3 · KT ✅ trên UAT, sheet `Ready for Retest`.** KT (#191/#193/#73/#83) thêm thang chữ `--wj-t-*` cho màn chi tiết (PR #17); KT2 đưa toàn portal ≥ 12px (PR #20 `7636d929`, UAT 90/90 sạch). **Phiên kế: TS0** — thang chữ một nguồn ở base theo số BA v2, plan `docs/next-session-typescale.md` (TS0–TS7). Sau đó: K4 #178 hoặc S0 #185. Chi tiết `docs/f-progress.md`.
+
 **State (2026-10-10 · END-SPRINT 67) — CỤM I + ★IR CHỐT SỔ.** 21 issue (STT 62, 152–174) code xong I1→I13, chủ dự án deploy UAT 09/10 (lần đầu 2 tiến trình `-u` cùng lúc khoá DB, chạy lại theo danh sách module ⇒ 0 lệch). ★IR đo chỉ đọc trên UAT: ma trận role × cửa hàng × route `scripts/qa/wj_ir_matrix.py` 274 ô (0 HTTP ≥500, 0 lỗi JS, 0 tràn; 22 ô lệch = kỳ vọng script), `wj_ir_checks.py` 44 kiểm đạt đủ 21 issue, quét admin chưa chọn cửa hàng 0 lộ chứng từ. #170 trên UAT lộ 32 cặp <4.5 (chip Giao hàng chỉ hiện khi có dữ liệu, số Đã thanh toán Công nợ, placeholder bị `.form-control::placeholder` của bundle website đè) ⇒ vá `afc42869` (layout 19.0.60.10.1 · delivery 19.0.4.2.1 · debt 19.0.5.2.1, `?v=1336`, test 736/736). Sheet: 20 dòng Ready for Retest + #156 Done (BA đóng 10/10); `issue_queue --dev` chỉ còn #142. Ledger: 19 "ĐÃ DEPLOY UAT 09/10/2026", #160 đã có, #170 "CHƯA lên UAT (phần bổ sung)". Chapter 81. Báo cáo `docs/i-review.md`.
 
 **Pending sống (hàng đợi):**

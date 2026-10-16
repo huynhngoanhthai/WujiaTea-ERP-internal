@@ -3617,3 +3617,65 @@ rồi đánh ✅ ở bảng Trạng thái §2 `docs/next-session-clusters-F.md`.
 - LIMIT: ô tệp không điền lại · mật khẩu không điền lại (chốt) · th/zh chưa dịch · câu Việt cứng ở Khắc phục · Khắc phục chưa
   đo trên UAT · chỉ Chromium · ảnh/video Bù hàng mobile dùng `aria-label`.
 - Phiên kế: **S0** — #185 WJ-ORD-033 thiết kế bán theo tồn (theo thứ tự `next-session-clusters-K.md`).
+
+## K3 — #175 WJ-RETURN-002 Đổi trả: Home + danh sách + chi tiết · merge + UAT · 14/10/2026 · Mac
+
+- Chủ dự án chốt 14/10: chi tiết PC một cột · số lượng bỏ số 0 thừa · bộ câu thiếu dữ liệu đề xuất.
+- Đã làm (commit `61c2971d`, merge PR #15 `a8347586`): `wujia_return` 19.0.2.2.0 (`_portal_recent_domain` loại Nháp,
+  `_portal_qty_label()`), `wujia_portal_base` 19.0.7.49.0 (Home bỏ "Total: —", thêm Sản phẩm · SL, sắp ngày + id),
+  `wujia_portal_return` 19.0.5.6.0 (danh sách bỏ cột Cửa hàng; chi tiết PC/mobile chung nhóm `wj-ret-g--*`, bỏ Cửa hàng,
+  tách ghi chú và phản hồi; template `portal_return_feedback_body`, `portal_return_photo_count`).
+- Test: 611/611 (7 module) trên DB copy `wujia_k3`; mới `test_k3_return_content.py` (4 test, user khoá `en_US`).
+- UAT (3/3 version khớp, chỉ đọc): Home + danh sách HCM-01/HN-01 × 390/1440, chi tiết 6 phiếu × 6 khổ: đúng nhóm, không
+  cửa hàng, 0 tràn, 0 lỗi JS. Ledger #175 ghi kết quả đo (không tách file đo riêng).
+- Nhánh: đã xoá các `feature/*` đã merge (máy + GitHub); `main` = `deploy/staging`. Từ K3 làm thẳng trên `main`.
+- LIMIT: câu thiếu dữ liệu chờ BA sửa chữ · th/zh chưa dịch · UAT chưa có phiếu có ảnh/video của HCM-01.
+- Phiên kế: **S0** — #185 WJ-ORD-033 hoặc **K4** theo `next-session-clusters-K.md`.
+
+## KT — #191 · #193 · #73 · #83 Cụm chữ + header màn chi tiết · merge + UAT · 16/10/2026 · Mac
+
+- Chủ dự án chốt 16/10: phạm vi toàn cụm chữ + header; thang chữ thân lấy số #183 (ghi LIMIT xin BA); header mobile giữ 44/8 +
+  18/24 theo #143, hỏi BA (không sửa code).
+- Đã làm (commit `306ccfac`, merge PR #17 `72c47095`):
+  - **Token vai trò** `--wj-t-*` ở `_variables.css` (name 15/600 · label 12/500 · value 14 PC / 13 mobile · body 15/14 · caption 12 ·
+    code 20/18) + class `.wj-t-*`; `--wj-lc-*` (ListCard #183) trỏ sang ⇒ một nguồn số.
+  - **#191**: Giao hàng/Đổi trả/Hỗ trợ/Thông báo/Kiến thức/Thi/Sản phẩm/Lịch sử chuyển sang token, 0 chữ thông tin < 12px;
+    Giao hàng mobile `sectiontop` → `wj_card_header`; Sản phẩm bỏ `<h3>` tên lặp; Kiến thức `ph_title` = tên bài, bỏ
+    `h1.article-title`, heading trong nội dung hạ về 15.
+  - **#193**: chi tiết Thi PC dùng `wj_page_header` back, badge trạng thái vào kv grid; Kiến thức bỏ nút "Back to library".
+  - **#73/#83**: Lịch sử PC bỏ số ở PageHeader; đếm "đơn hàng"/"yêu cầu" theo `total_items` sau lọc (Hỗ trợ, Đổi trả, Lịch sử).
+  - `wujia_portal_purchase_history` 19.0.4.3.0 **post-migrate** chỉ đổi term vi `order/orders` → "đơn hàng" (`update_field_translations`).
+- Test: DB copy `wujia_kt` (từ `wujia_k3`, phải `-u wujia_core,wujia_delivery` trước vì Thái thêm cột) — 1203 test, sửa 2 bảng
+  đếm call site rồi chạy lại xanh; layout 296, exam 53, purchase_history 64. Guard mới `test_kt_typography`.
+- UAT (10/10 version, `?v=1344`, chỉ đọc): 8 màn × 8 khổ vi = 64/64 một H1 · 0 < 12px · 0 tràn · 0 lỗi JS; en 390/1440 đạt
+  (1 ô lỗi harness). Sheet 4 issue `Ready for Retest` (đã verify CSV). Bảng: `docs/kt-uat-measure.md`.
+- Bẫy gặp:
+  - **Term QWeb là cả thẻ inline**: `<span class="x">Status</span>` cạnh span `t-out` ⇒ msgid phải là nguyên chuỗi span, msgid
+    "Status" trần không ăn (im lặng). Kiểm bằng `field.get_trans_terms(arch)` trong `odoo shell`.
+  - **Đổi msgstr của term đã nạp trên UAT**: `-u` giữ bản cũ ⇒ cần post-migrate nhắm đúng term, không `--i18n-overwrite` cả module.
+  - `/xmlrpc/` UAT trả 403 từ 15/10 ⇒ kiểm version bằng JSON-RPC `/web/dataset/call_kw` sau login Playwright.
+  - Log Odoo local nay ở `logs/<năm>/<tháng>/<ngày>.log` (không còn `logs/odoo.log`).
+  - Thái thêm commit lên `deploy/staging` 15–16/10 (`base_user_role`, Fleet/Delivery BE-002/003, BE003-PERF).
+- LIMIT: thang chữ theo #183 chờ BA xác nhận · header mobile 44/8 vs 52/12 · mobile giữ số đếm Lịch sử · tên `/portal/info-request`
+  · `<h3>` trùng tên trong nội dung bài ui12-01 (chờ BA sửa bài / cho tự ẩn) · câu Anh sẵn có ở chi tiết Thi · zh/th chưa đo.
+- Phiên kế: **K4** — #178 Giao hàng (hoặc **S0** #185) theo `next-session-clusters-K.md`.
+
+## KT2 — nội dung Home/danh sách/form theo thang chữ + lập cụm TS · 16/10/2026 · Mac
+
+- Chủ dự án (ảnh Home mobile): mã SO to hơn dòng khác, hai dòng Kiến thức như khác cỡ ⇒ làm lại hết nội dung, **đo từng màn**.
+- Đo UAT (chỉ đọc) 31 màn × 390/1440: 17 màn có chữ < 12px (KPI Home 9, chip lọc mobile 11.3, cả cụm Công nợ 11–11.5,
+  gợi ý form 11, nhãn form 11.9, badge 11, lịch Thi 11, trục biểu đồ 9/11); cùng vai trò khác cỡ (dòng Home 13/15/16, tên
+  sản phẩm 14, nhãn form 11.9/13/14, Tài khoản 13/14 và 12/16). Hai dòng Kiến thức thật ra cùng 13 (một dòng viết hoa).
+- Đã làm (commit `4915777e`, merge PR #20 `7636d929`, CI deploy xanh): dòng Home một cỡ tên 15/600, dòng phụ caption 12, nhãn KPI 12
+  (320 xuống 2 dòng, số vẫn thẳng); sàn 12px toàn CSS portal (miễn chấm đếm, icon, chrome header); nhãn/giá trị Tài khoản,
+  Công nợ, Báo cáo, Thi, thẻ KPI về label/value; nhãn ô nhập mọi form = cỡ value + 600; Công nợ thẻ tổng/ngân hàng `height` →
+  `min-height` (chữ 12 làm tràn 5px). `?v=1345`, 10 module bump.
+- Test DB copy `wujia_kt`: 1205 test, 3 test cũ ghim 11/11.5px → sửa, chạy lại 740/740. Guard mới: sàn 12px toàn portal,
+  dòng Home cùng cỡ tên. Playwright 30 màn × 8 khổ = 240/240: 0 < 12px, 0 tràn, 0 lỗi JS, 0 khung cắt chữ.
+- Chủ dự án chốt: làm **thang chữ một nguồn ở base**, chia nhiều phiên. Trang xem thử cho BA chốt số:
+  <https://claude.ai/artifact/B3TgSv8yDKawdBxYxcPpp4>. Plan: `docs/next-session-typescale.md`; bộ đo `scripts/qa/wj_type_audit.py`.
+- UAT (chỉ đọc): 10/10 version, `wj_type_audit.py screens` 30 màn × 360/390/1440 = 90/90 sạch; dòng Home 15/600, nhãn KPI 12.
+- LIMIT: số KPI còn khác nhau (mobile 22/25/20, PC 28/26/24) — TS áp một cỡ · ledger/sheet chưa ghi, gộp vào TS7.
+- BA gửi thang 16/10: bản 1 giữ nguyên đề xuất, rồi **bản 2 đổi 9/12 vai trò** (thay bản 1; nguyên văn §7 `next-session-typescale.md`).
+  Chủ dự án chốt áp nguyên bản 2. Ghi chú ledger ở TS7: bản 2 khác số của #143 (tiêu đề nhóm mobile 18) và #183/KT (tên dòng 15).
+- Phiên kế: **TS0** theo `next-session-typescale.md` (PR #20, #21 đã merge).

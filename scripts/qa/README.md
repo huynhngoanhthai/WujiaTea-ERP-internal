@@ -6,6 +6,7 @@ Hai script, dùng cho mọi cụm UI (D3 CardHeader, D4 SurfaceCard, D5 DataList
 |---|---|
 | `wj_inventory.py` | Còn bao nhiêu call site **shell** của một họ lớp? |
 | `wj_measure.py` | Thay đổi có làm vỡ gì không — đo bằng trình duyệt thật, 5 khổ |
+| `wj_type_audit.py` | Cỡ chữ: còn bao nhiêu `font-size` gõ cứng theo file, và đo cỡ chữ mọi màn portal (cụm TS, `docs/next-session-typescale.md`) |
 
 ## Vì sao nằm trong repo
 
