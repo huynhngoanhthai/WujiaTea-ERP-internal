@@ -649,8 +649,6 @@
     /* ======================================================================
        05_ResultDetail (4891:1565) + 06_DetailVariants (4891:2635)
        ====================================================================== */
-    .wj-exam-pc-detail .wj-pc-page-header { margin-bottom: 7px; }
-    .wj-exam-pc .wj-pc-page-header__actions .wj-status-badge { margin-top: 8px; }
 
     .wj-exam-pc-back { min-width: 122px; margin-bottom: 18px; }
 
@@ -677,13 +675,15 @@
         background: var(--wj-pc-table-header-bg);
     }
     .wj-exam-pc-kv__label {
-        font-size: 12px;
-        font-weight: 700;
+        font-size: var(--wj-t-label-fs);
+        font-weight: var(--wj-t-label-fw);
+        line-height: var(--wj-t-label-lh);
         color: var(--wj-pc-subtle);
     }
     .wj-exam-pc-kv__value {
-        font-size: 14px;
-        font-weight: 700;
+        font-size: var(--wj-t-value-fs);
+        font-weight: var(--wj-t-value-fw);
+        line-height: var(--wj-t-value-lh);
         color: var(--wj-pc-text);
         overflow: hidden;
         text-overflow: ellipsis;

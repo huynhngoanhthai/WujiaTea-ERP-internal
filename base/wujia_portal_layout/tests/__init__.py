@@ -26,3 +26,4 @@ from . import test_i10_listcard_tokens
 from . import test_i13_contrast
 from . import test_toast
 from . import test_k2_change_password
+from . import test_kt_typography

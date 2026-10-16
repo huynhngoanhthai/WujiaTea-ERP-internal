@@ -341,14 +341,14 @@ input[type="file"].wj-pc-control { height: auto; min-height: var(--wj-pc-input-h
 .wj-pc-card__count { font-size: 14px; font-weight: 500; color: var(--wj-pc-muted); white-space: nowrap; }
 .wj-pc-card__title--sm { font-size: 18px; font-weight: 700; }
 
-/* ---------- Key-value info panel (label 13/700 muted, value 15/700) — History detail ---------- */
+/* ---------- Key-value info panel — thang chữ wj-t (label/value) ---------- */
 .wj-pc-kv-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px 24px; }
 .wj-pc-kv-grid--single { grid-template-columns: 1fr; }
 .wj-pc-kv { display: flex; flex-direction: column; gap: 4px; }
-.wj-pc-kv__label { font-size: 13px; font-weight: 700; color: var(--wj-pc-muted); }
-.wj-pc-kv__value { font-size: 15px; font-weight: 700; color: var(--wj-pc-text); }
-.wj-pc-kv__value--primary { color: var(--wujia-brand-text); }
-.wj-pc-kv__value--warning { color: var(--wujia-warning-text); }
+.wj-pc-kv__label { font-size: var(--wj-t-label-fs); font-weight: var(--wj-t-label-fw); line-height: var(--wj-t-label-lh); color: var(--wj-pc-muted); }
+.wj-pc-kv__value { font-size: var(--wj-t-value-fs); font-weight: var(--wj-t-value-fw); line-height: var(--wj-t-value-lh); color: var(--wj-pc-text); }
+.wj-pc-kv__value--primary { color: var(--wujia-brand-text); font-weight: var(--wj-t-strong-fw); }
+.wj-pc-kv__value--warning { color: var(--wujia-warning-text); font-weight: var(--wj-t-strong-fw); }
 
 /* ---------- Order summary head (detail) — code 30/800 left, amount 28/800 right ---------- */
 .wj-pc-order-head {

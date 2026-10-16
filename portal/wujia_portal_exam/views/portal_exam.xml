@@ -1029,22 +1029,14 @@
             <div class="content-wrapper d-none d-lg-block wj-exam-pc wj-exam-pc-detail">
                 <t t-set="st" t-value="pc_reg_states.get(pc_detail['state'], (pc_detail['state'], 'wj-status-badge--neutral'))"/>
                 <t t-set="pb" t-value="pc_publish_states.get(pc_detail['publish_state'], pc_publish_states['none'])"/>
-                <div class="wj-pc-page-header">
-                    <div>
-                        <h1 class="wj-pc-page-header__title">Exam registration details</h1>
-                        <p class="wj-pc-page-header__crumb">
-                            Portal / Training / Exam registration / <t t-out="pc_detail['name']"/>
-                        </p>
-                    </div>
-                    <div class="wj-pc-page-header__actions">
-                        <span t-attf-class="wj-status-badge #{st[1]}"><t t-out="st[0]"/></span>
-                    </div>
-                </div>
+                <t t-call="wujia_portal_layout.wj_page_header">
+                    <t t-set="ph_platform" t-value="'pc'"/>
+                    <t t-set="ph_variant" t-value="'back'"/>
+                    <t t-set="ph_crumb">Exam registration / Registration details</t>
+                    <t t-set="ph_title">Exam registration details</t>
+                    <t t-set="ph_back_url" t-value="'/portal/exam'"/>
+                </t>
                 <div class="content-body">
-                    <a href="/portal/exam" class="wj-btn wj-btn--secondary wj-exam-pc-back">
-                        <i class="feather icon-chevron-left"/>Back
-                    </a>
-
                     <t t-call="wujia_portal_layout.wj_surface_card">
                         <t t-set="sc_class" t-value="'wj-pc-card wj-exam-pc-dcard'"/>
                         <div class="wj-pc-card__head wj-exam-pc-dhead">
@@ -1064,6 +1056,10 @@
                             <div class="wj-exam-pc-kv">
                                 <span class="wj-exam-pc-kv__label">Registration no.</span>
                                 <span class="wj-exam-pc-kv__value" t-out="pc_detail['name']"/>
+                            </div>
+                            <div class="wj-exam-pc-kv">
+                                <span class="wj-exam-pc-kv__label">Status</span>
+                                <span t-attf-class="wj-status-badge #{st[1]} align-self-start" t-out="st[0]"/>
                             </div>
                             <div class="wj-exam-pc-kv">
                                 <span class="wj-exam-pc-kv__label">Exam course</span>

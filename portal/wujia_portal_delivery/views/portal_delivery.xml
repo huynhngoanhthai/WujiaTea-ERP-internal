@@ -541,10 +541,14 @@
                 </t>
 
                 <!-- Thông tin chuyến -->
-                <div class="wujia-mdelivery-sectiontop">Trip information</div>
                 <t t-call="wujia_portal_layout.wj_surface_card">
                     <t t-set="sc_variant" t-value="'section'"/>
                     <t t-set="sc_class" t-value="'wujia-mdash-card'"/>
+                    <t t-call="wujia_portal_layout.wj_card_header">
+                        <t t-set="ch_title">Trip information</t>
+                        <t t-set="ch_level" t-value="2"/>
+                        <t t-set="ch_platform" t-value="'m'"/>
+                    </t>
                     <div class="wujia-mdelivery-inforow">
                         <span class="lbl">Related orders</span>
                         <span class="val" t-out="m_orders"/>
@@ -563,11 +567,15 @@
                 </t>
 
                 <!-- Sản phẩm trong chuyến -->
-                <div class="wujia-mdelivery-sectiontop">Products in trip</div>
                 <t t-call="wujia_portal_layout.wj_surface_card">
                     <t t-set="sc_variant" t-value="'section'"/>
                     <t t-set="sc_body" t-value="'flush'"/>
                     <t t-set="sc_class" t-value="'wujia-mdelivery-prodcard'"/>
+                    <t t-call="wujia_portal_layout.wj_card_header">
+                        <t t-set="ch_title">Products in trip</t>
+                        <t t-set="ch_level" t-value="2"/>
+                        <t t-set="ch_platform" t-value="'m'"/>
+                    </t>
                     <div class="wujia-mdelivery-prodrow wujia-mdelivery-prodrow--head">
                         <span class="nm">Product name</span>
                         <span class="qt">Qty</span>

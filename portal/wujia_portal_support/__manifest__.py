@@ -1,6 +1,6 @@
 {
     'name': 'Wujia Portal — Support Tickets',
-    'version': '19.0.5.5.0',
+    'version': '19.0.5.6.0',
     'category': 'Wujia',
     'summary': 'Support request screens on the store portal — business logic in wujia_support (F10)',
     'author': 'WujiaTea',

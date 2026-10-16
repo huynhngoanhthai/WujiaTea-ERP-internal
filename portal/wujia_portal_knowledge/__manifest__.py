@@ -1,6 +1,6 @@
 {
     'name': 'Wujia Portal — Knowledge Library',
-    'version': '19.0.5.1.0',
+    'version': '19.0.5.2.0',
     'category': 'Wujia',
     'summary': 'Knowledge library portal screens (business logic in wujia_knowledge).',
     'author': 'WujiaTea',

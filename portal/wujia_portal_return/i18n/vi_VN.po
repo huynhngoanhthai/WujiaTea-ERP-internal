@@ -579,14 +579,6 @@ msgid "requests"
 msgstr "yêu cầu"
 
 #. module: wujia_portal_return
-msgid "result"
-msgstr "kết quả"
-
-#. module: wujia_portal_return
-msgid "results"
-msgstr "kết quả"
-
-#. module: wujia_portal_return
 msgid "{brand} feedback"
 msgstr "Phản hồi của {brand}"
 
@@ -607,4 +599,3 @@ msgstr "— Chọn sản phẩm —"
 #. module: wujia_portal_return
 msgid "— delivered"
 msgstr "— giao xong"
-

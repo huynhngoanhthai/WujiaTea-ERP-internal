@@ -87,16 +87,17 @@
         font-size: 15px;
     }
     .wujia-mnoti-detail-typemeta { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
-    .wujia-mnoti-detail-typename { font-size: 13px; font-weight: 700; color: var(--wujia-morder-text); }
-    .wujia-mnoti-detail-typedesc { font-size: 11.5px; color: var(--wujia-morder-text-sub); }
+    .wujia-mnoti-detail-typename { font-size: var(--wj-t-value-fs); font-weight: var(--wj-t-strong-fw); line-height: var(--wj-t-value-lh); color: var(--wujia-morder-text); }
+    .wujia-mnoti-detail-typedesc { font-size: var(--wj-t-caption-fs); line-height: var(--wj-t-caption-lh); color: var(--wujia-morder-text-sub); }
     .wujia-mnoti-detail-divider { height: 1px; background: var(--wujia-morder-divider); margin: 14px 0; }
+    /* !important thắng `h2 {font-size … !important}` toàn cục */
     .wujia-mnoti-detail-name {
-        font-size: 22px; font-weight: 700; line-height: 1.3;   /* Figma detail name 23/700 */
+        font-size: var(--wj-t-code-fs) !important; font-weight: 700; line-height: var(--wj-t-code-lh);
         color: var(--wujia-morder-text); margin: 0;
     }
     .wujia-mnoti-detail-badges { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 10px; }
     .wujia-mnoti-detail-body {
-        font-size: 14.5px; line-height: 1.7;
+        font-size: var(--wj-t-body-fs); line-height: var(--wj-t-body-lh);
         color: var(--wujia-morder-text-sub); margin-top: 14px;
     }
     .wujia-mnoti-detail-body img { max-width: 100%; height: auto; border-radius: 8px; }
@@ -124,7 +125,7 @@
     }
     .wujia-mnoti-detail-link-main { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
     .wujia-mnoti-detail-link-title { font-size: 13px; font-weight: 700; color: var(--wujia-morder-text); }
-    .wujia-mnoti-detail-link-sub { font-size: 11.5px; color: var(--wujia-morder-text-sub); }
+    .wujia-mnoti-detail-link-sub { font-size: var(--wj-t-caption-fs); line-height: var(--wj-t-caption-lh); color: var(--wujia-morder-text-sub); }
     /* CMP-CH-001 chỉ định nghĩa nhịp header→body; khoảng cách với khối PHÍA TRÊN là
        việc của container (sẽ về SurfaceCard ở D4). Giữ đúng 18px của thiết kế cũ. */
     .wujia-mnoti-detail-card > .wj-card-header { margin-top: 18px; }
@@ -155,7 +156,7 @@
         font-size: 13px; font-weight: 700; color: var(--wujia-morder-text);
         white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    .wujia-mnoti-detail-file-meta { font-size: 11.5px; color: var(--wujia-morder-text-sub); }
+    .wujia-mnoti-detail-file-meta { font-size: var(--wj-t-caption-fs); line-height: var(--wj-t-caption-lh); color: var(--wujia-morder-text-sub); }
     .wujia-mnoti-detail-file-dl { flex: 0 0 auto; color: var(--wujia-morder-text-muted); font-size: 16px; }
 }
 
@@ -215,7 +216,7 @@
 }
 .wj-pc-noti-detail-badgerow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 14px; }
 .wj-pc-noti-detail-title {
-    font-size: 30px; font-weight: 700; line-height: 1.25;
+    font-size: var(--wj-t-code-fs) !important; font-weight: 700; line-height: var(--wj-t-code-lh);
     color: var(--wj-pc-text); margin: 0 0 12px;
 }
 .wj-pc-noti-urgent-sub {
@@ -224,7 +225,7 @@
     color: var(--wujia-danger-text); margin: 0 0 16px;
 }
 .wj-pc-noti-detail-body {
-    font-size: 15px; line-height: 1.75;
+    font-size: var(--wj-t-body-fs); line-height: var(--wj-t-body-lh);
     color: var(--wujia-text-secondary); margin-top: 6px;
 }
 .wj-pc-noti-detail-body img { max-width: 100%; height: auto; border-radius: 8px; }

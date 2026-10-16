@@ -435,15 +435,11 @@ msgstr ""
 #. odoo-python
 #: code:addons/wujia_portal_support/controllers/portal.py:0
 #: code:addons/wujia_portal_support/tests/test_jv7_i18n.py:0
+#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_list
 msgid "requests"
 msgstr ""
 
 #. module: wujia_portal_support
 #: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_list
-msgid "ticket"
-msgstr ""
-
-#. module: wujia_portal_support
-#: model_terms:ir.ui.view,arch_db:wujia_portal_support.portal_support_list
-msgid "tickets"
+msgid "request"
 msgstr ""

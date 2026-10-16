@@ -325,11 +325,11 @@ msgstr "đơn gần nhất"
 
 #. module: wujia_portal_purchase_history
 msgid "order"
-msgstr "đơn"
+msgstr "đơn hàng"
 
 #. module: wujia_portal_purchase_history
 msgid "orders"
-msgstr "đơn"
+msgstr "đơn hàng"
 
 #. module: wujia_portal_purchase_history
 msgid "product"
@@ -340,14 +340,9 @@ msgid "products"
 msgstr "sản phẩm"
 
 #. module: wujia_portal_purchase_history
-msgid "records"
-msgstr "bản ghi"
-
-#. module: wujia_portal_purchase_history
 msgid "· Ordered by"
 msgstr "· Người đặt"
 
 #. module: wujia_portal_purchase_history
 msgid "· Qty: x"
 msgstr "· SL: x"
-

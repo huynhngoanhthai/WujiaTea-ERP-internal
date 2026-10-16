@@ -692,16 +692,6 @@ msgid "requests"
 msgstr ""
 
 #. module: wujia_portal_return
-#: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_list
-msgid "result"
-msgstr ""
-
-#. module: wujia_portal_return
-#: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_list
-msgid "results"
-msgstr ""
-
-#. module: wujia_portal_return
 #: model_terms:ir.ui.view,arch_db:wujia_portal_return.portal_return_detail
 msgid "{brand} feedback"
 msgstr ""

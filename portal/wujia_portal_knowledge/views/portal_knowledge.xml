@@ -273,7 +273,7 @@
                     <t t-set="ph_platform" t-value="'pc'"/>
                     <t t-set="ph_variant" t-value="'back'"/>
                     <t t-set="ph_crumb">Knowledge / Article details</t>
-                    <t t-set="ph_title">Knowledge</t>
+                    <t t-set="ph_title" t-value="article.name"/>
                     <t t-set="ph_back_url" t-value="'/portal/knowledge'"/>
                 </t>
 
@@ -286,8 +286,7 @@
                                      class="wj-surface-card__media knowledge-detail-cover"
                                      t-att-alt="article.name"/>
                                 <div class="wj-surface-card__body">
-                                    <h1 class="article-title" t-out="article.name"/>
-                                    <p class="text-muted small mb-3">
+                                    <p class="wj-t-caption mb-3">
                                         <span t-if="article.author_id"><i class="fa fa-user me-1"/><t t-out="article.author_id.name"/></span>
                                         <span class="ms-3"><i class="fa fa-clock me-1"/><t t-out="wj_dt(article.publish_date, '%d/%m/%Y %H:%M')"/></span>
                                         <t t-set="_n" t-value="article.view_count or 0"/>
@@ -310,19 +309,13 @@
                                 <div class="list-group list-group-flush">
                                     <t t-foreach="related" t-as="r">
                                         <a t-attf-href="/portal/knowledge/#{r.slug}" class="list-group-item list-group-item-action py-2">
-                                            <strong class="d-block small" t-out="r.name"/>
-                                            <small class="text-muted" t-out="wj_dt(r.publish_date, '%d/%m/%Y')"/>
+                                            <span class="d-block wj-t-value wj-t-strong" t-out="r.name"/>
+                                            <span class="wj-t-caption" t-out="wj_dt(r.publish_date, '%d/%m/%Y')"/>
                                         </a>
                                     </t>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="mt-2">
-                        <a href="/portal/knowledge" class="wj-btn wj-btn--secondary">
-                            <i class="fa fa-arrow-left me-1"/>Back to library
-                        </a>
                     </div>
                 </div>
             </div>
@@ -338,12 +331,11 @@
                 <t t-call="wujia_portal_layout.wj_page_header">
                     <t t-set="ph_platform" t-value="'m'"/>
                     <t t-set="ph_variant" t-value="'back'"/>
-                    <t t-set="ph_title">Knowledge</t>
+                    <t t-set="ph_title" t-value="article.name"/>
                     <t t-set="ph_back_url" t-value="'/portal/knowledge'"/>
                 </t>
 
                 <article class="wj-surface-card wj-surface-card--record wj-surface-card--compact wj-surface-card--padded wujia-mknow-card wujia-mknow-article">
-                    <h1 class="wujia-mknow-article-title" t-out="article.name"/>
                     <!-- Badge map mobile: important → danger (Figma đỏ; desktop warning — drift, đối chiếu BA) -->
                     <t t-set="m_badge_cls" t-value="{'mandatory': 'wujia-badge-danger', 'important': 'wujia-badge-danger', 'new': 'wujia-badge-info'}"/>
                     <t t-set="_kn_t_mandatory">Mandatory</t>

@@ -200,7 +200,7 @@ class TestK1SupportDetail(SupportCommon, HttpCase):
         m = doc.xpath('//div[contains(@class, "wujia-mticket") and contains(@class, "d-lg-none")]')[0]
         m_rows = []
         for row in m.xpath('.//div[contains(@class, "wujia-mdash-row")]'):
-            subs = row.xpath('.//span[contains(@class, "wujia-mdash-row-sub")]')
+            subs = row.xpath('.//span[@class="wj-t-label" or @class="wj-t-value"]')
             m_rows.append((_clean(subs[0]), _clean(subs[1])))
         return pc_rows, m_rows
 

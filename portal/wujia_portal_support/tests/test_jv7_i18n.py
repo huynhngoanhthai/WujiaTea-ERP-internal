@@ -48,8 +48,8 @@ def _pc_severity(html):
 
 def _mobile_priority(html):
     """Dòng "Mức độ"/"Severity" của thẻ thông tin mobile (cùng nhãn PC từ K1)."""
-    m = re.search(r'<span class="wujia-mdash-row-sub">(?:Mức độ|Severity)</span>\s*'
-                  r'<span class="wujia-mdash-row-sub is-strong">([^<]*)</span>', html)
+    m = re.search(r'<span class="wj-t-label">(?:Mức độ|Severity)</span>\s*'
+                  r'<span class="wj-t-value">([^<]*)</span>', html)
     return m and m.group(1).strip()
 
 
@@ -168,9 +168,10 @@ class TestJv7PortalByLang(SupportCommon, HttpCase):
             self.assertNotIn(word, en)
         for word in ('All statuses', 'Search ticket code / title', 'View ticket', 'Urgent'):
             self.assertIn(word, en)
-        self.assertRegex(_text(en), r'\b1 ticket\b')
-        self.assertNotRegex(_text(en), r'\b1 tickets\b')
-        self.assertIn('1 ticket', _text(vi))
+        # #83: đếm bằng danh từ nghiệp vụ "yêu cầu", không "ticket".
+        self.assertRegex(_text(en), r'\b1 request\b')
+        self.assertNotRegex(_text(en), r'\b1 requests\b')
+        self.assertIn('1 yêu cầu', _text(vi))
 
     def test_detail_priority_same_on_pc_and_mobile(self):
         """WJ-SUPPORT-003 — cùng giá trị mức độ ⇒ PC = mobile, theo đúng ngôn ngữ người xem."""

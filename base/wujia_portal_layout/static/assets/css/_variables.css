@@ -142,15 +142,34 @@
        strong 13/600/18. Hàng giữ line-height 18 ⇒ label nhỏ đi không đổi chiều cao card.
        --wj-badge-lh: line-height chung của chữ trong badge (StatusBadge compact +
        CategoryBadge) để hai họ cùng dòng chữ, căn giữa như nhau. */
-    --wj-lc-title-fs:        15px;
-    --wj-lc-title-fw:        600;
-    --wj-lc-title-lh:        20px;
-    --wj-lc-label-fs:        12px;
-    --wj-lc-label-fw:        500;
+    --wj-lc-title-fs:        var(--wj-t-name-fs);
+    --wj-lc-title-fw:        var(--wj-t-name-fw);
+    --wj-lc-title-lh:        var(--wj-t-name-lh);
+    --wj-lc-label-fs:        var(--wj-t-label-fs);
+    --wj-lc-label-fw:        var(--wj-t-label-fw);
     --wj-lc-value-fs:        13px;
-    --wj-lc-value-fw:        500;
-    --wj-lc-strong-fw:       600;
+    --wj-lc-value-fw:        var(--wj-t-value-fw);
+    --wj-lc-strong-fw:       var(--wj-t-strong-fw);
     --wj-lc-lh:              18px;
+
+    /* ---------- Thang chữ thân theo vai trò (UI-DETAILTYPO-001) — số của ListCard; PC value/body
+       lớn hơn một bậc, mobile ở khối <992px. Không viết font-size cứng cho label/value/body/caption. */
+    --wj-t-name-fs:          15px;
+    --wj-t-name-fw:          600;
+    --wj-t-name-lh:          20px;
+    --wj-t-label-fs:         12px;
+    --wj-t-label-fw:         500;
+    --wj-t-label-lh:         18px;
+    --wj-t-value-fs:         14px;
+    --wj-t-value-fw:         500;
+    --wj-t-value-lh:         20px;
+    --wj-t-strong-fw:        600;
+    --wj-t-body-fs:          15px;
+    --wj-t-body-lh:          22px;
+    --wj-t-caption-fs:       12px;
+    --wj-t-caption-lh:       18px;
+    --wj-t-code-fs:          20px;
+    --wj-t-code-lh:          28px;
     --wj-badge-lh:           16px;
 
     /* ---------- StatusBadge CMP-SB-001 (BA Confirmed 26/08/2026) ----------
@@ -488,6 +507,12 @@ html { font-size: 14px; }
         --wujia-surface-pad-regular: 14px;
         --wujia-surface-gap:         8px;
         --wujia-kpi-icon-size:       52px;
+        --wj-t-value-fs:             13px;
+        --wj-t-value-lh:             18px;
+        --wj-t-body-fs:              14px;
+        --wj-t-body-lh:              21px;
+        --wj-t-code-fs:              18px;
+        --wj-t-code-lh:              24px;
 
         /* ---------- Nhịp dọc mobile — MỘT nguồn cho MỌI trang ----------
            BA yêu cầu một màn hình điện thoại chứa được nhiều thông tin hơn.
