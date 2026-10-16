@@ -9,6 +9,9 @@ Ba phép kiểm (không đếm tay — bài học DOC-CTRL):
      (mục tổng hợp / quy ước / đường dẫn cũ được miễn — khai trong EXEMPT).
   3. Số UAT: mọi \uat{...} chứa số phải khớp một phép đếm trong uat_counts.json
      hoặc là số suy ra được (tỉ lệ n/m) — cảnh báo, không chặn.
+
+    python3 scripts/qa/controller_spec_check.py
+    python3 scripts/qa/controller_spec_check.py --uat-only
 """
 import json
 import pathlib
