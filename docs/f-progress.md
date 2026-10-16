@@ -3676,5 +3676,5 @@ rồi đánh ✅ ở bảng Trạng thái §2 `docs/next-session-clusters-F.md`.
   <https://claude.ai/artifact/B3TgSv8yDKawdBxYxcPpp4>. Plan: `docs/next-session-typescale.md`; bộ đo `scripts/qa/wj_type_audit.py`.
 - LIMIT: số KPI còn khác nhau (mobile 22/25/20, PC 28/26/24) chờ BA · ledger/sheet chưa ghi (chờ merge + đo UAT).
 - BA gửi thang 16/10: bản 1 giữ nguyên đề xuất, rồi **bản 2 đổi 9/12 vai trò** (thay bản 1; nguyên văn §7 `next-session-typescale.md`).
-  Chờ BA xác nhận Q6 (nhãn mobile 13 > PC 12) và Q7 (bản 2 lật #143 tiêu đề nhóm mobile 18 và #183/KT tên dòng 15).
+  Chủ dự án chốt áp nguyên bản 2. Ghi chú ledger ở TS7: bản 2 khác số của #143 (tiêu đề nhóm mobile 18) và #183/KT (tên dòng 15).
 - Phiên kế: **TS0** theo `next-session-typescale.md` (cần merge PR #20 trước).

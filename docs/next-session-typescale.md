@@ -1,7 +1,7 @@
 # Cụm TS — Thang chữ một nguồn ở base (lập 16/10/2026)
 
 > Chủ dự án chốt 16/10: cỡ chữ portal phải **gắn ở base**: sửa một dòng là mọi màn đổi theo. Làm dần qua nhiều phiên.
-> **BA gửi bản 2 ngày 16/10** (đổi 9/12 vai trò so với đề xuất; thay bản 1 "giữ nguyên") — số ở §2, nguyên văn §7. Còn 2 điểm chờ BA xác nhận (Q6, Q7).
+> **BA gửi bản 2 ngày 16/10** (đổi 9/12 vai trò so với đề xuất; thay bản 1 "giữ nguyên") — số ở §2, nguyên văn §7. Chủ dự án chốt: **áp nguyên bản 2**, không chờ hỏi lại.
 > Trang xem thử: <https://claude.ai/artifact/B3TgSv8yDKawdBxYxcPpp4>.
 > Màn chỉ gọi vai trò, số nằm ở `_variables.css`; sau này BA đổi số thì chỉ sửa file đó.
 > Nối tiếp KT (PR #17) và KT2 (PR #20, đang mở). HEAD `deploy/staging` lúc lập: `86ef98f4`.
@@ -60,15 +60,15 @@ Ngoài CSS:
 | Vai trò | Token | PC | Mobile | Đậm | Ghi chú |
 |---|---|---|---|---|---|
 | Tiêu đề trang | `--wj-t-page` | 24/32 | 20/28 | 700 | đang là số cứng ở `.wj-page-header--pc/--m` (26/22) |
-| Tiêu đề nhóm | `--wj-t-section` | 18/24 | 16/22 | 700 | alias `--wujia-m-sechead-*`; mobile 18 → 16 đụng #143 (Q7) |
+| Tiêu đề nhóm | `--wj-t-section` | 18/24 | 16/22 | 700 | alias `--wujia-m-sechead-*`; mobile 18 → 16 khác #143 (Q7) |
 | Tiêu đề thẻ | `--wj-t-card` | 17/24 | 15/20 | 700 | CardHeader compact (đang 18/16) |
 | Số KPI | `--wj-t-kpi` | 22/28 | 18/24 | 700 | **mới**; hiện 20–28 tuỳ màn |
 | Mã chứng từ | `--wj-t-code` | 16/22 | 14/20 | 700 | đang 20/18 |
-| Tên / mã dòng | `--wj-t-name` | 15/20 | **13/18** | 600 | mobile 15 → 13 đụng #183 (Q7) |
+| Tên / mã dòng | `--wj-t-name` | 15/20 | **13/18** | 600 | mobile 15 → 13 khác #183 (Q7) |
 | Đoạn văn | `--wj-t-body` | 14/21 | 13/20 | 400 | đang 15/14 |
 | Nút | `--wj-t-button` | 14/20 | 13/18 | 600 | **mới** |
 | Giá trị | `--wj-t-value` | 14/20 | 13/18 | 500 (đậm 600) | giữ |
-| Nhãn | `--wj-t-label` | 12/18 | **13/18** | 500 | mobile lớn hơn PC (Q6) |
+| Nhãn | `--wj-t-label` | 12/18 | **13/18** | 500 | mobile lớn hơn PC — theo BA (Q6) |
 | Dòng phụ | `--wj-t-caption` | 12/18 | 12/18 | 400 | giữ |
 | Chip / badge | `--wj-t-chip` | 12/16 | 12/16 | 600 | **mới**; badge trạng thái hiện 13 |
 | Icon | `--wj-icon-sm/md/lg` | 14 / 16 / 20 | 14 / 16 / 20 | — | TS6, không thuộc thang chữ |
@@ -101,7 +101,7 @@ Icon và chấm đếm không nằm trong trang BA chốt: số ở bảng là �
 
 | Phiên | Việc | Phạm vi | Trạng thái |
 |---|---|---|---|
-| TS0 | Merge PR #20 (chủ dự án duyệt) · thêm token mới (`page`, `section`, `card`, `kpi`, `button`, `chip`) theo §2 (sau khi BA trả Q6/Q7; chưa trả thì vẫn làm, giữ số đang chạy), header cũ thành alias · class `.wj-t-*` cho vai trò mới · `wj_type_audit.py css --save docs/typescale/css-baseline.json` · test **chặn tăng**: mỗi file không được nhiều chỗ gõ cứng hơn baseline | `_variables.css`, `_components.css`, test layout | ☐ |
+| TS0 | Merge PR #20 (chủ dự án duyệt) · thêm token mới (`page`, `section`, `card`, `kpi`, `button`, `chip`) **theo §2 (bản 2 BA)**, header cũ thành alias · class `.wj-t-*` cho vai trò mới · `wj_type_audit.py css --save docs/typescale/css-baseline.json` · test **chặn tăng**: mỗi file không được nhiều chỗ gõ cứng hơn baseline | `_variables.css`, `_components.css`, test layout | ☐ |
 | TS1 | Component dùng chung: `_components.css` + `_pc_components.css` (108 chữ) — ăn nhiều màn nhất | layout | ☐ |
 | TS2 | Khung + tài khoản + Home: `_auth`, `_pc_account`, `_sidebar`, `portal_dashboard`, `store_picker` + 4 `style=` inline (89 chữ) | layout, portal_base | ☐ |
 | TS3 | Thi: `portal_exam.css` (87 chữ) — màn PC đăng ký có lịch, chú ý ô lịch | portal_exam | ☐ |
@@ -134,8 +134,8 @@ Mốc 16/10 (sau KT2 trên DB copy `wujia_kt`): 30 màn × 8 khổ = 240/240 s�
 | Q3 | Trang đăng nhập / quên mật khẩu (`_auth.css`) có theo thang portal không? | TS2 |
 | Q4 | BA mở một dòng Issue List (vd `UI-TYPESCALE-001`) để `qa_sync` ghi được không? Nếu không, chỉ ghi `f-progress.md` | TS7 |
 | ~~Q5~~ | ✅ BA 16/10: số KPI một cỡ cho mọi màn — 22 PC / 18 mobile (Home 22→18, Công nợ mobile 25→18, PC 28/26/24→22) | TS2/TS4/TS5 |
-| Q6 | Mobile: nhãn 13 **lớn hơn** PC 12 và bằng giá trị 13; tên dòng, đoạn văn, nút, giá trị, nhãn cùng 13 ⇒ năm vai trò chỉ còn khác màu/đậm. Có cố ý? Nếu nhầm, nhãn mobile = 12 | TS0 |
-| Q7 | Bản 2 lật hai issue đã xong: #143 (UI-MOB-HEADER-DENSITY-001, Done) chốt tiêu đề nhóm mobile 18/24 → nay 16; #183 (ListCard) và KT (#191, Ready for Retest) chốt tên dòng 15 → nay mobile 13. BA cập nhật `Kết quả mong muốn` hai dòng đó hay mở dòng mới? | TS0, ledger |
+| ~~Q6~~ | ✅ Chủ dự án 16/10: theo BA — nhãn mobile 13 (lớn hơn PC 12, bằng giá trị) giữ nguyên | TS0 |
+| Q7 | Không chặn code. Bản 2 khác số đã ghi ở #143 (tiêu đề nhóm mobile 18) và #183/#191 (tên dòng 15): ghi chú vào ledger ở TS7 để QA retest theo số mới, nhờ BA sửa `Kết quả mong muốn` hai dòng đó | TS7, ledger |
 
 ## 7. Kết quả BA (nguyên văn, 16/10/2026)
 
