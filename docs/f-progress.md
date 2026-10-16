@@ -3631,3 +3631,32 @@ rồi đánh ✅ ở bảng Trạng thái §2 `docs/next-session-clusters-F.md`.
 - Nhánh: đã xoá các `feature/*` đã merge (máy + GitHub); `main` = `deploy/staging`. Từ K3 làm thẳng trên `main`.
 - LIMIT: câu thiếu dữ liệu chờ BA sửa chữ · th/zh chưa dịch · UAT chưa có phiếu có ảnh/video của HCM-01.
 - Phiên kế: **S0** — #185 WJ-ORD-033 hoặc **K4** theo `next-session-clusters-K.md`.
+
+## KT — #191 · #193 · #73 · #83 Cụm chữ + header màn chi tiết · merge + UAT · 16/10/2026 · Mac
+
+- Chủ dự án chốt 16/10: phạm vi toàn cụm chữ + header; thang chữ thân lấy số #183 (ghi LIMIT xin BA); header mobile giữ 44/8 +
+  18/24 theo #143, hỏi BA (không sửa code).
+- Đã làm (commit `306ccfac`, merge PR #17 `72c47095`):
+  - **Token vai trò** `--wj-t-*` ở `_variables.css` (name 15/600 · label 12/500 · value 14 PC / 13 mobile · body 15/14 · caption 12 ·
+    code 20/18) + class `.wj-t-*`; `--wj-lc-*` (ListCard #183) trỏ sang ⇒ một nguồn số.
+  - **#191**: Giao hàng/Đổi trả/Hỗ trợ/Thông báo/Kiến thức/Thi/Sản phẩm/Lịch sử chuyển sang token, 0 chữ thông tin < 12px;
+    Giao hàng mobile `sectiontop` → `wj_card_header`; Sản phẩm bỏ `<h3>` tên lặp; Kiến thức `ph_title` = tên bài, bỏ
+    `h1.article-title`, heading trong nội dung hạ về 15.
+  - **#193**: chi tiết Thi PC dùng `wj_page_header` back, badge trạng thái vào kv grid; Kiến thức bỏ nút "Back to library".
+  - **#73/#83**: Lịch sử PC bỏ số ở PageHeader; đếm "đơn hàng"/"yêu cầu" theo `total_items` sau lọc (Hỗ trợ, Đổi trả, Lịch sử).
+  - `wujia_portal_purchase_history` 19.0.4.3.0 **post-migrate** chỉ đổi term vi `order/orders` → "đơn hàng" (`update_field_translations`).
+- Test: DB copy `wujia_kt` (từ `wujia_k3`, phải `-u wujia_core,wujia_delivery` trước vì Thái thêm cột) — 1203 test, sửa 2 bảng
+  đếm call site rồi chạy lại xanh; layout 296, exam 53, purchase_history 64. Guard mới `test_kt_typography`.
+- UAT (10/10 version, `?v=1344`, chỉ đọc): 8 màn × 8 khổ vi = 64/64 một H1 · 0 < 12px · 0 tràn · 0 lỗi JS; en 390/1440 đạt
+  (1 ô lỗi harness). Sheet 4 issue `Ready for Retest` (đã verify CSV). Bảng: `docs/kt-uat-measure.md`.
+- Bẫy gặp:
+  - **Term QWeb là cả thẻ inline**: `<span class="x">Status</span>` cạnh span `t-out` ⇒ msgid phải là nguyên chuỗi span, msgid
+    "Status" trần không ăn (im lặng). Kiểm bằng `field.get_trans_terms(arch)` trong `odoo shell`.
+  - **Đổi msgstr của term đã nạp trên UAT**: `-u` giữ bản cũ ⇒ cần post-migrate nhắm đúng term, không `--i18n-overwrite` cả module.
+  - `/xmlrpc/` UAT trả 403 từ 15/10 ⇒ kiểm version bằng JSON-RPC `/web/dataset/call_kw` sau login Playwright.
+  - Log Odoo local nay ở `logs/<năm>/<tháng>/<ngày>.log` (không còn `logs/odoo.log`).
+  - Thái thêm commit lên `deploy/staging` 15–16/10 (`base_user_role`, Fleet/Delivery BE-002/003, BE003-PERF).
+- LIMIT: thang chữ theo #183 chờ BA xác nhận · header mobile 44/8 vs 52/12 · mobile giữ số đếm Lịch sử · tên `/portal/info-request`
+  · `<h3>` trùng tên trong nội dung bài ui12-01 (chờ BA sửa bài / cho tự ẩn) · câu Anh sẵn có ở chi tiết Thi · zh/th chưa đo.
+- Phiên kế: **K4** — #178 Giao hàng (hoặc **S0** #185) theo `next-session-clusters-K.md`.
+
