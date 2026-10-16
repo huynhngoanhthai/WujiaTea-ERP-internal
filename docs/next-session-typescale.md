@@ -1,8 +1,9 @@
 # Cụm TS — Thang chữ một nguồn ở base (lập 16/10/2026)
 
 > Chủ dự án chốt 16/10: cỡ chữ portal phải **gắn ở base**: sửa một dòng là mọi màn đổi theo. Làm dần qua nhiều phiên.
-> Số của thang **chờ BA chốt** trên trang xem thử <https://claude.ai/artifact/B3TgSv8yDKawdBxYxcPpp4> (nút "Sao chép kết quả").
-> Việc chuyển màn sang vai trò **không chờ số**: màn chỉ gọi vai trò, số nằm ở `_variables.css`; BA đổi số thì chỉ sửa file đó.
+> **BA gửi bản 2 ngày 16/10** (đổi 9/12 vai trò so với đề xuất; thay bản 1 "giữ nguyên") — số ở §2, nguyên văn §7. Còn 2 điểm chờ BA xác nhận (Q6, Q7).
+> Trang xem thử: <https://claude.ai/artifact/B3TgSv8yDKawdBxYxcPpp4>.
+> Màn chỉ gọi vai trò, số nằm ở `_variables.css`; sau này BA đổi số thì chỉ sửa file đó.
 > Nối tiếp KT (PR #17) và KT2 (PR #20, đang mở). HEAD `deploy/staging` lúc lập: `86ef98f4`.
 
 ## 0. Luật áp suốt cụm
@@ -54,26 +55,26 @@ Ngoài CSS:
 - 6 `fontSize` trong `wujia_portal_report/static/src/js/portal_report_charts.js` (TS4).
 - `html { font-size }` đổi 14 → 15 → 16px theo khổ (`_variables.css` ~dòng 496) ⇒ mọi `rem` lệch theo khổ (câu hỏi Q1).
 
-## 2. Thang đề xuất (chờ BA)
+## 2. Thang BA gửi (bản 2, 16/10) — chiều cao dòng và độ đậm do dev đặt
 
 | Vai trò | Token | PC | Mobile | Đậm | Ghi chú |
 |---|---|---|---|---|---|
-| Tiêu đề trang | `--wj-t-page` | 26/32 | 22/28 | 700 | đang là số cứng ở `.wj-page-header--pc/--m` |
-| Tiêu đề nhóm | `--wj-t-section` | 20/28 | 18/24 | 700 | alias `--wujia-m-sechead-*` |
-| Tiêu đề thẻ | `--wj-t-card` | 18/24 | 16/22 | 700 | CardHeader compact |
-| Số KPI | `--wj-t-kpi` | 24/32 | 20/26 | 700 | **mới**; hiện 20–28 tuỳ màn |
-| Mã chứng từ | `--wj-t-code` | 20/28 | 18/24 | 700 | có |
-| Tên / mã dòng | `--wj-t-name` | 15/20 | 15/20 | 600 | có |
-| Đoạn văn | `--wj-t-body` | 15/22 | 14/21 | 400 | có |
-| Nút | `--wj-t-button` | 14/20 | 14/20 | 600 | **mới** |
-| Giá trị | `--wj-t-value` | 14/20 | 13/18 | 500 (đậm 600) | có |
-| Nhãn | `--wj-t-label` | 12/18 | 12/18 | 500 | có |
-| Dòng phụ | `--wj-t-caption` | 12/18 | 12/18 | 400 | có |
+| Tiêu đề trang | `--wj-t-page` | 24/32 | 20/28 | 700 | đang là số cứng ở `.wj-page-header--pc/--m` (26/22) |
+| Tiêu đề nhóm | `--wj-t-section` | 18/24 | 16/22 | 700 | alias `--wujia-m-sechead-*`; mobile 18 → 16 đụng #143 (Q7) |
+| Tiêu đề thẻ | `--wj-t-card` | 17/24 | 15/20 | 700 | CardHeader compact (đang 18/16) |
+| Số KPI | `--wj-t-kpi` | 22/28 | 18/24 | 700 | **mới**; hiện 20–28 tuỳ màn |
+| Mã chứng từ | `--wj-t-code` | 16/22 | 14/20 | 700 | đang 20/18 |
+| Tên / mã dòng | `--wj-t-name` | 15/20 | **13/18** | 600 | mobile 15 → 13 đụng #183 (Q7) |
+| Đoạn văn | `--wj-t-body` | 14/21 | 13/20 | 400 | đang 15/14 |
+| Nút | `--wj-t-button` | 14/20 | 13/18 | 600 | **mới** |
+| Giá trị | `--wj-t-value` | 14/20 | 13/18 | 500 (đậm 600) | giữ |
+| Nhãn | `--wj-t-label` | 12/18 | **13/18** | 500 | mobile lớn hơn PC (Q6) |
+| Dòng phụ | `--wj-t-caption` | 12/18 | 12/18 | 400 | giữ |
 | Chip / badge | `--wj-t-chip` | 12/16 | 12/16 | 600 | **mới**; badge trạng thái hiện 13 |
 | Icon | `--wj-icon-sm/md/lg` | 14 / 16 / 20 | 14 / 16 / 20 | — | TS6, không thuộc thang chữ |
 | Chấm đếm số | `--wj-t-count` | 11 | 11 | 700 | TS6, ngoại lệ sàn 12 có tên |
 
-BA trả kết quả ⇒ dán nguyên văn vào §7 rồi sửa đúng `_variables.css` (phiên TS7, hoặc chen vào phiên đang chạy).
+Icon và chấm đếm không nằm trong trang BA chốt: số ở bảng là đề xuất dev, chốt ở TS6 bằng cách đo cỡ đang dùng nhiều nhất.
 
 ## 3. Luật chọn vai trò (dùng khi chuyển từng rule)
 
@@ -100,14 +101,14 @@ BA trả kết quả ⇒ dán nguyên văn vào §7 rồi sửa đúng `_variabl
 
 | Phiên | Việc | Phạm vi | Trạng thái |
 |---|---|---|---|
-| TS0 | Merge PR #20 (chủ dự án duyệt) · thêm token mới (`page`, `section`, `card`, `kpi`, `button`, `chip`, `count`, `icon-*`) theo số đề xuất, header cũ thành alias · class `.wj-t-*` cho vai trò mới · `wj_type_audit.py css --save docs/typescale/css-baseline.json` · test **chặn tăng**: mỗi file không được nhiều chỗ gõ cứng hơn baseline | `_variables.css`, `_components.css`, test layout | ☐ |
+| TS0 | Merge PR #20 (chủ dự án duyệt) · thêm token mới (`page`, `section`, `card`, `kpi`, `button`, `chip`) theo §2 (sau khi BA trả Q6/Q7; chưa trả thì vẫn làm, giữ số đang chạy), header cũ thành alias · class `.wj-t-*` cho vai trò mới · `wj_type_audit.py css --save docs/typescale/css-baseline.json` · test **chặn tăng**: mỗi file không được nhiều chỗ gõ cứng hơn baseline | `_variables.css`, `_components.css`, test layout | ☐ |
 | TS1 | Component dùng chung: `_components.css` + `_pc_components.css` (108 chữ) — ăn nhiều màn nhất | layout | ☐ |
 | TS2 | Khung + tài khoản + Home: `_auth`, `_pc_account`, `_sidebar`, `portal_dashboard`, `store_picker` + 4 `style=` inline (89 chữ) | layout, portal_base | ☐ |
 | TS3 | Thi: `portal_exam.css` (87 chữ) — màn PC đăng ký có lịch, chú ý ô lịch | portal_exam | ☐ |
 | TS4 | Đặt hàng + Báo cáo: `portal_order.css`, `portal_report.css` + 6 `fontSize` chart JS (71 chữ) | portal_sale, portal_report | ☐ |
 | TS5 | Các module còn lại (71 chữ) + 36 class Bootstrap cỡ chữ trong QWeb | debt, notification, delivery, return, history, knowledge, support | ☐ |
-| TS6 | Icon (88) → `--wj-icon-*`, chấm đếm (38) → `--wj-t-count` · test chặn tăng → **cấm hẳn**: 0 `font-size` số cứng ngoài `_variables.css` | layout + mọi module | ☐ |
-| TS7 | Áp số BA chốt (chỉ `_variables.css`) · đo UAT đủ 31 màn × 8 khổ · ledger + sheet · bàn giao | layout | ☐ chờ BA |
+| TS6 | Thêm `--wj-icon-*`, `--wj-t-count` · icon (88) và chấm đếm (38) chuyển sang · test chặn tăng → **cấm hẳn**: 0 `font-size` số cứng ngoài `_variables.css` | layout + mọi module | ☐ |
+| TS7 | Đo UAT đủ 31 màn × 8 khổ đối chiếu §2 · ledger + sheet · bàn giao (số đã áp từ TS0) | — | ☐ |
 
 Mỗi phiên TS1–TS6: chạy `css --baseline` cho thấy số giảm, `screens` trước/sau trên DB copy, 0 chữ < 12px (ngoài chấm đếm), 0 tràn, 0 lỗi JS, 0 khung cắt chữ.
 Một phiên một PR, một lần deploy.
@@ -132,8 +133,50 @@ Mốc 16/10 (sau KT2 trên DB copy `wujia_kt`): 30 màn × 8 khổ = 240/240 s�
 | Q2 | Đậm theo vai trò (tên dòng 600 thay 700 ở nhiều màn) có cần BA duyệt riêng? | TS1–TS5 |
 | Q3 | Trang đăng nhập / quên mật khẩu (`_auth.css`) có theo thang portal không? | TS2 |
 | Q4 | BA mở một dòng Issue List (vd `UI-TYPESCALE-001`) để `qa_sync` ghi được không? Nếu không, chỉ ghi `f-progress.md` | TS7 |
-| Q5 | Số KPI một cỡ cho mọi màn, kể cả thẻ Công nợ mobile (đang 25) và Home hero (22)? | TS0/TS2/TS5 |
+| ~~Q5~~ | ✅ BA 16/10: số KPI một cỡ cho mọi màn — 22 PC / 18 mobile (Home 22→18, Công nợ mobile 25→18, PC 28/26/24→22) | TS2/TS4/TS5 |
+| Q6 | Mobile: nhãn 13 **lớn hơn** PC 12 và bằng giá trị 13; tên dòng, đoạn văn, nút, giá trị, nhãn cùng 13 ⇒ năm vai trò chỉ còn khác màu/đậm. Có cố ý? Nếu nhầm, nhãn mobile = 12 | TS0 |
+| Q7 | Bản 2 lật hai issue đã xong: #143 (UI-MOB-HEADER-DENSITY-001, Done) chốt tiêu đề nhóm mobile 18/24 → nay 16; #183 (ListCard) và KT (#191, Ready for Retest) chốt tên dòng 15 → nay mobile 13. BA cập nhật `Kết quả mong muốn` hai dòng đó hay mở dòng mới? | TS0, ledger |
 
-## 7. Kết quả BA (dán nguyên văn khi có)
+## 7. Kết quả BA (nguyên văn, 16/10/2026)
 
-_Chưa có._
+**Bản 2 (đang dùng):**
+
+```
+Thang chữ Wujia Portal — BA chốt 16/10/2026
+Đã chỉnh 9 vai trò so với đề xuất.
+Vai trò | token | PC | Mobile
+Tiêu đề trang | --wj-t-page | 24 (đề xuất 26) | 20 (đề xuất 22)
+Tiêu đề nhóm | --wj-t-section | 18 (đề xuất 20) | 16 (đề xuất 18)
+Tiêu đề thẻ | --wj-t-card | 17 (đề xuất 18) | 15 (đề xuất 16)
+Số KPI | --wj-t-kpi | 22 (đề xuất 24) | 18 (đề xuất 20)
+Mã chứng từ | --wj-t-code | 16 (đề xuất 20) | 14 (đề xuất 18)
+Tên / mã dòng | --wj-t-name | 15 | 13 (đề xuất 15)
+Đoạn văn | --wj-t-body | 14 (đề xuất 15) | 13 (đề xuất 14)
+Nút | --wj-t-button | 14 | 13 (đề xuất 14)
+Giá trị | --wj-t-value | 14 | 13
+Nhãn | --wj-t-label | 12 | 13 (đề xuất 12)
+Dòng phụ | --wj-t-caption | 12 | 12
+Chip / badge | --wj-t-chip | 12 | 12
+```
+
+**Bản 1 (bị bản 2 thay, giữ để đối chiếu):**
+
+```
+Thang chữ Wujia Portal — BA chốt 16/10/2026
+Giữ nguyên đề xuất.
+Vai trò | token | PC | Mobile
+Tiêu đề trang | --wj-t-page | 26 | 22
+Tiêu đề nhóm | --wj-t-section | 20 | 18
+Tiêu đề thẻ | --wj-t-card | 18 | 16
+Số KPI | --wj-t-kpi | 24 | 20
+Mã chứng từ | --wj-t-code | 20 | 18
+Tên / mã dòng | --wj-t-name | 15 | 15
+Đoạn văn | --wj-t-body | 15 | 14
+Nút | --wj-t-button | 14 | 14
+Giá trị | --wj-t-value | 14 | 13
+Nhãn | --wj-t-label | 12 | 12
+Dòng phụ | --wj-t-caption | 12 | 12
+Chip / badge | --wj-t-chip | 12 | 12
+```
+
+BA chỉ chốt cỡ chữ. Chiều cao dòng và độ đậm theo bảng §2. Badge trạng thái 13 → 12 có trong cả hai bản.
