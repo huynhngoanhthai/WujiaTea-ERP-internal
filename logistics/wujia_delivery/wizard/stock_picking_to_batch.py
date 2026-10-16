@@ -120,11 +120,13 @@ class StockPickingToBatch(models.TransientModel):
         """Validate that all selected pickings share company, picking type, and source location."""
         if not pickings:
             return
-        if len(pickings.mapped('company_id')) > 1:
+        # Single-query batch read to avoid multiple table scans on large picking sets
+        data = pickings.read(['company_id', 'picking_type_id', 'location_id'], load=False)
+        if len({d['company_id'] for d in data}) > 1:
             raise UserError(_("All selected pickings must belong to the same company."))
-        if len(pickings.mapped('picking_type_id')) > 1:
+        if len({d['picking_type_id'] for d in data}) > 1:
             raise UserError(_("All selected pickings must have the same operation type."))
-        if len(pickings.mapped('location_id')) > 1:
+        if len({d['location_id'] for d in data}) > 1:
             raise UserError(_("All selected pickings must have the same source location."))
 
     @api.depends('mode', 'vehicle_id', 'batch_id', 'batch_id.vehicle_id')
@@ -141,7 +143,6 @@ class StockPickingToBatch(models.TransientModel):
         'picking_ids',
         'picking_ids.planned_weight',
         'picking_ids.franchise_id',
-        'picking_ids.move_ids.product_id.weight',
         'mode',
         'vehicle_id',
         'vehicle_id.max_payload_kg',
@@ -173,13 +174,15 @@ class StockPickingToBatch(models.TransientModel):
 
             max_cap = vehicle.max_payload_kg or 0.0
 
-            # Check if any non-service product in moves has missing weight
-            has_missing = any(
-                (not m.product_id.weight or m.product_id.weight <= 0)
-                for p in pickings
-                for m in p.move_ids
-                if m.product_id and m.product_id.type != 'service'
-            )
+            # Fast batch check: single query for missing weight in stock.move
+            if pickings:
+                has_missing = bool(self.env['stock.move'].search_count([
+                    ('picking_id', 'in', pickings.ids),
+                    ('product_id.type', '!=', 'service'),
+                    '|', ('product_id.weight', '=', False), ('product_id.weight', '<=', 0),
+                ], limit=1))
+            else:
+                has_missing = False
             wiz.has_missing_weight = has_missing
 
             if max_cap > 0:
@@ -294,7 +297,7 @@ class StockPickingToBatch(models.TransientModel):
                     "Only Fleet Managers or Inventory Managers can approve overloaded dispatch."
                 ) % (total_weight - max_cap))
 
-        fresh_pickings.write({'batch_id': batch.id})
+        fresh_pickings.with_context(tracking_disable=True).write({'batch_id': batch.id})
 
         if self.mode == 'new' and not self.is_create_draft:
             batch.action_confirm()

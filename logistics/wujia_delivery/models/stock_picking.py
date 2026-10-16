@@ -1,4 +1,4 @@
-from odoo import _, api, fields, models
+from odoo import _, api, fields, models, tools
 
 
 DELIVERY_STATUS = [
@@ -155,3 +155,22 @@ class StockPicking(models.Model):
             if pick.delivery_status not in ('done', 'cancelled'):
                 pick.delivery_status = 'cancelled'
         return res
+
+    def _auto_init(self):
+        super()._auto_init()
+        # Partial Index for Pending Dispatch queue (Rule R16 - pure tools.create_index)
+        tools.create_index(
+            self._cr,
+            'idx_stock_picking_pending_dispatch_queue',
+            self._table,
+            ['picking_type_id', 'state', 'scheduled_date'],
+            where='batch_id IS NULL',
+        )
+        # Partial Index for franchise pending orders
+        tools.create_index(
+            self._cr,
+            'idx_stock_picking_franchise_pending',
+            self._table,
+            ['franchise_id', 'delivery_status'],
+            where="delivery_status = 'pending'",
+        )

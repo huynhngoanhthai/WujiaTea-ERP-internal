@@ -1,4 +1,4 @@
-from odoo import _, fields, models
+from odoo import _, fields, models, tools
 from odoo.exceptions import AccessError
 
 
@@ -20,3 +20,14 @@ class StockPickingType(models.Model):
             ):
                 raise AccessError(_("Only Fleet Managers or Inventory Managers can modify the transport planning setting."))
         return super().write(vals)
+
+    def _auto_init(self):
+        super()._auto_init()
+        # Partial Index for transport planning enabled picking types (Rule R16)
+        tools.create_index(
+            self._cr,
+            'idx_stock_picking_type_transport_planning',
+            self._table,
+            ['requires_transport_planning'],
+            where='requires_transport_planning = TRUE',
+        )

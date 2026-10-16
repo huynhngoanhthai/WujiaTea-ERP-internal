@@ -256,3 +256,39 @@ class TestTransportPlanningWizard(TransactionCase):
             ('picking_type_id.requires_transport_planning', '=', True),
         ])
         self.assertIn(pick, pending_picks, "Unlinked picking must return to pending dispatch queue.")
+
+    def test_07_performance_optimization_and_indexes(self):
+        """Verify performance optimizations (O(1) batch checks and PostgreSQL partial indexes)."""
+        from odoo import tools
+
+        # 1. Verify partial indexes exist in PostgreSQL
+        self.assertTrue(
+            tools.index_exists(self.env.cr, 'idx_stock_picking_pending_dispatch_queue'),
+            "idx_stock_picking_pending_dispatch_queue must exist in PostgreSQL",
+        )
+        self.assertTrue(
+            tools.index_exists(self.env.cr, 'idx_stock_picking_franchise_pending'),
+            "idx_stock_picking_franchise_pending must exist in PostgreSQL",
+        )
+        self.assertTrue(
+            tools.index_exists(self.env.cr, 'idx_stock_picking_type_transport_planning'),
+            "idx_stock_picking_type_transport_planning must exist in PostgreSQL",
+        )
+
+        # 2. Test fast missing weight check
+        pick_normal = self._create_picking(self.picking_type_dispatch, self.partner_a, self.product_light, 5)
+        wiz_normal = self.env['stock.picking.to.batch'].create({
+            'mode': 'new',
+            'vehicle_id': self.vehicle.id,
+            'picking_ids': [(6, 0, [pick_normal.id])],
+        })
+        self.assertFalse(wiz_normal.has_missing_weight, "Product light has weight 50.0kg, should not be missing.")
+
+        pick_no_weight = self._create_picking(self.picking_type_dispatch, self.partner_a, self.product_no_weight, 5)
+        wiz_missing = self.env['stock.picking.to.batch'].create({
+            'mode': 'new',
+            'vehicle_id': self.vehicle.id,
+            'picking_ids': [(6, 0, [pick_no_weight.id])],
+        })
+        self.assertTrue(wiz_missing.has_missing_weight, "Product no weight must be detected in O(1) batch query.")
+        self.assertEqual(wiz_missing.alert_level, 'warning')
