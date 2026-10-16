@@ -3660,3 +3660,22 @@ rồi đánh ✅ ở bảng Trạng thái §2 `docs/next-session-clusters-F.md`.
   · `<h3>` trùng tên trong nội dung bài ui12-01 (chờ BA sửa bài / cho tự ẩn) · câu Anh sẵn có ở chi tiết Thi · zh/th chưa đo.
 - Phiên kế: **K4** — #178 Giao hàng (hoặc **S0** #185) theo `next-session-clusters-K.md`.
 
+## KT2 — nội dung Home/danh sách/form theo thang chữ + lập cụm TS · 16/10/2026 · Mac
+
+- Chủ dự án (ảnh Home mobile): mã SO to hơn dòng khác, hai dòng Kiến thức như khác cỡ ⇒ làm lại hết nội dung, **đo từng màn**.
+- Đo UAT (chỉ đọc) 31 màn × 390/1440: 17 màn có chữ < 12px (KPI Home 9, chip lọc mobile 11.3, cả cụm Công nợ 11–11.5,
+  gợi ý form 11, nhãn form 11.9, badge 11, lịch Thi 11, trục biểu đồ 9/11); cùng vai trò khác cỡ (dòng Home 13/15/16, tên
+  sản phẩm 14, nhãn form 11.9/13/14, Tài khoản 13/14 và 12/16). Hai dòng Kiến thức thật ra cùng 13 (một dòng viết hoa).
+- Đã làm (commit `4915777e`, merge PR #20 `7636d929`, CI deploy xanh): dòng Home một cỡ tên 15/600, dòng phụ caption 12, nhãn KPI 12
+  (320 xuống 2 dòng, số vẫn thẳng); sàn 12px toàn CSS portal (miễn chấm đếm, icon, chrome header); nhãn/giá trị Tài khoản,
+  Công nợ, Báo cáo, Thi, thẻ KPI về label/value; nhãn ô nhập mọi form = cỡ value + 600; Công nợ thẻ tổng/ngân hàng `height` →
+  `min-height` (chữ 12 làm tràn 5px). `?v=1345`, 10 module bump.
+- Test DB copy `wujia_kt`: 1205 test, 3 test cũ ghim 11/11.5px → sửa, chạy lại 740/740. Guard mới: sàn 12px toàn portal,
+  dòng Home cùng cỡ tên. Playwright 30 màn × 8 khổ = 240/240: 0 < 12px, 0 tràn, 0 lỗi JS, 0 khung cắt chữ.
+- Chủ dự án chốt: làm **thang chữ một nguồn ở base**, chia nhiều phiên. Trang xem thử cho BA chốt số:
+  <https://claude.ai/artifact/B3TgSv8yDKawdBxYxcPpp4>. Plan: `docs/next-session-typescale.md`; bộ đo `scripts/qa/wj_type_audit.py`.
+- UAT (chỉ đọc): 10/10 version, `wj_type_audit.py screens` 30 màn × 360/390/1440 = 90/90 sạch; dòng Home 15/600, nhãn KPI 12.
+- LIMIT: số KPI còn khác nhau (mobile 22/25/20, PC 28/26/24) — TS áp một cỡ · ledger/sheet chưa ghi, gộp vào TS7.
+- BA gửi thang 16/10: bản 1 giữ nguyên đề xuất, rồi **bản 2 đổi 9/12 vai trò** (thay bản 1; nguyên văn §7 `next-session-typescale.md`).
+  Chủ dự án chốt áp nguyên bản 2. Ghi chú ledger ở TS7: bản 2 khác số của #143 (tiêu đề nhóm mobile 18) và #183/KT (tên dòng 15).
+- Phiên kế: **TS0** theo `next-session-typescale.md` (PR #20, #21 đã merge).
