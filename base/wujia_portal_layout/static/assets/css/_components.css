@@ -70,8 +70,9 @@ h2, .wujia-h2 { font-size: var(--wujia-font-size-h2) !important; font-weight: 60
 .btn.btn-sm {
     min-height: 32px !important;
     padding: 0 12px !important;
-    font-size: 13px !important;
-    line-height: 1.4 !important;
+    font-size: var(--wj-t-button-fs) !important;
+    font-weight: var(--wj-t-button-fw) !important;
+    line-height: var(--wj-t-button-lh) !important;
 }
 .btn.btn-lg { min-height: 48px; padding: 0 20px; }
 
@@ -130,8 +131,8 @@ h2, .wujia-h2 { font-size: var(--wujia-font-size-h2) !important; font-weight: 60
     border: 0;
     border-radius: var(--wj-sb-radius);
     box-shadow: none;
-    font-size: 13px;
-    font-weight: 600;
+    font-size: var(--wj-t-chip-fs);
+    font-weight: var(--wj-t-chip-fw);
     line-height: 1;
     white-space: nowrap;
     text-align: center;
@@ -140,7 +141,7 @@ h2, .wujia-h2 { font-size: var(--wujia-font-size-h2) !important; font-weight: 60
 }
 /* LC-04/LC-25: trong ListCard badge dùng chữ 12 — modifier CHUNG, không CSS theo route.
    UI-LISTCARD-002: line-height chung với CategoryBadge (cao vẫn --wj-sb-h, inline-flex căn giữa). */
-.wj-status-badge--compact    { font-size: 12px; line-height: var(--wj-badge-lh); }
+.wj-status-badge--compact    { font-size: var(--wj-t-chip-fs); line-height: var(--wj-badge-lh); }
 .wj-status-badge--neutral    { background: var(--wj-sb-neutral-bg);    color: var(--wj-sb-neutral-fg); }
 .wj-status-badge--info       { background: var(--wj-sb-info-bg);       color: var(--wj-sb-info-fg); }
 .wj-status-badge--pending    { background: var(--wj-sb-pending-bg);    color: var(--wj-sb-pending-fg); }
@@ -154,8 +155,8 @@ h2, .wujia-h2 { font-size: var(--wujia-font-size-h2) !important; font-weight: 60
     display: inline-block;
     padding: 4px 10px;
     border-radius: 999px;
-    font-size: 12px;
-    font-weight: 600;
+    font-size: var(--wj-t-chip-fs);
+    font-weight: var(--wj-t-chip-fw);
     line-height: 1.4;
     text-transform: none;
     letter-spacing: 0.2px;
@@ -175,7 +176,7 @@ h2, .wujia-h2 { font-size: var(--wujia-font-size-h2) !important; font-weight: 60
 /* Auto-upgrade legacy state-* badges so old templates pick up the new look */
 .state-badge {
     display: inline-block; padding: 4px 10px; border-radius: 999px;
-    font-size: 12px; font-weight: 600;
+    font-size: var(--wj-t-chip-fs); font-weight: var(--wj-t-chip-fw);
     background-color: var(--wujia-muted-bg);
     color: var(--wujia-text-secondary);
 }
@@ -227,8 +228,9 @@ h2, .wujia-h2 { font-size: var(--wujia-font-size-h2) !important; font-weight: 60
     border-radius: 999px;
     background: var(--wujia-morder-card-bg);
     color: var(--wujia-morder-text-sub);
-    font-size: 13px;
-    font-weight: 600;
+    font-size: var(--wj-t-chip-fs);
+    line-height: var(--wj-t-chip-lh);
+    font-weight: var(--wj-t-chip-fw);
     text-decoration: none;
     white-space: nowrap;
     cursor: pointer;
@@ -247,7 +249,7 @@ h2, .wujia-h2 { font-size: var(--wujia-font-size-h2) !important; font-weight: 60
 .wj-filter-chip--clear { color: var(--wujia-morder-text-muted); }
 
 /* CountMeta (BA: muted "N items" text, not a badge). --bold / --primary variants. */
-.wj-count-meta { font-size: 13px; color: var(--wujia-morder-text-sub); }
+.wj-count-meta { font-size: var(--wj-t-caption-fs); font-weight: var(--wj-t-caption-fw); line-height: var(--wj-t-caption-lh); color: var(--wujia-morder-text-sub); }
 .wj-count-meta--bold { font-weight: 700; }
 .wj-count-meta--primary { flex: 0 0 auto; font-weight: 700; color: var(--wujia-brand-text); }
 
@@ -276,10 +278,12 @@ h2, .wujia-h2 { font-size: var(--wujia-font-size-h2) !important; font-weight: 60
     border-radius: 10px;
     background: var(--wujia-filter-field-bg);
     padding: 0 12px 0 34px;
-    font-size: 13px;
+    font-size: var(--wj-t-value-fs);
+    font-weight: var(--wj-t-value-fw);
+    line-height: var(--wj-t-value-lh);
     color: var(--wujia-morder-text);
 }
-.wj-filter-search-field input::placeholder { color: var(--wujia-text-muted); font-size: 12px; font-weight: 700; }
+.wj-filter-search-field input::placeholder { color: var(--wujia-text-muted); font-size: var(--wj-t-value-fs); font-weight: var(--wj-t-body-fw); }
 /* WJ-PORTAL-UI-006: ô nào không tự đặt màu placeholder thì nhận màu mặc định của trình duyệt
    (#757575 · 4.25 trên #F3F6F8) ⇒ mặc định toàn portal về text-muted. Độ đặc hiệu thấp nhất có thể,
    rule riêng của component vẫn thắng. */
@@ -309,8 +313,9 @@ body .form-control::placeholder { color: var(--wujia-text-muted); opacity: 1; }
     border-radius: 8px;
     background: var(--wujia-danger-bg);
     color: var(--wujia-danger-text);
-    font-size: 13px;
-    font-weight: 500;
+    font-size: var(--wj-t-caption-fs);
+    line-height: var(--wj-t-caption-lh);
+    font-weight: var(--wj-t-caption-fw);
 }
 /* Thân danh sách khi khoảng ngày ngược — không phải EmptyState */
 .wj-filter-invalid {
@@ -321,11 +326,12 @@ body .form-control::placeholder { color: var(--wujia-text-muted); opacity: 1; }
 .wj-filter-invalid__icon { display: block; margin-bottom: 8px; font-size: 24px; }
 .wj-filter-invalid__title {
     margin: 0 0 4px;
-    font-size: 15px;
-    font-weight: 700;
+    font-size: var(--wj-t-name-fs);
+    line-height: var(--wj-t-name-lh);
+    font-weight: var(--wj-t-name-fw);
     color: var(--wujia-text-primary);
 }
-.wj-filter-invalid__sub { margin: 0; font-size: 13px; }
+.wj-filter-invalid__sub { margin: 0; font-size: var(--wj-t-caption-fs); font-weight: var(--wj-t-caption-fw); line-height: var(--wj-t-caption-lh); }
 /* Date range: two pills + dash (145×38 mỗi pill ở 02/03; 132 + btn ở 04) */
 .wj-filter-dates { display: flex; align-items: center; gap: 8px; }
 .wj-filter-date {
@@ -348,12 +354,13 @@ body .form-control::placeholder { color: var(--wujia-text-muted); opacity: 1; }
     border: 0;
     background: transparent;
     padding: 0;
-    font-size: 12px;
-    font-weight: 700;
+    font-size: var(--wj-t-value-fs);
+    line-height: var(--wj-t-value-lh);
+    font-weight: var(--wj-t-value-fw);
     color: var(--wujia-morder-text);
 }
 .wj-filter-date input:focus { outline: none; }
-.wj-filter-date-sep { flex: 0 0 auto; color: var(--wujia-text-subtitle); font-weight: 700; font-size: 15px; }
+.wj-filter-date-sep { flex: 0 0 auto; color: var(--wujia-text-subtitle); font-weight: var(--wj-t-value-fw); font-size: var(--wj-t-value-fs); line-height: var(--wj-t-value-lh); }
 /* Compact date row (variant 04 — 2 pill hẹp + search btn cùng hàng) */
 .wj-filter-dates--compact .wj-filter-date { flex: 1 1 0; }
 /* Period select pill (variant 05 — dropdown kỳ công nợ, reserve cho Phase 2) */
@@ -365,13 +372,14 @@ body .form-control::placeholder { color: var(--wujia-text-muted); opacity: 1; }
     border-radius: 10px;
     background: var(--wujia-filter-field-bg);
     padding: 0 10px;
-    font-size: 12px;
-    font-weight: 700;
+    font-size: var(--wj-t-value-fs);
+    line-height: var(--wj-t-value-lh);
+    font-weight: var(--wj-t-value-fw);
     color: var(--wujia-morder-text);
 }
 /* Mobile chip: vai trò chip (32h/700). Desktop (≥992, PC noti) giữ base 13/600. */
 @media (max-width: 991.98px) {
-    .wj-filter-chip { font-size: var(--wj-t-chip-fs); font-weight: 700; color: var(--wujia-text-secondary); }
+    .wj-filter-chip { font-size: var(--wj-t-chip-fs); line-height: var(--wj-t-chip-lh); font-weight: var(--wj-t-chip-fw); color: var(--wujia-text-secondary); }
 }
 
 /* EmptyState. Base = centered icon-glyph + text (mirrors .wujia-empty-state). */
@@ -397,8 +405,8 @@ body .form-control::placeholder { color: var(--wujia-text-muted); opacity: 1; }
     color: var(--wujia-morder-text-muted);
 }
 .wj-empty-state--card > i { opacity: 1; margin-bottom: 8px; color: var(--wujia-morder-text-muted); }
-.wj-empty-state--card p { font-size: 14px; color: var(--wujia-morder-text-muted); }
-.wj-empty-state--compact { padding: 14px 0; font-size: 13px; color: var(--wujia-morder-text-muted); }
+.wj-empty-state--card p { font-size: var(--wj-t-body-fs); font-weight: var(--wj-t-body-fw); line-height: var(--wj-t-body-lh); color: var(--wujia-morder-text-muted); }
+.wj-empty-state--compact { padding: 14px 0; font-size: var(--wj-t-body-fs); font-weight: var(--wj-t-body-fw); line-height: var(--wj-t-body-lh); color: var(--wujia-morder-text-muted); }
 /* --rich = no-data card chung (Figma 4788:974 — card 359×253, icon 76, nút Tải lại) */
 .wj-empty-state--rich {
     display: flex;
@@ -430,8 +438,8 @@ body .form-control::placeholder { color: var(--wujia-text-muted); opacity: 1; }
 }
 .wj-empty-state-icon > i { font-size: 28px; line-height: 1; }
 /* Scope qua .wj-empty-state để thắng base `.wj-empty-state p` (0,1,1). */
-.wj-empty-state .wj-empty-state-title { font-size: 18px; font-weight: 700; color: var(--wujia-morder-text); margin: 0; text-align: center; }
-.wj-empty-state .wj-empty-state-sub { font-size: 14px; font-weight: 400; color: var(--wujia-text-subtitle); margin: 0; line-height: 1.35; text-align: center; }
+.wj-empty-state .wj-empty-state-title { font-size: var(--wj-t-card-fs); line-height: var(--wj-t-card-lh); font-weight: var(--wj-t-heading-fw); color: var(--wujia-morder-text); margin: 0; text-align: center; }
+.wj-empty-state .wj-empty-state-sub { font-size: var(--wj-t-body-fs); font-weight: var(--wj-t-body-fw); color: var(--wujia-text-subtitle); margin: 0; line-height: var(--wj-t-body-lh); text-align: center; }
 /* Nút Tải lại / Xóa lọc — 147×40 pill cyan (Figma) */
 .wj-empty-state-btn {
     display: inline-flex;
@@ -446,8 +454,9 @@ body .form-control::placeholder { color: var(--wujia-text-muted); opacity: 1; }
     border-radius: 10px;
     background: var(--wujia-brand-fill);
     color: #FFFFFF;
-    font-size: 14px;
-    font-weight: 700;
+    font-size: var(--wj-t-button-fs);
+    line-height: var(--wj-t-button-lh);
+    font-weight: var(--wj-t-button-fw);
     text-decoration: none;
     cursor: pointer;
 }
@@ -479,8 +488,8 @@ body .form-control::placeholder { color: var(--wujia-text-muted); opacity: 1; }
 }
 .wj-empty-state--row .wj-empty-state-icon > i { font-size: 20px; }
 .wj-empty-state--row .wj-empty-state-body { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-.wj-empty-state--row .wj-empty-state-title { font-size: 16px; line-height: 20px; text-align: left; }
-.wj-empty-state--row .wj-empty-state-sub { font-size: 14px; line-height: 17.7px; text-align: left; }
+.wj-empty-state--row .wj-empty-state-title { font-size: var(--wj-t-card-fs); font-weight: var(--wj-t-heading-fw); line-height: var(--wj-t-card-lh); text-align: left; }
+.wj-empty-state--row .wj-empty-state-sub { font-size: var(--wj-t-body-fs); font-weight: var(--wj-t-body-fw); line-height: var(--wj-t-body-lh); text-align: left; }
 
 /* Content Card (UI-12, Sprint 9.13, 2026-05-27) */
 /* D4b: dáng khung chuyển sang .wj-surface-card. */
@@ -522,43 +531,20 @@ body .form-control::placeholder { color: var(--wujia-text-muted); opacity: 1; }
     background: var(--wujia-content-card-bullet-color);
     display: inline-block;
 }
-.wujia-content-card-row-content {
-    min-width: 0;
-    color: var(--wujia-text-secondary);
-    font-size: 14px;
-    line-height: 1.5;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-.wujia-content-card-row-content a {
-    color: inherit !important;
-    text-decoration: none !important;
-}
-.wujia-content-card-row-content a:hover {
-    color: var(--wujia-brand-text) !important;
-}
-.wujia-content-card-row-date {
-    flex-shrink: 0;
-    color: var(--wujia-text-subtitle);
-    font-size: 13px;
-    white-space: nowrap;
-}
 
 .wujia-content-card-empty {
     padding: 24px 12px;
     text-align: center;
     color: var(--wujia-text-subtitle);
-    font-size: 14px;
+    font-size: var(--wj-t-body-fs);
+    font-weight: var(--wj-t-body-fw);
+    line-height: var(--wj-t-body-lh);
 }
 
 /* Mobile: hide date column to give content + badge room. */
 @media (max-width: 575.98px) {
     .wujia-content-card-row:not(.wj-data-item) {
         grid-template-columns: auto 1fr auto;
-    }
-    .wujia-content-card-row-date {
-        display: none;
     }
 }
 
@@ -672,8 +658,9 @@ body .form-control::placeholder { color: var(--wujia-text-muted); opacity: 1; }
 .wujia-content-card-table:not(.wj-data-table) thead th {
     background: var(--wujia-bg-page);
     color: var(--wujia-brand-text);
-    font-weight: 600;
-    font-size: 14px;
+    font-weight: var(--wj-t-label-fw);
+    font-size: var(--wj-t-label-fs);
+    line-height: var(--wj-t-label-lh);
     padding: 12px var(--wujia-content-card-padding);
     border-top: 1px solid var(--wujia-border);
     border-bottom: 1px solid var(--wujia-border);
@@ -685,7 +672,9 @@ body .form-control::placeholder { color: var(--wujia-text-muted); opacity: 1; }
     border-bottom: 1px solid var(--wujia-border);
     vertical-align: middle;
     color: var(--wujia-text-secondary);
-    font-size: 14px;
+    font-size: var(--wj-t-value-fs);
+    font-weight: var(--wj-t-value-fw);
+    line-height: var(--wj-t-value-lh);
 }
 .wujia-content-card-table:not(.wj-data-table) tbody tr:last-child td {
     border-bottom: none;
@@ -728,8 +717,9 @@ body .form-control::placeholder { color: var(--wujia-text-muted); opacity: 1; }
     padding: 0 16px;
     background: var(--wujia-bg-page);
     color: var(--wujia-brand-text);
-    font-weight: 600;
-    font-size: 14px;
+    font-weight: var(--wj-t-label-fw);
+    font-size: var(--wj-t-label-fs);
+    line-height: var(--wj-t-label-lh);
     border-top: 1px solid var(--wujia-border);
     border-bottom: 1px solid var(--wujia-border);
     text-align: left;
@@ -743,7 +733,9 @@ body .form-control::placeholder { color: var(--wujia-text-muted); opacity: 1; }
     border-bottom: 1px solid var(--wujia-border);
     vertical-align: middle;
     color: var(--wujia-text-secondary);
-    font-size: 14px;
+    font-size: var(--wj-t-value-fs);
+    font-weight: var(--wj-t-value-fw);
+    line-height: var(--wj-t-value-lh);
 }
 .wj-data-table tbody tr:last-child td {
     border-bottom: none;
@@ -968,7 +960,9 @@ body .form-control::placeholder { color: var(--wujia-text-muted); opacity: 1; }
 /* Metadata phụ đứng cạnh badge ở đầu card (ngày, lượt xem). */
 .wj-lc__meta {
     color: var(--wujia-text-subtitle);
-    font-size: 13px;
+    font-size: var(--wj-t-caption-fs);
+    font-weight: var(--wj-t-caption-fw);
+    line-height: var(--wj-t-caption-lh);
     white-space: nowrap;
 }
 .wj-lc__value--strong {
@@ -987,8 +981,8 @@ body .form-control::placeholder { color: var(--wujia-text-muted); opacity: 1; }
 .wj-t-value { font-size: var(--wj-t-value-fs); font-weight: var(--wj-t-value-fw); line-height: var(--wj-t-value-lh); color: var(--wujia-text-primary); }
 .wj-t-strong { font-weight: var(--wj-t-strong-fw); }
 .wj-t-name { font-size: var(--wj-t-name-fs); font-weight: var(--wj-t-name-fw); line-height: var(--wj-t-name-lh); }
-.wj-t-body { font-size: var(--wj-t-body-fs); line-height: var(--wj-t-body-lh); }
-.wj-t-caption { font-size: var(--wj-t-caption-fs); line-height: var(--wj-t-caption-lh); color: var(--wujia-text-subtitle); }
+.wj-t-body { font-size: var(--wj-t-body-fs); font-weight: var(--wj-t-body-fw); line-height: var(--wj-t-body-lh); }
+.wj-t-caption { font-size: var(--wj-t-caption-fs); font-weight: var(--wj-t-caption-fw); line-height: var(--wj-t-caption-lh); color: var(--wujia-text-subtitle); }
 .wj-t-code { font-size: var(--wj-t-code-fs); font-weight: var(--wj-t-code-fw); line-height: var(--wj-t-code-lh); }
 /* UI-LISTCARD-002: CategoryBadge (`.wujia-badge`) trong card dùng CÙNG line-height chữ với
    StatusBadge compact và căn giữa dọc như nó ⇒ hai họ đứng chung hàng thì chữ thẳng hàng.
@@ -1011,8 +1005,9 @@ body .form-control::placeholder { color: var(--wujia-text-muted); opacity: 1; }
 }
 /* Link hành động trong card (LC-11: control riêng, không lồng interactive). */
 .wj-lc__link {
-    font-size: 14px;
-    font-weight: 600;
+    font-size: var(--wj-t-button-fs);
+    line-height: var(--wj-t-button-lh);
+    font-weight: var(--wj-t-button-fw);
     color: var(--wujia-brand-text);
     text-decoration: none;
     /* E5c: vùng chạm 44 bằng đệm + lề âm nên không đội cao/rộng card (a11y ≥44). */
@@ -1129,9 +1124,9 @@ body .form-control::placeholder { color: var(--wujia-text-muted); opacity: 1; }
     overflow-wrap: anywhere;
 }
 .wujia-mhome-kpi-value {
-    font-size: 22px;
-    font-weight: 700;
-    line-height: 1.1;
+    font-size: var(--wj-t-kpi-fs);
+    font-weight: var(--wj-t-kpi-fw);
+    line-height: var(--wj-t-kpi-lh);
     color: #FFFFFF;
     /* UI-MOB-HOME-004: số tiền KHÔNG được bẻ giữa chữ số ("-72449 $" → "-7244"/"9 $");
        chuỗi dài đã rút gọn ở nguồn (`_short_amount`) nên nowrap là đủ, không tràn. */
@@ -1142,7 +1137,6 @@ body .form-control::placeholder { color: var(--wujia-text-muted); opacity: 1; }
    "Thông báo" cần 59 trong 57). Giảm khoảng cách chữ + padding, không giảm cỡ chữ. */
 @media (max-width: 380px) {
     .wujia-mhome-kpi { padding: 0 5px; }
-    .wujia-mhome-kpi-value { font-size: 20px; }
 }
 a.wujia-mhome-kpi:active { opacity: 0.85; }
 
@@ -1152,12 +1146,6 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
     align-items: center;
     justify-content: space-between;
     gap: 8px;
-}
-.wujia-mhome-window-title {
-    margin: 0;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--wujia-text-primary);
 }
 
 /* WJ-HOME-008: block này nay dùng chung .wujia-mdash-card/-row với các block Home
@@ -1203,8 +1191,8 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
     line-height: 1;
 }
 .wujia-mhome-nav-label {
-    font-size: 12px;            /* UI-MOB-BOTTOMNAV-DENSITY-001: 11 → 12 */
-    font-weight: 700;
+    font-size: var(--wj-t-chip-fs);
+    font-weight: var(--wj-t-chip-fw);
     line-height: 1;
 }
 /* BA final (Sprint 12): active = brand cyan (override active đỏ Sprint 10/11). */
@@ -1354,8 +1342,8 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
     height: 30px;
     padding: 0 12px;
     border-radius: 15px;
-    font-size: 13px;
-    font-weight: 700;
+    font-size: var(--wj-t-chip-fs);
+    font-weight: var(--wj-t-chip-fw);
 }
 /* status_type dùng chung trang Lịch sử: pending = "Chờ xác nhận" (amber Figma). */
 .wujia-mres-badge--pending { background: var(--wujia-mres-warn-bg); color: var(--wujia-mres-warn-text); }
@@ -1390,8 +1378,9 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
 }
 .wujia-mhist-note {
     margin: 0;
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: var(--wj-t-body-fs);
+    font-weight: var(--wj-t-body-fw);
+    line-height: var(--wj-t-body-lh);
     color: var(--wujia-morder-text-sub);
 }
 
@@ -1465,15 +1454,17 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
         line-height: 1;
     }
     .wujia-msheet-title {
-        font-size: 18px;
-        font-weight: 700;
+        font-size: var(--wj-t-card-fs);
+        line-height: var(--wj-t-card-lh);
+        font-weight: var(--wj-t-heading-fw);
         color: var(--wujia-text-primary);
         padding-right: 48px;
     }
     .wujia-msheet-subtitle {
         margin-top: 4px;
-        font-size: 12.5px;
-        font-weight: 400;
+        font-size: var(--wj-t-caption-fs);
+        line-height: var(--wj-t-caption-lh);
+        font-weight: var(--wj-t-caption-fw);
         color: var(--wujia-msheet-subtitle);
     }
     .wujia-msheet-list {
@@ -1514,13 +1505,15 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
         min-width: 0;
     }
     .wujia-msheet-item-title {
-        font-size: 15px;
-        font-weight: 700;
+        font-size: var(--wj-t-name-fs);
+        line-height: var(--wj-t-name-lh);
+        font-weight: var(--wj-t-name-fw);
         color: var(--wujia-text-primary);
     }
     .wujia-msheet-item-sub {
-        font-size: 12px;
-        font-weight: 400;
+        font-size: var(--wj-t-caption-fs);
+        line-height: var(--wj-t-caption-lh);
+        font-weight: var(--wj-t-caption-fw);
         color: var(--wujia-msheet-item-sub);
     }
     .wujia-msheet-item-chevron {
@@ -1555,14 +1548,6 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
         align-items: baseline;
         justify-content: space-between;
         gap: 8px;
-    }
-    .wujia-mdash-link {
-        flex: 0 0 auto;
-        font-size: 12px;
-        font-weight: 700;
-        color: var(--wujia-brand-text);
-        text-decoration: none;
-        white-space: nowrap;
     }
 
     /* ---------- Card base ---------- */
@@ -1675,8 +1660,9 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
     /* Page title dùng wj_page_header (chuẩn hoá — bỏ .wujia-maccount-pagetitle) */
     /* ---------- Card title (!important thắng global h2 24px — gotcha #13) ---------- */
     .wujia-maccount-cardtitle {
-        font-size: 16px !important;
-        font-weight: 700;
+        font-size: var(--wj-t-card-fs) !important;
+        line-height: var(--wj-t-card-lh) !important;
+        font-weight: var(--wj-t-heading-fw);
         color: var(--wujia-morder-text);
         margin: 0 0 12px;
     }
@@ -1705,15 +1691,18 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
         gap: 2px;
     }
     .wujia-maccount-name {
-        font-size: 16px;
-        font-weight: 700;
+        font-size: var(--wj-t-name-fs);
+        line-height: var(--wj-t-name-lh);
+        font-weight: var(--wj-t-name-fw);
         color: var(--wujia-morder-text);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
     .wujia-maccount-login {
-        font-size: 13px;
+        font-size: var(--wj-t-caption-fs);
+        font-weight: var(--wj-t-caption-fw);
+        line-height: var(--wj-t-caption-lh);
         color: var(--wujia-morder-text-sub);
     }
     .wujia-maccount-head .wujia-badge,
@@ -1757,7 +1746,9 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
         margin-bottom: 10px;
     }
     .wujia-maccount-store-sub {
-        font-size: 13px;
+        font-size: var(--wj-t-caption-fs);
+        font-weight: var(--wj-t-caption-fw);
+        line-height: var(--wj-t-caption-lh);
         color: var(--wujia-morder-text-sub);
         margin: 2px 0 4px;
     }
@@ -1766,8 +1757,9 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
     .wujia-maccount-form { display: flex; flex-direction: column; gap: 14px; }
     .wujia-maccount-field { display: flex; flex-direction: column; gap: 6px; }
     .wujia-maccount-field > label {
-        font-size: 13px;
-        font-weight: 600;
+        font-size: var(--wj-t-value-fs);
+        line-height: var(--wj-t-value-lh);
+        font-weight: var(--wj-t-strong-fw);
         color: var(--wujia-morder-text-sub);
         margin: 0;
     }
@@ -1779,7 +1771,8 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
         border-radius: 10px;
         background: var(--wujia-maccount-input-bg);
         padding: 0 44px 0 14px;
-        font-size: 14px;
+        font-size: var(--wj-t-value-fs);
+        font-weight: var(--wj-t-value-fw);
         color: var(--wujia-morder-text);
     }
     .wujia-maccount-input:focus {
@@ -1810,8 +1803,9 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
     .wujia-maccount-alert {
         border-radius: 10px;
         padding: 10px 14px;
-        font-size: 13px;
-        font-weight: 600;
+        font-size: var(--wj-t-caption-fs);
+        line-height: var(--wj-t-caption-lh);
+        font-weight: var(--wj-t-caption-fw);
     }
     .wujia-maccount-alert.is-error {
         background: var(--wujia-danger-bg);
@@ -1837,12 +1831,15 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
         padding: 12px 16px;
     }
     .wujia-mheader-menu-name {
-        font-size: 14px;
-        font-weight: 700;
+        font-size: var(--wj-t-name-fs);
+        line-height: var(--wj-t-name-lh);
+        font-weight: var(--wj-t-name-fw);
         color: var(--wujia-morder-text);
     }
     .wujia-mheader-menu-email {
-        font-size: 12px;
+        font-size: var(--wj-t-caption-fs);
+        font-weight: var(--wj-t-caption-fw);
+        line-height: var(--wj-t-caption-lh);
         color: var(--wujia-morder-text-sub);
         word-break: break-all;
     }
@@ -1851,8 +1848,9 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
         align-items: center;
         gap: 10px;
         padding: 11px 16px;
-        font-size: 14px;
-        font-weight: 600;                      /* Figma: item đậm (≠ Bootstrap 400 nhạt) */
+        font-size: var(--wj-t-button-fs);
+        line-height: var(--wj-t-button-lh);
+        font-weight: var(--wj-t-button-fw);                      /* Figma: item đậm (≠ Bootstrap 400 nhạt) */
         color: var(--wujia-morder-text);
     }
     .wujia-mheader-menu .dropdown-item > i { font-size: 17px; color: var(--wujia-morder-text); }
@@ -1878,7 +1876,7 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
 .wj-acct-menu__label {
     display: block;
     padding: 10px var(--wj-am-pad-x, 16px) 4px;
-    font-size: 12px; line-height: 16px; font-weight: 600;
+    font-size: var(--wj-t-label-fs); line-height: var(--wj-t-label-lh); font-weight: var(--wj-t-label-fw);
     color: var(--wujia-text-subtitle);
 }
 .wj-acct-menu__lang .flag-icon { flex: 0 0 18px; width: 18px; line-height: 14px; }
@@ -1943,9 +1941,9 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
     color: #FFFFFF;
     border: 0;
     border-radius: 12px;
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 20px;
+    font-weight: var(--wj-t-button-fw);
+    font-size: var(--wj-t-button-fs);
+    line-height: var(--wj-t-button-lh);
     text-decoration: none;
     white-space: nowrap;
 }
@@ -1973,7 +1971,8 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
 .wj-page-header--m .wj-page-header__title { font-size: var(--wj-t-page-fs) !important; line-height: var(--wj-t-page-lh); }
 /* Meta căn phải cùng hàng với title; hết chỗ thì flex-wrap đẩy xuống dưới (spec RESPONSIVE) */
 .wj-page-header--m .wj-page-header__meta {
-    font-size: 13px; line-height: 18px; margin-left: auto; text-align: right;
+    font-size: var(--wj-t-caption-fs);
+    font-weight: var(--wj-t-caption-fw); line-height: var(--wj-t-caption-lh); margin-left: auto; text-align: right;
 }
 /* Back cao 42 > dòng title 28 → pad 1 để hàng vẫn đúng 44 (vùng chạm 44 nằm ngoài luồng) */
 .wj-page-header--m.wj-page-header--back { padding: 1px 0; }
@@ -2025,11 +2024,9 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
     flex: 0 0 auto;
     margin: 0 0 0 auto;
     white-space: nowrap;
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 20px;
+    font-size: var(--wj-t-button-fs); font-weight: var(--wj-t-button-fw); line-height: var(--wj-t-button-lh);
 }
-.wj-section-header__meta { color: var(--wujia-text-subtitle); }
+.wj-section-header__meta { color: var(--wujia-text-subtitle); font-size: var(--wj-t-caption-fs); font-weight: var(--wj-t-caption-fw); line-height: var(--wj-t-caption-lh); }
 .wj-section-header__action {
     position: relative;
     display: inline-flex;
@@ -2190,11 +2187,11 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
 .wj-card-header--m.wj-card-header--regular,
 .wj-card-header--any.wj-card-header--regular { margin: 0 0 12px; }
 .wj-card-header--m .wj-card-header__subtitle,
-.wj-card-header--any .wj-card-header__subtitle { font-size: 13px; line-height: 18px; }
-.wj-card-header--m .wj-card-header__action,
-.wj-card-header--any .wj-card-header__action,
+.wj-card-header--any .wj-card-header__subtitle,
 .wj-card-header--m .wj-card-header__meta,
-.wj-card-header--any .wj-card-header__meta { font-size: 13px; line-height: 18px; }
+.wj-card-header--any .wj-card-header__meta { font-size: var(--wj-t-caption-fs); font-weight: var(--wj-t-caption-fw); line-height: var(--wj-t-caption-lh); }
+.wj-card-header--m .wj-card-header__action,
+.wj-card-header--any .wj-card-header__action { font-size: var(--wj-t-button-fs); font-weight: var(--wj-t-button-fw); line-height: var(--wj-t-button-lh); }
 .wj-card-header--m.wj-card-header--divider,
 .wj-card-header--any.wj-card-header--divider { padding-bottom: 8px; }
 /* Vùng chạm ≥44 cho action mobile mà KHÔNG nống chiều cao hàng (spec ghi rõ:
@@ -2218,8 +2215,9 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
 .wj-card-header.wj-card-header--any.wj-card-header--sublabel .wj-card-header__title,
 .wj-card-header.wj-card-header--m.wj-card-header--sublabel .wj-card-header__title,
 .wj-card-header.wj-card-header--pc.wj-card-header--sublabel .wj-card-header__title {
-    font-size: .875rem !important;
-    line-height: 1.2;
+    font-size: var(--wj-t-label-fs) !important;
+    font-weight: var(--wj-t-label-fw) !important;
+    line-height: var(--wj-t-label-lh);
 }
 .wj-card-header--sublabel { margin: 0 0 .5rem; }
 /* --- Nhãn đầu thẻ viết hoa nhỏ (eyebrow, F4) ---
@@ -2245,20 +2243,9 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
 @media (min-width: 992px) {
     .wj-card-header--any { column-gap: 12px; }
     .wj-card-header--any.wj-card-header--regular { column-gap: 16px; }
-    .wj-card-header--any.wj-card-header--compact .wj-card-header__title {
-        font-size: 18px !important;
-        line-height: 24px;
-    }
-    .wj-card-header--any.wj-card-header--regular .wj-card-header__title {
-        font-size: 20px !important;
-        line-height: 28px;
-    }
     .wj-card-header--any.wj-card-header--compact { margin: 0 0 12px; }
     .wj-card-header--any.wj-card-header--regular { margin: 0 0 16px; }
     .wj-card-header--any.wj-card-header--flush { margin: 0; }
-    .wj-card-header--any .wj-card-header__subtitle { font-size: 14px; line-height: 20px; }
-    .wj-card-header--any .wj-card-header__action,
-    .wj-card-header--any .wj-card-header__meta { font-size: 14px; line-height: 20px; }
     .wj-card-header--any.wj-card-header--divider { padding-bottom: 12px; }
     .wj-card-header--any .wj-card-header__action::after { height: 40px; min-width: 0; }
     .wj-card-header--any > .wj-card-header__control { min-height: 40px; }
@@ -2335,9 +2322,9 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
     border-radius: var(--wj-pgn-radius);
     background: #FFFFFF;
     color: var(--wujia-text-secondary);
-    font-size: 14px;
-    line-height: 20px;
-    font-weight: 600;
+    font-size: var(--wj-t-button-fs);
+    line-height: var(--wj-t-button-lh);
+    font-weight: var(--wj-t-button-fw);
     text-decoration: none;
 }
 
@@ -2386,9 +2373,9 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
 }
 
 .wj-pagination__status {
-    font-size: 14px;
-    line-height: 20px;
-    font-weight: 600;
+    font-size: var(--wj-t-caption-fs);
+    line-height: var(--wj-t-caption-lh);
+    font-weight: var(--wj-t-caption-fw);
     color: var(--wujia-text-secondary);
     white-space: nowrap;
 }
@@ -2401,8 +2388,9 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
     }
     .wj-pagination__count {
         display: inline;
-        font-size: 14px;
-        line-height: 20px;
+        font-size: var(--wj-t-caption-fs);
+        font-weight: var(--wj-t-caption-fw);
+        line-height: var(--wj-t-caption-lh);
         color: var(--wujia-text-muted);
         margin-right: auto;
     }
@@ -2414,8 +2402,9 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
         border-radius: var(--wj-pgn-radius);
         background: #FFFFFF;
         color: var(--wujia-text-secondary);
-        font-size: 14px;
-        font-weight: 600;
+        font-size: var(--wj-t-value-fs);
+        line-height: var(--wj-t-value-lh);
+        font-weight: var(--wj-t-value-fw);
     }
     .wj-pagination__pages {
         display: inline-flex;
@@ -2468,8 +2457,9 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
 }
 .wj-filter-date__label {
     flex: 0 0 auto;
-    font-size: 12px;
-    font-weight: 700;
+    font-size: var(--wj-t-value-fs);
+    line-height: var(--wj-t-value-lh);
+    font-weight: var(--wj-t-strong-fw);
     color: var(--wujia-text-muted);
 }
 .wj-filter-date__box input {
@@ -2479,8 +2469,9 @@ a.wujia-mhome-kpi:active { opacity: 0.85; }
     border: 0;
     background: transparent;
     padding: 0;
-    font-size: 12px;
-    font-weight: 700;
+    font-size: var(--wj-t-value-fs);
+    line-height: var(--wj-t-value-lh);
+    font-weight: var(--wj-t-value-fw);
     color: var(--wujia-morder-text);
 }
 .wj-filter-date__box input:focus { outline: none; }
@@ -2507,8 +2498,9 @@ label.wj-filter-search-field input { height: 38px; }
     width: auto;
     gap: 6px;
     padding: 0 16px;
-    font-size: 13px;
-    font-weight: 700;
+    font-size: var(--wj-t-button-fs);
+    line-height: var(--wj-t-button-lh);
+    font-weight: var(--wj-t-button-fw);
 }
 
 /* FB-08: nút trong thanh lọc giữ chiều cao của Filter và ưu tiên hơn size mặc
@@ -2541,24 +2533,25 @@ label.wj-filter-search-field input { height: 38px; }
     height: var(--wj-btn-h-md);
     padding: 0 var(--wj-btn-pad-md);
     border-radius: var(--wj-btn-radius);
-    font-size: 14px;
-    line-height: 20px;
-    font-weight: 700;
+    font-size: var(--wj-t-button-fs);
+    line-height: var(--wj-t-button-lh);
+    font-weight: var(--wj-t-button-fw);
     white-space: nowrap;
 }
 .wj-btn--sm {
     height: var(--wj-btn-h-sm);
     padding: 0 var(--wj-btn-pad-sm);
     border-radius: var(--wj-btn-radius-sm);
-    font-size: 13px;
-    line-height: 18px;
-    font-weight: 600;
+    font-size: var(--wj-t-button-fs);
+    line-height: var(--wj-t-button-lh);
+    font-weight: var(--wj-t-button-fw);
 }
 .wj-btn--lg {
     height: var(--wj-btn-h-lg);
     padding: 0 var(--wj-btn-pad-lg);
-    font-size: 15px;
-    line-height: 22px;
+    font-size: var(--wj-t-button-fs);
+    font-weight: var(--wj-t-button-fw);
+    line-height: var(--wj-t-button-lh);
 }
 /* BA: "Mobile cho phép full-width khi action area yêu cầu". */
 .wj-btn--block { width: 100%; }
@@ -2715,9 +2708,9 @@ label.wj-filter-search-field input { height: 38px; }
     border-radius: 12px;
     box-shadow: var(--wujia-toast-shadow);
     color: var(--wujia-text-primary);
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 20px;
+    font-size: var(--wj-t-value-fs);
+    font-weight: var(--wj-t-strong-fw);
+    line-height: var(--wj-t-value-lh);
     animation: wj-toast-in .18s ease-out;
 }
 .wj-toast__icon {
@@ -2746,9 +2739,9 @@ label.wj-filter-search-field input { height: 38px; }
     align-items: flex-start;
     gap: 6px;
     margin: 6px 0 0;
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 18px;
+    font-size: var(--wj-t-caption-fs);
+    font-weight: var(--wj-t-caption-fw);
+    line-height: var(--wj-t-caption-lh);
     color: var(--wujia-danger-text);
 }
 .wj-field-error[hidden] { display: none; }
@@ -2773,6 +2766,6 @@ label.wj-filter-search-field input { height: 38px; }
 .wj-error-summary:focus { outline: 2px solid var(--wujia-danger-text); outline-offset: 2px; }
 .wj-error-summary__icon { flex: 0 0 18px; font-size: 18px; line-height: 20px; }
 .wj-error-summary__body { min-width: 0; }
-.wj-error-summary__title { margin: 0; font-size: 14px; font-weight: 700; line-height: 20px; }
-.wj-error-summary__list { margin: 4px 0 0; padding-left: 18px; font-size: 13px; line-height: 20px; }
+.wj-error-summary__title { margin: 0; font-size: var(--wj-t-name-fs); font-weight: var(--wj-t-name-fw); line-height: var(--wj-t-name-lh); }
+.wj-error-summary__list { margin: 4px 0 0; padding-left: 18px; font-size: var(--wj-t-body-fs); font-weight: var(--wj-t-body-fw); line-height: var(--wj-t-body-lh); }
 .wj-error-summary__list a { color: inherit; text-decoration: underline; overflow-wrap: anywhere; }

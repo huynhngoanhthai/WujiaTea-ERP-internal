@@ -137,7 +137,7 @@ class TestMobileBottomNav(TransactionCase):
     def test_muc_cham_50_nhan_12_icon_22(self):
         css = _css('_components.css')
         self.assertRegex(_body(css, '.wujia-mhome-nav-item'), r'min-height:\s*50px')
-        self.assertRegex(_body(css, '.wujia-mhome-nav-label'), r'font-size:\s*12px')
+        self.assertRegex(_body(css, '.wujia-mhome-nav-label'), r'font-size:\s*var\(--wj-t-chip-fs\)')
         self.assertRegex(_body(css, '.wujia-mhome-nav-item i'), r'font-size:\s*22px')
 
     def test_khoi_co_dinh_tren_nav_bam_total(self):

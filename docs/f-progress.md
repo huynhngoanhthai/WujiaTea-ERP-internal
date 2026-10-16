@@ -3707,3 +3707,34 @@ rồi đánh ✅ ở bảng Trạng thái §2 `docs/next-session-clusters-F.md`.
 - Chủ dự án chốt cuối phiên: **chỉ push, không merge** — PR #22 mở suốt cụm, deploy một lần ở TS7.
 - Phiên kế: **TS1** (`_components.css` + `_pc_components.css`) làm tiếp trên `feature/ts0-type-tokens` (merge
   `origin/deploy/staging` trước), DB copy `wujia_ts0`.
+
+## TS1 — component dùng chung theo thang chữ (`_components.css` + `_pc_components.css`) · 16/10/2026 · Mac
+
+- Kết quả: ✅ code + test + đo trên DB copy `wujia_ts0`; commit trên `feature/ts0-type-tokens` (PR #22, chưa merge, deploy gộp ở TS7).
+- Chủ dự án chốt 16/10: **Q2: cỡ và đậm cùng theo vai trò** · tiêu đề EmptyState/modal/bottom sheet → `card` · số tiền đầu đơn PC
+  + số metric PC → `kpi` · `.wj-pc-page-header__title` 30/800 → `page` · **mọi cỡ nút (sm/md/lg, `.btn-sm`, `.wj-pc-btn`) một vai
+  trò `button`**; sm/md/lg chỉ còn khác cao + padding (dev đề xuất, chủ dự án duyệt plan).
+- Đã làm (`wujia_portal_layout` 19.0.60.20.0, `?v=1347` cho `_variables`/`_components`/`_pc_components`):
+  - 94 rule chữ → `var(--wj-t-*-fs|lh|fw)`; thêm `--wj-t-body-fw`, `--wj-t-caption-fw` (400) để vai trò nào cũng đủ ba số.
+  - Tách rule gộp của SectionHeader/CardHeader: meta + subtitle → `caption`, action/control → `button`; bỏ override PC của
+    CardHeader `--any` (18/20 → token `card`) và override KPI Home ≤380px (token tự đổi theo khổ).
+  - Gỡ CSS chết: `.wj-pc-card__title--sm`, `.wj-pc-filterbar__title`, `.wujia-content-card-row-content/-date`,
+    `.wujia-mhome-window-title`, `.wujia-mdash-link`.
+  - `wj_type_audit.py`: `COUNT` chỉ còn chấm đếm thật (header/nav/add badge…) — trước đó bắt nhầm `maccount` (khối Tài khoản
+    mobile) và badge trạng thái; `ICON` thêm `feather|chev|__check|__tile`. Baseline lưu lại theo phân loại mới.
+  - Hai file TS1 theo phân loại mới: chữ gõ cứng 78 + 35 → **1 + 3** (3 rule `.wj-inspection-pc` Khảo sát + `.wj-filter-search-btn`
+    chỉ chứa icon, TS6); token 48 → 147. Toàn portal: chữ 435 → 326.
+  - Test: guard mới `test_ts1_component_doc_vai_tro` (hai file 0 chữ gõ cứng ngoài ngoại lệ + 5 selector nút đọc `button`);
+    sửa 7 test ghim số cũ (d3 sublabel, e1 KPI một chủ, e2/e5/i10 badge, e6 nút một vai trò, g1 nhãn bottom nav); scan e2
+    đỏ vì badge `--compact` lỡ khai thêm đậm ⇒ sửa CSS (compact chỉ cỡ + dòng, luật LC-25).
+- Đổi nhìn thấy được: tiêu đề thẻ/EmptyState/modal 18–22 → 17 PC / 15 mobile · số metric/tiền đầu đơn PC 28–30 → 22 · KPI Home
+  22 (20 ở ≤380) → 22 PC / 18 mobile · badge trạng thái 13 → 12 · tiêu đề cột bảng 14/600–700 → 12/500 · ô bảng + ô lọc 14/400 →
+  14/500 PC, 13/500 mobile · meta/subtitle/breadcrumb/số đếm cạnh tiêu đề 13–14 → 12/400 · nút lg 15 → 14 PC / 13 mobile, nút sm
+  PC 13 → 14 · nhãn ô ngày bộ lọc = value + 600 · nhãn bottom nav giữ 12 (vai trò `chip`, line-height 1).
+- Số đo: layout + base 672/0/0 · cả portal 1211/0/0 · mutation `font-size: 13px` vào `.wj-lc__meta` ⇒ đỏ đúng 2 subtest (guard
+  baseline + guard TS1, cùng chỉ `.wj-lc__meta`) · `screens` 30 màn × 8 khổ so mốc TS0: 240/240 ô, tổng số cỡ khác nhau
+  1504 → 1384, chữ < 12px 0 → 0, tràn 0 → 0, lỗi JS 0 → 0, khung cắt chữ 132 → 132 (không ô nào tăng).
+- Soi ảnh: nút lg mobile 13/600 cao 48 (giỏ, đổi trả, Thi) đọc rõ ⇒ không cần `--wj-t-button-lg`; ghi câu hỏi BA ở TS7 nếu QA thấy nhỏ.
+- Còn lệch: số KPI Công nợ PC ~28 (nằm ở `portal_debt.css`, TS5) · ô Từ/Đến ngày PC cắt năm = #192 UI-FILTER-PC-001 có sẵn.
+- Phiên kế: **TS2** (`_auth`, `_pc_account`, `_sidebar`, `portal_dashboard`, `store_picker` + 4 `style=` inline), cùng nhánh, DB `wujia_ts0`;
+  hỏi Q3 (trang đăng nhập có theo thang không) trước khi đụng `_auth.css`.

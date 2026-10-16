@@ -18,8 +18,9 @@ import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-ICON = re.compile(r'(\s|>)i$|(\s|>)i[\.:\[]|\.fa\b|\.fa-|\.bx|\.ti-|ico\b|-ico|icon|::?before|::?after|svg|chevron|-ic\b')
-COUNT = re.compile(r'badge|count|cnt|dot|-qty|thumb')
+ICON = re.compile(r'(\s|>)i$|(\s|>)i[\.:\[]|\.fa\b|\.fa-|\.bx|\.ti-|ico\b|-ico|icon|::?before|::?after|svg|chev|feather|-ic\b|__check\b|__tile\b')
+# Chỉ chấm đếm số trên icon; badge trạng thái và số đếm cạnh tiêu đề là chữ (chip / caption).
+COUNT = re.compile(r'(header|nav|add|cart|qty)-badge|(^|[-_ .])dot\b|-qty\b|thumb|\bcnt\b')
 # Phần tử được miễn sàn 12px khi đo trình duyệt: chấm đếm số, ô ảnh thay thế.
 EXEMPT_EL = re.compile(r'header-badge|nav-badge|add-badge|row-thumb|row-qty')
 

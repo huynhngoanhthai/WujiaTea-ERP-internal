@@ -193,7 +193,7 @@ class TestCardHeaderCss(TransactionCase):
         self.assertRegex(
             css,
             r'\.wj-card-header\.wj-card-header--any\.wj-card-header--sublabel'
-            r'\s+\.wj-card-header__title,[^{]*\{[^}]*font-size:\s*\.875rem\s*!important')
+            r'\s+\.wj-card-header__title,[^{]*\{[^}]*font-size:\s*var\(--wj-t-label-fs\)\s*!important')
         # Đủ ba nền tảng, không thì bản mobile/pc rơi về 18px của component.
         for plat in ('any', 'm', 'pc'):
             self.assertIn('.wj-card-header.wj-card-header--%s.wj-card-header--sublabel'

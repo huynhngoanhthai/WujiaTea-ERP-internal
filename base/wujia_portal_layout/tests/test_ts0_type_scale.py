@@ -36,6 +36,17 @@ HEADERS = (
     ('_components.css', '.wj-card-header--any.wj-card-header--regular .wj-card-header__title', 'card'),
 )
 
+# Khảo sát (anh Thái) ngoài phạm vi; nút tìm chỉ chứa icon kính lúp (TS6).
+TS1_EXEMPT = re.compile(r'\.wj-inspection-pc|^\.wj-filter-search-btn$')
+# Mọi cỡ nút cùng một vai trò chữ; sm/md/lg chỉ khác chiều cao + padding.
+BUTTONS = (
+    ('_components.css', '.wj-btn'),
+    ('_components.css', '.wj-btn--sm'),
+    ('_components.css', '.wj-btn--lg'),
+    ('_components.css', '.btn.btn-sm'),
+    ('_pc_components.css', '.wj-pc-btn'),
+)
+
 REPO = os.path.dirname(os.path.dirname(get_module_path('wujia_portal_layout')))
 AUDIT = os.path.join(REPO, 'scripts', 'qa', 'wj_type_audit.py')
 BASELINE = os.path.join(REPO, 'docs', 'typescale', 'css-baseline.json')
@@ -83,13 +94,34 @@ class TestTs0TypeScale(TransactionCase):
             with self.subTest(role=role):
                 self.assertRegex(_block(css, '.wj-t-%s' % role), r'var\(--wj-t-%s-fs\)' % role)
 
-    def test_chan_tang_font_size_go_cung(self):
-        """TS1–TS6 chỉ được giảm: mỗi file không nhiều chữ/icon/chấm đếm gõ cứng hơn baseline."""
+    def _audit(self):
         if not (os.path.isfile(AUDIT) and os.path.isfile(BASELINE)):
             self.skipTest('thiếu scripts/qa hoặc baseline (máy chủ không có repo đầy đủ)')
         spec = importlib.util.spec_from_file_location('wj_type_audit', AUDIT)
         audit = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(audit)
+        return audit
+
+    def test_ts1_component_doc_vai_tro(self):
+        """TS1: chữ trong hai file component dùng chung chỉ đọc vai trò (icon + chấm đếm chờ TS6)."""
+        audit = self._audit()
+        for name in ('_components.css', '_pc_components.css'):
+            css = _css(name)
+            for sel, body in re.findall(r'([^{}]+)\{([^{}]*)\}', css):
+                sel = ' '.join(sel.split())
+                if TS1_EXEMPT.search(sel) or audit.ICON.search(sel) or audit.COUNT.search(sel):
+                    continue
+                for value in re.findall(r'font-size\s*:\s*([^;}]+)', body):
+                    with self.subTest(file=name, selector=sel):
+                        self.assertIn('var(--', value)
+        for path, selector in BUTTONS:
+            with self.subTest(selector=selector):
+                rule = _block(_read('wujia_portal_layout', 'static/assets/css/' + path), selector)
+                self.assertRegex(rule, r'font-size:\s*var\(--wj-t-button-fs\)')
+
+    def test_chan_tang_font_size_go_cung(self):
+        """TS1–TS6 chỉ được giảm: mỗi file không nhiều chữ/icon/chấm đếm gõ cứng hơn baseline."""
+        audit = self._audit()
         with open(BASELINE, encoding='utf-8') as fh:
             base = json.load(fh)
         for rel, counts in audit.count_css(REPO).items():

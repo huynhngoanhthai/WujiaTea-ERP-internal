@@ -144,7 +144,7 @@ class TestListCardTemplate(TransactionCase):
         """LC-04/LC-25: chữ 12 làm bằng modifier CHUNG của CMP-SB-001."""
         css = _css('_components.css')
         blk = _block(css, '.wj-status-badge--compact')
-        self.assertRegex(blk, r'font-size:\s*12px')
+        self.assertRegex(blk, r'font-size:\s*var\(--wj-t-chip-fs\)')
         # chỉ đổi chữ (cỡ + line-height I10) — cao/bo/màu vẫn là chuẩn E2
         self.assertNotRegex(blk, r'(?<![\w-])height\s*:')
         self.assertNotIn('background', blk)

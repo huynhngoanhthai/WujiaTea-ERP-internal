@@ -86,7 +86,7 @@ class TestListCardTypographyI10(TransactionCase):
         self.assertEqual(_decl(base, 'line-height'), '1.4')
         self.assertEqual(_decl(base, 'padding'), '4px 10px')
         sb = _block(self.css, '.wj-status-badge')
-        self.assertEqual(_decl(sb, 'font-size'), '13px')
+        self.assertEqual(_decl(sb, 'font-size'), 'var(--wj-t-chip-fs)')
         self.assertEqual(_decl(sb, 'line-height'), '1')
 
     def test_khong_module_nao_de_chu_listcard_theo_route(self):
