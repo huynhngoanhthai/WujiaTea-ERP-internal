@@ -68,7 +68,7 @@ Issue List 179 dòng: 152 Done · 6 Ready for Retest · 4 Need Clarification · 
 | K7a | #183 (phần 1) · #184 | ListCard mobile: khung chung + nửa số màn · ô Từ/Đến ngày Báo cáo mobile | portal_layout + module màn, portal_report | ☐ |
 | K7b | #183 (phần 2) | ListCard mobile: các màn còn lại, đóng issue | module màn | ☐ |
 | KT | #191 · #193 · #73 · #83 | Thang chữ thân `--wj-t-*` (số #183) cho 8 màn chi tiết, 0 chữ < 12px, một H1/màn · Back trong PageHeader (Thi, Kiến thức) · số đếm "đơn hàng"/"yêu cầu" sau lọc | portal_layout + 9 module màn | ✅ 16/10 PR #17 `72c47095` · sheet `Ready for Retest` (`docs/kt-uat-measure.md`) |
-| KT2 | #191 (nối) | Nội dung Home + danh sách + form về `--wj-t-*`: dòng Home một cỡ tên 15/600, sàn 12px toàn portal (trừ chấm đếm), nhãn/giá trị Tài khoản, Công nợ, Báo cáo, KPI · thang base đầy đủ chuyển sang cụm TS (`next-session-typescale.md`) | portal_layout + 9 module màn | ⏳ PR #20 mở, chờ duyệt merge |
+| KT2 | #191 (nối) | Nội dung Home + danh sách + form về `--wj-t-*`: dòng Home một cỡ tên 15/600, sàn 12px toàn portal (trừ chấm đếm), nhãn/giá trị Tài khoản, Công nợ, Báo cáo, KPI · thang base đầy đủ chuyển sang cụm TS (`next-session-typescale.md`) | portal_layout + 9 module màn | ✅ 16/10 PR #20 `7636d929` · UAT 10/10 version, 90/90 ô sạch · ledger ghi ở TS7 |
 | ★KR | — | Review cả cụm trên UAT: ma trận route × khổ, đối chiếu từng issue, 0 lỗi JS, 0 tràn | — | ☐ |
 
 **Nhóm tính năng** — phiên đầu là thiết kế, 0 code, ra danh sách fork gửi BA.

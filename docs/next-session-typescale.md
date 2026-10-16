@@ -4,11 +4,11 @@
 > **BA gửi bản 2 ngày 16/10** (đổi 9/12 vai trò so với đề xuất; thay bản 1 "giữ nguyên") — số ở §2, nguyên văn §7. Chủ dự án chốt: **áp nguyên bản 2**, không chờ hỏi lại.
 > Trang xem thử: <https://claude.ai/artifact/B3TgSv8yDKawdBxYxcPpp4>.
 > Màn chỉ gọi vai trò, số nằm ở `_variables.css`; sau này BA đổi số thì chỉ sửa file đó.
-> Nối tiếp KT (PR #17) và KT2 (PR #20, đang mở). HEAD `deploy/staging` lúc lập: `86ef98f4`.
+> Nối tiếp KT (PR #17) và KT2 (PR #20, merge `7636d929`, đã lên UAT). TS0 tách nhánh từ `origin/deploy/staging` ≥ `7636d929`.
 
 ## 0. Luật áp suốt cụm
 
-- Tách `feature/ts<N>-…` từ `origin/deploy/staging` **sau khi PR #20 đã merge**; PR về `deploy/staging`.
+- Tách `feature/ts<N>-…` từ `origin/deploy/staging` (PR #20 đã merge 16/10); PR về `deploy/staging`.
 - Không sửa code anh Thái: `wujia_franchise*`, `wujia_portal_inspection`, `wujia_mobile_*`. Khảo sát ngoài phạm vi.
 - Không `-u wujia_core --test-enable`; không chạy hai `-u` cùng lúc. Test trên DB copy (`wujia_kt` còn dùng được).
 - Đổi CSS thì bump `?v=` ở `wujia_portal_layout/views/assets.xml` + version mọi module có file đổi.
@@ -101,7 +101,7 @@ Icon và chấm đếm không nằm trong trang BA chốt: số ở bảng là �
 
 | Phiên | Việc | Phạm vi | Trạng thái |
 |---|---|---|---|
-| TS0 | Merge PR #20 (chủ dự án duyệt) · thêm token mới (`page`, `section`, `card`, `kpi`, `button`, `chip`) **theo §2 (bản 2 BA)**, header cũ thành alias · class `.wj-t-*` cho vai trò mới · `wj_type_audit.py css --save docs/typescale/css-baseline.json` · test **chặn tăng**: mỗi file không được nhiều chỗ gõ cứng hơn baseline | `_variables.css`, `_components.css`, test layout | ☐ |
+| TS0 | (PR #20 đã merge) · thêm token mới (`page`, `section`, `card`, `kpi`, `button`, `chip`) **theo §2 (bản 2 BA)**, header cũ thành alias · class `.wj-t-*` cho vai trò mới · `wj_type_audit.py css --save docs/typescale/css-baseline.json` · test **chặn tăng**: mỗi file không được nhiều chỗ gõ cứng hơn baseline | `_variables.css`, `_components.css`, test layout | ☐ |
 | TS1 | Component dùng chung: `_components.css` + `_pc_components.css` (108 chữ) — ăn nhiều màn nhất | layout | ☐ |
 | TS2 | Khung + tài khoản + Home: `_auth`, `_pc_account`, `_sidebar`, `portal_dashboard`, `store_picker` + 4 `style=` inline (89 chữ) | layout, portal_base | ☐ |
 | TS3 | Thi: `portal_exam.css` (87 chữ) — màn PC đăng ký có lịch, chú ý ô lịch | portal_exam | ☐ |
@@ -123,7 +123,10 @@ python -I scripts/qa/wj_type_audit.py screens http://localhost:8071 admin /tmp/a
 python3 scripts/qa/wj_type_audit.py diff /tmp/before.json /tmp/after.json
 ```
 
-Mốc 16/10 (sau KT2 trên DB copy `wujia_kt`): 30 màn × 8 khổ = 240/240 sạch (màn chi tiết Kiến thức chưa đo trên local).
+Mốc 16/10 sau KT2:
+- DB copy `wujia_kt`: 30 màn × 8 khổ = 240/240 sạch (chi tiết Kiến thức không đo được trên local).
+- UAT (`7636d929`, 10/10 version): 30 màn × 360/390/1440 = 90/90 sạch (chi tiết info-request: HCM-01 chưa có phiếu).
+- `clip` ở `/portal/order`, `/portal/purchase-history` mobile là vùng chạm 44px của nút phân trang, có từ trước, không phải chữ bị cắt.
 
 ## 6. Câu hỏi treo (hỏi trước khi đụng)
 
